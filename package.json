@@ -1,0 +1,23 @@
+{
+   "name": "sport-connect",
+  "version": "0.0.1",
+  "description": "",
+    "scripts": {
+    "test": "docker compose up -d && npx vitest",
+
+    "update": "docker compose down && git pull && docker compose up -d",
+    "commit": "git add . && git commit -m \"update\" && git push",
+    
+    "install": "docker compose up -d",
+    "stop": "docker compose down",
+    "start": "docker compose up -d",
+    "restart": "npm run stop && npm run start",
+    "clean": "docker compose down -v --remove-orphans"
+  },
+  "dependencies": {
+    "vitest": "^3.2.4"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

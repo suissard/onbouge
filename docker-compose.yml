@@ -1,0 +1,92 @@
+services:
+  # --- Service Portainer : Pour gérer Docker via une interface web ---
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    volumes:
+      - ./data_portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9443:9443"
+  # --- Service MySQL : La base de données ---
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data_mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - bdd-net
+
+  # --- Service Strapi : Le Headless CMS (avec une image Node.js) ---
+  strapi:
+    image: node:20
+    container_name: strapi
+    restart: unless-stopped
+    env_file: .env
+    working_dir: /opt/app
+    volumes:
+      - ./data_strapi:/opt/app
+    command: >
+      sh -c "if [ ! -d 'strapi' ]; then
+               npx create-strapi-app@latest strapi --dbclient=${DATABASE_CLIENT} --dbhost=mysql --dbport=${DATABASE_PORT} --dbname=${DATABASE_NAME} --dbusername=${DATABASE_USER} --dbpassword=${DATABASE_PASSWORD} --no-run --skip-cloud
+             fi && cd strapi && npm install -i && npm run develop"
+    depends_on:
+      - mysql
+    networks:
+      - strapi-net
+      - bdd-net
+
+  # --- Service Node.js ---
+  socketserver:
+    image: node:20
+    container_name: socketserver
+    restart: unless-stopped
+    working_dir: /usr/src/app
+    volumes:
+      - ./socket-server-app:/usr/src/app
+    command: sh -c "npm install -i && nodejs index.js"
+    networks:
+      - strapi-net
+    depends_on:
+      - strapi
+
+
+  # --- Service Caddy (Reverse Proxy) ---
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "3000:3000"
+      - "1337:1337"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./public:/var/www/html
+      - ./data_caddy:/var/log/caddy
+
+    networks:
+      - strapi-net
+    depends_on:
+      - mysql
+      - strapi
+      - socketserver
+
+# --- Définition des volumes nommés gérés par Docker ---
+volumes:
+  data_portainer:
+  data_mysql:
+  data_strapi:
+  data_caddy:
+
+# --- Définition du réseau privé pour la communication entre services ---
+networks:
+  bdd-net:
+    driver: bridge
+  strapi-net:
+    driver: bridge

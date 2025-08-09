@@ -1,0 +1,48 @@
+# INSTALL/docker/Caddyfile
+
+# Configuration pour votre application
+{
+    log {
+        output file /var/log/caddy/caddy.log
+    }
+}
+
+{$MY_DOMAIN}:3000 {
+    encode gzip zstd
+
+    handle_path /socket/* {
+        reverse_proxy socketserver:3001
+    }
+
+    # header *.js Content-Type application/javascript
+    handle {
+        root * /var/www/html
+        try_files {path} {path}.html /index.html
+        file_server
+    }
+}
+
+{$MY_DOMAIN}:1337 {
+    reverse_proxy strapi:1337
+}
+
+
+
+# === A TESTER =============================================================================================
+
+# (security_headers) {
+#     header {
+#         # Active une protection contre le "clickjacking"
+#         X-Frame-Options "SAMEORIGIN"
+#         # Bloque le contenu si une attaque XSS est détectée
+#         X-XSS-Protection "1; mode=block"
+#         # Empêche le navigateur de "deviner" le type de contenu
+#         X-Content-Type-Options "nosniff"
+#         # Politique de sécurité de contenu (un exemple simple)
+#         Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline';"
+#     }
+# }
+# {$MY_DOMAIN}:8080 {
+#     import security_headers
+#     reverse_proxy localhost:8080
+# }
