@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_discussion_topics",
+  "info": {
+    "displayName": "Topic",
+    "icon": "comments"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "discussion.message"
+    }
+  }
+}

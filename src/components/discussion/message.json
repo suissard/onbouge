@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_discussion_messages",
+  "info": {
+    "displayName": "Message",
+    "icon": "comment"
+  },
+  "options": {},
+  "attributes": {
+    "author": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "date": {
+      "type": "datetime"
+    }
+  }
+}
