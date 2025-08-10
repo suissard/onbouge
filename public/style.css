@@ -29,7 +29,24 @@
     --brand-color-hover: #4338ca; /* Correspond à indigo-700 */
     --hover-bg-light: #f3f4f6; /* Correspond à slate-100 */
     --container-padding: 1rem;
+}
 
+/* styles from style2.css */
+:root {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary: #ef4444;
+    --dark: #1e293b;
+    --light: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --red-500: #ef4444;
+    --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --radius: 8px;
 }
 
 body {
@@ -457,4 +474,322 @@ h2 {
 }
 .nav-button i {
 	margin-bottom: 0.25rem;
+}
+
+/* Styles from style2.css, with duplicates removed */
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.topics-list {
+    margin-bottom: 1.5rem;
+}
+
+.no-topics {
+    padding: 1rem;
+    background: white;
+    border-radius: var(--radius);
+    color: var(--gray-500);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Form Styles */
+.form-section {
+    background-color: var(--white);
+    padding: 1.5rem 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+}
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Event View Styles */
+.main-content,
+.side-panel {
+    background-color: var(--white);
+    padding: 1.5rem 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-md);
+}
+.sport-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+.sport-tag {
+    background-color: var(--cyan-100);
+    color: var(--cyan-800);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+}
+
+/* FAQ Styles */
+.faq-container {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+.faq-theme {
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+.faq-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    background-color: var(--white);
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+.faq-header:hover {
+    background-color: var(--gray-50);
+}
+.faq-header .icon {
+    transition: transform 0.3s ease-in-out;
+}
+.faq-header.active .icon {
+    transform: rotate(180deg);
+}
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    background-color: var(--gray-50);
+    padding: 0 1.5rem;
+}
+.faq-content.active {
+    max-height: 1000px; /* Valeur suffisamment grande */
+    padding: 1.5rem;
+}
+.faq-item {
+    margin-bottom: 1.5rem;
+}
+.faq-item h4 {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--blue-600);
+}
+.faq-item p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--gray-600);
+}
+
+/* Login Page Styles */
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+}
+.login-card {
+    background-color: var(--card-bg, var(--white));
+    padding: 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--card-shadow, var(--shadow-md));
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.login-header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-color-dark, var(--gray-800));
+    margin: 0;
+}
+.login-header p {
+    margin-top: 0.5rem;
+    color: var(--text-color-medium, var(--gray-600));
+}
+.form-group input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: var(--brand-color, var(--blue-600));
+    box-shadow: 0 0 0 2px var(--brand-color, var(--blue-600));
+}
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    background-color: var(--brand-color, var(--blue-600));
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.submit-btn:hover {
+    background-color: var(--brand-color-hover, var(--blue-700));
+}
+#message-container {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    font-weight: 500;
+    display: none; /* Caché par défaut */
+}
+#message-container.success {
+    background-color: #d1fae5; /* green-100 */
+    color: var(--success-color, #16a34a);
+    display: block;
+}
+#message-container.error {
+    background-color: #fee2e2; /* red-100 */
+    color: var(--error-color, #dc2626);
+    display: block;
+}
+
+/* Map Filter Styles */
+.sidebar-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+.filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    color: var(--white);
+}
+.filter-btn .icon {
+    width: 20px;
+    height: 20px;
+}
+.filter-btn.inactive {
+    opacity: 0.6;
+    filter: grayscale(90%);
+}
+.filter-btn[data-type="event"] {
+    background-color: var(--red-500);
+}
+.filter-btn[data-type="user"] {
+    background-color: var(--blue-600);
+}
+.filter-btn[data-type="poi"] {
+    background-color: var(--yellow-400);
+    color: var(--gray-800);
+}
+
+/* Register Page Styles */
+.register-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+}
+.register-card {
+    background-color: var(--card-bg, var(--white));
+    padding: 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--card-shadow, var(--shadow-md));
+}
+.register-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.register-header h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--text-color-dark, var(--gray-800));
+    margin: 0;
+}
+.register-header p {
+    margin-top: 0.5rem;
+    color: var(--text-color-medium, var(--gray-600));
+}
+.login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-color-medium, var(--gray-600));
+}
+.login-link a {
+    color: var(--brand-color, var(--blue-600));
+    font-weight: 500;
+    text-decoration: none;
+}
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* User Edit Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.checkbox-item label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+.map-emoji-icon {
+    font-size: 24px;
+    text-align: center;
+    line-height: 1;
+}
+
+/* Users Page Styles */
+.privacy-status {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--gray-500);
 }
