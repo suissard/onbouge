@@ -1,0 +1,402 @@
+[
+    {
+        "id": 1,
+        "position": [48.8287, -3.4756],
+        "title": "Centre Nautique de Ploumanac'h",
+        "sport": ["voile", "kayak", "plongée"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 2,
+        "position": [43.5465, 7.0139],
+        "title": "Yacht Club de Cannes",
+        "sport": ["voile", "moteur"],
+        "type": "poi",
+        "Gmaps": "https://maps.app.goo.gl/7CkDxQj4JwT9LcLd9"
+    },
+    {
+        "id": 3,
+        "position": [47.2621, -2.4187],
+        "title": "Club de Voile de Pornichet",
+        "sport": ["voile", "kayak"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 4,
+        "position": [47.2834, -2.2089],
+        "title": "Club nautique de Saint-Nazaire",
+        "sport": ["voile", "kayak", "natation"],
+        "type": "poi",
+        "Gmaps": "https://maps.app.goo.gl/Yuk1fmeGiBcTTiEL9"
+    },
+    {
+        "id": 5,
+        "position": [43.6550, 5.5340],
+        "title": "Centre nautique du Lac de Peyrolles",
+        "sport": ["aviron", "planche à voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 6,
+        "position": [49.6447, -1.6258],
+        "title": "Société des Régates de Cherbourg",
+        "sport": ["voile", "kitesurf"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 7,
+        "position": [45.8198, 4.9312],
+        "title": "Base nautique de Miribel Jonage",
+        "sport": ["catamaran", "pédalo", "aviron"],
+        "type": "poi",
+        "Gmaps": "https://maps.app.goo.gl/Tg5NxQYq9CjJZ8Bd6"
+    },
+    {
+        "id": 8,
+        "position": [48.6530, -2.0280],
+        "title": "Société Nautique de la Baie de St-Malo",
+        "sport": ["voile", "char à voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 9,
+        "position": [43.4147, 6.7661],
+        "title": "Centre nautique de Port Fréjus",
+        "sport": ["plongée", "pêche", "jet-ski"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 10,
+        "position": [-22.2810, 166.4473],
+        "title": "Cercle Nautique Calédonien",
+        "sport": ["voile", "pêche"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 11,
+        "position": [43.2845, 5.3621],
+        "title": "Société Nautique de Marseille",
+        "sport": ["voile", "aviron", "joutes"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 12,
+        "position": [46.1437, -1.1521],
+        "title": "Société des Régates Rochelaises",
+        "sport": ["voile", "régate"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 13,
+        "position": [47.7418, -3.3712],
+        "title": "Centre Nautique de Lorient",
+        "sport": ["voile", "kayak", "paddle"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 14,
+        "position": [44.8510, -0.5610],
+        "title": "Club de Voile de Bordeaux",
+        "sport": ["voile", "planche à voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 15,
+        "position": [43.7042, 7.2751],
+        "title": "Club Nautique de Nice",
+        "sport": ["voile", "aviron", "plongée"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 16,
+        "position": [45.8992, 6.1294],
+        "title": "Société des Régates à Voile d'Annecy",
+        "sport": ["voile", "régate"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 17,
+        "position": [48.3850, -4.5000],
+        "title": "Société des Régates de Brest",
+        "sport": ["voile", "kayak"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 18,
+        "position": [43.1192, 5.9333],
+        "title": "Yacht Club de Toulon",
+        "sport": ["voile", "motonautisme"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 19,
+        "position": [50.9575, 1.8488],
+        "title": "Yacht Club de Calais",
+        "sport": ["voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 20,
+        "position": [49.4432, 1.0999],
+        "title": "Club de Voile de Rouen",
+        "sport": ["voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 21,
+        "position": [47.2184, -1.5536],
+        "title": "Nantes Atlantique Aviron",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 22,
+        "position": [45.7640, 4.8357],
+        "title": "Aviron Union Nautique de Lyon",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 23,
+        "position": [43.6047, 1.4442],
+        "title": "Toulouse Aviron Sports et Loisirs",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 24,
+        "position": [48.8566, 2.3522],
+        "title": "Cercle Nautique de France (Paris)",
+        "sport": ["aviron", "motonautisme"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 25,
+        "position": [44.8378, -0.5792],
+        "title": "Emulation Nautique de Bordeaux",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 26,
+        "position": [43.2965, 5.3698],
+        "title": "Rowing Club de Marseille",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 27,
+        "position": [48.1173, -1.6778],
+        "title": "Cercle Paul Bert Canoë-Kayak (Rennes)",
+        "sport": ["kayak", "canoë"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 28,
+        "position": [48.5734, 7.7521],
+        "title": "Strasbourg Eaux Vives",
+        "sport": ["kayak", "rafting", "hydrospeed"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 29,
+        "position": [43.4839, -1.4842],
+        "title": "Anglet Surf Club",
+        "sport": ["surf"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 30,
+        "position": [44.6547, -1.2091],
+        "title": "Cercle de Voile d'Arcachon",
+        "sport": ["voile", "paddle"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 31,
+        "position": [43.4035, 3.5599],
+        "title": "Société Nautique d'Agde et du Cap",
+        "sport": ["voile", "pêche"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 32,
+        "position": [42.6976, 3.0381],
+        "title": "Yacht Club de Canet en Roussillon",
+        "sport": ["voile", "régate"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 33,
+        "position": [42.4936, 6.0128],
+        "title": "Club Nautique de Bastia",
+        "sport": ["aviron", "voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 34,
+        "position": [41.9213, 8.7369],
+        "title": "Société Nautique d'Ajaccio",
+        "sport": ["voile", "aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 35,
+        "position": [46.1603, -1.1511],
+        "title": "La Rochelle Nautique",
+        "sport": ["voile", "aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 36,
+        "position": [49.2827, -0.3707],
+        "title": "Société des Régates de Caen",
+        "sport": ["voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 37,
+        "position": [47.4784, -0.5632],
+        "title": "Angers Nautique Aviron",
+        "sport": ["aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 38,
+        "position": [46.8118, 5.5556],
+        "title": "Base Nautique de Bellecin (Lac de Vouglans)",
+        "sport": ["voile", "aviron", "kayak", "paddle"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 39,
+        "position": [48.0673, 0.1986],
+        "title": "Club Nautique du Mans",
+        "sport": ["kayak", "aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 40,
+        "position": [45.7485, 4.8468],
+        "title": "Club de Plongée de Lyon",
+        "sport": ["plongée"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 41,
+        "position": [43.6108, 3.8767],
+        "title": "Montpellier Université Club Canoë Kayak",
+        "sport": ["kayak", "canoë"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 42,
+        "position": [47.9029, 1.9093],
+        "title": "Canoë Kayak Club d'Orléans",
+        "sport": ["kayak", "canoë"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 43,
+        "position": [45.7834, 6.4526],
+        "title": "Club de Voile du Lac de Gérande (Albertville)",
+        "sport": ["voile", "planche à voile"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 44,
+        "position": [50.6292, 3.0573],
+        "title": "Polo Club de la Deûle (Lille)",
+        "sport": ["kayak-polo"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 45,
+        "position": [46.2044, 6.1432],
+        "title": "Société Nautique de Genève (section France)",
+        "sport": ["voile", "aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 46,
+        "position": [43.4831, -1.5586],
+        "title": "Biarritz Association Surf Clubs",
+        "sport": ["surf", "bodyboard"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 47,
+        "position": [47.5300, -3.0200],
+        "title": "Société Nautique de la Trinité-sur-Mer",
+        "sport": ["voile", "régate"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 48,
+        "position": [44.1165, 4.0833],
+        "title": "Alès en Ciel (Canoë-Kayak)",
+        "sport": ["kayak", "canoë"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 49,
+        "position": [49.4944, 0.1079],
+        "title": "Société des Régates du Havre",
+        "sport": ["voile", "aviron"],
+        "type": "poi",
+        "Gmaps": ""
+    },
+    {
+        "id": 50,
+        "position": [43.0781, 6.4398],
+        "title": "Yacht Club des Iles du Levant",
+        "sport": ["voile"],
+        "type": "poi",
+        "Gmaps": ""
+    }
+]

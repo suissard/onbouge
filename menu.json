@@ -1,0 +1,22 @@
+[
+    {
+        "name": "home",
+        "link": "/",
+        "icon": "fa-solid fa-house-chimney"
+    },
+    {
+        "name": "Evenements",
+        "link": "/events",
+        "icon": "fa-solid fa-calendar-check"
+    },
+    {
+        "name": "poi",
+        "link": "/pois",
+        "icon": "fa-solid fa-map-pin"
+    },
+    {
+        "name": "Utilisateurs",
+        "link": "/users",
+        "icon": "fa-solid fa-user-group"
+    }
+]
