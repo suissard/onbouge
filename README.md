@@ -22,10 +22,12 @@ L'ensemble de l'application est conçu pour être lancé via Docker.
 
 ### Frontend
 
-- **Structure :** `index.html` servant de coquille ("shell").
+- **Architecture :** L'application suit un modèle de "coquille applicative" (App Shell). Le fichier `index.html` est minimaliste et sert de point d'entrée.
+- **Point d'entrée :** Le script principal `js/main.js` orchestre le chargement de l'application.
+- **Chargement dynamique :** Les composants de l'interface (en-tête, pied de page, menu latéral) sont chargés dynamiquement en JavaScript via `fetch` à partir de fichiers HTML partiels situés dans le dossier `/partials`.
+- **Logique :** JavaScript natif (Vanilla JS) est utilisé pour toute la logique cliente, y compris les appels à l'API Strapi.
 - **Style :** [Tailwind CSS](https://tailwindcss.com/) pour un design rapide et moderne.
 - **Icônes :** [Font Awesome](https://fontawesome.com/).
-- **Logique :** JavaScript natif (Vanilla JS) avec `fetch` pour les appels API.
 
 ### Backend
 
@@ -60,5 +62,18 @@ L'ensemble de l'environnement de développement est géré par Docker et Docker 
    
                                        ---
    
-                                       ## 📋 Structure du Projet (Exemple)
-   ````
+                                       ## 📋 Structure du Projet
+
+Le projet est organisé comme suit :
+
+-   **`/public`** : Contient tous les fichiers statiques du frontend.
+    -   **`index.html`** : La "coquille" de l'application. Ce fichier est très léger.
+    -   **`/js`** : Contient les scripts JavaScript.
+        -   `main.js` : Le script principal qui initialise l'application, charge les composants et gère la logique globale.
+        -   `/Core` : Contient les classes et fonctions essentielles, comme le client API pour Strapi.
+    -   **`/css`** : Contient les feuilles de style.
+    -   **`/partials`** : Des morceaux d'interface utilisateur (comme `header.html`, `footer.html`, `sidebar.html`) qui sont chargés dynamiquement par JavaScript.
+    -   **`/data`** : Fichiers JSON statiques utilisés pour peupler certaines parties de l'interface, comme le menu de navigation.
+-   **`/src`** : Contient la configuration et les API du backend Strapi.
+-   **`docker-compose.yml`** : Le fichier qui définit et orchestre les conteneurs Docker pour l'environnement de développement (frontend, backend, base de données).
+-   **`package.json`** : Définit les dépendances du projet (principalement pour les tests) et les scripts pour gérer l'environnement Docker.
