@@ -23,7 +23,7 @@
     },
     "position": {
       "type": "customField",
-      "customField": "plugin::location-field.location"
+      "customField": "plugin::maps.map"
     },
     "sport": {
       "type": "json"
