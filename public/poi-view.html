@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Voir Point d'Intérêt - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<script src="js/main.js"></script>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<style>
+			main {
+				padding: 2rem 0;
+			}
+			.view-layout {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 2rem;
+				align-items: flex-start;
+			}
+			.main-content,
+			.side-panel {
+				background-color: var(--white);
+				padding: 1.5rem 2rem;
+				border-radius: 0.75rem;
+				box-shadow: var(--shadow-md);
+			}
+			.poi-title-group {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+			}
+			.poi-title {
+				font-size: 2rem;
+				font-weight: 700;
+				margin: 0;
+			}
+			#favorite-btn {
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 0.5rem;
+			}
+			#favorite-btn .icon {
+				color: var(--gray-400);
+				transition: all 0.2s;
+				width: 28px;
+				height: 28px;
+			}
+			#favorite-btn.active .icon {
+				color: var(--yellow-400);
+				fill: var(--yellow-400);
+			}
+			.author-info {
+				font-size: 0.9rem;
+				color: var(--gray-500);
+				text-align: left;
+				margin-top: 0.25rem;
+			}
+			.info-section h4 {
+				font-size: 1.1rem;
+				color: var(--gray-800);
+				border-bottom: 2px solid var(--gray-100);
+				padding-bottom: 0.5rem;
+				margin-top: 2rem;
+			}
+			#poi-map {
+				height: 250px;
+				width: 100%;
+				border-radius: 0.75rem;
+				margin-top: 1rem;
+				z-index: 1;
+			}
+			.contact-info a {
+				color: var(--blue-600);
+				text-decoration: none;
+			}
+			.sport-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-top: 1rem;
+			}
+			.sport-tag {
+				background-color: var(--yellow-400);
+				color: var(--gray-800);
+				padding: 0.25rem 0.75rem;
+				border-radius: 9999px;
+				font-size: 0.9rem;
+				font-weight: 500;
+			}
+			@media (max-width: 900px) {
+				.view-layout {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div class="container">
+				<div class="view-layout">
+					<!-- Colonne de gauche : Détails -->
+					<div class="main-content">
+						<div class="poi-title-group">
+							<h1 id="poi-title" class="poi-title"></h1>
+							<button id="favorite-btn" title="Ajouter aux favoris">
+								<i data-lucide="star" class="icon"></i>
+							</button>
+						</div>
+						<div class="author-info">Proposé par : <span id="poi-author"></span></div>
+
+						<div class="info-section">
+							<h4>Description</h4>
+							<p id="poi-description"></p>
+						</div>
+						<div class="info-section">
+							<h4>
+								<i
+									data-lucide="thumbs-up"
+									class="icon"
+									style="color: var(--green-500)"
+								></i>
+								Points positifs
+							</h4>
+							<p id="poi-positives"></p>
+						</div>
+						<div class="info-section">
+							<h4>
+								<i
+									data-lucide="alert-triangle"
+									class="icon"
+									style="color: var(--red-500)"
+								></i>
+								Points de vigilance
+							</h4>
+							<p id="poi-negatives"></p>
+						</div>
+					</div>
+
+					<!-- Colonne de droite : Infos et carte -->
+					<div class="side-panel">
+						<h4>Sports praticables</h4>
+						<div id="poi-sports" class="sport-tags"></div>
+						<div class="info-section contact-info">
+							<h4>Contact</h4>
+							<p>
+								<i data-lucide="globe" class="icon"></i>
+								<a id="poi-web" href="#" target="_blank"></a>
+							</p>
+							<p><i data-lucide="phone" class="icon"></i> <span id="poi-tel"></span></p>
+						</div>
+						<div id="poi-map"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			const poiData = {
+				id: 3,
+				position: [47.2621, -2.4187],
+				title: "Club de Voile de Pornichet",
+				sport: ["voile", "kayak"],
+				type: "poi",
+				description: "Site bien placé avec commodités pour la mise à l'eau.",
+				points_positifs: "Facilité d'accès, parking, douches et club-house.",
+				points_negatifs:
+					"Attention à l'enrochement dangereux à marée basse sur la gauche de la cale.",
+				contact_web: "http://www.cnbpp.fr",
+				tel: "02 40 61 02 55",
+				auteur: "Bernard L.",
+				isFavorite: false,
+			};
+
+			function renderPoiDetails(data) {
+				document.getElementById("poi-title").textContent = data.title;
+				document.getElementById("poi-description").textContent = data.description;
+				document.getElementById("poi-positives").textContent = data.points_positifs;
+				document.getElementById("poi-negatives").textContent = data.points_negatifs;
+				document.getElementById("poi-author").textContent = data.auteur;
+				document.getElementById("poi-tel").textContent = data.tel;
+
+				const webLink = document.getElementById("poi-web");
+				webLink.href = data.contact_web;
+				webLink.textContent = data.contact_web.replace(/https?:\/\//, "");
+
+				const sportsContainer = document.getElementById("poi-sports");
+				sportsContainer.innerHTML = data.sport
+					.map((s) => `<span class="sport-tag">${s}</span>`)
+					.join("");
+
+				document
+					.getElementById("favorite-btn")
+					.classList.toggle("active", data.isFavorite);
+			}
+
+			function initMap(position, title) {
+				const map = L.map("poi-map").setView(position, 14);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+				L.marker(position, {
+					icon: L.divIcon({
+						html: "📍",
+						className: "map-emoji-icon",
+						iconSize: [24, 24],
+					}),
+				})
+					.addTo(map)
+					.bindPopup(title);
+			}
+
+			document.addEventListener("DOMContentLoaded", () => {
+				renderPoiDetails(poiData);
+				initMap(poiData.position, poiData.title);
+
+				const favoriteBtn = document.getElementById("favorite-btn");
+				favoriteBtn.addEventListener("click", () => {
+					poiData.isFavorite = !poiData.isFavorite;
+					favoriteBtn.classList.toggle("active", poiData.isFavorite);
+				});
+
+				lucide.createIcons();
+			});
+		</script>
+	</body>
+</html>

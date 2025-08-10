@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Carte - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		/>
+		<script
+			src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+			integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+			crossorigin=""
+		></script>
+		<script src="js/main.js"></script>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<style>
+			.sidebar-filters {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.75rem;
+				margin-bottom: 1rem;
+				padding-bottom: 1rem;
+				border-bottom: 1px solid var(--gray-200);
+			}
+			.filter-btn {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.4rem 0.75rem;
+				border: none;
+				border-radius: 9999px;
+				cursor: pointer;
+				font-size: 0.9rem;
+				font-weight: 500;
+				transition: all 0.2s;
+				color: var(--white);
+			}
+			.filter-btn .icon {
+				width: 20px;
+				height: 20px;
+			}
+			.filter-btn.inactive {
+				opacity: 0.6;
+				filter: grayscale(90%);
+			}
+			.filter-btn[data-type="event"] {
+				background-color: var(--red-500);
+			}
+			.filter-btn[data-type="user"] {
+				background-color: var(--blue-600);
+			}
+			.filter-btn[data-type="poi"] {
+				background-color: var(--yellow-400);
+				color: var(--gray-800);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div class="container">
+				<div id="map-view" class="view active">
+					<div class="map-layout">
+						<div id="leaflet-map"></div>
+						<aside id="map-sidebar">
+							<h3>Visibles sur la carte</h3>
+							<div id="type-filters" class="sidebar-filters"></div>
+							<div id="sidebar-list"></div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script src="js/data.js"></script>
+
+		<script>
+			let mapInstance = null;
+			const mapItems = [];
+			const filtersState = { event: true, user: true, poi: true };
+
+			document.addEventListener("DOMContentLoaded", async () => {
+				await loadData();
+				initMap();
+			});
+
+			function initMap() {
+				if (mapInstance) return;
+
+				mapInstance = L.map("leaflet-map").setView([47.273, -2.209], 11);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+					maxZoom: 19,
+					attribution: "© OpenStreetMap",
+				}).addTo(mapInstance);
+
+				setupMarkers();
+				setupFilters();
+				applyFiltersAndUpdateSidebar();
+
+				mapInstance.on("moveend", applyFiltersAndUpdateSidebar);
+				mapInstance.on("zoomend", applyFiltersAndUpdateSidebar);
+			}
+
+			function setupFilters() {
+				const filtersContainer = document.getElementById("type-filters");
+				const filterConfig = [
+					{ type: "event", label: "Événements", icon: "calendar-days" },
+					{ type: "user", label: "Contacts", icon: "users" },
+					{ type: "poi", label: "Lieux", icon: "star" },
+				];
+
+				filterConfig.forEach((config) => {
+					const btn = document.createElement("button");
+					btn.className = "filter-btn";
+					btn.dataset.type = config.type;
+					btn.innerHTML = `<i data-lucide="${config.icon}" class="icon"></i> ${config.label}`;
+
+					btn.addEventListener("click", () => {
+						filtersState[config.type] = !filtersState[config.type];
+						btn.classList.toggle("inactive", !filtersState[config.type]);
+						applyFiltersAndUpdateSidebar();
+					});
+					filtersContainer.appendChild(btn);
+				});
+				lucide.createIcons();
+			}
+
+			/**
+			 * Filtre les éléments visibles, les trie par proximité et met à jour la barre latérale.
+			 */
+			function applyFiltersAndUpdateSidebar() {
+				const sidebarList = document.getElementById("sidebar-list");
+				const bounds = mapInstance.getBounds();
+				const center = mapInstance.getCenter(); // Le centre de la carte est l'origine du calcul.
+				sidebarList.innerHTML = "";
+
+				const visibleItems = [];
+
+				// Étape 1 : Parcourir tous les éléments et ne garder que ceux qui sont visibles et actifs.
+				mapItems.forEach((item) => {
+					const isTypeActive = filtersState[item.data.type];
+					const isVisibleOnMap = bounds.contains(item.position);
+
+					// Gérer la visibilité du marqueur sur la carte
+					if (isTypeActive) {
+						if (!mapInstance.hasLayer(item.marker)) item.marker.addTo(mapInstance);
+					} else {
+						if (mapInstance.hasLayer(item.marker)) mapInstance.removeLayer(item.marker);
+					}
+
+					// Si l'item est visible et que son type est actif, on l'ajoute à la liste à trier.
+					if (isTypeActive && isVisibleOnMap) {
+						// Calculer la distance de l'item par rapport au centre de la carte.
+						item.distance = center.distanceTo(item.position);
+						visibleItems.push(item);
+					}
+				});
+
+				// Étape 2 : Trier la liste des éléments visibles PUREMENT par distance, sans priorité de type.
+				visibleItems.sort((a, b) => a.distance - b.distance);
+
+				// Étape 3 : Afficher les éléments triés dans la barre latérale.
+				visibleItems.forEach((item) => {
+					const sidebarItem = createSidebarItem(item);
+					sidebarList.appendChild(sidebarItem);
+				});
+			}
+
+			function createSidebarItem(item) {
+				const sidebarItem = document.createElement("div");
+				sidebarItem.className = `sidebar-item ${item.data.type}`;
+
+				let sidebarContent;
+				if (item.data.type === "user") {
+					const sportsList = item.data.sport.map((s) => s.split(".")[0]).join(", ");
+					sidebarContent = `<h4>${item.data.prenom} ${item.data.nom}</h4><p>${sportsList}</p>`;
+				} else {
+					sidebarContent = `<h4>${item.data.title}</h4>`;
+					if (item.data.type === "event" && item.data.date) {
+						sidebarContent += `<p>Événement • Le ${formatDate(item.data.date)}</p>`;
+					} else {
+						sidebarContent += `<p style="text-transform: capitalize;">${item.data.type}</p>`;
+					}
+				}
+				sidebarItem.innerHTML = sidebarContent;
+
+				sidebarItem.addEventListener("click", () => {
+					mapInstance.setView(item.position, 14);
+					item.marker.openPopup();
+				});
+				return sidebarItem;
+			}
+
+			function formatDate(dateString) {
+				if (!dateString) return "";
+				if (dateString.includes("-")) {
+					return dateString;
+				}
+				const date = new Date(dateString);
+				if (isNaN(date.getTime())) {
+					return dateString;
+				}
+				return new Intl.DateTimeFormat("fr-FR", {
+					day: "2-digit",
+					month: "2-digit",
+					year: "numeric",
+				}).format(date);
+			}
+
+			function setupMarkers() {
+				const createIcon = (color) =>
+					L.divIcon({
+						html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9.5" r="2.5" fill="white"/></svg>`,
+						className: "",
+						iconSize: [32, 32],
+						iconAnchor: [16, 32],
+						popupAnchor: [0, -32],
+					});
+				const icons = {
+					event: createIcon("var(--red-500)"),
+					poi: createIcon("var(--yellow-400)"),
+					user: createIcon("var(--blue-600)"),
+				};
+				const allData = [...(db.events || []), ...(db.pois || []), ...(db.users || [])];
+
+				allData.forEach((itemData) => {
+					const icon = icons[itemData.type] || icons.poi;
+					let position, popupContent;
+					if (itemData.type === "user") {
+						position = itemData.position[0];
+						popupContent = `<b>${itemData.prenom} ${itemData.nom}</b><br>${itemData.description}`;
+					} else {
+						position = itemData.position;
+						popupContent = `<b>${itemData.title}</b>`;
+						if (itemData.type === "event" && itemData.date) {
+							popupContent += `<br>Le ${formatDate(itemData.date)}`;
+						}
+					}
+					if (!position || !position.length) return;
+					const marker = L.marker(position, { icon });
+					marker.bindPopup(popupContent);
+					mapItems.push({ data: itemData, marker: marker, position: L.latLng(position) });
+				});
+			}
+			lucide.createIcons();
+		</script>
+	</body>
+</html>

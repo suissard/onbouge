@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Profil Utilisateur - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+		<script src="js/main.js"></script>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<style>
+			main {
+				padding: 2rem 0;
+			}
+			.view-layout {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 2rem;
+				align-items: flex-start;
+			}
+			.main-content,
+			.side-panel {
+				background-color: var(--white);
+				padding: 1.5rem 2rem;
+				border-radius: 0.75rem;
+				box-shadow: var(--shadow-md);
+			}
+			.user-title-group {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 1rem;
+			}
+			.user-title {
+				font-size: 2rem;
+				font-weight: 700;
+				margin: 0;
+			}
+			#follow-btn {
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 0.5rem;
+			}
+			#follow-btn .icon {
+				color: var(--gray-400);
+				transition: all 0.2s;
+				width: 28px;
+				height: 28px;
+			}
+			#follow-btn.active .icon {
+				color: var(--blue-600);
+				fill: var(--blue-600);
+			}
+			#user-map {
+				height: 250px;
+				width: 100%;
+				border-radius: 0.75rem;
+				margin-top: 1rem;
+				z-index: 1;
+			}
+			.map-emoji-icon {
+				font-size: 24px;
+				text-align: center;
+				line-height: 1;
+			}
+
+			/* Style ajouté pour la cohérence des pastilles de sport */
+			.sport-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			.sport-tag {
+				background-color: var(--cyan-100);
+				color: var(--cyan-800);
+				padding: 0.25rem 0.75rem;
+				border-radius: 9999px;
+				font-size: 0.9rem;
+				font-weight: 500;
+				text-transform: capitalize;
+			}
+
+			@media (max-width: 900px) {
+				.view-layout {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<div class="container">
+				<div class="view-layout">
+					<!-- Colonne de gauche : Infos publiques -->
+					<div class="main-content">
+						<div class="user-title-group">
+							<h1 id="user-name" class="user-title"></h1>
+							<button id="follow-btn" title="Suivre cette personne">
+								<i data-lucide="user-plus" class="icon"></i>
+							</button>
+						</div>
+						<p id="user-description" style="margin-top: 1rem"></p>
+						<h4 style="margin-top: 2rem">Sports pratiqués</h4>
+						<div id="user-sports" class="sport-tags"></div>
+					</div>
+
+					<!-- Colonne de droite : Carte et statut -->
+					<div class="side-panel">
+						<h4>Statut</h4>
+						<p>Rôle : <b id="user-role"></b></p>
+						<p>Visibilité : <b id="user-privacy"></b></p>
+						<h4 style="margin-top: 2rem">Localisation</h4>
+						<div id="user-map"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			const userData = {
+				id: 1,
+				position: [
+					[48.8566, 2.3522],
+					[48.8632, 2.3601],
+				],
+				prenom: "Jean",
+				nom: "Dubois",
+				type: "user",
+				role: "arbitre",
+				sport: ["voile.catamaran", "velo.vtt", "longecote", "rando.foret"],
+				privacy: false,
+				description: "Fan de vélo et voile, disponible les week-ends",
+				isFollowed: false,
+			};
+
+			function renderUserDetails(data) {
+				document.getElementById("user-name").textContent = `${data.prenom} ${data.nom}`;
+				document.getElementById("user-description").textContent = data.description;
+				document.getElementById("user-role").textContent = data.role;
+				document.getElementById("user-privacy").textContent = data.privacy
+					? "Privé"
+					: "Public";
+
+				const sportsContainer = document.getElementById("user-sports");
+				sportsContainer.innerHTML = data.sport
+					.map((s) => `<span class="sport-tag">${s.replace(".", " ")}</span>`)
+					.join("");
+
+				document.getElementById("follow-btn").classList.toggle("active", data.isFollowed);
+			}
+
+			function initMap(homePos, lastPos) {
+				const map = L.map("user-map").setView(homePos, 11);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+				L.marker(homePos, { icon: createIcon("🏠") })
+					.addTo(map)
+					.bindPopup("Domicile");
+				L.marker(lastPos, { icon: createIcon("👣") })
+					.addTo(map)
+					.bindPopup("Dernière position");
+			}
+
+			function createIcon(emoji) {
+				return L.divIcon({
+					html: emoji,
+					className: "map-emoji-icon",
+					iconSize: [24, 24],
+					iconAnchor: [12, 24],
+				});
+			}
+
+			document.addEventListener("DOMContentLoaded", () => {
+				renderUserDetails(userData);
+				initMap(userData.position[0], userData.position[1]);
+
+				const followBtn = document.getElementById("follow-btn");
+				followBtn.addEventListener("click", () => {
+					userData.isFollowed = !userData.isFollowed;
+					followBtn.classList.toggle("active", userData.isFollowed);
+					// Changer l'icône pour mieux refléter l'état
+					followBtn.innerHTML = userData.isFollowed
+						? '<i data-lucide="user-check" class="icon"></i>'
+						: '<i data-lucide="user-plus" class="icon"></i>';
+					lucide.createIcons();
+				});
+
+				lucide.createIcons();
+			});
+		</script>
+	</body>
+</html>
