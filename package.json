@@ -16,8 +16,9 @@
   },
   "dependencies": {
     "vitest": "^3.2.4",
-    "strapi-plugin-location-field": "^1.0.0"
+    "strapi-plugin-maps": "^1.0.0"
   },
   "devDependencies": {
     "jsdom": "^26.1.0"
   }
+}
