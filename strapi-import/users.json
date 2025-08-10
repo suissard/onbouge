@@ -1,0 +1,2259 @@
+[
+    {
+        "prenom": "Jean",
+        "nom": "Dubois",
+        "description": "Fan de vélo et voile, disponible les week-ends",
+        "privacy": false,
+        "sport": [
+            "voile.catamaran",
+            "velo.vtt",
+            "longecote",
+            "rando.foret"
+        ],
+        "old_id": 1,
+        "position": {
+            "lat": 48.8566,
+            "lng": 2.3522
+        }
+    },
+    {
+        "prenom": "Marie",
+        "nom": "Petit",
+        "description": "Spécialiste Hobie Cat, cherche équipiers",
+        "privacy": true,
+        "sport": [
+            "voile.hobiecat",
+            "natation.mer",
+            "peche.cotiere"
+        ],
+        "old_id": 2,
+        "position": {
+            "lat": 47.2184,
+            "lng": -1.5536
+        }
+    },
+    {
+        "prenom": "Thomas",
+        "nom": "Martin",
+        "description": "Compétiteur Laser, recherche partenaires d'entraînement",
+        "privacy": false,
+        "sport": [
+            "voile.laser",
+            "velo.route",
+            "rando.montagne"
+        ],
+        "old_id": 3,
+        "position": {
+            "lat": 43.2965,
+            "lng": 5.3698
+        }
+    },
+    {
+        "prenom": "Sophie",
+        "nom": "Lefebvre",
+        "description": "Plaisancière expérimentée, aime naviguer en groupe",
+        "privacy": true,
+        "sport": [
+            "voile.croisiere",
+            "longecote",
+            "yoga"
+        ],
+        "old_id": 4,
+        "position": {
+            "lat": 44.8378,
+            "lng": -0.5792
+        }
+    },
+    {
+        "prenom": "Pierre",
+        "nom": "Roux",
+        "description": "Pêcheur passionné, cherche spots tranquilles",
+        "privacy": false,
+        "sport": [
+            "velo.ville",
+            "peche.fluviale",
+            "photographie"
+        ],
+        "old_id": 5,
+        "position": {
+            "lat": 43.6047,
+            "lng": 1.4442
+        }
+    },
+    {
+        "prenom": "Céline",
+        "nom": "Moreau",
+        "description": "Randonneuse du dimanche, niveau débutant",
+        "privacy": true,
+        "sport": [
+            "rando.collines",
+            "natation.piscine",
+            "meditation"
+        ],
+        "old_id": 6,
+        "position": {
+            "lat": 45.764,
+            "lng": 4.8357
+        }
+    },
+    {
+        "prenom": "Antoine",
+        "nom": "Girard",
+        "description": "Adrenaline junkie, toujours partant pour de nouvelles sensations",
+        "privacy": false,
+        "sport": [
+            "voile.windsurf",
+            "kitesurf",
+            "velo.descente"
+        ],
+        "old_id": 7,
+        "position": {
+            "lat": 47.322,
+            "lng": 5.0415
+        }
+    },
+    {
+        "prenom": "Élise",
+        "nom": "Bertrand",
+        "description": "Monitrice voile pour enfants, passionnée par la mer",
+        "privacy": true,
+        "sport": [
+            "voile.optimist",
+            "natation.synchronisee",
+            "dessin"
+        ],
+        "old_id": 8,
+        "position": {
+            "lat": 48.1173,
+            "lng": -1.6778
+        }
+    },
+    {
+        "prenom": "Nicolas",
+        "nom": "Fontaine",
+        "description": "Plongeur professionnel, organise des sorties hebdomadaires",
+        "privacy": false,
+        "sport": [
+            "peche.sousmarine",
+            "apnee",
+            "photographie.sousmarine"
+        ],
+        "old_id": 9,
+        "position": {
+            "lat": 43.7,
+            "lng": 7.2667
+        }
+    },
+    {
+        "prenom": "Camille",
+        "nom": "Mercier",
+        "description": "Voyage à vélo, cherche compagnons pour traversée France",
+        "privacy": true,
+        "sport": [
+            "velo.tourisme",
+            "rando.camping",
+            "cuisine"
+        ],
+        "old_id": 10,
+        "position": {
+            "lat": 50.6292,
+            "lng": 3.0573
+        }
+    },
+    {
+        "prenom": "Luc",
+        "nom": "Dupont",
+        "description": "Skipper confirmé, prépare une transatlantique",
+        "privacy": false,
+        "sport": [
+            "voile.habitable",
+            "navigation.cotiere",
+            "meteorologie"
+        ],
+        "old_id": 11,
+        "position": {
+            "lat": 49.8942,
+            "lng": 2.2957
+        }
+    },
+    {
+        "prenom": "Juliette",
+        "nom": "Lemoine",
+        "description": "Athlète de longe côte, entrainements quotidiens",
+        "privacy": true,
+        "sport": [
+            "longecote.competition",
+            "course.sable",
+            "fitness"
+        ],
+        "old_id": 12,
+        "position": {
+            "lat": 48.3904,
+            "lng": -4.486
+        }
+    },
+    {
+        "prenom": "Maxime",
+        "nom": "Rousseau",
+        "description": "Pêche en haute mer, spécialiste des gros spécimens",
+        "privacy": false,
+        "sport": [
+            "peche.gros",
+            "chasse.sousmarine",
+            "bricolage"
+        ],
+        "old_id": 13,
+        "position": {
+            "lat": 47.0478,
+            "lng": -0.8798
+        }
+    },
+    {
+        "prenom": "Clara",
+        "nom": "Fournier",
+        "description": "Sports nautiques doux, débutants bienvenus",
+        "privacy": true,
+        "sport": [
+            "voile.kayak",
+            "standup",
+            "yoga.plage"
+        ],
+        "old_id": 14,
+        "position": {
+            "lat": 46.3078,
+            "lng": -0.3231
+        }
+    },
+    {
+        "prenom": "Hugo",
+        "nom": "Blanc",
+        "description": "Collectionneur de vélos anciens, organise des randonnées vintage",
+        "privacy": false,
+        "sport": [
+            "velo.ancien",
+            "restauration.velo",
+            "histoire"
+        ],
+        "old_id": 15,
+        "position": {
+            "lat": 45.4408,
+            "lng": 4.3873
+        }
+    },
+    {
+        "prenom": "Zoé",
+        "nom": "Chevalier",
+        "description": "Guide de montagne, propose des sorties découverte",
+        "privacy": true,
+        "sport": [
+            "rando.pyrenees",
+            "escalade",
+            "geologie"
+        ],
+        "old_id": 16,
+        "position": {
+            "lat": 43.2962,
+            "lng": -0.3688
+        }
+    },
+    {
+        "prenom": "Louis",
+        "nom": "Barbier",
+        "description": "Barreur en régate, cherche équipiers motivés",
+        "privacy": false,
+        "sport": [
+            "voile.regate",
+            "tactique",
+            "meteo"
+        ],
+        "old_id": 17,
+        "position": {
+            "lat": 48.5734,
+            "lng": 7.7521
+        }
+    },
+    {
+        "prenom": "Léa",
+        "nom": "Arnaud",
+        "description": "Nageuse de fond, préparation triathlon",
+        "privacy": true,
+        "sport": [
+            "natation.marathon",
+            "aquagym",
+            "diététique"
+        ],
+        "old_id": 18,
+        "position": {
+            "lat": 43.7102,
+            "lng": 7.262
+        }
+    },
+    {
+        "prenom": "Gabriel",
+        "nom": "Leroy",
+        "description": "Cycliste compétiteur, recherche partenaires d'entraînement",
+        "privacy": false,
+        "sport": [
+            "velo.race",
+            "entrainement.intensif",
+            "nutrition"
+        ],
+        "old_id": 19,
+        "position": {
+            "lat": 47.7511,
+            "lng": 7.3359
+        }
+    },
+    {
+        "prenom": "Manon",
+        "nom": "Gauthier",
+        "description": "Restauratrice de bateaux en bois, passion patrimoine maritime",
+        "privacy": true,
+        "sport": [
+            "voile.traditionnelle",
+            "charpente.navale",
+            "histoire.maritime"
+        ],
+        "old_id": 20,
+        "position": {
+            "lat": 44.9333,
+            "lng": -0.1667
+        }
+    },
+    {
+        "prenom": "Romain",
+        "nom": "Caron",
+        "description": "Pêche en mer technique, partage de connaissances",
+        "privacy": false,
+        "sport": [
+            "peche.sportive",
+            "noeuds.marins",
+            "meteorologie"
+        ],
+        "old_id": 21,
+        "position": {
+            "lat": 49.5,
+            "lng": 0.1
+        }
+    },
+    {
+        "prenom": "Chloé",
+        "nom": "Leroux",
+        "description": "Longe côte thérapeutique, sessions adaptées",
+        "privacy": true,
+        "sport": [
+            "longecote.sante",
+            "meditation.plage",
+            "yoga"
+        ],
+        "old_id": 22,
+        "position": {
+            "lat": 48.0,
+            "lng": 0.2
+        }
+    },
+    {
+        "prenom": "Mathis",
+        "nom": "Riviere",
+        "description": "Aventures gravel, expéditions multi-jours",
+        "privacy": false,
+        "sport": [
+            "velo.gravel",
+            "bikepacking",
+            "camping.sauvage"
+        ],
+        "old_id": 23,
+        "position": {
+            "lat": 47.0833,
+            "lng": 2.4
+        }
+    },
+    {
+        "prenom": "Emma",
+        "nom": "Philippe",
+        "description": "Randonnées botaniques en montagne",
+        "privacy": true,
+        "sport": [
+            "rando.alpine",
+            "botanique",
+            "photographie.nature"
+        ],
+        "old_id": 24,
+        "position": {
+            "lat": 46.25,
+            "lng": 5.65
+        }
+    },
+    {
+        "prenom": "Nathan",
+        "nom": "Perrin",
+        "description": "Moniteur de voile, donne cours particuliers",
+        "privacy": false,
+        "sport": [
+            "voile.ecole",
+            "pédagogie",
+            "formation"
+        ],
+        "old_id": 25,
+        "position": {
+            "lat": 48.8333,
+            "lng": 2.3333
+        }
+    },
+    {
+        "prenom": "Ines",
+        "nom": "Giraud",
+        "description": "Nage synchronisée, créations artistiques",
+        "privacy": true,
+        "sport": [
+            "natation.artistique",
+            "danse",
+            "gymnastique"
+        ],
+        "old_id": 26,
+        "position": {
+            "lat": 47.3167,
+            "lng": 5.0167
+        }
+    },
+    {
+        "prenom": "Enzo",
+        "nom": "Garnier",
+        "description": "BMX park, tricks et compétitions",
+        "privacy": false,
+        "sport": [
+            "velo.freestyle",
+            "bmx",
+            "cascades"
+        ],
+        "old_id": 27,
+        "position": {
+            "lat": 45.7833,
+            "lng": 3.0833
+        }
+    },
+    {
+        "prenom": "Lena",
+        "nom": "Henry",
+        "description": "Pêche nocturne spécialiste, connaisseur des marées",
+        "privacy": true,
+        "sport": [
+            "peche.nuit",
+            "astronomie",
+            "meteo"
+        ],
+        "old_id": 28,
+        "position": {
+            "lat": 43.7,
+            "lng": 7.25
+        }
+    },
+    {
+        "prenom": "Paul",
+        "nom": "Boyer",
+        "description": "Propriétaire de voilier classique, croisières nostalgiques",
+        "privacy": false,
+        "sport": [
+            "voile.classique",
+            "restauration",
+            "histoire"
+        ],
+        "old_id": 29,
+        "position": {
+            "lat": 49.1833,
+            "lng": -0.35
+        }
+    },
+    {
+        "prenom": "Sarah",
+        "nom": "Royer",
+        "description": "Longe côte en famille, activités enfants",
+        "privacy": true,
+        "sport": [
+            "longecote.famille",
+            "animation",
+            "jeux.plage"
+        ],
+        "old_id": 30,
+        "position": {
+            "lat": 47.2167,
+            "lng": -1.55
+        }
+    },
+    {
+        "prenom": "Adam",
+        "nom": "Noel",
+        "description": "Tour du monde à vélo en cours, étape France",
+        "privacy": false,
+        "sport": [
+            "velo.voyage",
+            "cyclotourisme",
+            "langues"
+        ],
+        "old_id": 31,
+        "position": {
+            "lat": 45.75,
+            "lng": 4.85
+        }
+    },
+    {
+        "prenom": "Lola",
+        "nom": "Masson",
+        "description": "Découverte des villes à pied, parcours insolites",
+        "privacy": true,
+        "sport": [
+            "rando.urbaine",
+            "streetart",
+            "histoire.ville"
+        ],
+        "old_id": 32,
+        "position": {
+            "lat": 44.84,
+            "lng": -0.58
+        }
+    },
+    {
+        "prenom": "Victor",
+        "nom": "Legrand",
+        "description": "Compétitions de modélisme naval, conception de bateaux radio-commandés",
+        "privacy": false,
+        "sport": [
+            "voile.modelisme",
+            "maquettes",
+            "electronique"
+        ],
+        "old_id": 33,
+        "position": {
+            "lat": 48.8667,
+            "lng": 2.3333
+        }
+    },
+    {
+        "prenom": "Eva",
+        "nom": "Clement",
+        "description": "Baignades estivales, sessions détente entre amis",
+        "privacy": true,
+        "sport": [
+            "natation.ete",
+            "plongeon",
+            "jeux.aquatiques"
+        ],
+        "old_id": 34,
+        "position": {
+            "lat": 50.7,
+            "lng": 3.1667
+        }
+    },
+    {
+        "prenom": "Arthur",
+        "nom": "Fernandez",
+        "description": "Vélo comme activité fitness, programmes intensifs",
+        "privacy": false,
+        "sport": [
+            "velo.fitness",
+            "entrainement.hiit",
+            "nutrition"
+        ],
+        "old_id": 35,
+        "position": {
+            "lat": 46.5833,
+            "lng": 0.3333
+        }
+    },
+    {
+        "prenom": "Julia",
+        "nom": "Lopez",
+        "description": "De la pêche à l'assiette, ateliers cuisine",
+        "privacy": true,
+        "sport": [
+            "peche.mediterranee",
+            "gastronomie.poisson",
+            "oenologie"
+        ],
+        "old_id": 36,
+        "position": {
+            "lat": 43.6,
+            "lng": 1.4333
+        }
+    },
+    {
+        "prenom": "Tom",
+        "nom": "Garcia",
+        "description": "Perfectionnement techniques marines, sécurité en mer",
+        "privacy": false,
+        "sport": [
+            "voile.habilite",
+            "manoeuvres",
+            "secourisme"
+        ],
+        "old_id": 37,
+        "position": {
+            "lat": 47.5,
+            "lng": -0.55
+        }
+    },
+    {
+        "prenom": "Louise",
+        "nom": "David",
+        "description": "Longe côte adapté seniors, bien-être articulaire",
+        "privacy": true,
+        "sport": [
+            "longecote.seniors",
+            "sante",
+            "marche"
+        ],
+        "old_id": 38,
+        "position": {
+            "lat": 49.4333,
+            "lng": 1.0833
+        }
+    },
+    {
+        "prenom": "Hugo",
+        "nom": "Sanchez",
+        "description": "VTT de descente, passionné de mécanique vélo",
+        "privacy": false,
+        "sport": [
+            "velo.montagne",
+            "enduro",
+            "mécanique"
+        ],
+        "old_id": 39,
+        "position": {
+            "lat": 45.1667,
+            "lng": 5.7167
+        }
+    },
+    {
+        "prenom": "Alice",
+        "nom": "Dumas",
+        "description": "Randonnées contées, découverte du patrimoine breton",
+        "privacy": true,
+        "sport": [
+            "rando.bretagne",
+            "legendes",
+            "patrimoine"
+        ],
+        "old_id": 40,
+        "position": {
+            "lat": 48.1,
+            "lng": -1.6833
+        }
+    },
+    {
+        "prenom": "Lucas",
+        "nom": "Bertin",
+        "description": "Athlète de voile compétition, préparation olympique",
+        "privacy": false,
+        "sport": [
+            "voile.compétition",
+            "physique",
+            "strategie"
+        ],
+        "old_id": 41,
+        "position": {
+            "lat": 43.3,
+            "lng": 5.4
+        }
+    },
+    {
+        "prenom": "Mia",
+        "nom": "Meyer",
+        "description": "Natation master, entraineuse pour adultes",
+        "privacy": true,
+        "sport": [
+            "natation.maitres",
+            "competition",
+            "coaching"
+        ],
+        "old_id": 42,
+        "position": {
+            "lat": 50.6333,
+            "lng": 3.0667
+        }
+    },
+    {
+        "prenom": "Noah",
+        "nom": "Rolland",
+        "description": "Cycliste sur route, optimisation performance",
+        "privacy": false,
+        "sport": [
+            "velo.route",
+            "performance",
+            "aerodynamique"
+        ],
+        "old_id": 43,
+        "position": {
+            "lat": 47.25,
+            "lng": 6.0333
+        }
+    },
+    {
+        "prenom": "Léonie",
+        "nom": "Leclerc",
+        "description": "Pêche en rivière responsable, protection milieux aquatiques",
+        "privacy": true,
+        "sport": [
+            "peche.truite",
+            "riviere",
+            "ecologie"
+        ],
+        "old_id": 44,
+        "position": {
+            "lat": 43.4833,
+            "lng": -1.4833
+        }
+    },
+    {
+        "prenom": "Timothée",
+        "nom": "Marie",
+        "description": "Navigation hivernale, techniques de survie en mer",
+        "privacy": false,
+        "sport": [
+            "voile.hivernale",
+            "conditions.extremes",
+            "survie"
+        ],
+        "old_id": 45,
+        "position": {
+            "lat": 48.5833,
+            "lng": 7.75
+        }
+    },
+    {
+        "prenom": "Jade",
+        "nom": "Faure",
+        "description": "Longe côte méditatif, connexion mer-corps-esprit",
+        "privacy": true,
+        "sport": [
+            "longecote.meditation",
+            "respiration",
+            "bienetre"
+        ],
+        "old_id": 46,
+        "position": {
+            "lat": 47.2833,
+            "lng": -2.2
+        }
+    },
+    {
+        "prenom": "Aaron",
+        "nom": "Blanchard",
+        "description": "Vélo-taf quotidien, mobilité douce en ville",
+        "privacy": false,
+        "sport": [
+            "velo.ville",
+            "commute",
+            "ecologie"
+        ],
+        "old_id": 47,
+        "position": {
+            "lat": 45.8333,
+            "lng": 1.25
+        }
+    },
+    {
+        "prenom": "Rose",
+        "nom": "Guillaume",
+        "description": "Randonnées olfactives, cueillette plantes aromatiques",
+        "privacy": true,
+        "sport": [
+            "rando.provence",
+            "aromatiques",
+            "peinture"
+        ],
+        "old_id": 48,
+        "position": {
+            "lat": 43.9167,
+            "lng": 4.9
+        }
+    },
+    {
+        "prenom": "Samuel",
+        "nom": "Colin",
+        "description": "Navigateur solitaire, préparation mini-transat",
+        "privacy": false,
+        "sport": [
+            "voile.solitaire",
+            "autonomie",
+            "mecanique"
+        ],
+        "old_id": 49,
+        "position": {
+            "lat": 49.5,
+            "lng": 0.1
+        }
+    },
+    {
+        "prenom": "Anna",
+        "nom": "Guérin",
+        "description": "Pêche à l'ancienne, techniques historiques",
+        "privacy": true,
+        "sport": [
+            "peche.nostalgie",
+            "techniques.anciennes",
+            "histoire"
+        ],
+        "old_id": 50,
+        "position": {
+            "lat": 48.0,
+            "lng": 0.2
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(B) Gent - Patrick",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 100,
+        "position": {
+            "lat": 51.044848,
+            "lng": 3.740845
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(B) Profondeville",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 101,
+        "position": {
+            "lat": 50.377733,
+            "lng": 4.869541
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(B) Wépion",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 102,
+        "position": {
+            "lat": 50.417925,
+            "lng": 4.862823
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(B) Eausalee - Raphael 540",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 103,
+        "position": {
+            "lat": 50.897403,
+            "lng": 4.347839
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(D) Martin 428",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 104,
+        "position": {
+            "lat": 53.757237,
+            "lng": 10.730209
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(04) Sainte-Croix-du-Verdon",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 105,
+        "position": {
+            "lat": 43.760556,
+            "lng": 6.156635
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(05) - Lofloco 846",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 106,
+        "position": {
+            "lat": 44.524814,
+            "lng": 6.397262
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(06) Auribeau Sur Sagne",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 107,
+        "position": {
+            "lat": 43.609234,
+            "lng": 6.917267
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(06) Isabulle - J. Claude 953",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 108,
+        "position": {
+            "lat": 43.678798,
+            "lng": 7.105408
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(06) Antibes",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 109,
+        "position": {
+            "lat": 43.576411,
+            "lng": 7.124634
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(06) Jacques 539",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 110,
+        "position": {
+            "lat": 43.544567,
+            "lng": 7.025757
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(10) Lusigny/Barse",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 111,
+        "position": {
+            "lat": 48.250741,
+            "lng": 4.263725
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(14) Arnaud14 218",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 112,
+        "position": {
+            "lat": 49.109838,
+            "lng": -0.527344
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(14) Gorun 349",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 113,
+        "position": {
+            "lat": 49.357334,
+            "lng": 0.093384
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(14) Verson",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 114,
+        "position": {
+            "lat": 49.186192,
+            "lng": -0.336456
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(14) Dominique 535",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 115,
+        "position": {
+            "lat": 49.174522,
+            "lng": -0.277405
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(17) Alat - JP 684",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 116,
+        "position": {
+            "lat": 46.154984,
+            "lng": -1.269779
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(17) - Tosamdy 802",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 117,
+        "position": {
+            "lat": 45.685467,
+            "lng": -1.1861156
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(17) Jean-Marc 100",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 118,
+        "position": {
+            "lat": 45.987182,
+            "lng": -1.090393
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(17) Pons",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 119,
+        "position": {
+            "lat": 45.606352,
+            "lng": -0.494385
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) Lannion",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 120,
+        "position": {
+            "lat": 48.730832,
+            "lng": -3.456573
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) Laurent",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 121,
+        "position": {
+            "lat": 48.782437,
+            "lng": -3.107414
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) Plestin Les Grèves",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 122,
+        "position": {
+            "lat": 48.666478,
+            "lng": -3.615875
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) xdhrvt - David 406",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 123,
+        "position": {
+            "lat": 48.729134,
+            "lng": -3.535023
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) xav 344",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 124,
+        "position": {
+            "lat": 48.403053,
+            "lng": -2.912235
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) Saint Cast Le Guildo",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 125,
+        "position": {
+            "lat": 48.62837,
+            "lng": -2.252541
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(24) Rolande et Alain 408",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 126,
+        "position": {
+            "lat": 45.081279,
+            "lng": 0.708618
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(29) Arnaud29",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 127,
+        "position": {
+            "lat": 48.425555,
+            "lng": -4.400024
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(29) Locmaria Plouzané",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 128,
+        "position": {
+            "lat": 48.368111,
+            "lng": -4.64138
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(34) Turbopierre - Pierre",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 129,
+        "position": {
+            "lat": 43.414525,
+            "lng": 3.625832
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(33) M. Whitley - Michael 898",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 130,
+        "position": {
+            "lat": 44.789633,
+            "lng": -0.618668
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(35) Samoht - Thomas 894",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 131,
+        "position": {
+            "lat": 48.630413,
+            "lng": -2.06234
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(35) Pleurtuit",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 132,
+        "position": {
+            "lat": 48.571155,
+            "lng": -2.06543
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(35) Saint-Malo",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 133,
+        "position": {
+            "lat": 48.622016,
+            "lng": -2.011871
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(35) XAVE - Xavier",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 134,
+        "position": {
+            "lat": 48.680987,
+            "lng": -1.970673
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(35) St Malo - Micka 900",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 135,
+        "position": {
+            "lat": 48.690054,
+            "lng": -1.914368
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(36) Joël 214",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 136,
+        "position": {
+            "lat": 46.792068,
+            "lng": 1.696014
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(37) Trimousig - Laurent 346",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 137,
+        "position": {
+            "lat": 47.355222,
+            "lng": 0.639868
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(38) Hurtières",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 138,
+        "position": {
+            "lat": 45.269571,
+            "lng": 5.943604
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(40) FV40 - Franck 848",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 139,
+        "position": {
+            "lat": 43.769118,
+            "lng": -1.318874
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(40) Sanguinet",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 140,
+        "position": {
+            "lat": 44.486709,
+            "lng": -1.073227
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) joshua44 - Joachim 410",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 141,
+        "position": {
+            "lat": 47.282956,
+            "lng": -2.437592
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) La Bernerie en Retz",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 142,
+        "position": {
+            "lat": 47.079475,
+            "lng": -2.020111
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) Liva44 566",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 143,
+        "position": {
+            "lat": 47.323931,
+            "lng": -2.423859
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) Nantes",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 144,
+        "position": {
+            "lat": 47.227029,
+            "lng": -1.543579
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) Christophe44",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 145,
+        "position": {
+            "lat": 47.228428,
+            "lng": -1.63044
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) Saint Nazaire",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 146,
+        "position": {
+            "lat": 47.258728,
+            "lng": -2.210999
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(44) Saint Hilaire de Chaléons",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 147,
+        "position": {
+            "lat": 47.10098,
+            "lng": -1.924667
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(50) Barneville Carteret",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 148,
+        "position": {
+            "lat": 49.381702,
+            "lng": -1.759872
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(50) Urville Nacqueville",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 149,
+        "position": {
+            "lat": 49.677543,
+            "lng": -1.738844
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(51) DeReims - Chantal et Dominique 794",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 150,
+        "position": {
+            "lat": 49.246293,
+            "lng": 3.999023
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Club de Voile Océane",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 151,
+        "position": {
+            "lat": 47.567956,
+            "lng": -3.003044
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Omeric 340",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 152,
+        "position": {
+            "lat": 47.615421,
+            "lng": -2.993088
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Xavier56",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 153,
+        "position": {
+            "lat": 47.593893,
+            "lng": -2.846661
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Larmor Plage",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 154,
+        "position": {
+            "lat": 47.708375,
+            "lng": -3.382931
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Lanester",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 155,
+        "position": {
+            "lat": 47.758253,
+            "lng": -3.341904
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Didier 854",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 156,
+        "position": {
+            "lat": 47.331843,
+            "lng": -3.184662
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) Bray Dunes",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 157,
+        "position": {
+            "lat": 51.078616,
+            "lng": 2.514839
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) franckdevries",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 158,
+        "position": {
+            "lat": 50.36178,
+            "lng": 3.522835
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) La Madeleine",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 159,
+        "position": {
+            "lat": 50.652073,
+            "lng": 3.081665
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) Marcq-en-Barœul",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 160,
+        "position": {
+            "lat": 50.672965,
+            "lng": 3.061066
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) Maing",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 161,
+        "position": {
+            "lat": 50.296358,
+            "lng": 3.460693
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(59) Xavier et Laurence 893",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 162,
+        "position": {
+            "lat": 50.45816,
+            "lng": 3.365765
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(62) Wissant",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 163,
+        "position": {
+            "lat": 50.887441,
+            "lng": 1.663055
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(63) Ambert",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 164,
+        "position": {
+            "lat": 45.5756,
+            "lng": 3.900146
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(67) Deniso - Denis 683",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 165,
+        "position": {
+            "lat": 48.576607,
+            "lng": 7.734375
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(67) Keskastel",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 166,
+        "position": {
+            "lat": 48.967822,
+            "lng": 7.04361
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(69) loicc",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 167,
+        "position": {
+            "lat": 45.73015,
+            "lng": 4.796906
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(73) WétaClé'd'12 849",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 168,
+        "position": {
+            "lat": 45.731588,
+            "lng": 5.881119
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(74) Duingt",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 169,
+        "position": {
+            "lat": 45.825928,
+            "lng": 6.183929
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(74) Saint Jorioz x 2",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 170,
+        "position": {
+            "lat": 45.852201,
+            "lng": 6.151893
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(74) Saint Jorioz",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 171,
+        "position": {
+            "lat": 45.853546,
+            "lng": 6.149651
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(75) Cordo - Olivier",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 172,
+        "position": {
+            "lat": 48.788771,
+            "lng": 2.445831
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(77) Jean Marc",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 173,
+        "position": {
+            "lat": 49.008516,
+            "lng": 2.975922
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(78) Antoine 847",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 174,
+        "position": {
+            "lat": 49.000915,
+            "lng": 1.920977
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(78) Moisson-Lavacourt",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 175,
+        "position": {
+            "lat": 49.06082,
+            "lng": 1.690865
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(78) Saint Quentin en Yvelines",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 176,
+        "position": {
+            "lat": 48.788093,
+            "lng": 2.025604
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(80) Stenella",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 177,
+        "position": {
+            "lat": 50.12498,
+            "lng": 1.615334
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(80) Hebecourt",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 178,
+        "position": {
+            "lat": 49.802541,
+            "lng": 2.252197
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(82) Finhan",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 179,
+        "position": {
+            "lat": 43.818675,
+            "lng": 1.18103
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(83) Draguignan",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 180,
+        "position": {
+            "lat": 43.536852,
+            "lng": 6.466141
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(83) Bruno",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 181,
+        "position": {
+            "lat": 43.086943,
+            "lng": 5.811081
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(83) Grimaud",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 182,
+        "position": {
+            "lat": 43.268206,
+            "lng": 6.537895
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(83) Rayol Canadel",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 183,
+        "position": {
+            "lat": 43.156483,
+            "lng": 6.458073
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(83) - Lofloco 846",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 184,
+        "position": {
+            "lat": 43.097097,
+            "lng": 5.906696
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(85) Olivier",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 185,
+        "position": {
+            "lat": 46.977441,
+            "lng": -2.259064
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(85) Club MultiVoile",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 186,
+        "position": {
+            "lat": 47.009172,
+            "lng": -2.220097
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(85) Noirmoutier",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 187,
+        "position": {
+            "lat": 47.008353,
+            "lng": -2.270737
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(85) Notre Dame de Monts",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 188,
+        "position": {
+            "lat": 46.833187,
+            "lng": -2.122765
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(92) Bourg La Reine",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 189,
+        "position": {
+            "lat": 48.806863,
+            "lng": 2.329102
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(94) Marolles en Brie",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 190,
+        "position": {
+            "lat": 48.732757,
+            "lng": 2.550888
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(Polynésie) Raphaël",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 191,
+        "position": {
+            "lat": -16.633889,
+            "lng": -151.488762
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) Trimousig - Laurent 346",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 192,
+        "position": {
+            "lat": 47.492602,
+            "lng": -2.832155
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(56) christian 56",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 193,
+        "position": {
+            "lat": 47.488658,
+            "lng": -2.804368
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(69) Mariealex - Alex et Marielle 1066",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 194,
+        "position": {
+            "lat": 45.769918,
+            "lng": 4.994316
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(74) didier7",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 195,
+        "position": {
+            "lat": 45.907928,
+            "lng": 6.135521
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(78) fpedeau - François 900",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 196,
+        "position": {
+            "lat": 48.929154,
+            "lng": 2.04423
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(45) JANOIS -950",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 197,
+        "position": {
+            "lat": 47.803819,
+            "lng": 2.133498
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(31) Bus- Jean-Pascal 951",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 198,
+        "position": {
+            "lat": 43.527642,
+            "lng": 1.450195
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(13) stoltz - Didier 973",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 199,
+        "position": {
+            "lat": 43.430733,
+            "lng": 5.431538
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(22) Treblig",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 200,
+        "position": {
+            "lat": 48.600679,
+            "lng": -2.829666
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(01) Fournier",
+        "description": "import 2020",
+        "privacy": false,,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 201,
+        "position": {
+            "lat": 45.88714,
+            "lng": 5.278931
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "(19) Fifi-750",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 202,
+        "position": {
+            "lat": 45.791288,
+            "lng": 1.896086
+        }
+    },
+    {
+        "prenom": "Weta",
+        "nom": "561",
+        "description": "import 2020",
+        "privacy": false,
+        "sport": [
+            "voile.weta"
+        ],
+        "old_id": 203,
+        "position": {
+            "lat": 46.1450745,
+            "lng": -4.4910495
+        }
+    }
+]

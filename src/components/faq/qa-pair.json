@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_faq_qa_pairs",
+  "info": {
+    "displayName": "QAPair",
+    "icon": "question-circle"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "richtext"
+    }
+  }
+}
