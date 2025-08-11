@@ -14,64 +14,6 @@
 
     <!-- Assurez-vous que le chemin vers votre style.css est correct -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Styles spécifiques pour la FAQ -->
-    <style>
-        .faq-container {
-            max-width: 800px;
-            margin: 2rem auto;
-        }
-        .faq-theme {
-            margin-bottom: 1rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-        .faq-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.25rem 1.5rem;
-            cursor: pointer;
-            background-color: var(--white);
-            font-size: 1.25rem;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-        .faq-header:hover {
-            background-color: var(--gray-50);
-        }
-        .faq-header .icon {
-            transition: transform 0.3s ease-in-out;
-        }
-        .faq-header.active .icon {
-            transform: rotate(180deg);
-        }
-        .faq-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-            background-color: var(--gray-50);
-            padding: 0 1.5rem;
-        }
-        .faq-content.active {
-            max-height: 1000px; /* Valeur suffisamment grande */
-            padding: 1.5rem;
-        }
-        .faq-item {
-            margin-bottom: 1.5rem;
-        }
-        .faq-item h4 {
-            margin: 0 0 0.5rem 0;
-            font-weight: 600;
-            color: var(--blue-600);
-        }
-        .faq-item p {
-            margin: 0;
-            line-height: 1.6;
-            color: var(--gray-600);
-        }
-    </style>
 </head>
 <body>
     <main>

@@ -27,48 +27,6 @@
 		<script src="js/main.js"></script>
 
 		<link rel="stylesheet" href="style.css" />
-
-		<style>
-			.sidebar-filters {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75rem;
-				margin-bottom: 1rem;
-				padding-bottom: 1rem;
-				border-bottom: 1px solid var(--gray-200);
-			}
-			.filter-btn {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				padding: 0.4rem 0.75rem;
-				border: none;
-				border-radius: 9999px;
-				cursor: pointer;
-				font-size: 0.9rem;
-				font-weight: 500;
-				transition: all 0.2s;
-				color: var(--white);
-			}
-			.filter-btn .icon {
-				width: 20px;
-				height: 20px;
-			}
-			.filter-btn.inactive {
-				opacity: 0.6;
-				filter: grayscale(90%);
-			}
-			.filter-btn[data-type="event"] {
-				background-color: var(--red-500);
-			}
-			.filter-btn[data-type="user"] {
-				background-color: var(--blue-600);
-			}
-			.filter-btn[data-type="poi"] {
-				background-color: var(--yellow-400);
-				color: var(--gray-800);
-			}
-		</style>
 	</head>
 	<body>
 		<main>
