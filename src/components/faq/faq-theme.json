@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_faq_faq_themes",
+  "info": {
+    "displayName": "FaqTheme",
+    "icon": "layer-group"
+  },
+  "options": {},
+  "attributes": {
+    "theme": {
+      "type": "string"
+    },
+    "questions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "faq.qa-pair"
+    }
+  }
+}

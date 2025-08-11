@@ -1,0 +1,112 @@
+[
+    {
+        "title": "Régate des Glénans",
+        "date": "2023-07-15T00:00:00.000Z",
+        "description": "Régate annuelle autour des îles de l'archipel. Ouverte à tous les niveaux.",
+        "nbj": "1",
+        "old_id": 1,
+        "position": {
+            "lat": 47.28,
+            "lng": -2.51
+        },
+        "participants": [],
+        "poi": null,
+        "discussions": [
+            {
+                "title": "🚗 Covoiturage depuis Nantes (16 messages)",
+                "messages": [
+                    {
+                        "author": "Thomas L.",
+                        "text": "Salut ! Je pars de Nantes le vendredi vers 17h, j'ai 2 places de libres dans ma voiture.",
+                        "date": "2023-07-01"
+                    },
+                    {
+                        "author": "Sophie P.",
+                        "text": "@Thomas L. super ! Je suis intéressée, je t'envoie un MP.",
+                        "date": "2023-07-01"
+                    }
+                ]
+            },
+            {
+                "title": "⛵ Prêt de matériel (4 messages)",
+                "messages": [
+                    {
+                        "author": "Sophie P.",
+                        "text": "Est-ce que quelqu'un aurait un gilet de sauvetage en plus ? J'ai oublié le mien...",
+                        "date": "2023-07-10"
+                    },
+                    {
+                        "author": "Jean D.",
+                        "text": "J'en ai un de rechange @Sophie P., pas de souci.",
+                        "date": "2023-07-10"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Sortie Weta St Nazaire",
+        "date": "2023-07-22T00:00:00.000Z",
+        "description": "Sortie informelle pour multi-coques. Pique-nique sur la plage des Evens si le temps le permet.",
+        "nbj": "1",
+        "old_id": 2,
+        "position": {
+            "lat": 47.27,
+            "lng": -2.2
+        },
+        "participants": [],
+        "poi": null,
+        "discussions": [
+            {
+                "title": "📍 Point de rendez-vous (0 messages)",
+                "messages": []
+            },
+            {
+                "title": "🥪 Organisation Pique-nique (0 messages)",
+                "messages": []
+            }
+        ]
+    },
+    {
+        "title": "Coupe Match Racing cup 2025",
+        "date": "2025-08-09T00:00:00.000Z",
+        "description": "Lieu: C N CALEDONIEN",
+        "nbj": "1",
+        "old_id": 3,
+        "position": {
+            "lat": -22.2758,
+            "lng": 166.458
+        },
+        "participants": [],
+        "poi": null,
+        "discussions": []
+    },
+    {
+        "title": "Régate de Club COUPE GRADLON",
+        "date": "2025-08-09T00:00:00.000Z",
+        "description": "Lieu: SR DOUARNENEZ",
+        "nbj": "1",
+        "old_id": 4,
+        "position": {
+            "lat": 48.0954,
+            "lng": -4.3293
+        },
+        "participants": [],
+        "poi": null,
+        "discussions": []
+    },
+    {
+        "title": "Challenge Michel Duclot 2025",
+        "date": "2025-08-09T00:00:00.000Z",
+        "description": "Lieu: SR S.P. QUIBERON",
+        "nbj": "1",
+        "old_id": 5,
+        "position": {
+            "lat": 47.4765,
+            "lng": -3.1313
+        },
+        "participants": [],
+        "poi": null,
+        "discussions": []
+    }
+]

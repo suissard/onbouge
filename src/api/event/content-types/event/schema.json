@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "position": {
+      "type": "customField",
+      "customField": "plugin::maps.map"
+    },
+    "nbj": {
+      "type": "string"
+    },
+    "participants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::user.user",
+      "inversedBy": "events"
+    },
+    "poi": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::poi.poi",
+      "inversedBy": "events"
+    },
+    "discussions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "discussion.topic"
+    },
+    "old_id": {
+      "type": "integer"
+    }
+  }
+}
