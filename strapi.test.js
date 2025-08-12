@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 
-import StrapiApi from "../public/Core/StrapiApi.js"; // Chemin d'importation de votre classe StrapiApi
+import StrapiApi from "./public/Core/StrapiApi.js"; // Chemin d'importation de votre classe StrapiApi
 
 // On simule la fonction fetch globale
 global.fetch = vi.fn();

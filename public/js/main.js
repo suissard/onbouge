@@ -1,6 +1,16 @@
 let api;
 
 /**
+ * Récupère la valeur d'un paramètre dans l'URL.
+ * @param {string} name - Le nom du paramètre à récupérer.
+ * @returns {string|null} - La valeur du paramètre ou null s'il n'est pas trouvé.
+ */
+function getURLParameter(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
+
+/**
  * Charge un script dynamiquement et retourne une promesse
  * qui se résout quand le script est chargé.
  * @param {string} url - L'URL du script à charger.

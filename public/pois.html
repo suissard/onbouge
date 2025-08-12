@@ -44,19 +44,19 @@
 			</div>
 		</main>
 
-		<script src="js/data.js"></script>
-
 		<script>
 			let mapInstance = null;
 			const mapItems = [];
 			const filtersState = { event: true, user: true, poi: true };
 
 			document.addEventListener("DOMContentLoaded", async () => {
-				await loadData();
+				while (typeof api === 'undefined') {
+					await new Promise(resolve => setTimeout(resolve, 100));
+				}
 				initMap();
 			});
 
-			function initMap() {
+			async function initMap() {
 				if (mapInstance) return;
 
 				mapInstance = L.map("leaflet-map").setView([47.273, -2.209], 11);
@@ -65,7 +65,7 @@
 					attribution: "© OpenStreetMap",
 				}).addTo(mapInstance);
 
-				setupMarkers();
+				await setupMarkers();
 				setupFilters();
 				applyFiltersAndUpdateSidebar();
 
@@ -97,41 +97,32 @@
 				lucide.createIcons();
 			}
 
-			/**
-			 * Filtre les éléments visibles, les trie par proximité et met à jour la barre latérale.
-			 */
 			function applyFiltersAndUpdateSidebar() {
 				const sidebarList = document.getElementById("sidebar-list");
 				const bounds = mapInstance.getBounds();
-				const center = mapInstance.getCenter(); // Le centre de la carte est l'origine du calcul.
+				const center = mapInstance.getCenter();
 				sidebarList.innerHTML = "";
 
 				const visibleItems = [];
 
-				// Étape 1 : Parcourir tous les éléments et ne garder que ceux qui sont visibles et actifs.
 				mapItems.forEach((item) => {
 					const isTypeActive = filtersState[item.data.type];
 					const isVisibleOnMap = bounds.contains(item.position);
 
-					// Gérer la visibilité du marqueur sur la carte
 					if (isTypeActive) {
 						if (!mapInstance.hasLayer(item.marker)) item.marker.addTo(mapInstance);
 					} else {
 						if (mapInstance.hasLayer(item.marker)) mapInstance.removeLayer(item.marker);
 					}
 
-					// Si l'item est visible et que son type est actif, on l'ajoute à la liste à trier.
 					if (isTypeActive && isVisibleOnMap) {
-						// Calculer la distance de l'item par rapport au centre de la carte.
 						item.distance = center.distanceTo(item.position);
 						visibleItems.push(item);
 					}
 				});
 
-				// Étape 2 : Trier la liste des éléments visibles PUREMENT par distance, sans priorité de type.
 				visibleItems.sort((a, b) => a.distance - b.distance);
 
-				// Étape 3 : Afficher les éléments triés dans la barre latérale.
 				visibleItems.forEach((item) => {
 					const sidebarItem = createSidebarItem(item);
 					sidebarList.appendChild(sidebarItem);
@@ -139,13 +130,14 @@
 			}
 
 			function createSidebarItem(item) {
-				const sidebarItem = document.createElement("div");
-				sidebarItem.className = `sidebar-item ${item.data.type}`;
+				const link = document.createElement("a");
+				link.className = `sidebar-item ${item.data.type}`;
+				link.href = `${item.data.type}-view.html?id=${item.data.id}`;
 
 				let sidebarContent;
 				if (item.data.type === "user") {
-					const sportsList = item.data.sport.map((s) => s.split(".")[0]).join(", ");
-					sidebarContent = `<h4>${item.data.prenom} ${item.data.nom}</h4><p>${sportsList}</p>`;
+					const sportsList = (item.data.sports || []).map((s) => s.split(".")[0]).join(", ");
+					sidebarContent = `<h4>${item.data.username}</h4><p>${sportsList}</p>`;
 				} else {
 					sidebarContent = `<h4>${item.data.title}</h4>`;
 					if (item.data.type === "event" && item.data.date) {
@@ -154,32 +146,38 @@
 						sidebarContent += `<p style="text-transform: capitalize;">${item.data.type}</p>`;
 					}
 				}
-				sidebarItem.innerHTML = sidebarContent;
+				link.innerHTML = sidebarContent;
 
-				sidebarItem.addEventListener("click", () => {
+				link.addEventListener("click", (e) => {
+					e.preventDefault();
+					window.location.href = link.href;
+				});
+
+				const mapLink = document.createElement('div');
+				mapLink.innerHTML = `<i data-lucide="map-pin"></i>`;
+				mapLink.className = 'map-link';
+				mapLink.addEventListener('click', (e) => {
+					e.stopPropagation();
+					e.preventDefault();
 					mapInstance.setView(item.position, 14);
 					item.marker.openPopup();
-				});
-				return sidebarItem;
+				})
+
+				const wrapper = document.createElement('div');
+				wrapper.className = 'sidebar-item-wrapper';
+				wrapper.appendChild(link);
+				wrapper.appendChild(mapLink);
+
+				return wrapper;
 			}
 
 			function formatDate(dateString) {
 				if (!dateString) return "";
-				if (dateString.includes("-")) {
-					return dateString;
-				}
 				const date = new Date(dateString);
-				if (isNaN(date.getTime())) {
-					return dateString;
-				}
-				return new Intl.DateTimeFormat("fr-FR", {
-					day: "2-digit",
-					month: "2-digit",
-					year: "numeric",
-				}).format(date);
+				return new Intl.DateTimeFormat("fr-FR").format(date);
 			}
 
-			function setupMarkers() {
+			async function setupMarkers() {
 				const createIcon = (color) =>
 					L.divIcon({
 						html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9.5" r="2.5" fill="white"/></svg>`,
@@ -188,19 +186,32 @@
 						iconAnchor: [16, 32],
 						popupAnchor: [0, -32],
 					});
+
 				const icons = {
 					event: createIcon("var(--red-500)"),
 					poi: createIcon("var(--yellow-400)"),
 					user: createIcon("var(--blue-600)"),
 				};
-				const allData = [...(db.events || []), ...(db.pois || []), ...(db.users || [])];
+
+				const [events, pois, users] = await Promise.all([
+					api.get('events'),
+					api.get('pois'),
+					api.get('users')
+				]);
+
+				const allData = [
+					...events.map(d => ({...d, type: 'event'})),
+					...pois.map(d => ({...d, type: 'poi'})),
+					...users.map(d => ({...d, type: 'user'}))
+				];
 
 				allData.forEach((itemData) => {
 					const icon = icons[itemData.type] || icons.poi;
 					let position, popupContent;
+
 					if (itemData.type === "user") {
-						position = itemData.position[0];
-						popupContent = `<b>${itemData.prenom} ${itemData.nom}</b><br>${itemData.description}`;
+						position = itemData.position ? itemData.position[0] : null;
+						popupContent = `<b>${itemData.username}</b><br>${itemData.description || ''}`;
 					} else {
 						position = itemData.position;
 						popupContent = `<b>${itemData.title}</b>`;
@@ -208,12 +219,15 @@
 							popupContent += `<br>Le ${formatDate(itemData.date)}`;
 						}
 					}
+
 					if (!position || !position.length) return;
+
 					const marker = L.marker(position, { icon });
 					marker.bindPopup(popupContent);
 					mapItems.push({ data: itemData, marker: marker, position: L.latLng(position) });
 				});
 			}
+
 			lucide.createIcons();
 		</script>
 	</body>

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, afterEach } from "vitest";
-import StrapiApi from "../public/Core/StrapiApi.js"; // Chemin d'importation de votre classe StrapiApi
+import StrapiApi from "./public/Core/StrapiApi.js"; // Chemin d'importation de votre classe StrapiApi
 
 describe.sequential("Tests d'intégration de l'authentification Strapi", () => {
 	// ⚠️ Assurez-vous que cette URL correspond à votre instance Strapi locale
