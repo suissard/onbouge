@@ -43,7 +43,8 @@ function loadScript(url) {
   try {
     console.log("🚀 Lancement du chargement de StrapiApi.js...");
     // Cette ligne s'exécute dès que main.js est lu par le navigateur.
-    await loadScript('./Core/StrapiApi.js');
+    // await loadScript('./Core/StrapiApi.js');
+    await loadScript('./Core/FakeStrapiApi.js');
     
     // À ce stade, la classe StrapiApi est définie. On peut l'instancier.
     api = new StrapiApi();
