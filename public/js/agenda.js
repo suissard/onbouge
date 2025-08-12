@@ -1,82 +1,66 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadData();
+    while (typeof api === 'undefined') {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
     renderAgenda();
     
-    // Gestion des forums
+    // Gestion des forums (simplified for now)
     document.getElementById('agenda-list').addEventListener('click', (e) => {
-        // Clic pour ouvrir/fermer le forum principal
         const detailsButton = e.target.closest('.details-btn');
         if (detailsButton) {
-            const eventId = parseInt(detailsButton.getAttribute('data-event-id'), 10);
+            const eventId = detailsButton.getAttribute('data-event-id');
             const container = document.getElementById(`forum-${eventId}`);
-            const isActive = container.classList.toggle('active');
-            
-            if (isActive) {
-                detailsButton.textContent = 'Fermer le forum';
-                renderForum(container, eventId);
-                const form = container.querySelector('.forum-form');
-                if (form) {
-                    form.addEventListener('submit', handleForumSubmit);
-                }
-            } else {
-                detailsButton.textContent = 'Ouvrir le forum';
-            }
-        }
-
-        // Clic pour déployer/masquer un sujet
-        const topicHeader = e.target.closest('.topic-header');
-        if (topicHeader) {
-            const topicMessages = topicHeader.nextElementSibling;
-            const eventId = parseInt(topicHeader.closest('.forum-container').id.replace('forum-',''), 10);
-            const topicId = topicHeader.getAttribute('data-topic-id');
-            
-            const isActive = topicMessages.classList.toggle('active');
-            topicHeader.classList.toggle('active');
-
-            if (isActive && topicMessages.innerHTML === '') {
-                // Charger les messages seulement la première fois qu'on ouvre
-                renderTopicMessages(topicMessages, eventId, topicId);
-            }
+            container.classList.toggle('active');
         }
     });
 });
 
-function renderAgenda() {
+async function renderAgenda() {
     const agendaList = document.getElementById('agenda-list');
     agendaList.innerHTML = '';
-    
-    db.events.forEach(event => {
-        // Vérifier si l'événement a des sujets de discussion
-        const hasTopics = event.topics && event.topics.length > 0;
-        const participants = event.participants || [];
+
+    try {
+        const events = await api.get('events');
         
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <div class="card-content">
-                <h3><i data-lucide="flag" style="color: var(--red-500);"></i> ${event.title}</h3>
-                <span class="date-badge">${event.date} (${event.nbj} j)</span>
-                <p>${event.description}</p>
-                <p class="location"><i data-lucide="map-pin" style="width:16px; height:16px;"></i> Lieu approximatif</p>
-                <footer>
-                    <div class="participants">
-                        <span>Participants:</span>
-                        <div class="avatar-group">
-                            ${participants.map(p => `<div class="avatar">${p}</div>`).join('')}
+        events.forEach(event => {
+            const hasTopics = event.topics && event.topics.length > 0;
+            const participants = event.participants || [];
+
+            const link = document.createElement('a');
+            link.href = `event-view.html?id=${event.id}`;
+            link.className = 'card-link';
+
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-content">
+                    <h3><i data-lucide="flag" style="color: var(--red-500);"></i> ${event.title}</h3>
+                    <span class="date-badge">${new Date(event.date).toLocaleDateString('fr-FR')}</span>
+                    <p>${event.description}</p>
+                    <p class="location"><i data-lucide="map-pin" style="width:16px; height:16px;"></i> Lieu approximatif</p>
+                    <footer>
+                        <div class="participants">
+                            <span>Participants:</span>
+                            <div class="avatar-group">
+                                ${participants.map(p => `<div class="avatar">${p}</div>`).join('')}
+                            </div>
                         </div>
-                    </div>
-                    ${hasTopics ? 
-                        `<button class="btn-secondary details-btn" data-event-id="${event.id}">Ouvrir le forum</button>` : 
-                        `<span class="no-forum">Aucun forum pour cet événement</span>`
-                    }
-                </footer>
-            </div>
-            <div class="forum-container" id="forum-${event.id}"></div>
-        `;
-        agendaList.appendChild(card);
-    });
-    
-    lucide.createIcons();
+                        ${hasTopics ?
+                            `<button class="btn-secondary details-btn" data-event-id="${event.id}">Voir le forum</button>` :
+                            `<span class="no-forum">Aucun forum</span>`
+                        }
+                    </footer>
+                </div>
+            `;
+            link.appendChild(card);
+            agendaList.appendChild(link);
+        });
+
+        lucide.createIcons();
+    } catch (error) {
+        console.error("Error fetching events:", error);
+        agendaList.innerHTML = "<p>Erreur de chargement des événements.</p>";
+    }
 }
 
 function renderForum(container, eventId) {

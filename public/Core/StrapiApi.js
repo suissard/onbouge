@@ -237,3 +237,4 @@ class StrapiApi {
 }
 
 // module.exports = StrapiApi;
+export default StrapiApi;

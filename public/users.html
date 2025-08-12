@@ -38,72 +38,74 @@
 			</div>
 		</main>
 
-		<script src="js/data.js"></script>
-
 		<script>
-			// Attend que le DOM soit chargé et les données récupérées
 			document.addEventListener("DOMContentLoaded", async () => {
-				// charge les données depuis les fichiers .json (via data.js)
-				await loadData();
-				// Affiche les contacts
+				// Attend que l'API soit initialisée
+				while (typeof api === 'undefined') {
+					await new Promise(resolve => setTimeout(resolve, 100));
+				}
 				renderContacts();
 			});
 
-			/**
-			 * Crée et affiche les cartes de contact dans la page
-			 */
-			function renderContacts() {
+			async function renderContacts() {
 				const contactsList = document.getElementById("contacts-list");
 				if (!contactsList) return;
-				contactsList.innerHTML = ""; // Vide la liste existante
 
-				// Boucle sur chaque utilisateur dans les données chargées
-				db.users.forEach((user) => {
-					const card = document.createElement("div");
-					card.className = "card";
+				try {
+					const users = await api.get('users');
+					contactsList.innerHTML = ""; // Vide la liste existante
 
-					// Génère les badges pour chaque sport pratiqué par l'utilisateur
-					const sportsHtml = user.sport
-						.map((sport) => `<span class="sport-tag">${sport.replace(".", " ")}</span>`)
-						.join("");
+					users.forEach((user) => {
+						const link = document.createElement("a");
+						link.href = `user-view.html?id=${user.id}`;
+						link.className = "card-link"; // Optional: for styling the link wrapper
 
-					// Structure HTML de la carte de contact
-					card.innerHTML = `
-                    <div class="card-content">
-                        <h3>
-                            <i data-lucide="user" style="color: var(--blue-600);"></i> 
-                            ${user.prenom} ${user.nom}
-                        </h3>
-                        <p>${user.description}</p>
-                        
-                        <div class="sport-tags">
-                            ${sportsHtml}
-                        </div>
-                        
-                        <p class="location">
-                            <i data-lucide="map-pin" style="width:16px; height:16px;"></i> À proximité
-                        </p>
-                        
-                        <footer>
-                            <div class="privacy-status">
-                                ${
-																	user.privacy
-																		? '<i data-lucide="eye-off" style="width:16px; height:16px;"></i><span>Profil privé</span>'
-																		: '<i data-lucide="eye" style="width:16px; height:16px;"></i><span>Profil public</span>'
-																}
-                            </div>
-                            <button class="btn-secondary">Contacter</button>
-                        </footer>
-                    </div>
-                `;
-					contactsList.appendChild(card);
-				});
+						const card = document.createElement("div");
+						card.className = "card";
 
-				// Met à jour les icônes après l'ajout des nouvelles cartes
-				lucide.createIcons();
+						const sportsHtml = (user.sports || [])
+							.map((sport) => `<span class="sport-tag">${sport.replace(".", " ")}</span>`)
+							.join("");
+
+						card.innerHTML = `
+							<div class="card-content">
+								<h3>
+									<i data-lucide="user" style="color: var(--blue-600);"></i>
+									${user.username}
+								</h3>
+								<p>${user.description || ''}</p>
+
+								<div class="sport-tags">
+									${sportsHtml}
+								</div>
+
+								<p class="location">
+									<i data-lucide="map-pin" style="width:16px; height:16px;"></i> À proximité
+								</p>
+
+								<footer>
+									<div class="privacy-status">
+										${
+											user.privacy
+												? '<i data-lucide="eye-off" style="width:16px; height:16px;"></i><span>Profil privé</span>'
+												: '<i data-lucide="eye" style="width:16px; height:16px;"></i><span>Profil public</span>'
+										}
+									</div>
+									<button class="btn-secondary">Contacter</button>
+								</footer>
+							</div>
+						`;
+						link.appendChild(card);
+						contactsList.appendChild(link);
+					});
+
+					lucide.createIcons();
+				} catch (error) {
+					console.error("Error fetching users:", error);
+					contactsList.innerHTML = "<p>Erreur de chargement des utilisateurs.</p>";
+				}
 			}
 
-			// Initialisation globale des icônes sur la page
 			lucide.createIcons();
 		</script>
 	</body>
