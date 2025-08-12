@@ -15,6 +15,9 @@
     }
 
     # header *.js Content-Type application/javascript
+    @settings path_regexp ^/settings/(.*)$
+    rewrite @settings /settings.html?page={re.1}
+
     handle {
         root * /var/www/html
         try_files {path} {path}.html /index.html
