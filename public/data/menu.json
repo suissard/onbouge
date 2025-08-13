@@ -18,5 +18,10 @@
         "name": "Utilisateurs",
         "link": "/users",
         "icon": "fa-solid fa-user-group"
+    },
+    {
+        "name": "Forum",
+        "link": "/forum.html",
+        "icon": "fa-solid fa-comments"
     }
 ]
