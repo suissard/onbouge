@@ -1,4 +1,4 @@
-let api;
+var api;
 
 /**
  * Récupère la valeur d'un paramètre dans l'URL.
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Fonction pour créer le HTML du panneau à partir des données
 	// Dans votre fichier js/main.js
 
-	initializeApi();
+	// initializeApi(); // This function is not defined and the API is already initialized in the IIFE above
 	initializeHeader();
 	initializeFooter();
 	initializeNotifications();

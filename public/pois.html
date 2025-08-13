@@ -24,9 +24,8 @@
 			integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 			crossorigin=""
 		></script>
-		<script src="js/main.js"></script>
 
-		<script src="mains.js" defer></script>
+		<script src="js/main.js" defer></script>
 	</head>
 	<body>
 		<main>
@@ -193,16 +192,16 @@
 					user: createIcon("var(--blue-600)"),
 				};
 
-				const [events, pois, users] = await Promise.all([
+				const [eventsResponse, poisResponse, usersResponse] = await Promise.all([
 					api.get('events'),
 					api.get('pois'),
 					api.get('users')
 				]);
 
 				const allData = [
-					...events.map(d => ({...d, type: 'event'})),
-					...pois.map(d => ({...d, type: 'poi'})),
-					...users.map(d => ({...d, type: 'user'}))
+					...(eventsResponse.data || []).map(d => ({...d, type: 'event'})),
+					...(poisResponse.data || []).map(d => ({...d, type: 'poi'})),
+					...(usersResponse.data || []).map(d => ({...d, type: 'user'}))
 				];
 
 				allData.forEach((itemData) => {

@@ -236,5 +236,10 @@ class StrapiApi {
 	}
 }
 
-// module.exports = StrapiApi;
-export default StrapiApi;
+if (typeof window.StrapiApi === 'undefined') {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = StrapiApi;
+  } else {
+    window.StrapiApi = StrapiApi;
+  }
+}

@@ -166,4 +166,10 @@ async delete(endpoint, id) {
 	}
 }
 
-export default StrapiApi;
+if (typeof window.StrapiApi === 'undefined') {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = StrapiApi;
+  } else {
+    window.StrapiApi = StrapiApi;
+  }
+}
