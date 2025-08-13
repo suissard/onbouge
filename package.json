@@ -4,6 +4,7 @@
    "description": "",
    "scripts": {
       "test": "npx vitest",
+      "dev": "vite",
       "update": "docker compose down && git pull && docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
       "install": "",

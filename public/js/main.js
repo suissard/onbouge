@@ -140,6 +140,11 @@ function initializeHeader() {
 		.then((response) => response.text())
 		.then((data) => {
 			document.body.insertAdjacentHTML("afterbegin", data);
+            setTimeout(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, 100);
 		})
 		.catch(console.error);
 }
