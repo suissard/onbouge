@@ -20,7 +20,8 @@ async function renderAgenda() {
     agendaList.innerHTML = '';
 
     try {
-        const events = await api.get('events');
+        const response = await api.get('events');
+        const events = response.data;
         
         events.forEach(event => {
             const hasTopics = event.topics && event.topics.length > 0;
