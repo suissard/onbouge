@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Liens - SportConnect</title>
 		<script src="js/main.js" defer></script>
+		<script src="js/liens.js" defer></script>
 		<style>
 			body {
 				padding-top: 2rem;
@@ -20,6 +21,13 @@
 				display: inline-block;
 				margin-bottom: 0.5rem;
 			}
+            .dynamic-link-container {
+                margin-top: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .id-selector {
+                margin-right: 0.5rem;
+            }
 		</style>
 	</head>
 	<body>
@@ -28,18 +36,33 @@
 
 			<h3>POI</h3>
 			<a href="pois.html">liste poi</a> <br />
-			<a href="poi-view.html">poi VIEW</a><br />
-			<a href="poi-edit.html">poi EDIT</a><br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="pois">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="poi-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="poi-edit.html?id=">Edit</button>
+			</div>
 
 			<h3>Evenements</h3>
 			<a href="events.html">liste events</a> <br />
-			<a href="event-view.html">event VIEW</a><br />
-			<a href="event-edit.html">event EDIT</a><br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="events">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="event-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="event-edit.html?id=">Edit</button>
+			</div>
 
 			<h3>Users</h3>
 			<a href="users.html">liste users</a> <br />
-			<a href="user-view.html">user VIEW</a><br />
-			<a href="user-edit.html">user EDIT</a><br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="users">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="user-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="user-edit.html?id=">Edit</button>
+			</div>
 
 			<h3>Menu</h3>
 			<a href="about.html">About</a> <br />
