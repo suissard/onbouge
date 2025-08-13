@@ -47,8 +47,11 @@ function loadScript(url) {
     await loadScript('./Core/FakeStrapiApi.js');
     
     // À ce stade, la classe StrapiApi est définie. On peut l'instancier.
-    api = new StrapiApi();
+    window.api = new StrapiApi();
     console.log("✅ API initialisée avec succès (avant DOMContentLoaded).");
+
+    // Dispatch a custom event to notify that the API is ready
+    document.dispatchEvent(new CustomEvent('api-initialized'));
 
   } catch (error) {
     console.error("❌ Erreur critique lors de l'initialisation de l'API :", error);
