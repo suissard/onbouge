@@ -77,3 +77,31 @@ Le projet est organisé comme suit :
 -   **`/src`** : Contient la configuration et les API du backend Strapi.
 -   **`docker-compose.yml`** : Le fichier qui définit et orchestre les conteneurs Docker pour l'environnement de développement (frontend, backend, base de données).
 -   **`package.json`** : Définit les dépendances du projet (principalement pour les tests) et les scripts pour gérer l'environnement Docker.
+
+---
+
+## 🧪 Tests
+
+Ce projet est équipé d'une suite de tests automatisés utilisant [Vitest](https://vitest.dev/) et [JSDOM](https://github.com/jsdom/jsdom).
+
+### Philosophie
+
+Les tests sont conçus pour être **rapides et fiables**. Ils s'exécutent dans un environnement Node.js simulé et **n'ont pas besoin que l'environnement Docker (Strapi, base de données) soit lancé**.
+
+Toutes les interactions avec l'API Strapi sont interceptées et simulées (mockées) pour garantir des résultats prévisibles et éviter les dépendances externes.
+
+### Lancer les tests
+
+Pour lancer la suite de tests, exécutez la commande suivante à la racine du projet :
+
+```bash
+npm install
+npm test
+```
+
+### Ajouter de nouveaux tests
+
+1.  Créez un nouveau fichier de test avec l'extension `.test.js` à la racine du projet.
+2.  Importez les outils de Vitest (`describe`, `it`, `expect`).
+3.  Lorsque vous instanciez ou importez `StrapiApi`, le mock défini dans `tests/mocks/strapiApi.js` sera automatiquement utilisé.
+4.  Vous pouvez modifier les données de test en éditant les fichiers JSON dans le répertoire `strapi-import/`.

@@ -41,10 +41,10 @@ describe.sequential("Tests d'intégration de l'authentification Strapi", () => {
 	});
 
 	it("devrait connecter un utilisateur ancien avec succès (login)", async () => {
-		const user = await api.login(oldEmailRegisteretUser, testUserPassword);
+		const response = await api.login(oldEmailRegisteretUser, testUserPassword);
 
-		expect(user).toBeTypeOf("object");
-		expect(user.email).toBe(oldEmailRegisteretUser);
+		expect(response.user).toBeTypeOf("object");
+		expect(response.user.email).toBe(oldEmailRegisteretUser);
 		expect(api.token).toBeTypeOf("string");
 		api.logout(); // On déconnecte l'utilisateur après chaque test
 	});
@@ -60,10 +60,10 @@ describe.sequential("Tests d'intégration de l'authentification Strapi", () => {
 	});
 
 	it("devrait connecter un utilisateur recement registered avec succès (login)", async () => {
-		const user = await api.login(testUserEmail, testUserPassword);
+		const response = await api.login(testUserEmail, testUserPassword);
 
-		expect(user).toBeTypeOf("object");
-		expect(user.email).toBe(testUserEmail);
+		expect(response.user).toBeTypeOf("object");
+		expect(response.user.email).toBe(testUserEmail);
 		expect(api.token).toBeTypeOf("string");
 		api.logout(); // On déconnecte l'utilisateur après chaque test
 	});
