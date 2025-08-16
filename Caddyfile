@@ -8,6 +8,7 @@
 }
 
 {$MY_DOMAIN}:3000 {
+    import security_headers
     encode gzip zstd
 
     handle_path /socket/* {
@@ -31,20 +32,21 @@
 
 
 
-# === A TESTER =============================================================================================
+(security_headers) {
+    header {
+        # Active une protection contre le "clickjacking"
+        X-Frame-Options "SAMEORIGIN"
+        # Bloque le contenu si une attaque XSS est détectée
+        X-XSS-Protection "1; mode=block"
+        # Empêche le navigateur de "deviner" le type de contenu
+        X-Content-Type-Options "nosniff"
+        # Politique de sécurité de contenu (un exemple simple)
+        # Attention: 'unsafe-inline' est nécessaire pour les styles en ligne, mais moins sécurisé.
+        Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:;"
+    }
+}
 
-# (security_headers) {
-#     header {
-#         # Active une protection contre le "clickjacking"
-#         X-Frame-Options "SAMEORIGIN"
-#         # Bloque le contenu si une attaque XSS est détectée
-#         X-XSS-Protection "1; mode=block"
-#         # Empêche le navigateur de "deviner" le type de contenu
-#         X-Content-Type-Options "nosniff"
-#         # Politique de sécurité de contenu (un exemple simple)
-#         Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline';"
-#     }
-# }
+# === A TESTER =============================================================================================
 # {$MY_DOMAIN}:8080 {
 #     import security_headers
 #     reverse_proxy localhost:8080

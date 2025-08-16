@@ -89,6 +89,17 @@ describe('Vérification de la structure des pages HTML', () => {
       Object.defineProperty(dom.window, 'localStorage', { value: localStorageMock });
       dom.window.fetch = createCustomFetch(fileUrl);
 
+      // Mock WebSocket to prevent connection attempts in JSDOM
+      dom.window.WebSocket = class MockWebSocket {
+        constructor(url) {
+          // console.log(`Mock WebSocket created for URL: ${url}`);
+        }
+        addEventListener(event, listener) {}
+        removeEventListener(event, listener) {}
+        send(data) {}
+        close() {}
+      };
+
       await new Promise(resolve => {
         dom.window.addEventListener('DOMContentLoaded', () => {
           setTimeout(resolve, 200); // Increased timeout just in case
