@@ -307,6 +307,43 @@ function initializeNotifications() {
 	// showNotification('info', 'Bienvenue !', 'Survolez ou cliquez sur une notification pour mettre le timer en pause.');
 }
 
+/**
+ * Initialise la connexion WebSocket avec le serveur.
+ */
+function initializeWebSocket() {
+    // Détermine le protocole (ws ou wss) en fonction du protocole de la page
+    const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    // Construit l'URL du serveur WebSocket
+    const wsUrl = `${wsProtocol}//${window.location.host}/socket/`;
+
+    console.log(`🔌 Tentative de connexion WebSocket à ${wsUrl}`);
+
+    const socket = new WebSocket(wsUrl);
+
+    socket.onopen = function(event) {
+        console.log('✅ Connexion WebSocket établie avec succès.');
+        // Envoyer un message de test au serveur après la connexion
+        socket.send('Hello Server!');
+    };
+
+    socket.onmessage = function(event) {
+        console.log(`📥 Message reçu du serveur: ${event.data}`);
+    };
+
+    socket.onerror = function(error) {
+        console.error('❌ Erreur WebSocket:', error);
+    };
+
+    socket.onclose = function(event) {
+        if (event.wasClean) {
+            console.log(`🔌 Connexion WebSocket fermée proprement, code=${event.code}, raison=${event.reason}`);
+        } else {
+            console.warn('⚠️ La connexion WebSocket a été interrompue.');
+        }
+    };
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
 	// Fonction pour créer le HTML du panneau à partir des données
 	// Dans votre fichier js/main.js
@@ -316,6 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	initializeFooter();
 	initializeNotifications();
 	initializeSidebar();
+    initializeWebSocket(); // Ajout de l'initialisation du WebSocket
 	document.body.classList.add("is-ready");
 
 	// Le code pour le footer peut rester ici si vous le souhaitez
