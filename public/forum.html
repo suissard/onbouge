@@ -6,7 +6,96 @@
 		<title>Forum - SportConnect</title>
 		<link rel="stylesheet" href="style.css" />
 		<script src="js/main.js" defer></script>
-		<script src="js/forum.js" defer></script>
+		<script>
+			document.addEventListener('api-initialized', async () => {
+				// Vérifier si l'utilisateur est connecté
+				const me = await window.api.getMeUser();
+				if (!me) {
+					// Optionnel: Cacher le formulaire de nouveau sujet ou afficher un message
+					const newTopicForm = document.getElementById('new-topic-form');
+					if (newTopicForm) newTopicForm.style.display = 'none';
+				}
+
+				// Authentifier la connexion socket en utilisant le token JWT
+				const socket = io('ws://localhost:3001', {
+					auth: {
+						token: window.api.token
+					}
+				});
+
+				socket.on('connect', () => {
+					console.log('Connecté au serveur Socket.IO');
+				});
+
+				socket.on('connect_error', (err) => {
+					console.error('Erreur de connexion Socket.IO:', err.message);
+					// Afficher un message à l'utilisateur si l'authentification échoue
+					const topicsContainer = document.getElementById('topics-container');
+					if (topicsContainer) {
+						topicsContainer.innerHTML = '<p style="color: red;">Erreur: Impossible de se connecter au service de chat en temps réel. Veuillez vous reconnecter.</p>';
+					}
+				});
+
+				const topicsContainer = document.getElementById('topics-container');
+				const newTopicForm = document.getElementById('new-topic-form');
+				const topicTitleInput = document.getElementById('topic-title');
+
+				function createTopicElement(topic) {
+					const topicItem = document.createElement('li');
+					// La structure de l'objet topic est maintenant celle d'un composant, pas d'une entité complète
+					topicItem.innerHTML = `<a href="topic.html?id=${topic.id}">${topic.title}</a>`;
+					return topicItem;
+				}
+
+				function addTopicToList(topic) {
+					let topicsList = topicsContainer.querySelector('.topics-list');
+					if (!topicsList) {
+						topicsContainer.innerHTML = ''; // Vider le message "aucun sujet"
+						topicsList = document.createElement('ul');
+						topicsList.className = 'topics-list';
+						topicsContainer.appendChild(topicsList);
+					}
+					const topicElement = createTopicElement(topic);
+					topicsList.appendChild(topicElement);
+				}
+
+				if (newTopicForm) {
+					newTopicForm.addEventListener('submit', (e) => {
+						e.preventDefault();
+						const title = topicTitleInput.value.trim();
+						if (title) {
+							socket.emit('new_topic', { title });
+							topicTitleInput.value = '';
+						}
+					});
+				}
+
+				socket.on('new_topic', (topic) => {
+					addTopicToList(topic);
+				});
+
+				socket.on('error_creating_topic', (data) => {
+					alert(`Erreur lors de la création du sujet: ${data.message}`);
+				});
+
+				if (topicsContainer) {
+					try {
+						// Récupérer les sujets depuis le "single type" forum
+						const response = await window.api.get('forum', { populate: 'deep' });
+						const topics = response.data.attributes.topics;
+
+						if (topics && topics.length > 0) {
+							topics.forEach(addTopicToList);
+						} else {
+							topicsContainer.innerHTML = '<p>Aucun sujet de discussion pour le moment.</p>';
+						}
+					} catch (error) {
+						console.error('Erreur lors de la récupération des sujets du forum:', error);
+						topicsContainer.innerHTML = '<p>Impossible de charger les sujets du forum. Veuillez réessayer plus tard.</p>';
+					}
+				}
+			});
+		</script>
 	    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 </head>
