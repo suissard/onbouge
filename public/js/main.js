@@ -1,6 +1,17 @@
 var api;
 
 /**
+ * Crée une URL complète en utilisant la baseURL de la configuration.
+ * @param {string} path - Le chemin relatif depuis la racine du site.
+ * @returns {string} L'URL complète.
+ */
+function url(path) {
+  const relativePath = path.startsWith('/') ? path.slice(1) : path;
+  const baseURL = window.config ? window.config.baseURL : '/';
+  return `${baseURL}${relativePath}`;
+}
+
+/**
  * Récupère la valeur d'un paramètre dans l'URL.
  * @param {string} name - Le nom du paramètre à récupérer.
  * @returns {string|null} - La valeur du paramètre ou null s'il n'est pas trouvé.
@@ -43,8 +54,8 @@ function loadScript(url) {
   try {
     console.log("🚀 Lancement du chargement de StrapiApi.js...");
     // Cette ligne s'exécute dès que main.js est lu par le navigateur.
-    await loadScript('./Core/StrapiApi.js');
-    // await loadScript('./Core/FakeStrapiApi.js');
+    await loadScript(url('Core/StrapiApi.js'));
+    // await loadScript(url('Core/FakeStrapiApi.js'));
     
     // À ce stade, la classe StrapiApi est définie. On peut l'instancier.
     window.api = new StrapiApi();
@@ -75,7 +86,7 @@ function loadScript(url) {
 async function initializeSidebar() {
 	try {
 		// --- ÉTAPE 1: Charger le template du panneau latéral ---
-		const sidebarResponse = await fetch("/partials/sidebar.html");
+		const sidebarResponse = await fetch(url("/partials/sidebar.html"));
 		if (!sidebarResponse.ok) throw new Error("sidebar.html introuvable");
 		const sidebarTemplate = await sidebarResponse.text();
 
@@ -83,7 +94,7 @@ async function initializeSidebar() {
 		document.body.insertAdjacentHTML("afterbegin", sidebarTemplate);
 
 		// --- ÉTAPE 2: Générer les liens et les insérer ---
-		const menuData = await fetch("/data/menu.json").then(
+		const menuData = await fetch(url("/data/menu.json")).then(
 			async (response) => await response.json()
 		);
 
@@ -99,7 +110,7 @@ async function initializeSidebar() {
 			.map(
 				(item) => `
             <li>
-                <a href="${item.link}">
+                <a href="${url(item.link)}">
                     <i class="${item.icon}"></i>
                     <span>${item.name}</span>
                 </a>
@@ -136,7 +147,7 @@ async function initializeSidebar() {
 }
 
 function initializeHeader() {
-	fetch("/partials/header.html") // Chemin vers votre fichier menu
+	fetch(url("/partials/header.html")) // Chemin vers votre fichier menu
 		.then((response) => response.text())
 		.then((data) => {
 			document.body.insertAdjacentHTML("afterbegin", data);
@@ -150,14 +161,14 @@ function initializeHeader() {
 }
 
 function initializeFooter() {
-	fetch("/partials/footer.html")
+	fetch(url("/partials/footer.html"))
 		.then((res) => res.text())
 		.then((data) => document.body.insertAdjacentHTML("beforeend", data))
 		.catch(console.error);
 }
 
 function initializeNotifications() {
-	fetch("/partials/notifications.html")
+	fetch(url("/partials/notifications.html"))
 		.then((res) => res.text())
 		.then((data) => document.body.insertAdjacentHTML("beforeend", data))
 		.catch(console.error);

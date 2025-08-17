@@ -1,22 +1,22 @@
 [
     {
         "name": "home",
-        "link": "/",
+        "link": "/index.html",
         "icon": "fa-solid fa-house-chimney"
     },
     {
         "name": "Evenements",
-        "link": "/events",
+        "link": "/events.html",
         "icon": "fa-solid fa-calendar-check"
     },
     {
         "name": "poi",
-        "link": "/pois",
+        "link": "/pois.html",
         "icon": "fa-solid fa-map-pin"
     },
     {
         "name": "Utilisateurs",
-        "link": "/users",
+        "link": "/users.html",
         "icon": "fa-solid fa-user-group"
     },
     {
