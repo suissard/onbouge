@@ -8,11 +8,15 @@
 		<script src="js/main.js" defer></script>
 		<script src="js/topic.js" defer></script>
 	    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 </head>
 	<body>
 		<main class="container">
 			<h1 id="topic-title"></h1>
 			<div id="messages-container"></div>
+			<div id="typing-indicator" class="typing-indicator" style="display: none;">
+				Quelqu'un est en train d'écrire...
+			</div>
 			<form id="new-message-form">
 				<h2>Ajouter un message</h2>
 				<textarea id="message-text" placeholder="Votre message" required></textarea>
