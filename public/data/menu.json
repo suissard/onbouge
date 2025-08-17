@@ -23,5 +23,10 @@
         "name": "Forum",
         "link": "/forum.html",
         "icon": "fa-solid fa-comments"
+    },
+    {
+        "name": "Données",
+        "link": "/data.html",
+        "icon": "fa-solid fa-database"
     }
 ]
