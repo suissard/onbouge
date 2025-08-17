@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 import { describe, it, expect } from 'vitest';
-import { JSDOM } from 'jsdom';
+import { JSDOM, ResourceLoader } from 'jsdom';
 import fs from 'fs';
 import path from 'path';
 import { URL } from 'url';
@@ -72,6 +72,30 @@ const createCustomFetch = (base) => async (url, options) => {
   }
 };
 
+class CustomResourceLoader extends ResourceLoader {
+  fetch(urlString, options) {
+    return new Promise((resolve, reject) => {
+      const url = new URL(urlString);
+      let filePath;
+
+      if (url.protocol === "file:") {
+        filePath = url.pathname;
+      } else {
+        filePath = path.resolve(publicDir, urlString.startsWith('/') ? urlString.substring(1) : urlString);
+      }
+
+      fs.readFile(filePath, (err, data) => {
+        if (err) {
+          console.error(`CustomLoader Error: Failed to read file ${filePath}`, err);
+          reject(err);
+          return;
+        }
+        resolve(data);
+      });
+    });
+  }
+}
+
 
 describe('Vérification de la structure des pages HTML', () => {
   htmlFiles.forEach(file => {
@@ -82,7 +106,7 @@ describe('Vérification de la structure des pages HTML', () => {
       const htmlContent = fs.readFileSync(file, 'utf-8');
       const dom = new JSDOM(htmlContent, {
         runScripts: "dangerously",
-        resources: "usable",
+        resources: new CustomResourceLoader(),
         url: fileUrl
       });
 
