@@ -1,37 +1,43 @@
 document.addEventListener('api-initialized', async () => {
+    // Récupérer le nom d'utilisateur depuis le localStorage ou utiliser "Anonyme"
+    const me = await window.api.getMeUser();
+    if (!me) {
+        // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+        window.location.href = '/login.html';
+        return;
+    }
+    const username = me.username || 'Anonyme';
+    const userId = me.id;
+
+    // Utiliser le token JWT pour l'authentification du socket
+    const socket = io('ws://localhost:3001', {
+        auth: {
+            token: window.api.token
+        }
+    });
+
+    socket.on('connect', () => {
+        console.log('Connecté au serveur Socket.IO');
+    });
+
     const topicTitle = document.getElementById('topic-title');
     const messagesContainer = document.getElementById('messages-container');
+    const typingIndicator = document.getElementById('typing-indicator');
     const newMessageForm = document.getElementById('new-message-form');
     const messageText = document.getElementById('message-text');
 
-    const topicId = getURLParameter('id');
+    const topicId = new URLSearchParams(window.location.search).get('id');
 
     if (topicId) {
+        socket.emit('join_topic', topicId);
         try {
-            const response = await window.api.get('forum', topicId);
-            const topic = response.data;
+            // Utiliser l'API pour récupérer les détails du sujet, y compris les messages
+            const response = await window.api.get('forum', { populate: 'deep' });
+            const topic = response.data.attributes.topics.find(t => t.id == topicId);
 
             if (topic) {
-                topicTitle.textContent = topic.attributes.title;
-
-                if (topic.attributes.messages && topic.attributes.messages.length > 0) {
-                    const messagesList = document.createElement('ul');
-                    messagesList.className = 'messages-list';
-
-                    topic.attributes.messages.forEach(message => {
-                        const messageItem = document.createElement('li');
-                        messageItem.innerHTML = `
-                            <div class="message-author">${message.author}</div>
-                            <div class="message-text">${message.text}</div>
-                            <div class="message-date">${new Date(message.date).toLocaleString()}</div>
-                        `;
-                        messagesList.appendChild(messageItem);
-                    });
-
-                    messagesContainer.appendChild(messagesList);
-                } else {
-                    messagesContainer.innerHTML = '<p>Aucun message dans ce sujet pour le moment.</p>';
-                }
+                topicTitle.textContent = topic.title;
+                renderMessages(topic.messages);
             } else {
                 topicTitle.textContent = 'Sujet non trouvé';
             }
@@ -43,44 +49,102 @@ document.addEventListener('api-initialized', async () => {
         topicTitle.textContent = 'Aucun sujet sélectionné';
     }
 
+    function renderMessages(messages) {
+        messagesContainer.innerHTML = ''; // Vider les anciens messages
+        if (messages && messages.length > 0) {
+            const messagesList = document.createElement('ul');
+            messagesList.className = 'messages-list';
+
+            messages.forEach(message => {
+                const messageItem = createMessageElement(message);
+                messagesList.appendChild(messageItem);
+            });
+            messagesContainer.appendChild(messagesList);
+        } else {
+            messagesContainer.innerHTML = '<p>Aucun message dans ce sujet pour le moment.</p>';
+        }
+    }
+
+    function createMessageElement(message) {
+        const messageItem = document.createElement('li');
+        messageItem.innerHTML = `
+            <div class="message-author">${message.author}</div>
+            <div class="message-text">${message.text}</div>
+            <div class="message-date">${new Date(message.date).toLocaleString()}</div>
+        `;
+        return messageItem;
+    }
+
+
+    socket.on('new_message', (message) => {
+        if (message.topicId == topicId) {
+            let messagesList = messagesContainer.querySelector('.messages-list');
+            if (!messagesList) {
+                messagesContainer.innerHTML = '';
+                messagesList = document.createElement('ul');
+                messagesList.className = 'messages-list';
+                messagesContainer.appendChild(messagesList);
+            }
+            const messageItem = createMessageElement(message);
+            messagesList.appendChild(messageItem);
+            window.scrollTo(0, document.body.scrollHeight); // Auto-scroll
+        }
+    });
+
+    socket.on('error_creating_message', (data) => {
+        alert(`Erreur lors de l'envoi du message: ${data.message}`);
+    });
+
+    socket.on('typing_users_update', (typingUsers) => {
+        // Filtrer l'utilisateur actuel
+        const otherTypingUsers = typingUsers.filter(u => u !== username);
+
+        if (otherTypingUsers.length === 0) {
+            typingIndicator.style.display = 'none';
+        } else {
+            let text = '';
+            if (otherTypingUsers.length === 1) {
+                text = `${otherTypingUsers[0]} est en train d'écrire...`;
+            } else if (otherTypingUsers.length === 2) {
+                text = `${otherTypingUsers[0]} et ${otherTypingUsers[1]} sont en train d'écrire...`;
+            } else {
+                const othersCount = otherTypingUsers.length - 2;
+                text = `${otherTypingUsers[0]}, ${otherTypingUsers[1]} et ${othersCount} autre(s) personne(s) sont en train d'écrire...`;
+            }
+            typingIndicator.textContent = text;
+            typingIndicator.style.display = 'block';
+        }
+    });
+
+
+    let typingTimer;
+    const typingTimeout = 2000; // 2 secondes
+
+    if (messageText) {
+        messageText.addEventListener('input', () => {
+            clearTimeout(typingTimer);
+            socket.emit('typing', { topicId });
+            typingTimer = setTimeout(() => {
+                socket.emit('stop_typing', { topicId });
+            }, typingTimeout);
+        });
+    }
+
     if (newMessageForm) {
-        newMessageForm.addEventListener('submit', async (e) => {
+        newMessageForm.addEventListener('submit', (e) => {
             e.preventDefault();
-
             const text = messageText.value.trim();
-
             if (text) {
-                try {
-                    const newMessage = {
-                        author: 'Utilisateur', // This should be replaced with the actual user
-                        text: text,
-                        date: new Date().toISOString()
-                    };
-
-                    // In a real scenario, we would update the topic on the server
-                    // For now, we just add it to the page
-                    const messagesList = messagesContainer.querySelector('.messages-list');
-                    const messageItem = document.createElement('li');
-                    messageItem.innerHTML = `
-                        <div class="message-author">${newMessage.author}</div>
-                        <div class="message-text">${newMessage.text}</div>
-                        <div class="message-date">${new Date(newMessage.date).toLocaleString()}</div>
-                    `;
-                    messagesList.appendChild(messageItem);
-
-                    messageText.value = '';
-
-                    // In a real application, you would call api.put or api.post here.
-                    // For example:
-                    // const response = await api.put('forum', topicId, {
-                    //     messages: [
-                    //         ...topic.attributes.messages,
-                    //         newMessage
-                    //     ]
-                    // });
-                } catch (error) {
-                    console.error('Erreur lors de l\'envoi du message:', error);
-                }
+                const newMessage = {
+                    author: username,
+                    text: text,
+                    date: new Date().toISOString()
+                };
+                socket.emit('new_message', { topicId, message: newMessage });
+                messageText.value = '';
+                // Arrêter d'envoyer "typing" après l'envoi du message
+                clearTimeout(typingTimer);
+                socket.emit('stop_typing', { topicId });
             }
         });
     }
