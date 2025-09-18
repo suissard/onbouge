@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - SportConnect</title>
+    
+    <!-- Importation de la police et des icônes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+<script src="js/config.js"></script>
+    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="faq-container">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Foire Aux Questions</h2>
+                <!-- Le contenu de la FAQ sera injecté ici par le script -->
+                <div id="faq-content-area"></div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        /**
+         * Charge les données de la FAQ depuis un fichier JSON et les affiche.
+         */
+        async function loadFaq() {
+            try {
+                // Simule un appel serveur pour récupérer les données
+                const response = await fetch('faq.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const faqData = await response.json();
+                
+                const container = document.getElementById('faq-content-area');
+                container.innerHTML = ''; // Vider le conteneur
+
+                // Créer les sections pour chaque thème
+                faqData.forEach(theme => {
+                    const themeElement = document.createElement('div');
+                    themeElement.className = 'faq-theme';
+
+                    // Créer le contenu HTML pour les questions/réponses
+                    const questionsHtml = theme.questions.map(item => `
+                        <div class="faq-item">
+                            <h4>${item.question}</h4>
+                            <p>${item.answer}</p>
+                        </div>
+                    `).join('');
+
+                    // Assembler la section complète
+                    themeElement.innerHTML = `
+                        <div class="faq-header">
+                            <span>${theme.theme}</span>
+                            <i data-lucide="chevron-down" class="icon"></i>
+                        </div>
+                        <div class="faq-content">
+                            ${questionsHtml}
+                        </div>
+                    `;
+                    container.appendChild(themeElement);
+                });
+
+                // Ajouter les écouteurs pour l'accordéon
+                addAccordionListeners();
+                
+                // Mettre à jour les icônes
+                lucide.createIcons();
+
+            } catch (error) {
+                console.error("Impossible de charger la FAQ:", error);
+                document.getElementById('faq-content-area').innerHTML = "<p>Désolé, la FAQ n'a pas pu être chargée. Veuillez réessayer plus tard.</p>";
+            }
+        }
+
+        /**
+         * Ajoute les écouteurs de clic sur les en-têtes de la FAQ.
+         */
+        function addAccordionListeners() {
+            document.querySelectorAll('.faq-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    header.classList.toggle('active');
+                    const content = header.nextElementSibling;
+                    content.classList.toggle('active');
+                });
+            });
+        }
+
+        // Charger la FAQ au démarrage de la page
+        document.addEventListener('DOMContentLoaded', loadFaq);
+    </script>
+</body>
+</html>

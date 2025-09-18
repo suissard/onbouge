@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Édition Point d'Intérêt - SportConnect</title>
+
+		<!-- Importation de la police et des icônes -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<!-- Dépendances pour Leaflet.js -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+
+		<!-- Styles spécifiques pour la page d'édition -->
+		<style>
+			main {
+				padding: 2rem 0;
+			}
+			.edit-layout {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 2rem;
+				align-items: flex-start;
+			}
+			.title-group {
+				display: flex;
+				align-items: flex-end;
+				gap: 1rem;
+			}
+			.title-group .form-group {
+				flex-grow: 1;
+			}
+			#favorite-btn {
+				background: none;
+				border: 1px solid var(--gray-300);
+				border-radius: 0.5rem;
+				padding: 0.75rem;
+				cursor: pointer;
+				height: 50px; /* Aligner avec la hauteur de l'input */
+				width: 50px;
+				flex-shrink: 0;
+			}
+			#favorite-btn .icon {
+				color: var(--gray-500);
+				transition: all 0.2s ease-in-out;
+			}
+			#favorite-btn.active .icon {
+				color: var(--yellow-400);
+				fill: var(--yellow-400);
+			}
+			.form-group .sport-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				padding: 0.5rem;
+				border: 1px solid var(--gray-300);
+				border-radius: 0.5rem;
+			}
+			.form-group .sport-tag {
+				background-color: var(--yellow-400);
+				color: var(--gray-800);
+				padding: 0.25rem 0.75rem;
+				border-radius: 9999px;
+				font-size: 0.9rem;
+			}
+			.side-panel #poi-map {
+				height: 250px;
+				width: 100%;
+				border-radius: 0.75rem;
+				z-index: 1;
+			}
+			.author-info {
+				font-size: 0.9rem;
+				color: var(--gray-500);
+				text-align: right;
+				margin-top: -1rem;
+				margin-bottom: 1.5rem;
+			}
+			/* Responsive */
+			@media (max-width: 900px) {
+				.edit-layout {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+</head>
+	<body>
+		<main>
+			<div class="container">
+				<div class="edit-layout">
+					<!-- Colonne de gauche : Formulaire d'édition -->
+					<div class="form-section">
+						<div class="title-group">
+							<div class="form-group">
+								<label for="poi-title">Nom du lieu</label>
+								<input type="text" id="poi-title" name="title" />
+							</div>
+						</div>
+						<div class="author-info">Proposé par : <span id="poi-author"></span></div>
+						<div class="form-group">
+							<label for="poi-description">Description générale</label>
+							<textarea id="poi-description" name="description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="poi-positives">Points positifs</label>
+							<input type="text" id="poi-positives" name="points_positifs" />
+						</div>
+						<div class="form-group">
+							<label for="poi-negatives">Points de vigilance</label>
+							<input type="text" id="poi-negatives" name="points_negatifs" />
+						</div>
+						<div class="form-actions">
+							<button class="btn-secondary">Annuler</button>
+							<button class="btn btn-primary">Enregistrer</button>
+						</div>
+					</div>
+
+					<!-- Colonne de droite : Infos et carte -->
+					<div class="side-panel">
+						<div class="form-section">
+							<div class="form-group">
+								<label>Sports praticables</label>
+								<div id="poi-sports" class="sport-tags"></div>
+							</div>
+							<div class="form-group">
+								<label for="poi-web">Site web</label>
+								<input type="url" id="poi-web" name="contact_web" />
+							</div>
+							<div class="form-group">
+								<label for="poi-tel">Téléphone</label>
+								<input type="tel" id="poi-tel" name="tel" />
+							</div>
+							<div id="poi-map"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			// Données JSON du POI (simule un appel serveur)
+			const poiData = {
+				id: 3,
+				position: [47.2621, -2.4187],
+				title: "Club de Voile de Pornichet",
+				sport: ["voile", "kayak"],
+				type: "poi",
+				description: "Site bien placé avec commodités pour la mise à l'eau.",
+				points_positifs: "Facilité d'accès, parking, douches et club-house.",
+				points_negatifs:
+					"Attention à l'enrochement dangereux à marée basse sur la gauche de la cale.",
+				contact_web: "http://www.cnbpp.fr",
+				tel: "02 40 61 02 55",
+				auteur: "Bernard L.",
+				Gmaps: "",
+				isFavorite: false, // Ajout de la propriété pour le favori
+			};
+
+			/**
+			 * Affiche les données du POI dans les champs du formulaire.
+			 */
+			function renderPoiDetails(data) {
+				document.getElementById("poi-title").value = data.title;
+				document.getElementById("poi-description").value = data.description;
+				document.getElementById("poi-positives").value = data.points_positifs;
+				document.getElementById("poi-negatives").value = data.points_negatifs;
+				document.getElementById("poi-web").value = data.contact_web;
+				document.getElementById("poi-tel").value = data.tel;
+				document.getElementById("poi-author").textContent = data.auteur;
+
+				// Affichage des sports sous forme de tags
+				const sportsContainer = document.getElementById("poi-sports");
+				sportsContainer.innerHTML = data.sport
+					.map((s) => `<span class="sport-tag">${s}</span>`)
+					.join("");
+
+				// Mise à jour de l'état du bouton favori
+				const favoriteBtn = document.getElementById("favorite-btn");
+				if (data.isFavorite) {
+					favoriteBtn.classList.add("active");
+				} else {
+					favoriteBtn.classList.remove("active");
+				}
+			}
+
+			/**
+			 * Initialise la carte Leaflet.
+			 */
+			function initMap(position, title) {
+				const map = L.map("poi-map").setView(position, 14);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+				const poiIcon = L.divIcon({
+					html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="var(--yellow-400)" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9.5" r="2.5" fill="white"/></svg>`,
+					className: "",
+					iconSize: [32, 32],
+					iconAnchor: [16, 32],
+					popupAnchor: [0, -32],
+				});
+
+				L.marker(position, { icon: poiIcon }).addTo(map).bindPopup(title).openPopup();
+			}
+
+			// Exécution au chargement de la page
+			document.addEventListener("DOMContentLoaded", () => {
+				renderPoiDetails(poiData);
+				initMap(poiData.position, poiData.title);
+
+				// Logique du bouton favori
+				const favoriteBtn = document.getElementById("favorite-btn");
+				favoriteBtn.addEventListener("click", (e) => {
+					e.preventDefault(); // Empêche le comportement par défaut du bouton
+					poiData.isFavorite = !poiData.isFavorite; // Inverse l'état
+					favoriteBtn.classList.toggle("active", poiData.isFavorite); // Met à jour le style
+					console.log("Favori:", poiData.isFavorite);
+				});
+
+				lucide.createIcons();
+			});
+		</script>
+	</body>
+</html>

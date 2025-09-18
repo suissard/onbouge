@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Contacts - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+
+		<style>
+			.sport-tags {
+				margin: 1rem 0;
+			}
+			.sport-tag {
+				font-size: 0.8rem;
+				font-weight: 500;
+				padding: 0.25rem 0.6rem;
+				text-transform: capitalize;
+			}
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+</head>
+	<body>
+		<main>
+			<div class="container">
+				<div id="contacts-view" class="view active">
+					<h2><i data-lucide="users" class="icon"></i>Participants à Proximité</h2>
+					<div id="contacts-list" class="card-list"></div>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			document.addEventListener("DOMContentLoaded", async () => {
+				// Attend que l'API soit initialisée
+				while (typeof api === 'undefined') {
+					await new Promise(resolve => setTimeout(resolve, 100));
+				}
+				renderContacts();
+			});
+
+			async function renderContacts() {
+				const contactsList = document.getElementById("contacts-list");
+				if (!contactsList) return;
+
+				try {
+					const response = await api.get('users');
+					const users = response.data;
+					contactsList.innerHTML = ""; // Vide la liste existante
+
+					users.forEach((user) => {
+						const link = document.createElement("a");
+						link.href = `user-view.html?id=${user.id}`;
+						link.className = "card-link"; // Optional: for styling the link wrapper
+
+						const card = document.createElement("div");
+						card.className = "card";
+
+						const sportsHtml = (user.sports || [])
+							.map((sport) => `<span class="sport-tag">${sport.replace(".", " ")}</span>`)
+							.join("");
+
+						card.innerHTML = `
+							<div class="card-content">
+								<h3>
+									<i data-lucide="user" style="color: var(--blue-600);"></i>
+									${user.username}
+								</h3>
+								<p>${user.description || ''}</p>
+
+								<div class="sport-tags">
+									${sportsHtml}
+								</div>
+
+								<p class="location">
+									<i data-lucide="map-pin" style="width:16px; height:16px;"></i> À proximité
+								</p>
+
+								<footer>
+									<div class="privacy-status">
+										${
+											user.privacy
+												? '<i data-lucide="eye-off" style="width:16px; height:16px;"></i><span>Profil privé</span>'
+												: '<i data-lucide="eye" style="width:16px; height:16px;"></i><span>Profil public</span>'
+										}
+									</div>
+									<button class="btn-secondary">Contacter</button>
+								</footer>
+							</div>
+						`;
+						link.appendChild(card);
+						contactsList.appendChild(link);
+					});
+
+					lucide.createIcons();
+				} catch (error) {
+					console.error("Error fetching users:", error);
+					contactsList.innerHTML = "<p>Erreur de chargement des utilisateurs.</p>";
+				}
+			}
+
+			lucide.createIcons();
+		</script>
+	</body>
+</html>

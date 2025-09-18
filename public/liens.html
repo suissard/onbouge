@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Liens - SportConnect</title>
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const containers = document.querySelectorAll('.dynamic-link-container');
+
+				const populateSelector = async (container) => {
+					const selector = container.querySelector('.id-selector');
+					const dataType = selector.dataset.type;
+					if (!dataType) return;
+
+					try {
+						const response = await fetch(`data/${dataType}.json`); // Path is relative to liens.html
+						if (!response.ok) {
+							throw new Error(`HTTP error! status: ${response.status}`);
+						}
+						const data = await response.json();
+
+						// Clear "Loading..." option and add a default prompt
+						selector.innerHTML = '<option value="">-- Choisissez un élément --</option>';
+
+						// Populate with data
+						data.forEach(item => {
+							const option = document.createElement('option');
+							option.value = item.id;
+
+							let displayText = item.title; // Default for pois and events
+							if (dataType === 'users') {
+								displayText = `${item.prenom} ${item.nom}`;
+							}
+
+							option.textContent = `${displayText} (ID: ${item.id})`;
+							selector.appendChild(option);
+						});
+
+					} catch (error) {
+						console.error(`Could not load data for ${dataType}:`, error);
+						selector.innerHTML = '<option value="">Erreur de chargement</option>';
+					}
+				};
+
+				const setupContainer = (container) => {
+					populateSelector(container);
+
+					container.querySelectorAll('.go-btn').forEach(button => {
+						button.addEventListener('click', () => {
+							const selector = container.querySelector('.id-selector');
+							const selectedId = selector.value;
+							const pageTemplate = button.dataset.pageTemplate;
+
+							if (selectedId && pageTemplate) {
+								window.location.href = pageTemplate + selectedId;
+							} else if (!selectedId) {
+								alert('Veuillez sélectionner un élément dans la liste.');
+							}
+						});
+					});
+				};
+
+				// Setup each dynamic link container
+				containers.forEach(setupContainer);
+			});
+		</script>
+		<style>
+			body {
+				padding-top: 2rem;
+				padding-bottom: 2rem;
+			}
+			h3 {
+				margin-top: 2rem;
+				margin-bottom: 1rem;
+				border-bottom: 1px solid var(--gray-200);
+				padding-bottom: 0.5rem;
+			}
+			a {
+				display: inline-block;
+				margin-bottom: 0.5rem;
+			}
+            .dynamic-link-container {
+                margin-top: 0.5rem;
+                margin-bottom: 1rem;
+            }
+            .id-selector {
+                margin-right: 0.5rem;
+            }
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+	<body>
+		<main class="container">
+			<h1>Liste des pages disponibles</h1>
+
+			<h3>POI</h3>
+			<a href="pois.html">liste poi</a> <br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="pois">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="poi-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="poi-edit.html?id=">Edit</button>
+			</div>
+
+			<h3>Evenements</h3>
+			<a href="events.html">liste events</a> <br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="events">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="event-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="event-edit.html?id=">Edit</button>
+			</div>
+
+			<h3>Users</h3>
+			<a href="users.html">liste users</a> <br />
+			<div class="dynamic-link-container">
+				<select class="id-selector" data-type="users">
+					<option value="">Chargement...</option>
+				</select>
+				<button class="go-btn" data-page-template="user-view.html?id=">View</button>
+				<button class="go-btn" data-page-template="user-edit.html?id=">Edit</button>
+			</div>
+
+			<h3>Menu</h3>
+			<a href="about.html">About</a> <br />
+			<a href="index.html">Index</a> <br />
+			<a href="faq.html">FAQ</a> <br />
+		</main>
+	</body>
+</html>

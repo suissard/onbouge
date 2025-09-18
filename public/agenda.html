@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - SportConnect</title>
+    
+    <!-- Importation de la police et des icônes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+<script src="js/config.js"></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <header class="app-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-title">SportConnect</div>
+                <div class="header-actions">
+                    <button><i data-lucide="log-in" class="icon"></i><span>Se connecter</span></button>
+                    <a href="#" class="btn btn-primary">S'inscrire</a>
+                    <button><i data-lucide="map-pin" class="icon"></i><span>Signaler ma position</span></button>
+                </div>
+            </div>
+            <div class="sport-filter">
+                <select id="sport-select">
+                    <option>Voile</option>
+                    <option>Natation</option>
+                    <option>Longe côte</option>
+                    <option>Vélo</option>
+                    <option>Pêche</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main>
+        <div class="container">
+            <!-- Vue Agenda -->
+            <div id="agenda-view" class="view active">
+                <h2><i data-lucide="calendar" class="icon"></i>Prochains Événements</h2>
+                <div id="agenda-list" class="card-list"></div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+		// Données fictives pour le projet
+		let db = {
+			events: [],
+			pois: [],
+			users: []
+		};
+
+		// Charger les données depuis les fichiers JSON
+		async function loadData() {
+			try {
+				const eventsResponse = await fetch('data/events.json');
+				const poisResponse = await fetch('data/pois.json');
+				const usersResponse = await fetch('data/users.json');
+
+				db.events = await eventsResponse.json();
+				db.pois = await poisResponse.json();
+				db.users = await usersResponse.json();
+
+				return db;
+			} catch (error) {
+				console.error('Erreur de chargement des données:', error);
+				return { events: [], pois: [], users: [] };
+			}
+		}
+	</script>
+    <script src="js/agenda.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
