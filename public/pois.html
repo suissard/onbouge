@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Carte - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		/>
+		<script
+			src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+			integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+			crossorigin=""
+		></script>
+
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+	    <link rel="stylesheet" href="style.css" />
+</head>
+	<body>
+		<main>
+			<div class="container">
+				<div id="map-view" class="view active">
+					<div class="map-layout">
+						<div id="leaflet-map"></div>
+						<aside id="map-sidebar">
+							<h3>Visibles sur la carte</h3>
+							<div id="type-filters" class="sidebar-filters"></div>
+							<div id="sidebar-list"></div>
+						</aside>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			let mapInstance = null;
+			const mapItems = [];
+			const filtersState = { event: true, user: true, poi: true };
+
+			document.addEventListener("DOMContentLoaded", async () => {
+				while (typeof api === 'undefined') {
+					await new Promise(resolve => setTimeout(resolve, 100));
+				}
+				initMap();
+			});
+
+			async function initMap() {
+				if (mapInstance) return;
+
+				mapInstance = L.map("leaflet-map").setView([47.273, -2.209], 11);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+					maxZoom: 19,
+					attribution: "© OpenStreetMap",
+				}).addTo(mapInstance);
+
+				await setupMarkers();
+				setupFilters();
+				applyFiltersAndUpdateSidebar();
+
+				mapInstance.on("moveend", applyFiltersAndUpdateSidebar);
+				mapInstance.on("zoomend", applyFiltersAndUpdateSidebar);
+			}
+
+			function setupFilters() {
+				const filtersContainer = document.getElementById("type-filters");
+				const filterConfig = [
+					{ type: "event", label: "Événements", icon: "calendar-days" },
+					{ type: "user", label: "Contacts", icon: "users" },
+					{ type: "poi", label: "Lieux", icon: "star" },
+				];
+
+				filterConfig.forEach((config) => {
+					const btn = document.createElement("button");
+					btn.className = "filter-btn";
+					btn.dataset.type = config.type;
+					btn.innerHTML = `<i data-lucide="${config.icon}" class="icon"></i> ${config.label}`;
+
+					btn.addEventListener("click", () => {
+						filtersState[config.type] = !filtersState[config.type];
+						btn.classList.toggle("inactive", !filtersState[config.type]);
+						applyFiltersAndUpdateSidebar();
+					});
+					filtersContainer.appendChild(btn);
+				});
+				lucide.createIcons();
+			}
+
+			function applyFiltersAndUpdateSidebar() {
+				const sidebarList = document.getElementById("sidebar-list");
+				const bounds = mapInstance.getBounds();
+				const center = mapInstance.getCenter();
+				sidebarList.innerHTML = "";
+
+				const visibleItems = [];
+
+				mapItems.forEach((item) => {
+					const isTypeActive = filtersState[item.data.type];
+					const isVisibleOnMap = bounds.contains(item.position);
+
+					if (isTypeActive) {
+						if (!mapInstance.hasLayer(item.marker)) item.marker.addTo(mapInstance);
+					} else {
+						if (mapInstance.hasLayer(item.marker)) mapInstance.removeLayer(item.marker);
+					}
+
+					if (isTypeActive && isVisibleOnMap) {
+						item.distance = center.distanceTo(item.position);
+						visibleItems.push(item);
+					}
+				});
+
+				visibleItems.sort((a, b) => a.distance - b.distance);
+
+				visibleItems.forEach((item) => {
+					const sidebarItem = createSidebarItem(item);
+					sidebarList.appendChild(sidebarItem);
+				});
+			}
+
+			function createSidebarItem(item) {
+				const link = document.createElement("a");
+				link.className = `sidebar-item ${item.data.type}`;
+				link.href = `${item.data.type}-view.html?id=${item.data.id}`;
+
+				let sidebarContent;
+				if (item.data.type === "user") {
+					const sportsList = (item.data.sports || []).map((s) => s.split(".")[0]).join(", ");
+					sidebarContent = `<h4>${item.data.username}</h4><p>${sportsList}</p>`;
+				} else {
+					sidebarContent = `<h4>${item.data.title}</h4>`;
+					if (item.data.type === "event" && item.data.date) {
+						sidebarContent += `<p>Événement • Le ${formatDate(item.data.date)}</p>`;
+					} else {
+						sidebarContent += `<p style="text-transform: capitalize;">${item.data.type}</p>`;
+					}
+				}
+				link.innerHTML = sidebarContent;
+
+				link.addEventListener("click", (e) => {
+					e.preventDefault();
+					window.location.href = link.href;
+				});
+
+				const mapLink = document.createElement('div');
+				mapLink.innerHTML = `<i data-lucide="map-pin"></i>`;
+				mapLink.className = 'map-link';
+				mapLink.addEventListener('click', (e) => {
+					e.stopPropagation();
+					e.preventDefault();
+					mapInstance.setView(item.position, 14);
+					item.marker.openPopup();
+				})
+
+				const wrapper = document.createElement('div');
+				wrapper.className = 'sidebar-item-wrapper';
+				wrapper.appendChild(link);
+				wrapper.appendChild(mapLink);
+
+				return wrapper;
+			}
+
+			function formatDate(dateString) {
+				if (!dateString) return "";
+				const date = new Date(dateString);
+				return new Intl.DateTimeFormat("fr-FR").format(date);
+			}
+
+			async function setupMarkers() {
+				const createIcon = (color) =>
+					L.divIcon({
+						html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="${color}" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/><circle cx="12" cy="9.5" r="2.5" fill="white"/></svg>`,
+						className: "",
+						iconSize: [32, 32],
+						iconAnchor: [16, 32],
+						popupAnchor: [0, -32],
+					});
+
+				const icons = {
+					event: createIcon("var(--red-500)"),
+					poi: createIcon("var(--yellow-400)"),
+					user: createIcon("var(--blue-600)"),
+				};
+
+				const [eventsResponse, poisResponse, usersResponse] = await Promise.all([
+					api.get('events'),
+					api.get('pois'),
+					api.get('users')
+				]);
+
+				const allData = [
+					...(eventsResponse.data || []).map(d => ({...d, type: 'event'})),
+					...(poisResponse.data || []).map(d => ({...d, type: 'poi'})),
+					...(usersResponse.data || []).map(d => ({...d, type: 'user'}))
+				];
+
+				allData.forEach((itemData) => {
+					const icon = icons[itemData.type] || icons.poi;
+					let position, popupContent;
+
+					if (itemData.type === "user") {
+						position = itemData.position ? itemData.position[0] : null;
+						popupContent = `<b>${itemData.username}</b><br>${itemData.description || ''}`;
+					} else {
+						position = itemData.position;
+						popupContent = `<b>${itemData.title}</b>`;
+						if (itemData.type === "event" && itemData.date) {
+							popupContent += `<br>Le ${formatDate(itemData.date)}`;
+						}
+					}
+
+					if (!position || !position.length) return;
+
+					const marker = L.marker(position, { icon });
+					marker.bindPopup(popupContent);
+					mapItems.push({ data: itemData, marker: marker, position: L.latLng(position) });
+				});
+			}
+
+			lucide.createIcons();
+		</script>
+	</body>
+</html>

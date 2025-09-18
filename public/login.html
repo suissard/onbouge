@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Connexion - SportConnect</title>
+
+		<!-- Font Awesome pour les icônes -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+		/>
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+		<style>
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+			}
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+	<body class="login-body">
+		<main class="login-container">
+			<div class="login-card">
+				<div class="login-header">
+					<h1>Connexion</h1>
+					<p>Accédez à votre compte SportConnect</p>
+				</div>
+				<form id="login-form">
+					<div class="form-group">
+						<label for="email">Adresse e-mail</label>
+						<input type="email" id="email" name="email" required />
+					</div>
+					<div class="form-group">
+						<label for="password">Mot de passe</label>
+						<input type="password" id="password" name="password" required />
+					</div>
+					<button type="submit" class="submit-btn">Se connecter</button>
+				</form>
+				<div id="message-container"></div>
+			</div>
+		</main>
+
+		<script>
+
+
+			// --- Logique du formulaire ---
+			document.addEventListener("DOMContentLoaded", () => {
+
+		// const userName = `user${Date.now()}`;
+		 api.login("clavier.jeremy@gmail.com", "Password123456!")
+			.then((user) => {
+				console.log("Inscription réussie :", user);
+			})
+			.catch((error) => {
+				console.error("Erreur lors de l'inscription :", error);
+			});
+
+
+				const loginForm = document.getElementById("login-form");
+				const messageContainer = document.getElementById("message-container");
+
+				loginForm.addEventListener("submit", async (event) => {
+					event.preventDefault(); // Empêche le rechargement de la page
+
+					// Récupération des valeurs
+					const email = event.target.email.value;
+					const password = event.target.password.value;
+
+					// Réinitialisation des messages
+					messageContainer.textContent = "";
+					messageContainer.className = "";
+
+					try {
+						// Appel de l'API simulée
+						const userData = await api.login(email, password);
+
+						// Stockage des données dans le localStorage
+						localStorage.setItem("userData", JSON.stringify(userData));
+
+						// Affichage du message de succès
+						messageContainer.textContent = "Connexion réussie ! Redirection...";
+						messageContainer.classList.add("success");
+
+						// Redirection vers la page d'accueil après 2 secondes
+						setTimeout(() => {
+							window.location.href = "/";
+						}, 2000);
+					} catch (error) {
+						// Affichage du message d'erreur
+						messageContainer.textContent = error.message;
+						messageContainer.classList.add("error");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

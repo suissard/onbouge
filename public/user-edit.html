@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Édition Profil - SportConnect</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<script src="https://unpkg.com/lucide@latest"></script>
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+		<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+
+		<style>
+			main {
+				padding: 2rem 0;
+			}
+			.edit-layout {
+				display: grid;
+				grid-template-columns: 2fr 1fr;
+				gap: 2rem;
+				align-items: flex-start;
+			}
+			.form-group textarea {
+				min-height: 100px;
+				resize: vertical;
+			}
+			.form-group .sport-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				padding: 0.5rem;
+				border: 1px solid var(--gray-300);
+				border-radius: 0.5rem;
+				min-height: 40px;
+			}
+			.form-group .sport-tag {
+				background-color: var(--cyan-100);
+				color: var(--cyan-800);
+				padding: 0.25rem 0.75rem;
+				border-radius: 9999px;
+				font-size: 0.9rem;
+				display: flex;
+				align-items: center;
+				gap: 0.25rem;
+			}
+			.sport-tag button {
+				background: none;
+				border: none;
+				padding: 0;
+				margin: 0;
+				cursor: pointer;
+				line-height: 1;
+			}
+			.add-sport-group {
+				display: flex;
+				gap: 0.5rem;
+			}
+			.side-panel #user-map {
+				height: 250px;
+				width: 100%;
+				border-radius: 0.75rem;
+				z-index: 1;
+			}
+			.map-controls {
+				display: flex;
+				justify-content: space-around;
+				margin-bottom: 1rem;
+			}
+			.map-controls button {
+				border: 2px solid transparent;
+				padding: 0.25rem 0.5rem;
+				border-radius: 0.5rem;
+				font-size: 1.5rem;
+			}
+			.map-controls button.active {
+				border-color: var(--blue-600);
+				background-color: var(--gray-100);
+			}
+			.role-display {
+				background-color: var(--gray-100);
+				padding: 0.75rem 1rem;
+				border-radius: 0.5rem;
+				color: var(--gray-600);
+				font-style: italic;
+			}
+			@media (max-width: 900px) {
+				.edit-layout {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+</head>
+	<body>
+		<main>
+			<div class="container">
+				<div class="edit-layout">
+					<div>
+						<div class="form-section">
+							<div class="form-row">
+								<div class="form-group">
+									<label for="user-prenom">Prénom</label
+									><input type="text" id="user-prenom" name="prenom" />
+								</div>
+								<div class="form-group">
+									<label for="user-nom">Nom</label
+									><input type="text" id="user-nom" name="nom" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="user-description">Description</label
+								><textarea id="user-description" name="description"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Sports pratiqués</label>
+								<div id="user-sports" class="sport-tags"></div>
+								<label for="add-sport-input" style="margin-top: 1rem"
+									>Ajouter un sport</label
+								>
+								<div class="add-sport-group">
+									<input
+										type="text"
+										id="add-sport-input"
+										list="sports-list"
+										placeholder="Ex: voile.catamaran"
+									/>
+									<button
+										id="add-sport-btn"
+										class="btn-secondary"
+										style="border-radius: 0.5rem"
+									>
+										Ajouter
+									</button>
+								</div>
+								<datalist id="sports-list"></datalist>
+							</div>
+						</div>
+						<div class="form-section" style="margin-top: 2rem">
+							<h3>Favoris & Alertes</h3>
+							<div class="form-row">
+								<div class="form-group">
+									<label>Sports favoris</label>
+									<div class="checkbox-group">
+										<div class="checkbox-item">
+											<input type="checkbox" id="fav-voile" />
+											<label for="fav-voile">Voile</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="fav-velo" />
+											<label for="fav-velo">Vélo</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="fav-longecote" />
+											<label for="fav-longecote">Longe côte</label>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>Type d'événements</label>
+									<div class="checkbox-group">
+										<div class="checkbox-item">
+											<input type="checkbox" id="type-comp" />
+											<label for="type-comp">Compétition</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="type-train" />
+											<label for="type-train">Entraînement</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="type-balade" />
+											<label for="type-balade">Balade</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="type-raid" />
+											<label for="type-raid">Raid</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Partenaires & POI favoris</label>
+								<div class="checkbox-group">
+									<div class="checkbox-item">
+										<input type="checkbox" id="fav-partners" />
+										<label for="fav-partners"
+											>Recevoir les notifications des partenaires favoris</label
+										>
+									</div>
+									<div class="checkbox-item">
+										<input type="checkbox" id="fav-poi" />
+										<label for="fav-poi"
+											>Recevoir les notifications des POI favoris</label
+										>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="side-panel">
+						<div class="form-section">
+							<div class="form-group">
+								<label for="user-email">Adresse mail</label>
+								<input type="email" id="user-email" name="email" />
+							</div>
+							<div class="form-group">
+								<label>Notifications</label>
+								<div class="checkbox-group">
+									<div class="checkbox-item">
+										<input type="checkbox" id="notif-min" /><label for="notif-min"
+											>Notifications minimum</label
+										>
+									</div>
+									<div class="checkbox-item">
+										<input type="checkbox" id="notif-arbitre" /><label for="notif-arbitre"
+											>Recevoir notif de l'arbitre</label
+										>
+									</div>
+									<div class="checkbox-item">
+										<input type="checkbox" id="notif-admin" /><label for="notif-admin"
+											>Recevoir notif de l'administrateur</label
+										>
+									</div>
+								</div>
+							</div>
+							<hr
+								style="
+									border: none;
+									border-top: 1px solid var(--gray-200);
+									margin: 1.5rem 0;
+								"
+							/>
+							<div class="form-group">
+								<label for="user-privacy">Visibilité du profil</label>
+								<select id="user-privacy" name="privacy">
+									<option value="public">Public</option>
+									<option value="unlisted">Non répertorié</option>
+									<option value="private">Privé</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Rôle</label>
+								<div id="user-role" class="role-display"></div>
+							</div>
+							<div class="form-group">
+								<label>Positions</label>
+								<div class="map-controls">
+									<button id="pos-home-btn" class="active">🏠</button
+									><button id="pos-last-btn">👣</button>
+								</div>
+								<div id="user-map"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-actions" style="justify-content: center">
+					<button class="btn-secondary">Annuler</button
+					><button class="btn btn-primary">Enregistrer</button>
+				</div>
+			</div>
+		</main>
+		<script>
+			const userData = {
+				id: 1,
+				position: [
+					[48.8566, 2.3522],
+					[48.8632, 2.3601],
+				],
+				prenom: "Jean",
+				nom: "Dubois",
+				email: "jean.dubois@email.com",
+				type: "user",
+				role: "arbitre",
+				sport: ["voile.catamaran", "velo.vtt", "longecote", "rando.foret"],
+				privacy: false,
+				description: "Fan de vélo et voile, disponible les week-ends",
+			};
+			const knownSports = [
+				"voile.weta",
+				"voile.deriveur",
+				"voile.catamaran",
+				"velo.vtt",
+				"longecote",
+				"rando.foret",
+				"kayak",
+				"natation.mer",
+				"peche.cotiere",
+			];
+			let map,
+				homeMarker,
+				lastMarker,
+				activeMarker = "home";
+
+			function renderUserDetails(data) {
+				document.getElementById("user-prenom").value = data.prenom;
+				document.getElementById("user-nom").value = data.nom;
+				document.getElementById("user-email").value = data.email;
+				document.getElementById("user-description").value = data.description;
+				document.getElementById("user-role").textContent = data.role;
+				document.getElementById("user-privacy").value = data.privacy
+					? "private"
+					: "public";
+				renderSports(data.sport);
+				const datalist = document.getElementById("sports-list");
+				datalist.innerHTML = knownSports
+					.map((s) => `<option value="${s}"></option>`)
+					.join("");
+			}
+
+			function renderSports(sports) {
+				const sportsContainer = document.getElementById("user-sports");
+				sportsContainer.innerHTML = "";
+				sports.forEach((sport, index) => {
+					const tag = document.createElement("span");
+					tag.className = "sport-tag";
+					tag.innerHTML = `${sport.replace(
+						".",
+						" "
+					)} <button data-index="${index}"><i data-lucide="x" style="width:14px; height:14px;"></i></button>`;
+					tag.querySelector("button").addEventListener("click", (e) => {
+						e.preventDefault();
+						userData.sport.splice(index, 1);
+						renderSports(userData.sport);
+					});
+					sportsContainer.appendChild(tag);
+				});
+				lucide.createIcons();
+			}
+
+			function handleAddSport() {
+				const input = document.getElementById("add-sport-input");
+				const sportToAdd = input.value.trim();
+				if (sportToAdd && !userData.sport.includes(sportToAdd)) {
+					userData.sport.push(sportToAdd);
+					renderSports(userData.sport);
+					input.value = "";
+				}
+			}
+
+			function initMap(homePos, lastPos) {
+				map = L.map("user-map").setView(homePos, 11);
+				L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+				homeMarker = L.marker(homePos, { icon: createIcon("🏠"), draggable: true })
+					.addTo(map)
+					.bindPopup("🏠 Domicile");
+				lastMarker = L.marker(lastPos, { icon: createIcon("👣"), draggable: true })
+					.addTo(map)
+					.bindPopup("👣 Dernière position");
+				homeMarker.on("dragend", (e) => {
+					userData.position[0] = [e.target.getLatLng().lat, e.target.getLatLng().lng];
+				});
+				lastMarker.on("dragend", (e) => {
+					userData.position[1] = [e.target.getLatLng().lat, e.target.getLatLng().lng];
+				});
+				map.on("click", (e) => {
+					const newPos = [e.latlng.lat, e.latlng.lng];
+					if (activeMarker === "home") {
+						homeMarker.setLatLng(newPos);
+						userData.position[0] = newPos;
+					} else {
+						lastMarker.setLatLng(newPos);
+						userData.position[1] = newPos;
+					}
+				});
+			}
+
+			function createIcon(emoji) {
+				return L.divIcon({
+					html: emoji,
+					className: "map-emoji-icon",
+					iconSize: [24, 24],
+					iconAnchor: [12, 24],
+				});
+			}
+
+			document.addEventListener("DOMContentLoaded", () => {
+				renderUserDetails(userData);
+				initMap(userData.position[0], userData.position[1]);
+				lucide.createIcons();
+				const homeBtn = document.getElementById("pos-home-btn"),
+					lastBtn = document.getElementById("pos-last-btn");
+				homeBtn.addEventListener("click", () => {
+					activeMarker = "home";
+					homeBtn.classList.add("active");
+					lastBtn.classList.remove("active");
+					map.panTo(homeMarker.getLatLng());
+				});
+				lastBtn.addEventListener("click", () => {
+					activeMarker = "last";
+					lastBtn.classList.add("active");
+					homeBtn.classList.remove("active");
+					map.panTo(lastMarker.getLatLng());
+				});
+				document
+					.getElementById("add-sport-btn")
+					.addEventListener("click", handleAddSport);
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "title": "Bienvenue sur le forum !",
+        "messages": [
+          {
+            "author": "Admin",
+            "text": "Ceci est le premier message sur notre nouveau forum.",
+            "date": "2024-01-01T12:00:00.000Z"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "title": "Règles du forum",
+        "messages": [
+          {
+            "author": "Admin",
+            "text": "Veuillez être respectueux et courtois.",
+            "date": "2024-01-01T12:05:00.000Z"
+          }
+        ]
+      }
+    }
+  ]
+}

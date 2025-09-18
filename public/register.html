@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Inscription - SportConnect</title>
+
+		<!-- Font Awesome pour les icônes -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+		/>
+<script src="js/config.js"></script>
+		<script src="js/main.js" defer></script>
+		<style>
+			body {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100vh;
+			}
+		</style>
+	    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+	<body class="register-body">
+		<main class="register-container">
+			<div class="register-card">
+				<div class="register-header">
+					<h1>Créer un compte</h1>
+					<p>Rejoignez la communauté SportConnect</p>
+				</div>
+				<form id="register-form">
+					<div class="form-group">
+						<label for="username">Nom d'utilisateur</label>
+						<input type="text" id="username" name="username" required />
+					</div>
+					<div class="form-group">
+						<label for="email">Adresse e-mail</label>
+						<input type="email" id="email" name="email" required />
+					</div>
+					<div class="form-group">
+						<label for="password">Mot de passe</label>
+						<input type="password" id="password" name="password" required />
+					</div>
+					<div class="form-group">
+						<label for="confirm-password">Confirmer le mot de passe</label>
+						<input
+							type="password"
+							id="confirm-password"
+							name="confirm-password"
+							required
+						/>
+					</div>
+					<button type="submit" class="submit-btn">S'inscrire</button>
+				</form>
+				<div id="message-container"></div>
+				<div class="login-link">
+					<p>Déjà un compte ? <a href="/login.html">Connectez-vous</a></p>
+				</div>
+			</div>
+		</main>
+
+		<script>
+			// --- Logique du formulaire ---
+			document.addEventListener("DOMContentLoaded", () => {
+				const registerForm = document.getElementById("register-form");
+				const messageContainer = document.getElementById("message-container");
+
+				registerForm.addEventListener("submit", async (event) => {
+					event.preventDefault();
+
+					const username = event.target.username.value;
+					const email = event.target.email.value;
+					const password = event.target.password.value;
+					const confirmPassword = event.target["confirm-password"].value;
+
+					messageContainer.textContent = "";
+					messageContainer.className = "";
+
+					// Validation côté client
+					if (password !== confirmPassword) {
+						messageContainer.textContent = "Les mots de passe ne correspondent pas.";
+						messageContainer.classList.add("error");
+						return;
+					}
+
+					try {
+						const userData = await api.register(username, email, password);
+
+						messageContainer.textContent =
+							"Inscription réussie ! Vous allez être redirigé...";
+						messageContainer.classList.add("success");
+
+						setTimeout(() => {
+							window.location.href = "/";
+						}, 2000);
+					} catch (error) {
+						messageContainer.textContent = error.message;
+						messageContainer.classList.add("error");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

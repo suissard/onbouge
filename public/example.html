@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="app-title"></title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <h1 id="main-title"></h1>
+    <button id="login-button"></button>
+    <button id="register-button"></button>
+
+    <h2>Sports List</h2>
+    <ul id="sports-list"></ul>
+
+    <script>
+        // Function to fetch the translation file and update the content
+        async function loadAndApplyTranslations() {
+            try {
+                const response = await fetch('data/i18n.json');
+                const i18n = await response.json();
+
+                // Update page title
+                document.getElementById('app-title').textContent = i18n.app_title;
+
+                // Update main title (using a key from the file)
+                document.getElementById('main-title').textContent = i18n.upcoming_events;
+
+                // Update buttons
+                document.getElementById('login-button').textContent = i18n.login;
+                document.getElementById('register-button').textContent = i18n.register;
+
+                // Populate sports list
+                const sportsList = document.getElementById('sports-list');
+                for (const key in i18n.sports) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = i18n.sports[key];
+                    sportsList.appendChild(listItem);
+                }
+
+            } catch (error) {
+                console.error('Failed to load translations:', error);
+            }
+        }
+
+        // Run the function when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', loadAndApplyTranslations);
+    </script>
+</body>
+</html>
