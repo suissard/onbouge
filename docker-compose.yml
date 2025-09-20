@@ -32,7 +32,7 @@ services:
       - ./data_strapi:/opt/app
     command: >
       sh -c "if [ ! -d 'strapi' ]; then
-               npx create-strapi-app@latest strapi --dbclient=${DATABASE_CLIENT} --dbhost=mysql --dbport=${DATABASE_PORT} --dbname=${DATABASE_NAME} --dbusername=${DATABASE_USER} --dbpassword=${DATABASE_PASSWORD} --no-run --skip-cloud
+               printf 'n\nn' | npx create-strapi-app@latest strapi --dbclient=${DATABASE_CLIENT} --dbhost=mysql --dbport=${DATABASE_PORT} --dbname=${DATABASE_NAME} --dbusername=${DATABASE_USER} --dbpassword=${DATABASE_PASSWORD} --no-run --skip-cloud
              fi && cd strapi && npm install -i && npm run develop"
     depends_on:
       - mysql
