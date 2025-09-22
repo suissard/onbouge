@@ -23,7 +23,7 @@ services:
 
   # --- Service Strapi : Le Headless CMS (avec une image Node.js) ---
   strapi:
-    image: node:20
+    image: node:22
     container_name: strapi
     restart: unless-stopped
     env_file: .env
@@ -32,8 +32,8 @@ services:
       - ./data_strapi:/opt/app
     command: >
       sh -c "if [ ! -d 'strapi' ]; then
-               echo 'n' | npx create-strapi-app@latest strapi --dbclient=${DATABASE_CLIENT} --dbhost=mysql --dbport=${DATABASE_PORT} --dbname=${DATABASE_NAME} --dbusername=${DATABASE_USER} --dbpassword=${DATABASE_PASSWORD} --no-run --skip-cloud
-             fi && cd strapi && npm install -i && npm run develop"
+            echo 'n' | npx create-strapi-app@latest strapi --dbclient=${DATABASE_CLIENT} --dbhost=mysql --dbport=${DATABASE_PORT} --dbname=${DATABASE_NAME} --dbusername=${DATABASE_USER} --dbpassword=${DATABASE_PASSWORD} --no-run --skip-cloud --no-example --javascript --use-npm --no-git-init --no-install --skip-cloud
+            fi && cd strapi && npm install -i && npm run develop"
     depends_on:
       - mysql
     networks:
