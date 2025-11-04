@@ -1,0 +1,51 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+            "title": "Weta",
+            "description": "C'est un truc hyper sympa qui permet de glisser sur l'eau",
+            "createdAt": "2025-11-04T16:17:09.087Z",
+            "updatedAt": "2025-11-04T16:17:09.087Z",
+            "publishedAt": "2025-11-04T16:17:09.106Z",
+            "pois": [
+                {
+                    "id": 2,
+                    "documentId": "c3syhbggfy11rg0zttzm1kjw",
+                    "title": "Base nautique de saint nazaire",
+                    "lattitude": 47.25679636614021,
+                    "longitude": -2.231213896363539,
+                    "description": "C'est un coin super sympa pour mouiller son bateau",
+                    "createdAt": "2025-11-04T16:22:16.498Z",
+                    "updatedAt": "2025-11-04T16:22:16.498Z",
+                    "publishedAt": "2025-11-04T16:22:16.515Z",
+                    "gmaps_url": "https://maps.app.goo.gl/SjMiES4jv3kQJRPA6",
+                    "position": {
+                        "lat": 47.25679636614021,
+                        "lon": -2.231213896363539
+                    }
+                }
+            ],
+            "events": [
+                {
+                    "id": 2,
+                    "documentId": "nhtcddleq7s6qzl54xapo2l4",
+                    "title": "Fregate des naze a riens",
+                    "description": "Course de 1 personne, pour etre sur qu'il ya aia pas de jaloux",
+                    "date": "2025-11-15T13:00:00.000Z",
+                    "createdAt": "2025-11-04T16:23:22.646Z",
+                    "updatedAt": "2025-11-04T16:23:22.646Z",
+                    "publishedAt": "2025-11-04T16:23:22.664Z"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}

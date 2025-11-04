@@ -1,458 +1,60 @@
-[
-    { 
-        "id": 1, 
-        "position": [47.28, -2.51], 
-        "title": "Régate des Glénans", 
-        "type": "event", 
-        "nbj":"1", "date": "15-17 juillet 2023",
-        "description": "Régate annuelle autour des îles de l'archipel. Ouverte à tous les niveaux.",
-        "participants": ["JD", "MR", "TL", "SP"],
-        "topics": [
-            { 
-                "id": "covoit",
-                "title": "🚗 Covoiturage depuis Nantes (16 messages)",
-                "messages": [
-                    { "author": "Thomas L.", "text": "Salut ! Je pars de Nantes le vendredi vers 17h, j'ai 2 places de libres dans ma voiture.", "nbj":"1", "date": "2023-07-01" },
-                    { "author": "Sophie P.", "text": "@Thomas L. super ! Je suis intéressée, je t'envoie un MP.", "nbj":"1", "date": "2023-07-01" },
-                    { "author": "Jean D.", "text": "Moi aussi je pars de Nantes, mais plus tôt, vers 14h. Si jamais quelqu'un est dispo.", "nbj":"1", "date": "2023-07-02" },
-                    { "author": "Marie R.", "text": "Est-ce qu'il y a des gens qui partent de Rennes par hasard ?", "nbj":"1", "date": "2023-07-02" },
-                    { "author": "Thomas L.", "text": "@Sophie P. c'est noté ! Une place restante.", "nbj":"1", "date": "2023-07-02" },
-                    { "author": "Marc B.", "text": "@Marie R. Oui, je pars de Rennes le vendredi soir, on peut s'arranger !", "nbj":"1", "date": "2023-07-03" },
-                    { "author": "Sophie P.", "text": "Parfait, merci Thomas !", "nbj":"1", "date": "2023-07-03" },
-                    { "author": "Marie R.", "text": "@Marc B. Génial ! Je t'écris en privé.", "nbj":"1", "date": "2023-07-03" },
-                    { "author": "Lucas F.", "text": "@Thomas L. S'il te reste une place, je suis preneur !", "nbj":"1", "date": "2023-07-04" },
-                    { "author": "Thomas L.", "text": "@Lucas F. Yes, c'est bon pour moi. La voiture est pleine !", "nbj":"1", "date": "2023-07-04" },
-                    { "author": "Hélène G.", "text": "Je n'ai pas de voiture, est-ce que quelqu'un aurait une petite place depuis La Rochelle ?", "nbj":"1", "date": "2023-07-05" },
-                    { "author": "Jean D.", "text": "Mon départ de 14h est toujours d'actualité, j'ai 3 places !", "nbj":"1", "date": "2023-07-06" },
-                    { "author": "Paul V.", "text": "@Jean D. Je suis partant pour 14h !", "nbj":"1", "date": "2023-07-06" },
-                    { "author": "Jean D.", "text": "Ok @Paul V. !", "nbj":"1", "date": "2023-07-06" },
-                    { "author": "Carine M.", "text": "@Hélène G. je pars de La Rochelle, je peux te prendre !", "nbj":"1", "date": "2023-07-07" },
-                    { "author": "Hélène G.", "text": "Merci beaucoup @Carine M. ! Trop sympa.", "nbj":"1", "date": "2023-07-07" }
-                ]
+{
+    "data": [
+        {
+            "id": 2,
+            "documentId": "nhtcddleq7s6qzl54xapo2l4",
+            "title": "Fregate des naze a riens",
+            "description": "Course de 1 personne, pour etre sur qu'il ya aia pas de jaloux",
+            "date": "2025-11-15T13:00:00.000Z",
+            "createdAt": "2025-11-04T16:23:22.646Z",
+            "updatedAt": "2025-11-04T16:23:22.646Z",
+            "publishedAt": "2025-11-04T16:23:22.664Z",
+            "sports": [
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta",
+                    "description": "C'est un truc hyper sympa qui permet de glisser sur l'eau",
+                    "createdAt": "2025-11-04T16:17:09.087Z",
+                    "updatedAt": "2025-11-04T16:17:09.087Z",
+                    "publishedAt": "2025-11-04T16:17:09.106Z"
+                }
+            ],
+            "poi": {
+                "id": 2,
+                "documentId": "c3syhbggfy11rg0zttzm1kjw",
+                "title": "Base nautique de saint nazaire",
+                "lattitude": 47.25679636614021,
+                "longitude": -2.231213896363539,
+                "description": "C'est un coin super sympa pour mouiller son bateau",
+                "createdAt": "2025-11-04T16:22:16.498Z",
+                "updatedAt": "2025-11-04T16:22:16.498Z",
+                "publishedAt": "2025-11-04T16:22:16.515Z",
+                "gmaps_url": "https://maps.app.goo.gl/SjMiES4jv3kQJRPA6",
+                "position": {
+                    "lat": 47.25679636614021,
+                    "lon": -2.231213896363539
+                }
             },
-            { 
-                "id": "materiel",
-                "title": "⛵ Prêt de matériel (4 messages)",
-                "messages": [
-                    { "author": "Sophie P.", "text": "Est-ce que quelqu'un aurait un gilet de sauvetage en plus ? J'ai oublié le mien...", "nbj":"1", "date": "2023-07-10" },
-                    { "author": "Jean D.", "text": "J'en ai un de rechange @Sophie P., pas de souci.", "nbj":"1", "date": "2023-07-10" },
-                    { "author": "Thomas L.", "text": "Pensez à prendre des bottes, ils annoncent un peu de pluie samedi matin.", "nbj":"1", "date": "2023-07-11" },
-                    { "author": "Marie R.", "text": "Bien vu @Thomas L., merci pour l'info !", "nbj":"1", "date": "2023-07-11" }
-                ]
-            }
-        ]
-    },
-    { 
-        "id": 2, 
-        "position": [47.27, -2.20], 
-        "title": "Sortie Weta St Nazaire", 
-        "type": "event",
-        "nbj":"1", "date": "22 juillet 2023",
-        "description": "Sortie informelle pour multi-coques. Pique-nique sur la plage des Evens si le temps le permet.",
-        "participants": ["TL", "MC", "BC", "RG", "GG"],
-        "topics": [
-             { "id": "rdv", "title": "📍 Point de rendez-vous (0 messages)", "messages": [] },
-             { "id": "picnic", "title": "🥪 Organisation Pique-nique (0 messages)", "messages": [] }
-        ]
-    },
-    {
-        "id": 3,
-        "position": [-22.2758, 166.4580],
-        "title": "Coupe Match Racing cup 2025",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: C N CALEDONIEN"
-    },
-    {
-        "id": 4,
-        "position": [48.0954, -4.3293],
-        "title": "Régate de Club COUPE GRADLON",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: SR DOUARNENEZ"
-    },
-    {
-        "id": 5,
-        "position": [47.4765, -3.1313],
-        "title": "Challenge Michel Duclot 2025",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: SR S.P. QUIBERON"
-    },
-    {
-        "id": 6,
-        "position": [46.1559, -1.1543],
-        "title": "Régate de Club T' D' RE",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CN DE LA ROCHELLE"
-    },
-    {
-        "id": 7,
-        "position": [44.7261, -1.0614],
-        "title": "Régate de Club Challenge d'été n°2",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CN TAUSSAT CASSY"
-    },
-    {
-        "id": 8,
-        "position": [47.8333, -4.1667],
-        "title": "Grandes Régates Internationales de Loctudy",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CN LOCTUDY"
-    },
-    {
-        "id": 9,
-        "position": [44.1833, 2.5333],
-        "title": "Régate OPEN AVEYRON",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: C Y V PARELOUP"
-    },
-    {
-        "id": 10,
-        "position": [46.9833, -2.0667],
-        "title": "Régate du bois de la Chaise",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CV BOIS DE LA CHAIZE"
-    },
-    {
-        "id": 11,
-        "position": [44.6442, -0.9789],
-        "title": "Régate de Biganos",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CV ARCACHON"
-    },
-    {
-        "id": 12,
-        "position": [44.6442, -0.9789],
-        "title": "Régate des Tchanquées",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: CV ARCACHON"
-    },
-    {
-        "id": 13,
-        "position": [44.3947, -1.1597],
-        "title": "Les 6h de Biscarrosse",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: YCI BISCARROSSE"
-    },
-    {
-        "id": 14,
-        "position": [42.9439, 3.0411],
-        "title": "Régate de Club La Franqui 4",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: KSL"
-    },
-    {
-        "id": 15,
-        "position": [43.3700, -1.7800],
-        "title": "Régate de Club Trophée Ville d'Hendaye",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: LES VOILES D'HENDAYE"
-    },
-    {
-        "id": 16,
-        "position": [48.6686, -3.9156],
-        "title": "Régate de Club Tour de Callot Comptoirs de la mer",
-        "type": "event",
-        "nbj":"1", "date": "09/0808/2025",
-        "description": "Lieu: C N CARANTEC"
-    },
-    {
-        "id": 17,
-        "position": [44.8636, -0.5644],
-        "title": "Femmes à la Barre",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CV BORDEAUX"
-    },
-    {
-        "id": 18,
-        "position": [44.8636, -0.5644],
-        "title": "Régate de Club GRAND PRIX DE MAUBUISSON",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CV BORDEAUX"
-    },
-    {
-        "id": 19,
-        "position": [46.7167, -2.3500],
-        "title": "Régate Germon Cup",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CP YEU"
-    },
-    {
-        "id": 20,
-        "position": [44.1833, 2.5333],
-        "title": "Régate OPEN AVEYRON",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: C Y V PARELOUP"
-    },
-    {
-        "id": 21,
-        "position": [54.3213, 10.1348],
-        "title": "The Ocean Race Europe / Kiel - Monténégro",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: IMOCA 60'"
-    },
-    {
-        "id": 22,
-        "position": [48.8145, -3.4475],
-        "title": "Championnat Départemental REGATE DE CLUB",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: ASN PERROS GUIREC"
-    },
-    {
-        "id": 23,
-        "position": [47.0500, 4.8333],
-        "title": "Régate Départementale Le Bon vin",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CN BOURGOGNE"
-    },
-    {
-        "id": 24,
-        "position": [50.2000, 1.6000],
-        "title": "Régate Départementale Raid baie de somme",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: APVP"
-    },
-    {
-        "id": 25,
-        "position": [47.8333, -4.1667],
-        "title": "Régate Les 2 estuaires",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CN LOCTUDY"
-    },
-    {
-        "id": 26,
-        "position": [46.1559, -1.1543],
-        "title": "Régate de Club CNPA Cup 2025",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: CNPA ILE DE RE"
-    },
-    {
-        "id": 27,
-        "position": [44.6333, -1.2167],
-        "title": "Régate regalade 3",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: C V PYLA S/M"
-    },
-    {
-        "id": 28,
-        "position": [47.4637, -2.4500],
-        "title": "Régate Estivale de Quimiac",
-        "type": "event",
-        "nbj":"1", "date": "10/08/2025",
-        "description": "Lieu: NAUTISME PAYS BLANC"
-    },
-    {
-        "id": 29,
-        "position": [52.0000, 19.0000],
-        "title": "Championnat d'Europe Raceboard",
-        "type": "event",
-        "nbj":"1", "date": "11/08/2025",
-        "description": "Lieu: POLOGNE"
-    },
-    {
-        "id": 30,
-        "position": [46.2041, -1.3672],
-        "title": "Régate de Club Tofinou Atlantic Cup",
-        "type": "event",
-        "nbj":"2", "date": "11/082025",
-        "description": "Lieu: Y C ST MARTIN EN RE"
-    },
-    {
-        "id": 31,
-        "position": [48.5978, -2.1900],
-        "title": "Régate Départementale Juvamine",
-        "type": "event",
-        "nbj":"1", "date": "12/08/2025",
-        "description": "Lieu: CN SAINT JACUT"
-    },
-    {
-        "id": 32,
-        "position": [39.0000, 35.0000],
-        "title": "Champ monde Slalom Fin IFCA",
-        "type": "event",
-        "nbj":"5", "date": "12/08/2025",
-        "description": "Lieu: TURQUIE"
-    },
-    {
-        "id": 33,
-        "position": [48.7500, -1.5667],
-        "title": "Régate de Club La Carollaise",
-        "type": "event",
-        "nbj":"1", "date": "13/08/2025",
-        "description": "Lieu: Y C Carolles"
-    },
-    {
-        "id": 34,
-        "position": [48.6500, -2.7833],
-        "title": "Régate de Club Des Moniteurs 2025 n°2",
-        "type": "event",
-        "nbj":"1", "date": "13/08/2025",
-        "description": "Lieu: LMD CN PLENEUF"
-    },
-    {
-        "id": 35,
-        "position": [47.3248, -5.0430],
-        "title": "Régate de Club",
-        "type": "event",
-        "nbj":"1", "date": "13/08/2025",
-        "description": "Lieu: SNBI"
-    },
-    {
-        "id": 36,
-        "position": [41.9167, 8.7333],
-        "title": "Régate de Club VRC Tino Rossi",
-        "type": "event",
-        "nbj":"1", "date": "13/08/2025",
-        "description": "Lieu: S.N. AJACCIO"
-    },
-    {
-        "id": 37,
-        "position": [48.5978, -2.1900],
-        "title": "Régate de Bassin Aquarelle /Les voiles d'Emeraude",
-        "type": "event",
-        "nbj":"1", "date": "14/08/2025",
-        "description": "Lieu: CN SAINT JACUT"
-    },
-    {
-        "id": 38,
-        "position": [49.4906, 0.1078],
-        "title": "Régate de Club Cata",
-        "type": "event",
-        "nbj":"1", "date": "14/08/2025",
-        "description": "Lieu: CN PAUL VATINE"
-    },
-    {
-        "id": 39,
-        "position": [52.0000, 19.0000],
-        "title": "Championnat d?Europe Hobie cat",
-        "type": "event",
-        "nbj":"9", "date": "14/08/2025",
-        "description": "Lieu: POLOGNE"
-    },
-    {
-        "id": 40,
-        "position": [47.2184, -1.5536],
-        "title": "Sifros Cup",
-        "type": "event",
-        "nbj":"1", "date": "14/08/2025",
-        "description": "Lieu: APCC NANTES"
-    },
-    {
-        "id": 41,
-        "position": [49.2750, -0.4500],
-        "title": "Régate de Club Catamaran 3",
-        "type": "event",
-        "nbj":"1", "date": "14/08/2025",
-        "description": "Lieu: E D V COURSEULLES"
-    },
-    {
-        "id": 42,
-        "position": [-22.3000, 166.4500],
-        "title": "Régate AIRCALIN MANATAI CUP",
-        "type": "event",
-        "nbj":"1", "date": "14/08/2025",
-        "description": "Lieu: VAKA LA"
-    },
-    {
-        "id": 43,
-        "position": [42.9100, 3.0400],
-        "title": "La Solo Leucatoise",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: YC DE PORT LEUCATE"
-    },
-    {
-        "id": 44,
-        "position": [41.8781, -87.6298],
-        "title": "Chicago Grand Slam",
-        "type": "event",
-        "nbj":"2", "date": "15/08/2025",
-        "description": "Lieu: US SAILING"
-    },
-    {
-        "id": 45,
-        "position": [46.8000, 6.3000],
-        "title": "Régate de Club Translac",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: C.V MALBUISSON"
-    },
-    {
-        "id": 46,
-        "position": [47.0500, -0.3000],
-        "title": "Régate Départementale LA NUIT GUILLAUME",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: SR DE LA DIVE"
-    },
-    {
-        "id": 47,
-        "position": [51.5099, -0.1180],
-        "title": "National anglais Dart 18",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: GRANDE BRETAGNE"
-    },
-    {
-        "id": 48,
-        "position": [47.4765, -3.1313],
-        "title": "Régate d'entrainement",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: SR S.P. QUIBERON"
-    },
-    {
-        "id": 49,
-        "position": [41.9167, 8.7333],
-        "title": "Régate de Club Challenge du Port Tino Rossi",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: S.N. AJACCIO"
-    },
-    {
-        "id": 50,
-        "position": [44.1833, 2.5333],
-        "title": "Régate OPEN AVEYRON",
-        "type": "event",
-        "nbj":"1", "date": "15/08/2025",
-        "description": "Lieu: C Y V PARELOUP"
-    },
-    {
-        "id": 51,
-        "position": [44.6488, -1.1426],
-        "title": "Régate de Club Challenge estival 2",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: C. N. CLAOUEY"
-    },
-    {
-        "id": 52,
-        "position": [48.3178, -4.4853],
-        "title": "Régate SNSM",
-        "type": "event",
-        "nbj":"1", "date": "09/08/2025",
-        "description": "Lieu: VOILES DE CAP BRETON"
+            "profiles": [
+                {
+                    "id": 2,
+                    "documentId": "qa9suz5voxp4jolozhkxntt4",
+                    "username": "suissard",
+                    "description":"Je susi un utilisateur comme les autres",
+                    "createdAt": "2025-11-04T16:23:50.659Z",
+                    "updatedAt": "2025-11-04T16:23:50.659Z",
+                    "publishedAt": "2025-11-04T16:23:50.684Z"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
     }
-]
+}

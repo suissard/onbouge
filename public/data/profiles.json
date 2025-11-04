@@ -1,0 +1,56 @@
+{
+    "data": [
+        {
+            "id": 2,
+            "documentId": "qa9suz5voxp4jolozhkxntt4",
+            "username": "suissard",
+            "description":"Je susi un utilisateur comme les autres",
+            "createdAt": "2025-11-04T16:23:50.659Z",
+            "updatedAt": "2025-11-04T16:23:50.659Z",
+            "publishedAt": "2025-11-04T16:23:50.684Z",
+            "events": [
+                {
+                    "id": 2,
+                    "documentId": "nhtcddleq7s6qzl54xapo2l4",
+                    "title": "Fregate des naze a riens",
+                    "description": "Course de 1 personne, pour etre sur qu'il ya aia pas de jaloux",
+                    "date": "2025-11-15T13:00:00.000Z",
+                    "createdAt": "2025-11-04T16:23:22.646Z",
+                    "updatedAt": "2025-11-04T16:23:22.646Z",
+                    "publishedAt": "2025-11-04T16:23:22.664Z"
+                }
+            ],
+            "sports": [
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta",
+                    "description": "C'est un truc hyper sympa qui permet de glisser sur l'eau",
+                    "createdAt": "2025-11-04T16:17:09.087Z",
+                    "updatedAt": "2025-11-04T16:17:09.087Z",
+                    "publishedAt": "2025-11-04T16:17:09.106Z"
+                }
+            ],
+            "user": {
+                "id": 1,
+                "documentId": "edexqkgbxi4ej2vwf9znd6in",
+                "username": "suissard",
+                "email": "clavier.jeremy@gmail.com",
+                "provider": "local",
+                "confirmed": true,
+                "blocked": false,
+                "createdAt": "2025-11-04T16:24:35.229Z",
+                "updatedAt": "2025-11-04T16:24:35.229Z",
+                "publishedAt": "2025-11-04T16:24:35.137Z"
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
