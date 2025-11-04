@@ -13,7 +13,8 @@ const excludedFiles = [
     'header.html',
     'sidebar.html',
     'settings.html',
-    'testAuthGoogle.html'
+    'testAuthGoogle.html',
+    'admin.html'
 ];
 
 // Fonction pour récupérer tous les fichiers HTML du répertoire public
