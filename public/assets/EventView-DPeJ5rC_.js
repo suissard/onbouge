@@ -1,0 +1,1 @@
+import{d as t,c as o,w as a,r,e as s,o as c}from"./index-OwWB_ETL.js";const i=t({__name:"EventView",setup(_){return(l,e)=>{const n=r("v-container");return c(),o(n,null,{default:a(()=>[...e[0]||(e[0]=[s("h1",null,"Event View",-1)])]),_:1})}}});export{i as default};

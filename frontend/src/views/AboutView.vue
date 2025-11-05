@@ -1,0 +1,63 @@
+<template>
+  <v-container>
+    <v-card class="pa-5">
+      <v-card-title class="text-center">À propos de SportConnect</v-card-title>
+      <v-card-text>
+        <p>Cette page a été chargée sans avoir à taper `.html` dans l'URL.</p>
+
+        <h3><strong>Bougez, rencontrez, partagez :</strong></h3>
+        <p>Notre mission est simple : vous aider à vivre votre passion pour le loisir sport, que vous soyez un loup solitaire en quête de nouveaux défis ou un adepte des sorties en groupe. Fini les galères pour trouver le spot parfait ou les partenaires pour vous aider à sortir !</p>
+        <p>Que vous soyez fan de <strong>kayak</strong>, d'<strong>escalade</strong>, de <strong>vélo</strong>, de <strong>moto</strong>, de <strong>skate</strong>, de <strong>footing</strong>, de <strong>yoga</strong> ou de <strong>randonnée</strong> ...</p>
+        <v-divider class="my-4"></v-divider>
+        <h3><strong>Comment ça marche ? Un tour en 3 écrans :</strong></h3>
+        <p>L'application est conçue pour être simple et intuitive, avec trois espaces principaux pour tout organiser.</p>
+        <p><strong>1. La Carte Interactive : Votre terrain de jeu en un coup d'œil</strong></p>
+        <ul>
+            <li>📍 <strong>Les spots incontournables</strong> : Découvrez et partagez les meilleurs lieux pour pratiquer votre sport.</li>
+            <li>🤝 <strong>Les événements à proximité</strong> : Qu'il s'agisse d'une rencontre informelle organisée par un autre passionné ou d'une compétition officielle, ne manquez aucune occasion.</li>
+            <li>👀 <strong>Qui participe ?</strong> : Voyez en un clin d'œil qui s'inscrit aux événements qui vous intéressent.</li>
+        </ul>
+        <p><strong>2. L'Agenda des Événements : Votre prochaine aventure vous attend</strong></p>
+        <ul>
+            <li>🗓️ Une page dédiée avec les informations pratiques (horaires, lieux précis, niveau requis...).</li>
+            <li>🚗 Des infos utiles sur le <strong>transport</strong> et l'<strong>hébergement</strong> à proximité.</li>
+            <li>💬 Un <strong>forum temporaire de discussion</strong> pour échanger, poser des questions, organiser un covoiturage ou simplement faire connaissance avant le jour J.</li>
+        </ul>
+        <p><strong>3. La Communauté : Tissez votre réseau sportif</strong></p>
+        <ul>
+            <li>✉️ Entrez en contact avec d'autres sportifs dans votre région.</li>
+            <li>🏝️ Partagez les lieux sympas pour la pratique</li>
+            <li>📢 Lancez une idée de balade, de rencontre, de challenge, suivez l'avancement dans la forum de votre proposition</li>
+            <li>🔒 Pour protéger vos informations et éviter le spam des robots du web, cette section est <strong>accessible uniquement aux membres inscrits</strong>.</li>
+        </ul>
+        <v-divider class="my-4"></v-divider>
+        <h3><strong>Votre vie privée est notre priorité.</strong></h3>
+        <p>Nous croyons en la confiance et au respect de vos données. C'est pourquoi :</p>
+        <ul>
+            <li><strong>Anonymat total</strong> : Vous pouvez tout à fait utiliser l'application et participer à des événements sans jamais créer de compte.</li>
+            <li><strong>Minimum de données</strong> : Nous ne collectons que le strict nécessaire au bon fonctionnement du service.</li>
+            <li><strong>Transparence</strong> : Vos données ne sont pas gardées indéfiniment.
+                <ul>
+                    <li>Les informations d'un événement sont <strong>effacées 1 semaine après</strong> sa date de fin.</li>
+                    <li>Un contact inactif est <strong>supprimé au bout d'1 an</strong>.</li>
+                    <li>Un compte sans aucune activité est <strong>supprimé au bout de 2 ans</strong>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Sports</h3>
+        <p>Pour noter un sport ou hobby, vous pouvez associer un nom generique et une variante, par exemple : "voile.laser", "velo.route", "rando", "photographie". la première partie sera utilisée comme filtre pour les evenements et les spots sur la carte, le reste ajoute vos préférences, et centre d'intérêt.</p>
+
+        <p class="text-center"><strong>Prêt(e) à rejoindre l'aventure ?</strong></p>
+
+        <div class="text-center mt-4">
+          <v-btn to="/" color="secondary">Retour à l'accueil</v-btn>
+        </div>
+      </v-card-text>
+    </v-card>
+  </v-container>
+</template>
+
+<script setup lang="ts">
+  //
+</script>
