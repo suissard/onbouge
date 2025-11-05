@@ -1,0 +1,1 @@
+import{d as n,c as t,w as a,r,e as s,o as c}from"./index-OwWB_ETL.js";const p=n({__name:"PoiView",setup(_){return(i,e)=>{const o=r("v-container");return c(),t(o,null,{default:a(()=>[...e[0]||(e[0]=[s("h1",null,"POI View",-1)])]),_:1})}}});export{p as default};

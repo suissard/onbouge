@@ -1,0 +1,1 @@
+import{d as n,c as t,w as r,r as a,e as s,o as c}from"./index-OwWB_ETL.js";const p=n({__name:"Forum",setup(_){return(l,e)=>{const o=a("v-container");return c(),t(o,null,{default:r(()=>[...e[0]||(e[0]=[s("h1",null,"Forum",-1)])]),_:1})}}});export{p as default};

@@ -1,0 +1,1 @@
+import{d as o,c as t,w as r,r as s,e as a,o as c}from"./index-OwWB_ETL.js";const i=o({__name:"UserView",setup(_){return(l,e)=>{const n=s("v-container");return c(),t(n,null,{default:r(()=>[...e[0]||(e[0]=[a("h1",null,"User View",-1)])]),_:1})}}});export{i as default};

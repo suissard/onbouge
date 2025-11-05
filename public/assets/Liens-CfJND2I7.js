@@ -1,0 +1,1 @@
+import{d as o,c as t,w as s,r as a,e as r,o as c}from"./index-OwWB_ETL.js";const i=o({__name:"Liens",setup(_){return(l,e)=>{const n=a("v-container");return c(),t(n,null,{default:s(()=>[...e[0]||(e[0]=[r("h1",null,"Liens",-1)])]),_:1})}}});export{i as default};

@@ -1,0 +1,1 @@
+import{d as o,c as t,w as a,r,e as s,o as c}from"./index-OwWB_ETL.js";const p=o({__name:"Admin",setup(_){return(l,e)=>{const n=r("v-container");return c(),t(n,null,{default:a(()=>[...e[0]||(e[0]=[s("h1",null,"Admin",-1)])]),_:1})}}});export{p as default};

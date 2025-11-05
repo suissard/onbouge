@@ -1,0 +1,1 @@
+import{d as t,c as n,w as a,r,e as s,o as c}from"./index-OwWB_ETL.js";const p=t({__name:"PoiEdit",setup(_){return(i,e)=>{const o=r("v-container");return c(),n(o,null,{default:a(()=>[...e[0]||(e[0]=[s("h1",null,"POI Edit",-1)])]),_:1})}}});export{p as default};
