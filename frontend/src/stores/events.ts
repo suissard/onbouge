@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
+import strapi from '@/services/strapi'
 
 export const useEventStore = defineStore('events', () => {
   const events: Ref<any[]> = ref([])
 
   async function fetchEvents() {
     try {
-      const response = await fetch('/data/events.json')
-      const data = await response.json()
-      events.value = data
+      const response = await strapi.find('events')
+      events.value = response.data
     } catch (error) {
       console.error('Error fetching events:', error)
     }

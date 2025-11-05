@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Eiffel Tower",
+    "type": "Monument",
+    "description": "A wrought-iron lattice tower on the Champ de Mars in Paris, France.",
+    "image": "https://via.placeholder.com/400x200"
+  },
+  {
+    "id": 2,
+    "name": "Louvre Museum",
+    "type": "Museum",
+    "description": "The world's largest art museum and a historic monument in Paris, France.",
+    "image": "https://via.placeholder.com/400x200"
+  }
+]
