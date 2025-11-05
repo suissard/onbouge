@@ -30,12 +30,12 @@ const router = createRouter({
       component: () => import('../views/Data.vue'),
     },
     {
-      path: '/event/edit',
+      path: '/event/edit/:id',
       name: 'event-edit',
       component: () => import('../views/EventEdit.vue'),
     },
     {
-      path: '/event/view',
+      path: '/event/view/:id',
       name: 'event-view',
       component: () => import('../views/EventView.vue'),
     },
@@ -65,12 +65,12 @@ const router = createRouter({
       component: () => import('../views/Login.vue'),
     },
     {
-      path: '/poi/edit',
+      path: '/poi/edit/:id',
       name: 'poi-edit',
       component: () => import('../views/PoiEdit.vue'),
     },
     {
-      path: '/poi/view',
+      path: '/poi/view/:id',
       name: 'poi-view',
       component: () => import('../views/PoiView.vue'),
     },
@@ -95,12 +95,12 @@ const router = createRouter({
       component: () => import('../views/Topic.vue'),
     },
     {
-      path: '/user/edit',
+      path: '/user/edit/:id',
       name: 'user-edit',
       component: () => import('../views/UserEdit.vue'),
     },
     {
-      path: '/user/view',
+      path: '/user/view/:id',
       name: 'user-view',
       component: () => import('../views/UserView.vue'),
     },
