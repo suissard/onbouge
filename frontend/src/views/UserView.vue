@@ -2,9 +2,20 @@
   <v-container>
     <v-card v-if="user">
       <v-card-title class="text-h4">{{ user.username }}</v-card-title>
-      <v-card-subtitle>{{ user.email }}</v-card-subtitle>
       <v-card-text>
-        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p>{{ user.description }}</p>
+        <div v-if="user.sports && user.sports.length > 0">
+          <h3 class="text-h6 mt-4">Sports</h3>
+          <v-chip-group>
+            <v-chip v-for="sport in user.sports" :key="sport.id" :to="`/sport/view/${sport.id}`">{{ sport.title }}</v-chip>
+          </v-chip-group>
+        </div>
+        <div v-if="user.events && user.events.length > 0">
+          <h3 class="text-h6 mt-4">Events</h3>
+          <v-chip-group>
+            <v-chip v-for="event in user.events" :key="event.id" :to="`/event/view/${event.id}`">{{ event.title }}</v-chip>
+          </v-chip-group>
+        </div>
       </v-card-text>
     </v-card>
     <v-alert v-else type="info">Loading user...</v-alert>

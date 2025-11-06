@@ -3,14 +3,7 @@
     <h1 class="mb-4">Users</h1>
     <v-row>
       <v-col v-for="user in userStore.users" :key="user.id" cols="12" sm="6" md="4">
-        <v-card>
-          <v-card-title>{{ user.username }}</v-card-title>
-          <v-card-subtitle>{{ user.email }}</v-card-subtitle>
-          <v-card-actions>
-            <v-btn color="primary" :to="`/user/view/${user.id}`">View</v-btn>
-            <v-btn color="secondary" :to="`/user/edit/${user.id}`">Edit</v-btn>
-          </v-card-actions>
-        </v-card>
+        <Card :item="user" @click="$router.push(`/user/view/${user.id}`)" />
       </v-col>
     </v-row>
   </v-container>
@@ -19,6 +12,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/users'
 import { onMounted } from 'vue'
+import Card from '@/components/Card.vue'
 
 const userStore = useUserStore()
 

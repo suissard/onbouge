@@ -109,6 +109,16 @@ const router = createRouter({
       name: 'users',
       component: () => import('../views/Users.vue'),
     },
+    {
+      path: '/sports',
+      name: 'sports',
+      component: () => import('../views/Sports.vue'),
+    },
+    {
+      path: '/sport/view/:id',
+      name: 'sport-view',
+      component: () => import('../views/SportView.vue'),
+    },
   ],
 })
 

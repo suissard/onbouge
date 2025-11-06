@@ -1,11 +1,13 @@
 import events from '@/data/events.json';
 import pois from '@/data/pois.json';
 import users from '@/data/users.json';
+import sports from '@/data/sports.json';
 
 const mockData: { [key: string]: any } = {
   events,
   pois,
   users,
+  sports,
 };
 
 const strapi = {
