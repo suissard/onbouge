@@ -17,6 +17,6 @@ import Card from '@/components/Card.vue'
 const poiStore = usePoiStore()
 
 onMounted(() => {
-  poiStore.fetchPois()
+  poiStore.getList()
 })
 </script>

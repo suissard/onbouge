@@ -17,6 +17,6 @@ import Card from '@/components/Card.vue'
 const userStore = useUserStore()
 
 onMounted(() => {
-  userStore.fetchUsers()
+  userStore.getList()
 })
 </script>

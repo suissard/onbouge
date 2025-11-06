@@ -17,6 +17,6 @@ import Card from '@/components/Card.vue'
 const eventStore = useEventStore()
 
 onMounted(() => {
-  eventStore.fetchEvents()
+  eventStore.getList()
 })
 </script>

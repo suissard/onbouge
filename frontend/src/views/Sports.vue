@@ -17,6 +17,6 @@ import Card from '@/components/Card.vue'
 const sportStore = useSportStore()
 
 onMounted(() => {
-  sportStore.fetchSports()
+  sportStore.getList()
 })
 </script>

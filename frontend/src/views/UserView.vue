@@ -7,13 +7,15 @@
         <div v-if="user.sports && user.sports.length > 0">
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
-            <v-chip v-for="sport in user.sports" :key="sport.id" :to="`/sport/view/${sport.id}`">{{ sport.title }}</v-chip>
+            <v-chip v-for="sport in user.sports" :key="sport.id" :to="`/sport/view/${sport.id}`">{{ sport.title
+              }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="user.events && user.events.length > 0">
           <h3 class="text-h6 mt-4">Events</h3>
           <v-chip-group>
-            <v-chip v-for="event in user.events" :key="event.id" :to="`/event/view/${event.id}`">{{ event.title }}</v-chip>
+            <v-chip v-for="event in user.events" :key="event.id" :to="`/event/view/${event.id}`">{{ event.title
+              }}</v-chip>
           </v-chip-group>
         </div>
       </v-card-text>
@@ -33,7 +35,7 @@ const userId = Number(route.params.id)
 const user = ref<any>(null)
 
 onMounted(async () => {
-  await userStore.fetchUsers()
+  await userStore.getList()
   user.value = userStore.users.find((u) => u.id === userId)
 })
 </script>

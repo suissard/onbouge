@@ -11,10 +11,16 @@ const mockData: { [key: string]: any } = {
 };
 
 const strapi = {
-  async find(contentType: string, params?: any): Promise<{ data: any[] }> {
+  async list(contentType: string, params?: any): Promise<{ data: any[] }> {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ data: mockData[contentType].data || [] });
+      }, 500);
+    });
+  },  async get(contentType: string, id: string,params?: any): Promise<{ data: any[] }> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ data: mockData[contentType].data?.find(item => item.id === id)|| [] });
       }, 500);
     });
   }
