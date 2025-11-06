@@ -8,7 +8,7 @@ export const usePoiStore = defineStore('pois', () => {
 
   async function getList() {
     try {
-      const response = await strapi.list('pois')
+      const response = await strapi.collections.pois.list()
       pois.value = response.data
     } catch (error) {
       console.error('Error fetching pois:', error)

@@ -8,10 +8,11 @@ export const useEventStore = defineStore('events', () => {
 
   async function getList() {
     try {
-      const response = await strapi.list('events')
+      const response = await strapi.collections.events.list()
+      console.log("response", response)
       events.value = response.data
     } catch (error) {
-      console.error('Error fetching events:', error)
+      console.error('Error fetching events:', error.stack)
     }
   }
 

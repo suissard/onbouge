@@ -8,7 +8,7 @@ export const useUserStore = defineStore('users', () => {
 
   async function getList() {
     try {
-      const response = await strapi.list('users')
+      const response = await strapi.collections.users.list()
       users.value = response.data
     } catch (error) {
       console.error('Error fetching users:', error)

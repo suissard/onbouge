@@ -8,7 +8,7 @@ export const useSportStore = defineStore('sports', () => {
 
   async function getList() {
     try {
-      const response = await strapi.list('sports')
+      const response = await strapi.collections.sports.list()
       sports.value = response.data
     } catch (error) {
       console.error('Error fetching sports:', error)
