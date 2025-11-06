@@ -1,16 +1,33 @@
-{
-  "data": [
+[
     {
-      "id": 1,
-      "username": "johndoe",
-      "name": "John Doe",
-      "email": "johndoe@example.com"
-    },
-    {
-      "id": 2,
-      "username": "janesmith",
-      "name": "Jane Smith",
-      "email": "janesmith@example.com"
+        "id": 1,
+        "documentId": "edexqkgbxi4ej2vwf9znd6in",
+        "username": "suissard",
+        "email": "clavier.jeremy@gmail.com",
+        "provider": "local",
+        "confirmed": true,
+        "blocked": false,
+        "createdAt": "2025-11-04T16:24:35.229Z",
+        "updatedAt": "2025-11-04T16:24:35.229Z",
+        "publishedAt": "2025-11-04T16:24:35.137Z",
+        "role": {
+            "id": 1,
+            "documentId": "xji0zbhqptnxndeg5i3tjb0t",
+            "name": "Authenticated",
+            "description": "Default role given to authenticated user.",
+            "type": "authenticated",
+            "createdAt": "2025-10-30T22:57:09.410Z",
+            "updatedAt": "2025-10-30T22:57:09.410Z",
+            "publishedAt": "2025-10-30T22:57:09.410Z"
+        },
+        "profile": {
+            "id": 1,
+            "documentId": "qa9suz5voxp4jolozhkxntt4",
+            "username": "suissard",
+            "createdAt": "2025-11-04T16:23:50.659Z",
+            "updatedAt": "2025-11-04T16:23:50.659Z",
+            "publishedAt": null,
+            "description": null
+        }
     }
-  ]
-}
+]

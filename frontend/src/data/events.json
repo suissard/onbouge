@@ -1,18 +1,60 @@
 {
-  "data": [
-    {
-      "id": 1,
-      "title": "Tech Conference 2024",
-      "date": "2024-08-15T10:00:00Z",
-      "description": "A conference about the latest trends in technology.",
-      "image": "https://via.placeholder.com/400x200"
-    },
-    {
-      "id": 2,
-      "title": "Vue.js Meetup",
-      "date": "2024-09-10T18:30:00Z",
-      "description": "A meetup for Vue.js enthusiasts.",
-      "image": "https://via.placeholder.com/400x200"
+    "data": [
+        {
+            "id": 2,
+            "documentId": "nhtcddleq7s6qzl54xapo2l4",
+            "title": "Fregate des naze a riens",
+            "description": "Course de 1 personne, pour etre sur qu'il ya aia pas de jaloux",
+            "date": "2025-11-15T13:00:00.000Z",
+            "createdAt": "2025-11-04T16:23:22.646Z",
+            "updatedAt": "2025-11-04T16:23:22.646Z",
+            "publishedAt": "2025-11-04T16:23:22.664Z",
+            "sports": [
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta",
+                    "description": "C'est un truc hyper sympa qui permet de glisser sur l'eau",
+                    "createdAt": "2025-11-04T16:17:09.087Z",
+                    "updatedAt": "2025-11-04T16:17:09.087Z",
+                    "publishedAt": "2025-11-04T16:17:09.106Z"
+                }
+            ],
+            "poi": {
+                "id": 2,
+                "documentId": "c3syhbggfy11rg0zttzm1kjw",
+                "title": "Base nautique de saint nazaire",
+                "lattitude": 47.25679636614021,
+                "longitude": -2.231213896363539,
+                "description": "C'est un coin super sympa pour mouiller son bateau",
+                "createdAt": "2025-11-04T16:22:16.498Z",
+                "updatedAt": "2025-11-04T16:22:16.498Z",
+                "publishedAt": "2025-11-04T16:22:16.515Z",
+                "gmaps_url": "https://maps.app.goo.gl/SjMiES4jv3kQJRPA6",
+                "position": {
+                    "lat": 47.25679636614021,
+                    "lon": -2.231213896363539
+                }
+            },
+            "profiles": [
+                {
+                    "id": 2,
+                    "documentId": "qa9suz5voxp4jolozhkxntt4",
+                    "username": "suissard",
+                    "createdAt": "2025-11-04T16:23:50.659Z",
+                    "updatedAt": "2025-11-04T16:23:50.659Z",
+                    "publishedAt": "2025-11-04T16:23:50.684Z",
+                    "description": null
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
     }
-  ]
 }

@@ -6,14 +6,31 @@ import strapi from '@/services/strapi'
 export const usePoiStore = defineStore('pois', () => {
   const pois: Ref<any[]> = ref([])
 
-  async function fetchPois() {
+  async function getList() {
     try {
-      const { data } = await strapi.find('pois')
-      pois.value = data
+      const response = await strapi.collections.pois.list()
+      pois.value = response.data
     } catch (error) {
       console.error('Error fetching pois:', error)
     }
   }
 
-  return { pois, fetchPois }
+    async function get(id: string) {
+    try {
+      const response = await strapi.get('pois', id)
+
+      // remplace dans la collection, l'entree qui correspond
+      const index = pois.value.findIndex(item => item.id === id)
+      if (index !== -1) {
+        pois.value[index] = response.data
+      } else {
+        pois.value.push(response.data)
+      }
+
+    } catch (error) {
+      console.error(`Error fetching poi (${id}):`, error)
+    }
+  }
+
+  return { pois, getList, get }
 })

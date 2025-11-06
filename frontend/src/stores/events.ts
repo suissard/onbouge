@@ -6,14 +6,32 @@ import strapi from '@/services/strapi'
 export const useEventStore = defineStore('events', () => {
   const events: Ref<any[]> = ref([])
 
-  async function fetchEvents() {
+  async function getList() {
     try {
-      const response = await strapi.find('events')
+      const response = await strapi.collections.events.list()
+      console.log("response", response)
       events.value = response.data
     } catch (error) {
-      console.error('Error fetching events:', error)
+      console.error('Error fetching events:', error.stack)
     }
   }
 
-  return { events, fetchEvents }
+    async function get(id: string) {
+    try {
+      const response = await strapi.get('events', id)
+
+      // remplace dans la collection, l'entree qui correspond
+      const index = events.value.findIndex(item => item.id === id)
+      if (index !== -1) {
+        events.value[index] = response.data
+      } else {
+        events.value.push(response.data)
+      }
+
+    } catch (error) {
+      console.error(`Error fetching event (${id}):`, error)
+    }
+  }
+
+  return { events, getList, get }
 })

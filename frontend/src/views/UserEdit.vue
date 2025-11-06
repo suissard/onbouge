@@ -23,7 +23,7 @@ const userId = Number(route.params.id)
 const user = ref<any>(null)
 
 onMounted(async () => {
-  await userStore.fetchUsers()
+  await userStore.getList()
   user.value = { ...userStore.users.find((u) => u.id === userId) }
 })
 

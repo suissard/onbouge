@@ -9,6 +9,7 @@
       <v-btn to="/pois">POIs</v-btn>
       <v-btn to="/forum">Forum</v-btn>
       <v-btn to="/users">Users</v-btn>
+      <v-btn to="/sports">Sports</v-btn>
       <v-btn to="/login">Login</v-btn>
     </v-app-bar>
 

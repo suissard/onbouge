@@ -24,7 +24,7 @@ const poiId = Number(route.params.id)
 const poi = ref<any>(null)
 
 onMounted(async () => {
-  await poiStore.fetchPois()
+  await poiStore.getList()
   poi.value = { ...poiStore.pois.find((p) => p.id === poiId) }
 })
 
