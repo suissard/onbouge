@@ -4,6 +4,7 @@
       <v-card-title class="text-h4">{{ user.username }}</v-card-title>
       <v-card-text>
         <p>{{ user.description }}</p>
+        <p>{{ user.email }}</p>
         <div v-if="user.sports && user.sports.length > 0">
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
@@ -25,17 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import { useProfilesStore } from '@/stores/strapiStore'
+import { useUsersStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const userStore = useProfilesStore()
+const userStore = useUsersStore()
 const route = useRoute()
 const userId = Number(route.params.id)
 const user = ref<any>(null)
 
 onMounted(async () => {
-  await userStore.getList()
-  user.value = userStore.profiles.find((e) => e.id === userId)
+  user.value = await userStore.get(userId)
 })
 </script>

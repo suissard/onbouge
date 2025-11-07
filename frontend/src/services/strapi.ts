@@ -1,3 +1,3 @@
-import strapi from './strapi.mock';
+import strapi from './strapi.real';
 
 export default strapi;

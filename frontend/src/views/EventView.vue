@@ -41,7 +41,6 @@ const eventId = Number(route.params.id)
 const event = ref<any>(null)
 
 onMounted(async () => {
-  await eventStore.getList()
-  event.value = eventStore.events.find((e) => e.id === eventId)
+  event.value = await eventStore.get(eventId)
 })
 </script>
