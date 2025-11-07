@@ -38,6 +38,116 @@
                     "publishedAt": "2025-11-04T16:23:22.664Z"
                 }
             ]
+        },
+        {
+            "id": 3,
+            "documentId": "s3",
+            "title": "Planche à voile",
+            "description": "Sport de glisse sur l'eau avec une planche et une voile.",
+            "createdAt": "2025-11-06T10:00:00.000Z",
+            "updatedAt": "2025-11-06T10:00:00.000Z",
+            "publishedAt": "2025-11-06T10:00:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 4,
+            "documentId": "s4",
+            "title": "Kitesurf",
+            "description": "Sport de glisse sur l'eau tracté par un cerf-volant.",
+            "createdAt": "2025-11-06T10:01:00.000Z",
+            "updatedAt": "2025-11-06T10:01:00.000Z",
+            "publishedAt": "2025-11-06T10:01:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 5,
+            "documentId": "s5",
+            "title": "Kayak de mer",
+            "description": "Embarcation propulsée à la pagaie pour des randonnées en mer.",
+            "createdAt": "2025-11-06T10:02:00.000Z",
+            "updatedAt": "2025-11-06T10:02:00.000Z",
+            "publishedAt": "2025-11-06T10:02:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 6,
+            "documentId": "s6",
+            "title": "Stand-up paddle",
+            "description": "Sport de glisse nautique où le pratiquant se tient debout sur une planche.",
+            "createdAt": "2025-11-06T10:03:00.000Z",
+            "updatedAt": "2025-11-06T10:03:00.000Z",
+            "publishedAt": "2025-11-06T10:03:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 7,
+            "documentId": "s7",
+            "title": "Aviron",
+            "description": "Sport nautique de vitesse et d'endurance, pratiqué sur des bateaux.",
+            "createdAt": "2025-11-06T10:04:00.000Z",
+            "updatedAt": "2025-11-06T10:04:00.000Z",
+            "publishedAt": "2025-11-06T10:04:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 8,
+            "documentId": "s8",
+            "title": "Surf",
+            "description": "Sport qui consiste à glisser sur les vagues en se tenant sur une planche.",
+            "createdAt": "2025-11-06T10:05:00.000Z",
+            "updatedAt": "2025-11-06T10:05:00.000Z",
+            "publishedAt": "2025-11-06T10:05:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 9,
+            "documentId": "s9",
+            "title": "Char à voile",
+            "description": "Sport de vitesse pratiqué sur de grandes plages de sable.",
+            "createdAt": "2025-11-06T10:06:00.000Z",
+            "updatedAt": "2025-11-06T10:06:00.000Z",
+            "publishedAt": "2025-11-06T10:06:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 10,
+            "documentId": "s10",
+            "title": "Longe-côte",
+            "description": "Randonnée pédestre aquatique avec de l'eau jusqu'au diaphragme.",
+            "createdAt": "2025-11-06T10:07:00.000Z",
+            "updatedAt": "2025-11-06T10:07:00.000Z",
+            "publishedAt": "2025-11-06T10:07:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 11,
+            "documentId": "s11",
+            "title": "Voile légère",
+            "description": "Pratique de la voile sur de petits bateaux comme le dériveur ou le catamaran.",
+            "createdAt": "2025-11-06T10:08:00.000Z",
+            "updatedAt": "2025-11-06T10:08:00.000Z",
+            "publishedAt": "2025-11-06T10:08:00.000Z",
+            "pois": [],
+            "events": []
+        },
+        {
+            "id": 12,
+            "documentId": "s12",
+            "title": "Pêche en mer",
+            "description": "Activité de pêche pratiquée depuis la côte ou un bateau.",
+            "createdAt": "2025-11-06T10:09:00.000Z",
+            "updatedAt": "2025-11-06T10:09:00.000Z",
+            "publishedAt": "2025-11-06T10:09:00.000Z",
+            "pois": [],
+            "events": []
         }
     ],
     "meta": {
@@ -45,7 +155,7 @@
             "page": 1,
             "pageSize": 25,
             "pageCount": 1,
-            "total": 1
+            "total": 12
         }
     }
 }
