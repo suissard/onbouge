@@ -17,7 +17,7 @@ export const usePoiStore = defineStore('pois', () => {
 
     async function get(id: string) {
     try {
-      const response = await strapi.get('pois', id)
+      const response = await strapi.collections.pois.get(id)
 
       // remplace dans la collection, l'entree qui correspond
       const index = pois.value.findIndex(item => item.id === id)

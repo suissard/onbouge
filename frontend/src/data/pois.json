@@ -11,32 +11,209 @@
             "updatedAt": "2025-11-04T16:22:16.498Z",
             "publishedAt": "2025-11-04T16:22:16.515Z",
             "gmaps_url": "https://maps.app.goo.gl/SjMiES4jv3kQJRPA6",
-            "position": {
-                "lat": 47.25679636614021,
-                "lon": -2.231213896363539
-            },
+            "position": { "lat": 47.25679636614021, "lon": -2.231213896363539 },
             "sports": [
-                {
-                    "id": 2,
-                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
-                    "title": "Weta",
-                    "description": "C'est un truc hyper sympa qui permet de glisser sur l'eau",
-                    "createdAt": "2025-11-04T16:17:09.087Z",
-                    "updatedAt": "2025-11-04T16:17:09.087Z",
-                    "publishedAt": "2025-11-04T16:17:09.106Z"
-                }
+                { "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }
             ],
             "events": [
-                {
-                    "id": 2,
-                    "documentId": "nhtcddleq7s6qzl54xapo2l4",
-                    "title": "Fregate des naze a riens",
-                    "description": "Course de 1 personne, pour etre sur qu'il ya aia pas de jaloux",
-                    "date": "2025-11-15T13:00:00.000Z",
-                    "createdAt": "2025-11-04T16:23:22.646Z",
-                    "updatedAt": "2025-11-04T16:23:22.646Z",
-                    "publishedAt": "2025-11-04T16:23:22.664Z"
-                }
+                { "id": 2, "documentId": "nhtcddleq7s6qzl54xapo2l4", "title": "Fregate des naze a riens" }
+            ]
+        },
+        {
+            "id": 3,
+            "documentId": "poi3",
+            "title": "Spot de kitesurf de la Baule",
+            "lattitude": 47.2833,
+            "longitude": -2.3964,
+            "description": "Plage idéale pour le kitesurf avec un vent régulier.",
+            "createdAt": "2025-11-06T12:00:00.000Z",
+            "updatedAt": "2025-11-06T12:00:00.000Z",
+            "publishedAt": "2025-11-06T12:00:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.2833, "lon": -2.3964 },
+            "sports": [
+                { "id": 4, "documentId": "s4", "title": "Kitesurf" }
+            ],
+            "events": [
+                { "id": 3, "documentId": "event3", "title": "Compétition de Kitesurf à La Baule" },
+                { "id": 17, "documentId": "event17", "title": "Enduro Kitesurf" }
+            ]
+        },
+        {
+            "id": 4,
+            "documentId": "poi4",
+            "title": "Club de Voile de Pornichet",
+            "lattitude": 47.265,
+            "longitude": -2.341,
+            "description": "Club proposant des cours et de la location de planches à voile.",
+            "createdAt": "2025-11-06T12:01:00.000Z",
+            "updatedAt": "2025-11-06T12:01:00.000Z",
+            "publishedAt": "2025-11-06T12:01:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.265, "lon": -2.341 },
+            "sports": [
+                { "id": 3, "documentId": "s3", "title": "Planche à voile" },
+                { "id": 11, "documentId": "s11", "title": "Voile légère" }
+            ],
+            "events": [
+                { "id": 4, "documentId": "event4", "title": "Sortie Planche à voile à Pornichet" },
+                { "id": 11, "documentId": "event11", "title": "Régate de Voile Légère" }
+            ]
+        },
+        {
+            "id": 5,
+            "documentId": "poi5",
+            "title": "École de surf de Saint-Michel-Chef-Chef",
+            "lattitude": 47.1833,
+            "longitude": -2.15,
+            "description": "Spot réputé pour l'apprentissage du surf.",
+            "createdAt": "2025-11-06T12:02:00.000Z",
+            "updatedAt": "2025-11-06T12:02:00.000Z",
+            "publishedAt": "2025-11-06T12:02:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.1833, "lon": -2.15 },
+            "sports": [
+                { "id": 8, "documentId": "s8", "title": "Surf" }
+            ],
+            "events": [
+                { "id": 5, "documentId": "event5", "title": "Randonnée en Kayak de Mer" },
+                { "id": 8, "documentId": "event8", "title": "Session Surf au coucher du soleil" },
+                { "id": 14, "documentId": "event14", "title": "Challenge de Surf" }
+            ]
+        },
+        {
+            "id": 6,
+            "documentId": "poi6",
+            "title": "Cercle Nautique de la Baule - Le Pouliguen",
+            "lattitude": 47.275,
+            "longitude": -2.41,
+            "description": "Club d'aviron et de kayak sur le port du Pouliguen.",
+            "createdAt": "2025-11-06T12:03:00.000Z",
+            "updatedAt": "2025-11-06T12:03:00.000Z",
+            "publishedAt": "2025-11-06T12:03:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.275, "lon": -2.41 },
+            "sports": [
+                { "id": 7, "documentId": "s7", "title": "Aviron" },
+                { "id": 5, "documentId": "s5", "title": "Kayak de mer" }
+            ],
+            "events": []
+        },
+        {
+            "id": 7,
+            "documentId": "poi7",
+            "title": "Plage de la Govelle - Batz-sur-Mer",
+            "lattitude": 47.272,
+            "longitude": -2.48,
+            "description": "Plage prisée pour le stand-up paddle.",
+            "createdAt": "2025-11-06T12:04:00.000Z",
+            "updatedAt": "2025-11-06T12:04:00.000Z",
+            "publishedAt": "2025-11-06T12:04:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.272, "lon": -2.48 },
+            "sports": [
+                { "id": 6, "documentId": "s6", "title": "Stand-up paddle" }
+            ],
+            "events": [
+                { "id": 6, "documentId": "event6", "title": "Initiation au Stand-up Paddle" },
+                { "id": 15, "documentId": "event15", "title": "Balade en Paddle au Coucher du Soleil" }
+            ]
+        },
+        {
+            "id": 8,
+            "documentId": "poi8",
+            "title": "Baie de Pont-Mahé - Assérac",
+            "lattitude": 47.41,
+            "longitude": -2.48,
+            "description": "Spot de char à voile sur une grande plage de sable fin.",
+            "createdAt": "2025-11-06T12:05:00.000Z",
+            "updatedAt": "2025-11-06T12:05:00.000Z",
+            "publishedAt": "2025-11-06T12:05:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.41, "lon": -2.48 },
+            "sports": [
+                { "id": 9, "documentId": "s9", "title": "Char à voile" }
+            ],
+            "events": [
+                { "id": 9, "documentId": "event9", "title": "Course de Char à Voile" }
+            ]
+        },
+        {
+            "id": 9,
+            "documentId": "poi9",
+            "title": "Sentier des Douaniers - Le Croisic",
+            "lattitude": 47.29,
+            "longitude": -2.51,
+            "description": "Idéal pour le longe-côte avec des paysages magnifiques.",
+            "createdAt": "2025-11-06T12:06:00.000Z",
+            "updatedAt": "2025-11-06T12:06:00.000Z",
+            "publishedAt": "2025-11-06T12:06:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.29, "lon": -2.51 },
+            "sports": [
+                { "id": 10, "documentId": "s10", "title": "Longe-côte" }
+            ],
+            "events": [
+                { "id": 10, "documentId": "event10", "title": "Sortie Longe-côte au Croisic" }
+            ]
+        },
+        {
+            "id": 10,
+            "documentId": "poi10",
+            "title": "Port de la Turballe",
+            "lattitude": 47.34,
+            "longitude": -2.51,
+            "description": "Port de pêche réputé, idéal pour la pêche en mer.",
+            "createdAt": "2025-11-06T12:07:00.000Z",
+            "updatedAt": "2025-11-06T12:07:00.000Z",
+            "publishedAt": "2025-11-06T12:07:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.34, "lon": -2.51 },
+            "sports": [
+                { "id": 12, "documentId": "s12", "title": "Pêche en mer" }
+            ],
+            "events": [
+                { "id": 12, "documentId": "event12", "title": "Concours de Pêche en Mer" },
+                { "id": 16, "documentId": "event16", "title": "Sortie Pêche en Famille" }
+            ]
+        },
+        {
+            "id": 11,
+            "documentId": "poi11",
+            "title": "Les Evens",
+            "lattitude": 47.26,
+            "longitude": -2.4,
+            "description": "Petite île accessible en Weta pour une excursion.",
+            "createdAt": "2025-11-06T12:08:00.000Z",
+            "updatedAt": "2025-11-06T12:08:00.000Z",
+            "publishedAt": "2025-11-06T12:08:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.26, "lon": -2.4 },
+            "sports": [
+                { "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }
+            ],
+            "events": [
+                { "id": 13, "documentId": "event13", "title": "Découverte du Weta" }
+            ]
+        },
+        {
+            "id": 12,
+            "documentId": "poi12",
+            "title": "Base nautique de l'Erdre",
+            "lattitude": 47.22,
+            "longitude": -1.55,
+            "description": "Base nautique sur la rivière Erdre à Nantes.",
+            "createdAt": "2025-11-06T12:09:00.000Z",
+            "updatedAt": "2025-11-06T12:09:00.000Z",
+            "publishedAt": "2025-11-06T12:09:00.000Z",
+            "gmaps_url": "https://maps.app.goo.gl/exemple",
+            "position": { "lat": 47.22, "lon": -1.55 },
+            "sports": [
+                { "id": 5, "documentId": "s5", "title": "Kayak de mer" },
+                { "id": 7, "documentId": "s7", "title": "Aviron" }
+            ],
+            "events": [
+                { "id": 7, "documentId": "event7", "title": "Régate d'Aviron sur l'Erdre" }
             ]
         }
     ],
@@ -45,7 +222,7 @@
             "page": 1,
             "pageSize": 25,
             "pageCount": 1,
-            "total": 1
+            "total": 12
         }
     }
 }

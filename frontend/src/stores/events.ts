@@ -12,13 +12,13 @@ export const useEventStore = defineStore('events', () => {
       console.log("response", response)
       events.value = response.data
     } catch (error) {
-      console.error('Error fetching events:', error.stack)
+      console.error('Error fetching events:', error)
     }
   }
 
     async function get(id: string) {
     try {
-      const response = await strapi.get('events', id)
+      const response = await strapi.collections.events.get(id)
 
       // remplace dans la collection, l'entree qui correspond
       const index = events.value.findIndex(item => item.id === id)

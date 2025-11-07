@@ -17,7 +17,7 @@ export const useSportStore = defineStore('sports', () => {
 
     async function get(id: string) {
     try {
-      const response = await strapi.get('sports', id)
+      const response = await strapi.collections.sports.get(id)
 
       // remplace dans la collection, l'entree qui correspond
       const index = sports.value.findIndex(item => item.id === id)
