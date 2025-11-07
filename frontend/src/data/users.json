@@ -1,4 +1,4 @@
-[
+{"data": [
     {
         "id": 1,
         "documentId": "edexqkgbxi4ej2vwf9znd6in",
@@ -250,4 +250,13 @@
         "id": 31, "documentId": "user31", "username": "theo_quai", "email": "theo.quai@example.com", "provider": "local", "confirmed": true, "blocked": false, "createdAt": "2025-11-07T09:19:00.000Z", "updatedAt": "2025-11-07T09:19:00.000Z", "publishedAt": "2025-11-07T09:19:00.000Z",
         "role": { "id": 1, "documentId": "xji0zbhqptnxndeg5i3tjb0t", "name": "Authenticated" }, "profile": { "id": 31, "documentId": "profile31", "username": "theo_quai" }
     }
-]
+],
+   "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 2,
+            "total": 30
+        }
+    }
+}

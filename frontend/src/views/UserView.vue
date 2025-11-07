@@ -25,17 +25,17 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/users'
+import { useProfilesStore } from '@/stores/profiles'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const userStore = useUserStore()
+const userStore = useProfilesStore()
 const route = useRoute()
 const userId = Number(route.params.id)
 const user = ref<any>(null)
 
 onMounted(async () => {
   await userStore.getList()
-  user.value = userStore.users.find((u) => u.id === userId)
+  user.value = userStore.profiles.find((e) => e.id === userId)
 })
 </script>

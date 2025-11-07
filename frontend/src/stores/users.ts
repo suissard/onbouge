@@ -17,7 +17,7 @@ export const useUserStore = defineStore('users', () => {
 
     async function get(id: string) {
     try {
-      const response = await strapi.get('users', id)
+      const response = await strapi.collections.users.get(id)
 
       // remplace dans la collection, l'entree qui correspond
       const index = users.value.findIndex(item => item.id === id)
