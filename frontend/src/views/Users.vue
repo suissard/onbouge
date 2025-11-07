@@ -3,7 +3,7 @@
     <h1 class="mb-4">Users</h1>
     <v-row>
       <v-col v-for="user in userStore.users" :key="user.id" cols="12" sm="6" md="4">
-        <Card :item="user" @click="$router.push(`/user/view/${user.id}`)" />
+        <Card :item="user" @click="$router.push(`/users/${user.id}`)" />
       </v-col>
     </v-row>
   </v-container>

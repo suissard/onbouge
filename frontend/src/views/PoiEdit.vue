@@ -32,7 +32,7 @@ function savePoi() {
   if (poi.value) {
     // In a real app, you'd call an API to save the POI
     console.log('Saving POI:', poi.value)
-    router.push(`/poi/view/${poiId}`)
+    router.push(`/pois/${poiId}`)
   }
 }
 </script>

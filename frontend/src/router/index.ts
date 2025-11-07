@@ -15,12 +15,12 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/event/edit/:id',
+      path: '/events/:id/edit',
       name: 'event-edit',
       component: () => import('../views/EventEdit.vue'),
     },
     {
-      path: '/event/view/:id',
+      path: '/events/:id',
       name: 'event-view',
       component: () => import('../views/EventView.vue'),
     },
@@ -35,12 +35,12 @@ const router = createRouter({
       component: () => import('../views/Login.vue'),
     },
     {
-      path: '/poi/edit/:id',
+      path: '/pois/:id/edit',
       name: 'poi-edit',
       component: () => import('../views/PoiEdit.vue'),
     },
     {
-      path: '/poi/view/:id',
+      path: '/pois/:id',
       name: 'poi-view',
       component: () => import('../views/PoiView.vue'),
     },
@@ -55,12 +55,12 @@ const router = createRouter({
       component: () => import('../views/Register.vue'),
     },
     {
-      path: '/user/edit/:id',
+      path: '/users/:id/edit',
       name: 'user-edit',
       component: () => import('../views/UserEdit.vue'),
     },
     {
-      path: '/user/view/:id',
+      path: '/users/:id',
       name: 'user-view',
       component: () => import('../views/UserView.vue'),
     },
@@ -75,7 +75,7 @@ const router = createRouter({
       component: () => import('../views/Sports.vue'),
     },
     {
-      path: '/sport/view/:id',
+      path: '/sports/:id',
       name: 'sport-view',
       component: () => import('../views/SportView.vue'),
     },

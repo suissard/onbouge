@@ -7,14 +7,14 @@
         <h3 class="text-h6 mt-4">Events</h3>
 
         <v-chip-group>
-          <v-chip v-for="event in sport.events" :key="event.id" :to="`/event/view/${event.id}`">{{ event.title
-          }}</v-chip>
+          <v-chip v-for="event in sport.events" :key="event.id" :to="`/events/${event.id}`">{{ event.title
+            }}</v-chip>
         </v-chip-group>
         <h3 class="text-h6 mt-4">Pois</h3>
 
         <v-chip-group>
-          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/event/view/${poi.id}`">{{ poi.title
-          }}</v-chip>
+          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/events/${poi.id}`">{{ poi.title
+            }}</v-chip>
         </v-chip-group>
       </v-card-text>
     </v-card>

@@ -9,18 +9,18 @@
         <div v-if="event.sports && event.sports.length > 0">
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
-            <v-chip v-for="sport in event.sports" :key="sport.id" :to="`/sport/view/${sport.id}`">{{ sport.title
-              }}</v-chip>
+            <v-chip v-for="sport in event.sports" :key="sport.id" :to="`/sports/${sport.id}`">{{ sport.title
+            }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="event.poi">
           <h3 class="text-h6 mt-4">POI</h3>
-          <v-chip :to="`/poi/view/${event.poi.id}`">{{ event.poi.title }}</v-chip>
+          <v-chip :to="`/pois/${event.poi.id}`">{{ event.poi.title }}</v-chip>
         </div>
         <div v-if="event.profiles && event.profiles.length > 0">
           <h3 class="text-h6 mt-4">Participants</h3>
           <v-chip-group>
-            <v-chip v-for="profile in event.profiles" :key="profile.id" :to="`/user/view/${profile.id}`">{{
+            <v-chip v-for="profile in event.profiles" :key="profile.id" :to="`/users/${profile.id}`">{{
               profile.username }}</v-chip>
           </v-chip-group>
         </div>

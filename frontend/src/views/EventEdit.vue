@@ -32,7 +32,7 @@ function saveEvent() {
   if (event.value) {
     // In a real app, you'd call an API to save the event
     console.log('Saving event:', event.value)
-    router.push(`/event/view/${eventId}`)
+    router.push(`/events/${eventId}`)
   }
 }
 </script>

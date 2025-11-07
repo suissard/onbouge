@@ -3,7 +3,7 @@
     <h1 class="mb-4">POIs</h1>
     <v-row>
       <v-col v-for="poi in poiStore.pois" :key="poi.id" cols="12" sm="6" md="4">
-        <Card :item="poi" @click="$router.push(`/poi/view/${poi.id}`)" />
+        <Card :item="poi" @click="$router.push(`/pois/${poi.id}`)" />
       </v-col>
     </v-row>
   </v-container>

@@ -31,7 +31,7 @@ function saveUser() {
   if (user.value) {
     // In a real app, you'd call an API to save the user
     console.log('Saving user:', user.value)
-    router.push(`/user/view/${userId}`)
+    router.push(`/users/${userId}`)
   }
 }
 </script>
