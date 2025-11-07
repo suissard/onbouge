@@ -35,7 +35,8 @@
                 { "id": 4, "documentId": "s4", "title": "Kitesurf" }
             ],
             "events": [
-                { "id": 3, "documentId": "event3", "title": "Compétition de Kitesurf à La Baule" }
+                { "id": 3, "documentId": "event3", "title": "Compétition de Kitesurf à La Baule" },
+                { "id": 17, "documentId": "event17", "title": "Enduro Kitesurf" }
             ]
         },
         {
@@ -76,7 +77,8 @@
             ],
             "events": [
                 { "id": 5, "documentId": "event5", "title": "Randonnée en Kayak de Mer" },
-                { "id": 8, "documentId": "event8", "title": "Session Surf au coucher du soleil" }
+                { "id": 8, "documentId": "event8", "title": "Session Surf au coucher du soleil" },
+                { "id": 14, "documentId": "event14", "title": "Challenge de Surf" }
             ]
         },
         {
@@ -113,7 +115,8 @@
                 { "id": 6, "documentId": "s6", "title": "Stand-up paddle" }
             ],
             "events": [
-                { "id": 6, "documentId": "event6", "title": "Initiation au Stand-up Paddle" }
+                { "id": 6, "documentId": "event6", "title": "Initiation au Stand-up Paddle" },
+                { "id": 15, "documentId": "event15", "title": "Balade en Paddle au Coucher du Soleil" }
             ]
         },
         {
@@ -170,7 +173,8 @@
                 { "id": 12, "documentId": "s12", "title": "Pêche en mer" }
             ],
             "events": [
-                { "id": 12, "documentId": "event12", "title": "Concours de Pêche en Mer" }
+                { "id": 12, "documentId": "event12", "title": "Concours de Pêche en Mer" },
+                { "id": 16, "documentId": "event16", "title": "Sortie Pêche en Famille" }
             ]
         },
         {
@@ -188,7 +192,9 @@
             "sports": [
                 { "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }
             ],
-            "events": []
+            "events": [
+                { "id": 13, "documentId": "event13", "title": "Découverte du Weta" }
+            ]
         },
         {
             "id": 12,

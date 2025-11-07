@@ -24,7 +24,7 @@
             "publishedAt": "2025-11-06T14:00:00.000Z",
             "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
             "poi": { "id": 3, "documentId": "poi3", "title": "Spot de kitesurf de la Baule" },
-            "profiles": [{ "id": 21, "documentId": "profile21", "username": "marin_le_pen" }]
+            "profiles": [{ "id": 21, "documentId": "profile21", "username": "marin_le_vent" }]
         },
         {
             "id": 4,
@@ -142,6 +142,90 @@
             "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
             "poi": { "id": 10, "documentId": "poi10", "title": "Port de la Turballe" },
             "profiles": [{ "id": 30, "documentId": "profile30", "username": "thomas_voile" }]
+        },
+        {
+            "id": 13,
+            "documentId": "event13",
+            "title": "Découverte du Weta",
+            "description": "Journée d'initiation au Weta pour toute la famille.",
+            "date": "2025-12-14T10:00:00.000Z",
+            "createdAt": "2025-11-07T11:00:00.000Z",
+            "updatedAt": "2025-11-07T11:00:00.000Z",
+            "publishedAt": "2025-11-07T11:00:00.000Z",
+            "sports": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
+            "poi": { "id": 11, "documentId": "poi11", "title": "Les Evens" },
+            "profiles": [
+                { "id": 41, "documentId": "profile41", "username": "emma_dune" },
+                { "id": 46, "documentId": "profile46", "username": "maxime_ancre" }
+            ]
+        },
+        {
+            "id": 14,
+            "documentId": "event14",
+            "title": "Challenge de Surf",
+            "description": "Compétition de surf pour les jeunes talents.",
+            "date": "2025-12-20T13:00:00.000Z",
+            "createdAt": "2025-11-07T11:01:00.000Z",
+            "updatedAt": "2025-11-07T11:01:00.000Z",
+            "publishedAt": "2025-11-07T11:01:00.000Z",
+            "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
+            "poi": { "id": 5, "documentId": "poi5", "title": "École de surf de Saint-Michel-Chef-Chef" },
+            "profiles": [
+                { "id": 32, "documentId": "profile32", "username": "leo_vague" },
+                { "id": 42, "documentId": "profile42", "username": "gabriel_port" },
+                { "id": 47, "documentId": "profile47", "username": "noemie_amarre" }
+            ]
+        },
+        {
+            "id": 15,
+            "documentId": "event15",
+            "title": "Balade en Paddle au Coucher du Soleil",
+            "description": "Balade en stand-up paddle pour admirer le coucher du soleil.",
+            "date": "2025-12-21T16:30:00.000Z",
+            "createdAt": "2025-11-07T11:02:00.000Z",
+            "updatedAt": "2025-11-07T11:02:00.000Z",
+            "publishedAt": "2025-11-07T11:02:00.000Z",
+            "sports": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
+            "poi": { "id": 7, "documentId": "poi7", "title": "Plage de la Govelle - Batz-sur-Mer" },
+            "profiles": [
+                { "id": 31, "documentId": "profile31", "username": "chloe_soleil" },
+                { "id": 43, "documentId": "profile43", "username": "ines_mouillage" },
+                { "id": 48, "documentId": "profile48", "username": "oscar_bouee" }
+            ]
+        },
+        {
+            "id": 16,
+            "documentId": "event16",
+            "title": "Sortie Pêche en Famille",
+            "description": "Journée de pêche en mer pour petits et grands.",
+            "date": "2025-12-27T08:30:00.000Z",
+            "createdAt": "2025-11-07T11:03:00.000Z",
+            "updatedAt": "2025-11-07T11:03:00.000Z",
+            "publishedAt": "2025-11-07T11:03:00.000Z",
+            "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
+            "poi": { "id": 10, "documentId": "poi10", "title": "Port de la Turballe" },
+            "profiles": [
+                { "id": 34, "documentId": "profile34", "username": "hugo_ocean" },
+                { "id": 45, "documentId": "profile45", "username": "lea_croisiere" },
+                { "id": 49, "documentId": "profile49", "username": "sarah_ponton" }
+            ]
+        },
+        {
+            "id": 17,
+            "documentId": "event17",
+            "title": "Enduro Kitesurf",
+            "description": "Parcours d'endurance en kitesurf.",
+            "date": "2025-12-28T11:00:00.000Z",
+            "createdAt": "2025-11-07T11:04:00.000Z",
+            "updatedAt": "2025-11-07T11:04:00.000Z",
+            "publishedAt": "2025-11-07T11:04:00.000Z",
+            "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
+            "poi": { "id": 3, "documentId": "poi3", "title": "Spot de kitesurf de la Baule" },
+            "profiles": [
+                { "id": 33, "documentId": "profile33", "username": "eva_maree" },
+                { "id": 42, "documentId": "profile42", "username": "gabriel_port" },
+                { "id": 48, "documentId": "profile48", "username": "oscar_bouee" }
+            ]
         }
     ],
     "meta": {
@@ -149,7 +233,7 @@
             "page": 1,
             "pageSize": 25,
             "pageCount": 1,
-            "total": 12
+            "total": 17
         }
     }
 }
