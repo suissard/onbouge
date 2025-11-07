@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { useEventStore } from '@/stores/events'
+import { useEventsStore } from '@/stores/strapiStore'
 import { onMounted } from 'vue'
 import Card from '@/components/Card.vue'
 
-const eventStore = useEventStore()
+const eventStore = useEventsStore()
 
 onMounted(() => {
   eventStore.getList()

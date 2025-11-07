@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { usePoiStore } from '@/stores/pois'
+import { usePoisStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const poiStore = usePoiStore()
+const poiStore = usePoisStore()
 const route = useRoute()
 const router = useRouter()
 const poiId = Number(route.params.id)

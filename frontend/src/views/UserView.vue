@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { useProfilesStore } from '@/stores/profiles'
+import { useProfilesStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 

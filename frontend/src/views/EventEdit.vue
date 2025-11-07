@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { useEventStore } from '@/stores/events'
+import { useEventsStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const eventStore = useEventStore()
+const eventStore = useEventsStore()
 const route = useRoute()
 const router = useRouter()
 const eventId = Number(route.params.id)

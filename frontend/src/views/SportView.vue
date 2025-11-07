@@ -8,13 +8,13 @@
 
         <v-chip-group>
           <v-chip v-for="event in sport.events" :key="event.id" :to="`/event/view/${event.id}`">{{ event.title
-            }}</v-chip>
+          }}</v-chip>
         </v-chip-group>
         <h3 class="text-h6 mt-4">Pois</h3>
 
         <v-chip-group>
           <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/event/view/${poi.id}`">{{ poi.title
-            }}</v-chip>
+          }}</v-chip>
         </v-chip-group>
       </v-card-text>
     </v-card>
@@ -23,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { useSportStore } from '@/stores/sports'
+import { useSportsStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
-const sportStore = useSportStore()
+const sportStore = useSportsStore()
 const route = useRoute()
 const sportId = Number(route.params.id)
 const sport = ref<any>(null)

@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { useSportStore } from '@/stores/sports'
+import { useSportsStore } from '@/stores/strapiStore'
 import { onMounted } from 'vue'
 import Card from '@/components/Card.vue'
 
-const sportStore = useSportStore()
+const sportStore = useSportsStore()
 
 onMounted(() => {
   sportStore.getList()

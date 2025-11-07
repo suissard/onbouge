@@ -12,11 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/users'
+import { useUsersStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const userStore = useUserStore()
+const userStore = useUsersStore()
 const route = useRoute()
 const router = useRouter()
 const userId = Number(route.params.id)

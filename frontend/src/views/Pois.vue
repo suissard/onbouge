@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { usePoiStore } from '@/stores/pois'
+import { usePoisStore } from '@/stores/strapiStore'
 import { onMounted } from 'vue'
 import Card from '@/components/Card.vue'
 
-const poiStore = usePoiStore()
+const poiStore = usePoisStore()
 
 onMounted(() => {
   poiStore.getList()

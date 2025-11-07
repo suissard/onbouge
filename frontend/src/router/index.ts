@@ -15,21 +15,6 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: () => import('../views/Admin.vue'),
-    },
-    {
-      path: '/agenda',
-      name: 'agenda',
-      component: () => import('../views/Agenda.vue'),
-    },
-    {
-      path: '/data',
-      name: 'data',
-      component: () => import('../views/Data.vue'),
-    },
-    {
       path: '/event/edit/:id',
       name: 'event-edit',
       component: () => import('../views/EventEdit.vue'),
@@ -43,21 +28,6 @@ const router = createRouter({
       path: '/events',
       name: 'events',
       component: () => import('../views/Events.vue'),
-    },
-    {
-      path: '/faq',
-      name: 'faq',
-      component: () => import('../views/Faq.vue'),
-    },
-    {
-      path: '/forum',
-      name: 'forum',
-      component: () => import('../views/Forum.vue'),
-    },
-    {
-      path: '/liens',
-      name: 'liens',
-      component: () => import('../views/Liens.vue'),
     },
     {
       path: '/login',
@@ -83,16 +53,6 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: () => import('../views/Register.vue'),
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('../views/Settings.vue'),
-    },
-    {
-      path: '/topic',
-      name: 'topic',
-      component: () => import('../views/Topic.vue'),
     },
     {
       path: '/user/edit/:id',

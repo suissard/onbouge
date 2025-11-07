@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/users'
+import { useUsersStore } from '@/stores/strapiStore'
 import { onMounted } from 'vue'
 import Card from '@/components/Card.vue'
 
-const userStore = useUserStore()
+const userStore = useUsersStore()
 
 onMounted(() => {
   userStore.getList()
