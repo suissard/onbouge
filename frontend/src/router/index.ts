@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { useAuthStore } from '@/stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,7 @@ const router = createRouter({
       path: '/events/:id/edit',
       name: 'event-edit',
       component: () => import('../views/EventEdit.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/events/:id',
@@ -38,6 +40,7 @@ const router = createRouter({
       path: '/pois/:id/edit',
       name: 'poi-edit',
       component: () => import('../views/PoiEdit.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/pois/:id',
@@ -58,16 +61,19 @@ const router = createRouter({
       path: '/users/:id/edit',
       name: 'user-edit',
       component: () => import('../views/UserEdit.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/users/:id',
       name: 'user-view',
       component: () => import('../views/UserView.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/users',
       name: 'users',
       component: () => import('../views/Users.vue'),
+      meta: { requiresAuth: true },
     },
     {
       path: '/sports',
@@ -80,6 +86,15 @@ const router = createRouter({
       component: () => import('../views/SportView.vue'),
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+  if (to.meta.requiresAuth && !authStore.token) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router
