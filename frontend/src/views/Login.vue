@@ -9,6 +9,27 @@
       <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
       <v-btn type="submit" color="primary">Login</v-btn>
     </v-form>
+
+    <v-divider class="my-4"></v-divider>
+
+    <div class="d-flex flex-column align-center">
+      <v-tooltip location="top">
+        <template v-slot:activator="{ props }">
+          <div v-bind="props">
+            <v-btn disabled class="mb-2" color="primary" width="300px">Se connecter avec Google</v-btn>
+          </div>
+        </template>
+        <span>Bientôt disponible</span>
+      </v-tooltip>
+      <v-tooltip location="top">
+        <template v-slot:activator="{ props }">
+          <div v-bind="props">
+            <v-btn disabled color="primary" width="300px">Se connecter avec Facebook</v-btn>
+          </div>
+        </template>
+        <span>Bientôt disponible</span>
+      </v-tooltip>
+    </div>
   </v-container>
 </template>
 
