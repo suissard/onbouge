@@ -9,8 +9,13 @@
       <v-btn to="/pois">POIs</v-btn>
       <v-btn to="/users">Profiles</v-btn>
       <v-btn to="/sports">Sports</v-btn>
-      <v-btn to="/login">Login</v-btn>
-      <v-btn to="/register">register</v-btn>
+      <template v-if="!authStore.token">
+        <v-btn to="/login">Login</v-btn>
+        <v-btn to="/register">Register</v-btn>
+      </template>
+      <template v-else>
+        <v-btn @click="logout">Logout</v-btn>
+      </template>
     </v-app-bar>
 
     <v-main>
@@ -24,5 +29,14 @@
 </template>
 
 <script setup lang="ts">
-  //
+import { useAuthStore } from '@/stores/authStore';
+import { useRouter } from 'vue-router';
+
+const authStore = useAuthStore();
+const router = useRouter();
+
+const logout = () => {
+  authStore.logout();
+  router.push('/');
+};
 </script>
