@@ -9,7 +9,7 @@
       <v-btn to="/pois">POIs</v-btn>
       <v-btn to="/users">Profiles</v-btn>
       <v-btn to="/sports">Sports</v-btn>
-      <template v-if="!authStore.token">
+      <template v-if="!authStore.user">
         <v-btn to="/login">Login</v-btn>
         <v-btn to="/register">Register</v-btn>
       </template>

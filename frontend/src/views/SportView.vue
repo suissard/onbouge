@@ -13,7 +13,7 @@
         <h3 class="text-h6 mt-4">Pois</h3>
 
         <v-chip-group>
-          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/events/${poi.id}`">{{ poi.title
+          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/pois/${poi.id}`">{{ poi.title
             }}</v-chip>
         </v-chip-group>
       </v-card-text>

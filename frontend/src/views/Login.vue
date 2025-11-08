@@ -5,18 +5,8 @@
       <v-alert v-if="error" type="error" dense>
         {{ error }}
       </v-alert>
-      <v-text-field
-        v-model="email"
-        label="Email"
-        type="email"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="password"
-        label="Password"
-        type="password"
-        required
-      ></v-text-field>
+      <v-text-field v-model="email" label="Email" type="email" required></v-text-field>
+      <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
       <v-btn type="submit" color="primary">Login</v-btn>
     </v-form>
   </v-container>
@@ -36,7 +26,7 @@ const authStore = useAuthStore();
 const handleSubmit = async () => {
   try {
     error.value = null;
-    await authStore.login({ identifier: email.value, password: password.value });
+    await authStore.login(email.value, password.value);
     router.push('/');
   } catch (err: any) {
     error.value = err.message || 'Login failed. Please check your credentials.';
