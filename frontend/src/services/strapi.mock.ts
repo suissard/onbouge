@@ -42,11 +42,7 @@ const strapi = {
       setTimeout(() => {
         resolve({
           jwt: 'mock-token',
-          user: {
-            id: 1,
-            username: 'test-user',
-            email: credentials.identifier,
-          },
+          user: this.collections.users[0],
         });
       }, 500);
     });
@@ -56,15 +52,20 @@ const strapi = {
       setTimeout(() => {
         resolve({
           jwt: 'mock-token',
-          user: {
-            id: 1,
-            username: userInfo.username,
-            email: userInfo.email,
-          },
+          user: this.collections.users[0],
         });
       }, 500);
     });
   },
+  setToken(token: string){},
+  signOut(){},
+  get(){
+    let target:string = arguments[0].split("?")[0]
+    console.log("get",target)
+    if (this.collections[target]){
+      return this.collections[target].list()
+    }
+  }
 };
 
 export default strapi;

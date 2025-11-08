@@ -8,14 +8,14 @@
         <div v-if="user.sports && user.sports.length > 0">
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
-            <v-chip v-for="sport in user.sports" :key="sport.id" :to="`/sports/${sport.id}`">{{ sport.title
+            <v-chip v-for="sport in user.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
               }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="user.events && user.events.length > 0">
           <h3 class="text-h6 mt-4">Events</h3>
           <v-chip-group>
-            <v-chip v-for="event in user.events" :key="event.id" :to="`/events/${event.id}`">{{ event.title
+            <v-chip v-for="event in user.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
               }}</v-chip>
           </v-chip-group>
         </div>
@@ -32,7 +32,7 @@ import { useRoute } from 'vue-router'
 
 const userStore = useUsersStore()
 const route = useRoute()
-const userId = Number(route.params.id)
+const userId = String(route.params.id)
 const user = ref<any>(null)
 
 onMounted(async () => {

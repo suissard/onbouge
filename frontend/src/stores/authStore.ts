@@ -19,20 +19,21 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function login(identifier: string, password: string) {
-    // const response = await strapi.login(identifier, password);
+    const response = await strapi.login(identifier, password);
     // ========================== TODO debug la librairi, elle envoie une token undefined
-    const response = await strapi.axios({
-      url: strapi.prefix + "auth/local",
-      method: "post",
-      data: {
-        identifier,
-        password,
-      },
-      baseURL: strapi.baseURL + "/",
-    })
+    // const response = await strapi.axios({
+    //   url: strapi.prefix + "auth/local",
+    //   method: "post",
+    //   data: {
+    //     identifier,
+    //     password,
+    //   },
+    //   baseURL: strapi.baseURL + "/",
+    // })
     //  =================
-    updateTokenlocalStorage(response.data.jwt);
-    return user.value = response?.data?.user;
+    console.log("login",response)
+    updateTokenlocalStorage(response.jwt);
+    return user.value = response?.user;
   }
 
   function logout() {
@@ -43,15 +44,10 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function register(userInfo: any) {
-    // const response = await strapi.register(userInfo);
-    // ========================== TODO debug la librairi, elle envoie une token undefined
-    const response = await strapi.axios({
-      url: strapi.prefix + "auth/local/register",
-      method: "post",
-      data: userInfo,
-      baseURL: strapi.baseURL + "/",
-    })
-    // ======================================
+    const  { username, email, password} = userInfo
+    const response = await strapi.register(username, email, password);
+    // const response = await strapi.request(strapi.prefix + "auth/local/register", "post", { username, email, password} );
+
     updateTokenlocalStorage(response.data?.jwt);
     return user.value = response.data?.user;
   }

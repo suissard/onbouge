@@ -9,14 +9,14 @@
         <div v-if="poi.sports && poi.sports.length > 0">
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
-            <v-chip v-for="sport in poi.sports" :key="sport.id" :to="`/sports/${sport.id}`">{{ sport.title
+            <v-chip v-for="sport in poi.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
               }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="poi.events && poi.events.length > 0">
           <h3 class="text-h6 mt-4">Events</h3>
           <v-chip-group>
-            <v-chip v-for="event in poi.events" :key="event.id" :to="`/events/${event.id}`">{{ event.title
+            <v-chip v-for="event in poi.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
               }}</v-chip>
           </v-chip-group>
         </div>
@@ -33,11 +33,10 @@ import { useRoute } from 'vue-router'
 
 const poiStore = usePoisStore()
 const route = useRoute()
-const poiId = Number(route.params.id)
+const poiId = String(route.params.id)
 const poi = ref<any>(null)
 
 onMounted(async () => {
-  await poiStore.getList()
-  poi.value = poiStore.pois.find((p) => p.id === poiId)
+  poi.value = await poiStore.get(poiId)
 })
 </script>

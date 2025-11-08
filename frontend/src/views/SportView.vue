@@ -7,13 +7,13 @@
         <h3 class="text-h6 mt-4">Events</h3>
 
         <v-chip-group>
-          <v-chip v-for="event in sport.events" :key="event.id" :to="`/events/${event.id}`">{{ event.title
+          <v-chip v-for="event in sport.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
             }}</v-chip>
         </v-chip-group>
         <h3 class="text-h6 mt-4">Pois</h3>
 
         <v-chip-group>
-          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/pois/${poi.id}`">{{ poi.title
+          <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/pois/${poi.documentId}`">{{ poi.title
             }}</v-chip>
         </v-chip-group>
       </v-card-text>
@@ -29,11 +29,10 @@ import { useRoute } from 'vue-router'
 
 const sportStore = useSportsStore()
 const route = useRoute()
-const sportId = Number(route.params.id)
+const sportId = String(route.params.id)
 const sport = ref<any>(null)
 
 onMounted(async () => {
-  await sportStore.getList()
-  sport.value = sportStore.sports.find((s) => s.id === sportId)
+  sport.value = await sportStore.get(sportId)
 })
 </script>

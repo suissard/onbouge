@@ -3,7 +3,7 @@
     <h1 class="mb-4">Events</h1>
     <v-row>
       <v-col v-for="event in eventStore.events" :key="event.id" cols="12" sm="6" md="4">
-        <Card :item="event" @click="$router.push(`/events/${event.id}`)" />
+        <Card :item="event" @click="$router.push(`/events/${event.documentId}`)" />
       </v-col>
     </v-row>
   </v-container>
