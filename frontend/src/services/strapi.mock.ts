@@ -29,13 +29,42 @@ const  listMock = async function (contentType: string,): Promise<{ data: any[] }
     });
   }
 
-const strapi = {collections:{
-  events:{list:()=> listMock("events"),get:(id:string)=> getMock("events",id)},
-  pois:{list:()=> listMock("pois"),get:(id:string)=> getMock("pois",id)},
-  users:{list:()=> listMock("users"),get:(id:string)=> getMock("users",id)},
-  profiles:{list:()=> listMock("profiles"),get:(id:string)=> getMock("profiles",id)},
-  sports:{list:()=> listMock("sports"),get:(id:string)=> getMock("sports",id)}
-  
-}};
+const strapi = {
+  collections:{
+    events:{list:()=> listMock("events"),get:(id:string)=> getMock("events",id)},
+    pois:{list:()=> listMock("pois"),get:(id:string)=> getMock("pois",id)},
+    users:{list:()=> listMock("users"),get:(id:string)=> getMock("users",id)},
+    profiles:{list:()=> listMock("profiles"),get:(id:string)=> getMock("profiles",id)},
+    sports:{list:()=> listMock("sports"),get:(id:string)=> getMock("sports",id)}
+  },
+  login: async (credentials: any) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          jwt: 'mock-token',
+          user: {
+            id: 1,
+            username: 'test-user',
+            email: credentials.identifier,
+          },
+        });
+      }, 500);
+    });
+  },
+  register: async (userInfo: any) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          jwt: 'mock-token',
+          user: {
+            id: 1,
+            username: userInfo.username,
+            email: userInfo.email,
+          },
+        });
+      }, 500);
+    });
+  },
+};
 
 export default strapi;

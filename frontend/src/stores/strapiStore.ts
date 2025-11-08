@@ -9,8 +9,9 @@ export const strapiStoreBuilder = (dataName: string) => {
 
   async function getList() {
     try {
-      const response = await strapi.collections[dataName].list()
-      datas.value = response.data
+      const response = await strapi.get(dataName+"?populate=*", true)
+      console.log("strapiStore.getList()", response.data?.data || response.data)
+      datas.value = response.data?.data || response.data
     } catch (error) {
       console.error(`Error fetching ${dataName}:`, error)
     }
@@ -18,7 +19,9 @@ export const strapiStoreBuilder = (dataName: string) => {
 
     async function get(id: string) {
     try {
-      const response = await strapi.collections[dataName].get(id)
+            const response = await strapi.get(`${dataName}/${id}&populate=*`, true)
+
+      console.log("strapiStore.get(id)", id, response)
 
       // remplace dans la collection, l'entree qui correspond
       const index = datas.value.findIndex(item => item.id === id)
@@ -28,6 +31,8 @@ export const strapiStoreBuilder = (dataName: string) => {
         datas.value.push(response.data)
       }
 
+      return datas.value.find(item => item.id === id)
+      // return datas.value[index] response.data
     } catch (error) {
       console.error(`Error fetching event (${id}):`, error)
     }
