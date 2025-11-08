@@ -24,6 +24,9 @@
       </v-container>
     </v-main>
 
+    <NotificationLeft />
+    <NotificationRight />
+
     <v-footer app>
       <span>&copy; 2025</span>
     </v-footer>
@@ -33,6 +36,8 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
+import NotificationLeft from '@/components/NotificationLeft.vue';
+import NotificationRight from '@/components/NotificationRight.vue';
 
 const authStore = useAuthStore();
 const router = useRouter();
