@@ -19,7 +19,9 @@
     </v-app-bar>
 
     <v-main>
-      <router-view></router-view>
+      <v-container class="main-container">
+        <router-view></router-view>
+      </v-container>
     </v-main>
 
     <v-footer app>
@@ -40,3 +42,10 @@ const logout = () => {
   router.push('/');
 };
 </script>
+
+<style scoped>
+.main-container {
+  width: 80%;
+  margin: 0 auto;
+}
+</style>
