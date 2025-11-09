@@ -54,6 +54,9 @@ const emit = defineEmits(['close']);
 const show = ref(true);
 const expanded = ref(false);
 
+/**
+ * Closes the notification and emits the 'close' event after a short delay for animations.
+ */
 const closeNotification = () => {
   show.value = false;
   setTimeout(() => emit('close'), 300); // Allow for fade-out animation
@@ -61,6 +64,10 @@ const closeNotification = () => {
 
 const { progress, pause, resume } = useNotificationTimer(props.duration || 10000, closeNotification);
 
+/**
+ * Toggles the expanded state of the notification details.
+ * Pauses the timer when the details are expanded, and resumes it when they are collapsed.
+ */
 const toggleDetails = () => {
     expanded.value = !expanded.value;
     if (expanded.value) {

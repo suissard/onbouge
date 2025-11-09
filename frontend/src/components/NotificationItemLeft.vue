@@ -47,12 +47,19 @@ const emit = defineEmits(['close']);
 
 const expanded = ref(false);
 
+/**
+ * Emits the 'close' event to signal that the notification should be closed.
+ */
 const closeNotification = () => {
   emit('close');
 };
 
 const { progress, pause, resume } = useNotificationTimer(props.duration || 10000, closeNotification);
 
+/**
+ * Toggles the expanded state of the notification details.
+ * Pauses the timer when the details are expanded, and resumes it when they are collapsed.
+ */
 const toggleDetails = () => {
   expanded.value = !expanded.value;
   if (expanded.value) {

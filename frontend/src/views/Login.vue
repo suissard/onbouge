@@ -44,6 +44,11 @@ const error = ref<string | null>(null);
 const router = useRouter();
 const authStore = useAuthStore();
 
+/**
+ * Handles the login form submission.
+ * It calls the auth store's login action and redirects to the homepage on success.
+ * If the login fails, it displays an error message.
+ */
 const handleSubmit = async () => {
   try {
     error.value = null;

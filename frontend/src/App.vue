@@ -42,6 +42,9 @@ import NotificationRight from '@/components/NotificationRight.vue';
 const authStore = useAuthStore();
 const router = useRouter();
 
+/**
+ * Logs the user out by calling the auth store's logout action and redirects to the homepage.
+ */
 const logout = () => {
   authStore.logout();
   router.push('/');

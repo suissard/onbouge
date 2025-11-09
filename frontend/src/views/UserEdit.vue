@@ -27,6 +27,10 @@ onMounted(async () => {
   user.value = { ...userStore.users.find((u) => u.id === userId) }
 })
 
+/**
+ * Saves the user data and navigates to the user view page.
+ * In a real app, this would call an API to save the user.
+ */
 function saveUser() {
   if (user.value) {
     // In a real app, you'd call an API to save the user
