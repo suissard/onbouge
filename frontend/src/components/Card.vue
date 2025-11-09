@@ -7,7 +7,7 @@
       <p>{{ item.description }}</p>
     </v-card-text>
     <v-card-actions>
-      <v-btn icon @click.stop="expanded = !expanded" class="bg-red">
+      <v-btn icon @click.stop="expanded = !expanded">
         <v-icon>{{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
     </v-card-actions>

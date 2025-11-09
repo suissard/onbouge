@@ -1,22 +1,18 @@
 <template>
-  <div class="notification-container left">
+  <div class="notification-container">
     <transition-group name="slide-fade" tag="div">
-      <NotificationItemLeft
-        v-for="notification in notifications"
-        :key="notification.id"
-        :notification="notification"
-        @close="removeNotification(notification.id)"
-      />
+      <NotificationItem v-for="notification in notifications" :key="notification.id" :notification="notification"
+        @close="removeNotification(notification.id)" />
     </transition-group>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useNotificationsStore } from '@/stores/notificationStore';
 import { storeToRefs } from 'pinia';
-import NotificationItemLeft from './NotificationItemLeft.vue';
+import NotificationItem from './NotificationItem.vue';
 
-const notificationStore = useNotificationStore();
+const notificationStore = useNotificationsStore();
 const { notifications } = storeToRefs(notificationStore);
 const { removeNotification } = notificationStore;
 </script>
@@ -27,19 +23,18 @@ const { removeNotification } = notificationStore;
   top: 16px;
   width: 350px;
   z-index: 9999;
+  right: 16px;
 }
 
-.left {
-  left: 16px;
-}
 
 .slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.5s ease;
 }
+
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateX(-20px);
+  transform: translateX(20px);
   opacity: 0;
 }
 </style>

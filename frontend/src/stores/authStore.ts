@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUser() {
     try {
       if (!token.value) return
-      const response = await strapi.get('users/me', true);
+      const response = await strapi.get('users/me');
       user.value = response.data;
     } catch (error) {
       console.error('Failed to fetch user:', error);

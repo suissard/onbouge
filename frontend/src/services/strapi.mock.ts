@@ -33,15 +33,14 @@ const  listMock = async function (contentType: string,): Promise<{ data: any[] }
    */
   const getMock = async function(contentType: string, id: string): Promise<{ data: any[] }> {
     return new Promise((resolve) => {
-      console.log(id, mockData[contentType].data, mockData[contentType].data?.find(item => item.id === id))
-
       setTimeout(() => {
-        resolve({ data: mockData[contentType].data?.find(item => item.id === id)|| [] });
+        // console.log("getmock", mockData, contentType, id, mockData[contentType].data?.find(item => item.documentId === id))
+        resolve({data:{ data: mockData[contentType].data?.find(item => item.documentId === id)|| [] }});
       }, 500);
     });
   }
-
-const strapi = {
+var strapi = {}
+strapi = {
   collections:{
     events:{list:()=> listMock("events"),get:(id:string)=> getMock("events",id)},
     pois:{list:()=> listMock("pois"),get:(id:string)=> getMock("pois",id)},
@@ -59,7 +58,7 @@ const strapi = {
       setTimeout(() => {
         resolve({
           jwt: 'mock-token',
-          user: this.collections.users[0],
+          user: mockData.users.data[0],
         });
       }, 500);
     });
@@ -74,7 +73,7 @@ const strapi = {
       setTimeout(() => {
         resolve({
           jwt: 'mock-token',
-          user: this.collections.users[0],
+          user: mockData.users.data[0],
         });
       }, 500);
     });
@@ -93,10 +92,17 @@ const strapi = {
    * @returns {Promise<{ data: any[] }> | undefined} A promise that resolves to the mock data, or undefined if the content type is not found.
    */
   get(){
-    let target:string = arguments[0].split("?")[0]
-    console.log("get",target)
-    if (this.collections[target]){
-      return this.collections[target].list()
+    let target:string = arguments[0].split("?")[0], id:string = ""
+    if (target.includes("/")){
+      id = target.split("/")[1]
+      if(id="me") return mockData.users.data[0]
+      target = target.split("/")[0]
+      return strapi.collections[target].get(id)
+    }
+
+
+    if (strapi.collections[target]){
+      return mockData[target].list()
     }
   }
 };

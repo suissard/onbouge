@@ -17,7 +17,7 @@ export const strapiStoreBuilder = (dataName: string) => {
    */
   async function getList() {
     try {
-      const response = await strapi.get(dataName+"?populate=*", true)
+      const response = await strapi.get(dataName+"?populate=*")
       // console.log("strapiStore.getList()", response.data?.data || response.data)
       datas.value = response.data?.data || response.data
     } catch (error) {
@@ -33,9 +33,8 @@ export const strapiStoreBuilder = (dataName: string) => {
    */
     async function get(id: string) {
     try {
-      const response = await strapi.get(`${dataName}/${id}?populate=*`, true)
+      const response = await strapi.get(`${dataName}/${id}?populate=*`)
 
-      console.log("strapiStore.get(id)", id, response.data.data)
 
       // remplace dans la collection, l'entree qui correspond
       const index = datas.value.findIndex(item => item.documentId === id)

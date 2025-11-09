@@ -1,2 +1,4 @@
 # Log files
 npm_output.log
+data_*
+node_modules

@@ -10,7 +10,7 @@ export interface Notification {
 
 let nextId = 0;
 
-export const useNotificationStore = defineStore('notification', {
+export const useNotificationsStore = defineStore('notification', {
   state: () => ({
     notifications: [] as Notification[],
   }),
