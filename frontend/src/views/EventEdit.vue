@@ -28,6 +28,10 @@ onMounted(async () => {
   event.value = { ...eventStore.events.find((e) => e.id === eventId) }
 })
 
+/**
+ * Saves the event data and navigates to the event view page.
+ * In a real app, this would call an API to save the event.
+ */
 function saveEvent() {
   if (event.value) {
     // In a real app, you'd call an API to save the event

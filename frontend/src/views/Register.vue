@@ -93,6 +93,9 @@ const error = ref<string | null>(null);
 const router = useRouter();
 const authStore = useAuthStore();
 
+/**
+ * A computed property that checks if the password meets all complexity requirements.
+ */
 const passwordRules = computed(() => {
   const value = password.value;
   return {
@@ -104,22 +107,45 @@ const passwordRules = computed(() => {
   };
 });
 
+/**
+ * A computed property that returns true if the password meets all complexity criteria.
+ */
 const isPasswordComplex = computed(() => {
   const rules = passwordRules.value;
   return Object.values(rules).every(Boolean);
 });
 
+/**
+ * A computed property that returns true if the password and password confirmation match.
+ */
 const isPasswordConfirmed = computed(() => {
   return password.value === passwordConfirmation.value && password.value !== '';
 });
 
+/**
+ * A computed property that returns true if the entire form is valid.
+ */
 const isFormValid = computed(() => {
   return isPasswordComplex.value && isPasswordConfirmed.value && username.value !== '' && email.value !== '';
 });
 
+/**
+ * A validation rule for the password complexity.
+ * @returns {boolean | string} - True if the password is complex, otherwise an error message.
+ */
 const passwordComplexityRule = () => isPasswordComplex.value || 'Le mot de passe ne respecte pas les critères de complexité.';
+
+/**
+ * A validation rule for the password confirmation.
+ * @returns {boolean | string} - True if the passwords match, otherwise an error message.
+ */
 const passwordConfirmationRule = () => isPasswordConfirmed.value || 'Les mots de passe ne correspondent pas.';
 
+/**
+ * Handles the registration form submission.
+ * It calls the auth store's register action and redirects to the homepage on success.
+ * If the registration fails, it displays an error message.
+ */
 const handleSubmit = async () => {
   if (!isFormValid.value) {
     error.value = 'Veuillez remplir tous les champs et vous assurer que le mot de passe respecte les critères de complexité.';

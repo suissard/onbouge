@@ -15,6 +15,10 @@ export const useNotificationStore = defineStore('notification', {
     notifications: [] as Notification[],
   }),
   actions: {
+    /**
+     * Adds a new notification to the store.
+     * @param {Omit<Notification, 'id' | 'timestamp'>} notification - The notification object to add.
+     */
     addNotification(notification: Omit<Notification, 'id' | 'timestamp'>) {
       this.notifications.push({
         ...notification,
@@ -22,6 +26,10 @@ export const useNotificationStore = defineStore('notification', {
         timestamp: Date.now(),
       });
     },
+    /**
+     * Removes a notification from the store by its ID.
+     * @param {number} id - The ID of the notification to remove.
+     */
     removeNotification(id: number) {
       this.notifications = this.notifications.filter((n) => n.id !== id);
     },

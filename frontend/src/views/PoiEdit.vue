@@ -28,6 +28,10 @@ onMounted(async () => {
   poi.value = { ...poiStore.pois.find((p) => p.id === poiId) }
 })
 
+/**
+ * Saves the POI data and navigates to the POI view page.
+ * In a real app, this would call an API to save the POI.
+ */
 function savePoi() {
   if (poi.value) {
     // In a real app, you'd call an API to save the POI

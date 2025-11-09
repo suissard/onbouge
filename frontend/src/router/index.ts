@@ -93,6 +93,13 @@ const router = createRouter({
   ],
 })
 
+/**
+ * A navigation guard that checks if a route requires authentication.
+ * If the route requires authentication and the user is not logged in, they are redirected to the login page.
+ * @param {import('vue-router').RouteLocationNormalized} to - The route being navigated to.
+ * @param {import('vue-router').RouteLocationNormalized} from - The route being navigated from.
+ * @param {import('vue-router').NavigationGuardNext} next - A function that resolves the navigation.
+ */
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   if (to.meta.requiresAuth && !authStore.token) {
