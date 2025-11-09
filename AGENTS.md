@@ -21,7 +21,8 @@ Ce document contient les directives fondamentales pour les agents IA travaillant
 1.  **Le Test est Roi :** Pour toute nouvelle fonctionnalité, écris un test. Pour toute correction de bug, écris un test qui échoue avant la correction et qui passe après.
 2.  **Identifier et Lancer les Tests Pertinents :** Recherche les suites de tests existantes qui couvrent la zone de code que tu modifies. Lance-les pour t'assurer que tes changements n'ont pas cassé de fonctionnalités existantes (régression).
 3.  **Vérification de Bout en Bout (`End-to-End`) :** Pour les changements frontend, ne te contente pas de tests unitaires. Utilise les outils de vérification frontend (comme Playwright) pour simuler une interaction utilisateur et fournir une preuve visuelle (screenshot) que le changement fonctionne comme prévu.
-4.  **Suivre les Instructions de Pré-Commit :** Utilise systématiquement `pre_commit_instructions` avant de soumettre. Cette étape garantit que toutes les vérifications de qualité (linting, build, tests) définies pour le projet sont passées avec succès.
+4.  **Build Frontend Avant de Commiter :** Avant chaque commit, il est impératif de lancer la commande `cd frontend && npm run build` pour s'assurer que l'application frontend se construit sans erreur.
+5.  **Suivre les Instructions de Pré-Commit :** Utilise systématiquement `pre_commit_instructions` avant de soumettre. Cette étape garantit que toutes les vérifications de qualité (linting, build, tests) définies pour le projet sont passées avec succès.
 
 ### **4. Communication et Itération**
 
