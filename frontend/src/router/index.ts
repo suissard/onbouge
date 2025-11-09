@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/demonstration-vue',
+      name: 'vue-demo',
+      component: () => import('../views/VueDemo.vue'),
+    },
+    {
       path: '/events/:id/edit',
       name: 'event-edit',
       component: () => import('../views/EventEdit.vue'),

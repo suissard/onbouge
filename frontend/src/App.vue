@@ -5,6 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn to="/">Home</v-btn>
       <v-btn to="/about">About</v-btn>
+      <v-btn to="/demonstration-vue">Vue Demo</v-btn>
       <v-btn to="/events">Events</v-btn>
       <v-btn to="/pois">POIs</v-btn>
       <v-btn to="/users">Profiles</v-btn>
