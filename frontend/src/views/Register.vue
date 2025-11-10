@@ -4,7 +4,7 @@
     <v-form @submit.prevent="handleSubmit">
       <v-alert v-if="error" type="error" dense>
         {{ error }}
-      </v-alert>
+      </-alert>
       <v-text-field
         v-model="username"
         label="Username"
@@ -19,14 +19,18 @@
       <v-text-field
         v-model="password"
         label="Password"
-        type="password"
+        :type="passwordVisible ? 'text' : 'password'"
+        :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="passwordVisible = !passwordVisible"
         required
         :rules="[passwordComplexityRule]"
       ></v-text-field>
       <v-text-field
         v-model="passwordConfirmation"
         label="Confirm Password"
-        type="password"
+        :type="passwordConfirmationVisible ? 'text' : 'password'"
+        :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
         required
         :rules="[passwordConfirmationRule]"
       ></v-text-field>
@@ -89,6 +93,8 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 const passwordConfirmation = ref('');
+const passwordVisible = ref(false);
+const passwordConfirmationVisible = ref(false);
 const error = ref<string | null>(null);
 const router = useRouter();
 const authStore = useAuthStore();
