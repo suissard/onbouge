@@ -19,16 +19,20 @@
       <v-text-field
         v-model="password"
         label="Password"
-        type="password"
+        :type="passwordVisible ? 'text' : 'password'"
         required
         :rules="[passwordComplexityRule]"
+        :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="passwordVisible = !passwordVisible"
       ></v-text-field>
       <v-text-field
         v-model="passwordConfirmation"
         label="Confirm Password"
-        type="password"
+        :type="passwordConfirmationVisible ? 'text' : 'password'"
         required
         :rules="[passwordConfirmationRule]"
+        :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
       ></v-text-field>
 
       <v-list dense>
@@ -89,6 +93,8 @@ const username = ref('');
 const email = ref('');
 const password = ref('');
 const passwordConfirmation = ref('');
+const passwordVisible = ref(false);
+const passwordConfirmationVisible = ref(false);
 const error = ref<string | null>(null);
 const router = useRouter();
 const authStore = useAuthStore();
@@ -125,7 +131,7 @@ const isPasswordConfirmed = computed(() => {
 /**
  * A computed property that returns true if the entire form is valid.
  */
-const isFormValid = computed(() => {
+const isFormValid = computed(()=> {
   return isPasswordComplex.value && isPasswordConfirmed.value && username.value !== '' && email.value !== '';
 });
 

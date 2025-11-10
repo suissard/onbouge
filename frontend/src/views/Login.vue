@@ -6,7 +6,14 @@
         {{ error }}
       </v-alert>
       <v-text-field v-model="email" label="Email" type="email" required></v-text-field>
-      <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
+      <v-text-field
+        v-model="password"
+        label="Password"
+        :type="passwordVisible ? 'text' : 'password'"
+        required
+        :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+        @click:append-inner="passwordVisible = !passwordVisible"
+      ></v-text-field>
       <v-btn type="submit" color="primary">Login</v-btn>
     </v-form>
 
@@ -40,6 +47,7 @@ import { useAuthStore } from '@/stores/authStore';
 
 const email = ref('');
 const password = ref('');
+const passwordVisible = ref(false);
 const error = ref<string | null>(null);
 const router = useRouter();
 const authStore = useAuthStore();
