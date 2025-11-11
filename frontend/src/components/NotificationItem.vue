@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { Notification } from '@/stores/notificationStore';
+import type { Notification } from '@/interfaces/notification';
 import { useNotificationTimer } from '@/composables/useNotificationTimer';
 
 const props = defineProps<{

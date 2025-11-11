@@ -95,14 +95,14 @@ strapi = {
     let target:string = arguments[0].split("?")[0], id:string = ""
     if (target.includes("/")){
       id = target.split("/")[1]
-      if(id="me") return mockData.users.data[0]
+      if(id=="me") return mockData.users.data[0]
       target = target.split("/")[0]
       return strapi.collections[target].get(id)
     }
 
 
     if (strapi.collections[target]){
-      return mockData[target].list()
+      return {data:mockData[target]}
     }
   }
 };

@@ -27,6 +27,14 @@
 
     <NotificationsOverlay />
 
+    <v-btn
+      icon="mdi-cog"
+      class="settings-fab"
+      @click="settingsPanelVisible = !settingsPanelVisible"
+    ></v-btn>
+
+    <SettingsPanel v-model="settingsPanelVisible" />
+
     <v-footer app>
       <span>&copy; 2025</span>
     </v-footer>
@@ -34,12 +42,34 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
+import { useTheme } from 'vuetify';
 import NotificationsOverlay from '@/components/NotificationsOverlay.vue';
+import SettingsPanel from '@/components/SettingsPanel.vue';
+import { useSettingsStore } from './stores/settingsStore';
 
 const authStore = useAuthStore();
 const router = useRouter();
+const settingsPanelVisible = ref(false);
+const settingsStore = useSettingsStore();
+const theme = useTheme();
+
+watch(() => settingsStore.theme, (newTheme) => {
+  theme.global.name.value = newTheme;
+});
+
+watch(() => settingsStore.colors, (newColors) => {
+  if (newColors.primary) {
+    theme.themes.value.light.colors.primary = newColors.primary;
+    theme.themes.value.dark.colors.primary = newColors.primary;
+  }
+  if (newColors.secondary) {
+    theme.themes.value.light.colors.secondary = newColors.secondary;
+    theme.themes.value.dark.colors.secondary = newColors.secondary;
+  }
+}, { deep: true });
 
 /**
  * Logs the user out by calling the auth store's logout action and redirects to the homepage.
@@ -54,5 +84,12 @@ const logout = () => {
 .main-container {
   width: 80%;
   margin: 0 auto;
+}
+
+.settings-fab {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1000;
 }
 </style>

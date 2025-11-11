@@ -8,6 +8,7 @@ export interface Role extends StrapiObject {
 }
 
 export interface User extends StrapiObject {
+  id: number;
   username: string;
   email: string;
   provider: string;

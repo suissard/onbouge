@@ -44,7 +44,6 @@ export const strapiStoreBuilder = (dataName: string) => {
         datas.value.push(response.data?.data)
       }
 
-      console.log(datas.value.find(item => item.documentId === id))
       return datas.value.find(item => item.documentId === id)
       // return datas.value[index] response.data
     } catch (error) {
