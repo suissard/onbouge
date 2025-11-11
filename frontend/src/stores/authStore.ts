@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import strapi from '@/services/strapi';
+import type { User } from '@/interfaces/user';
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = ref(null);
+  const user = ref<User | null>(null);
   const token = ref(localStorage.getItem('token') || null);
   if (token.value) strapi.setToken(token.value)
 
@@ -26,9 +27,9 @@ export const useAuthStore = defineStore('auth', () => {
    * Logs a user in with the provided credentials.
    * @param {string} identifier - The user's email or username.
    * @param {string} password - The user's password.
-   * @returns {Promise<any>} A promise that resolves to the user object.
+   * @returns {Promise<User>} A promise that resolves to the user object.
    */
-  async function login(identifier: string, password: string) {
+  async function login(identifier: string, password: string): Promise<User> {
     const response = await strapi.login(identifier, password);
     // ========================== TODO debug la librairi, elle envoie une token undefined
     // const response = await strapi.axios({
@@ -58,10 +59,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   /**
    * Registers a new user with the provided information.
-   * @param {any} userInfo - An object containing the user's information (username, email, password).
-   * @returns {Promise<any>} A promise that resolves to the new user object.
+   * @param {Pick<User, 'username' | 'email'> & {password: string}} userInfo - An object containing the user's information (username, email, password).
+   * @returns {Promise<User>} A promise that resolves to the new user object.
    */
-  async function register(userInfo: any) {
+  async function register(userInfo: Pick<User, 'username' | 'email'> & {password: string}): Promise<User> {
     const  { username, email, password} = userInfo
     const response = await strapi.register(username, email, password);
     // const response = await strapi.request(strapi.prefix + "auth/local/register", "post", { username, email, password} );

@@ -16,7 +16,7 @@
 import { useNotificationsStore } from '@/stores/notificationStore';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/authStore';
-import type { Notification } from '@/stores/notificationStore';
+import type { Notification } from '@/interfaces/notification';
 
 const notificationStore = useNotificationsStore();
 const authStore = useAuthStore();
