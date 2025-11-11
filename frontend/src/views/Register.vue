@@ -1,86 +1,96 @@
 <template>
   <v-container>
-    <h1>Register</h1>
-    <v-form @submit.prevent="handleSubmit">
-      <v-alert v-if="error" type="error" dense>
-        {{ error }}
-      </v-alert>
-      <v-text-field
-        v-model="username"
-        label="Username"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="email"
-        label="Email"
-        type="email"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="password"
-        label="Password"
-        :type="passwordVisible ? 'text' : 'password'"
-        required
-        :rules="[passwordComplexityRule]"
-        :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
-        @click:append-inner="passwordVisible = !passwordVisible"
-      ></v-text-field>
-      <v-text-field
-        v-model="passwordConfirmation"
-        label="Confirm Password"
-        :type="passwordConfirmationVisible ? 'text' : 'password'"
-        required
-        :rules="[passwordConfirmationRule]"
-        :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
-        @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
-      ></v-text-field>
+    <v-row justify="center">
+      <v-col cols="12" sm="8" md="6" lg="4">
+        <h1 class="text-center">Register</h1>
+        <v-form @submit.prevent="handleSubmit" class="mt-4">
+          <v-alert v-if="error" type="error" dense>
+            {{ error }}
+          </v-alert>
+          <v-text-field
+            v-model="username"
+            label="Username"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="email"
+            label="Email"
+            type="email"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Password"
+            :type="passwordVisible ? 'text' : 'password'"
+            required
+            :rules="[passwordComplexityRule]"
+            :append-inner-icon="passwordVisible ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="passwordVisible = !passwordVisible"
+          ></v-text-field>
+          <v-text-field
+            v-model="passwordConfirmation"
+            label="Confirm Password"
+            :type="passwordConfirmationVisible ? 'text' : 'password'"
+            required
+            :rules="[passwordConfirmationRule]"
+            :append-inner-icon="passwordConfirmationVisible ? 'mdi-eye-off' : 'mdi-eye'"
+            @click:append-inner="passwordConfirmationVisible = !passwordConfirmationVisible"
+          ></v-text-field>
 
-      <v-list dense>
-        <v-list-item :class="{ 'text-success': passwordRules.minLength }">
-          <v-icon>{{ passwordRules.minLength ? 'mdi-check' : 'mdi-close' }}</v-icon>
-          Au moins 8 caractères
-        </v-list-item>
-        <v-list-item :class="{ 'text-success': passwordRules.uppercase }">
-          <v-icon>{{ passwordRules.uppercase ? 'mdi-check' : 'mdi-close' }}</v-icon>
-          Une lettre majuscule
-        </v-list-item>
-        <v-list-item :class="{ 'text-success': passwordRules.lowercase }">
-          <v-icon>{{ passwordRules.lowercase ? 'mdi-check' : 'mdi-close' }}</v-icon>
-          Une lettre minuscule
-        </v-list-item>
-        <v-list-item :class="{ 'text-success': passwordRules.number }">
-          <v-icon>{{ passwordRules.number ? 'mdi-check' : 'mdi-close' }}</v-icon>
-          Un chiffre
-        </v-list-item>
-        <v-list-item :class="{ 'text-success': passwordRules.special }">
-          <v-icon>{{ passwordRules.special ? 'mdi-check' : 'mdi-close' }}</v-icon>
-          Un caractère spécial
-        </v-list-item>
-      </v-list>
+          <v-list dense>
+            <v-list-item :class="{ 'text-success': passwordRules.minLength }">
+              <template v-slot:prepend>
+                <v-icon>{{ passwordRules.minLength ? 'mdi-check' : 'mdi-close' }}</v-icon>
+              </template>
+              <v-list-item-title>Au moins 8 caractères</v-list-item-title>
+            </v-list-item>
+            <v-list-item :class="{ 'text-success': passwordRules.uppercase }">
+              <template v-slot:prepend>
+                <v-icon>{{ passwordRules.uppercase ? 'mdi-check' : 'mdi-close' }}</v-icon>
+              </template>
+              <v-list-item-title>Une lettre majuscule</v-list-item-title>
+            </v-list-item>
+            <v-list-item :class="{ 'text-success': passwordRules.lowercase }">
+              <template v-slot:prepend>
+                <v-icon>{{ passwordRules.lowercase ? 'mdi-check' : 'mdi-close' }}</v-icon>
+              </template>
+              <v-list-item-title>Une lettre minuscule</v-list-item-title>
+            </v-list-item>
+            <v-list-item :class="{ 'text-success': passwordRules.number }">
+              <template v-slot:prepend>
+                <v-icon>{{ passwordRules.number ? 'mdi-check' : 'mdi-close' }}</v-icon>
+              </template>
+              <v-list-item-title>Un chiffre</v-list-item-title>
+            </v-list-item>
+            <v-list-item :class="{ 'text-success': passwordRules.special }">
+              <template v-slot:prepend>
+                <v-icon>{{ passwordRules.special ? 'mdi-check' : 'mdi-close' }}</v-icon>
+              </template>
+              <v-list-item-title>Un caractère spécial</v-list-item-title>
+            </v-list-item>
+          </v-list>
 
-      <v-btn type="submit" color="primary" :disabled="!isFormValid">Register</v-btn>
-    </v-form>
+          <v-btn type="submit" color="primary" :disabled="!isFormValid" block>Register</v-btn>
+        </v-form>
 
-    <v-divider class="my-4"></v-divider>
+        <v-divider class="my-4"></v-divider>
 
-    <div class="d-flex flex-column align-center">
-      <v-tooltip location="top">
-        <template v-slot:activator="{ props }">
-          <div v-bind="props">
-            <v-btn disabled class="mb-2" color="primary" width="300px">S'inscrire avec Google</v-btn>
-          </div>
-        </template>
-        <span>Bientôt disponible</span>
-      </v-tooltip>
-      <v-tooltip location="top">
-        <template v-slot:activator="{ props }">
-          <div v-bind="props">
-            <v-btn disabled color="primary" width="300px">S'inscrire avec Facebook</v-btn>
-          </div>
-        </template>
-        <span>Bientôt disponible</span>
-      </v-tooltip>
-    </div>
+        <div class="d-flex justify-center">
+          <v-tooltip location="top">
+            <template v-slot:activator="{ props }">
+              <v-btn disabled class="mx-2" icon="mdi-google" v-bind="props"></v-btn>
+            </template>
+            <span>Bientôt disponible</span>
+          </v-tooltip>
+          <v-tooltip location="top">
+            <template v-slot:activator="{ props }">
+              <v-btn disabled class="mx-2" icon="mdi-facebook" v-bind="props"></v-btn>
+            </template>
+            <span>Bientôt disponible</span>
+          </v-tooltip>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
