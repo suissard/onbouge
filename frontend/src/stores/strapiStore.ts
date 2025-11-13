@@ -51,7 +51,7 @@ export const strapiStoreBuilder = (dataName: string) => {
     }
   }
 
-  const result = { getList, get }
+  const result = { getList, get, datas }
   result[dataName] = datas
 
   return result
