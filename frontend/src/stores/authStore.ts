@@ -16,7 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       if (!token.value) return
       const response = await strapi.get('users/me');
-      user.value = response.data;
+      user.value = response;
     } catch (error) {
       console.error('Failed to fetch user:', error);
       logout(); // Clear invalid token
@@ -30,19 +30,7 @@ export const useAuthStore = defineStore('auth', () => {
    * @returns {Promise<User>} A promise that resolves to the user object.
    */
   async function login(identifier: string, password: string): Promise<User> {
-    const response = await strapi.login(identifier, password);
-    // ========================== TODO debug la librairi, elle envoie une token undefined
-    // const response = await strapi.axios({
-    //   url: strapi.prefix + "auth/local",
-    //   method: "post",
-    //   data: {
-    //     identifier,
-    //     password,
-    //   },
-    //   baseURL: strapi.baseURL + "/",
-    // })
-    //  =================
-    console.log("login",response)
+    const response = await strapi.login({identifier, password});
     updateTokenlocalStorage(response.jwt);
     return user.value = response?.user;
   }
@@ -64,11 +52,9 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function register(userInfo: Pick<User, 'username' | 'email'> & {password: string}): Promise<User> {
     const  { username, email, password} = userInfo
-    const response = await strapi.register(username, email, password);
-    // const response = await strapi.request(strapi.prefix + "auth/local/register", "post", { username, email, password} );
-
-    updateTokenlocalStorage(response.data?.jwt);
-    return user.value = response.data?.user;
+    const response = await strapi.register({username, email, password});
+    updateTokenlocalStorage(response.jwt);
+    return user.value = response.user;
   }
 
   /**

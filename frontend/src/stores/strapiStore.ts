@@ -35,13 +35,12 @@ export const strapiStoreBuilder = (dataName: string) => {
     try {
       const response = await strapi.get(`${dataName}/${id}?populate=*`)
 
-
       // remplace dans la collection, l'entree qui correspond
       const index = datas.value.findIndex(item => item.documentId === id)
       if (index !== -1) {
-        datas.value[index] = response.data?.data
+        datas.value[index] = response.data
       } else {
-        datas.value.push(response.data?.data)
+        datas.value.push(response.data)
       }
 
       return datas.value.find(item => item.documentId === id)
