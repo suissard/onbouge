@@ -2,7 +2,22 @@
   <v-container>
     <v-card v-if="event">
       <v-img :src="event.image" height="400px"></v-img>
-      <v-card-title class="text-h4">{{ event.title }}</v-card-title>
+      <v-card-title class="text-h4 d-flex justify-space-between align-center">
+        <span>{{ event.title }}</span>
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              icon="mdi-pencil"
+              variant="tonal"
+              color="primary"
+              :to="`/events/${eventId}/edit`"
+              :disabled="!authStore.isAuthenticated"
+              v-bind="props"
+            ></v-btn>
+          </template>
+          <span>Vous devez être connecté pour éditer</span>
+        </v-tooltip>
+      </v-card-title>
       <v-card-subtitle>{{ new Date(event.date).toLocaleString() }}</v-card-subtitle>
       <v-card-text>
         <p>{{ event.description }}</p>
@@ -34,8 +49,10 @@
 import { useEventsStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore';
 
 const eventStore = useEventsStore()
+const authStore = useAuthStore();
 const route = useRoute()
 const eventId = String(route.params.id)
 const event = ref<any>(null)

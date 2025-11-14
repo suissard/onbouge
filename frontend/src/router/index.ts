@@ -86,9 +86,33 @@ const router = createRouter({
       component: () => import('../views/Sports.vue'),
     },
     {
+      path: '/sports/new',
+      name: 'sport-create',
+      component: () => import('../views/SportEdit.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/sports/:id/edit',
+      name: 'sport-edit',
+      component: () => import('../views/SportEdit.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/sports/:id',
       name: 'sport-view',
       component: () => import('../views/SportView.vue'),
+    },
+    {
+      path: '/events/new',
+      name: 'event-create',
+      component: () => import('../views/EventEdit.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/pois/new',
+      name: 'poi-create',
+      component: () => import('../views/PoiEdit.vue'),
+      meta: { requiresAuth: true },
     },
   ],
 })
