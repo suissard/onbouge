@@ -1,22 +1,24 @@
 <template>
   <v-container>
     <h1 class="mb-4">Users</h1>
-    <v-row>
-      <v-col v-for="user in userStore.users" :key="user.id" cols="12" sm="6" md="4">
-        <Card :item="user" @click="$router.push(`/users/${user.documentId}`)" />
-      </v-col>
-    </v-row>
+    <StrapiDataIterator
+      :store="userStore"
+      :item-component="GenericCard"
+      :component-props-mapper="propsMapper"
+    />
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { useUsersStore } from '@/stores/strapiStore'
-import { onMounted } from 'vue'
-import Card from '@/components/Card.vue'
+import { useUsersStore } from '@/stores/strapiStore';
+import StrapiDataIterator from '@/components/StrapiDataIterator.vue';
+import GenericCard from '@/components/GenericCard.vue';
 
-const userStore = useUsersStore()
+const userStore = useUsersStore();
 
-onMounted(() => {
-  userStore.getList()
-})
+const propsMapper = (item: any) => ({
+  title: item.username,
+  description: item.email,
+  route: `/users/${item.documentId}`
+});
 </script>

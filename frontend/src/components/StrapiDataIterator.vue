@@ -1,18 +1,28 @@
 <template>
   <div>
-    <v-text-field
-      v-model="search"
-      label="Rechercher"
-      class="mb-4"
-      clearable
-      prepend-inner-icon="mdi-magnify"
-      variant="solo"
-    ></v-text-field>
+    <v-toolbar flat class="mb-4">
+      <v-text-field
+        v-model="search"
+        label="Rechercher"
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        variant="solo"
+        hide-details
+        class="me-4"
+      ></v-text-field>
+      <v-btn
+        v-if="creationRoute"
+        :to="creationRoute"
+        icon="mdi-plus"
+        color="primary"
+        variant="tonal"
+      ></v-btn>
+    </v-toolbar>
 
     <div v-if="loading">
       <v-row>
         <v-col v-for="n in 6" :key="n" cols="12" sm="6" md="4" lg="3">
-          <v-skeleton-loader type="card"></v-skeleton-loader>
+          <v-skeleton-loader type="card" height="200"></v-skeleton-loader>
         </v-col>
       </v-row>
     </div>
@@ -29,7 +39,7 @@
       <template v-slot:default="{ items }">
         <v-row>
           <v-col v-for="item in items" :key="(item.raw as any).id" cols="12" sm="6" md="4" lg="3">
-            <component :is="itemComponent" :item="item.raw" />
+            <component :is="itemComponent" v-bind="componentPropsMapper(item.raw)" />
           </v-col>
         </v-row>
       </template>
@@ -97,6 +107,14 @@ const props = defineProps({
   },
   itemComponent: {
     type: Object as () => Component,
+    required: true
+  },
+  creationRoute: {
+    type: String,
+    default: ''
+  },
+  componentPropsMapper: {
+    type: Function,
     required: true
   }
 });

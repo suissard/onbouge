@@ -1,22 +1,25 @@
 <template>
   <v-container>
     <h1 class="mb-4">POIs</h1>
-    <v-row>
-      <v-col v-for="poi in poiStore.pois" :key="poi.id" cols="12" sm="6" md="4">
-        <Card :item="poi" @click="$router.push(`/pois/${poi.documentId}`)" />
-      </v-col>
-    </v-row>
+    <StrapiDataIterator
+      :store="poiStore"
+      :item-component="GenericCard"
+      creation-route="/pois/new"
+      :component-props-mapper="propsMapper"
+    />
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { usePoisStore } from '@/stores/strapiStore'
-import { onMounted } from 'vue'
-import Card from '@/components/Card.vue'
+import { usePoisStore } from '@/stores/strapiStore';
+import StrapiDataIterator from '@/components/StrapiDataIterator.vue';
+import GenericCard from '@/components/GenericCard.vue';
 
-const poiStore = usePoisStore()
+const poiStore = usePoisStore();
 
-onMounted(() => {
-  poiStore.getList()
-})
+const propsMapper = (item: any) => ({
+  title: item.title,
+  description: item.description,
+  route: `/pois/${item.documentId}`
+});
 </script>

@@ -1,7 +1,22 @@
 <template>
   <v-container>
     <v-card v-if="sport">
-      <v-card-title class="text-h4">{{ sport.title }}</v-card-title>
+      <v-card-title class="text-h4 d-flex justify-space-between align-center">
+        <span>{{ sport.name }}</span>
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-btn
+              icon="mdi-pencil"
+              variant="tonal"
+              color="primary"
+              :to="`/sports/${sportId}/edit`"
+              :disabled="!authStore.isAuthenticated"
+              v-bind="props"
+            ></v-btn>
+          </template>
+          <span>Vous devez être connecté pour éditer</span>
+        </v-tooltip>
+      </v-card-title>
       <v-card-text>
         <p>{{ sport.description }}</p>
         <h3 class="text-h6 mt-4">Events</h3>
@@ -26,8 +41,10 @@
 import { useSportsStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore';
 
 const sportStore = useSportsStore()
+const authStore = useAuthStore();
 const route = useRoute()
 const sportId = String(route.params.id)
 const sport = ref<any>(null)
