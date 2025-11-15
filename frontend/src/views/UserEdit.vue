@@ -34,10 +34,9 @@ onMounted(async () => {
  * Saves the user data and navigates to the user view page.
  * In a real app, this would call an API to save the user.
  */
-function saveUser() {
+async function saveUser() {
   if (user.value) {
-    // In a real app, you'd call an API to save the user
-    console.log('Saving user:', user.value)
+    await userStore.update(String(userId), user.value);
     router.push(`/users/${userId}`)
   }
 }

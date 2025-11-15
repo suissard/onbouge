@@ -56,12 +56,42 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
     }
   }
 
-  const result = {
-    getList,
-    get,
-    datas,
-    [dataName]: datas,
+  /**
+   * Creates a new item in the Strapi collection.
+   * @param {any} item - The item to create.
+   * @returns {Promise<any | undefined>} A promise that resolves to the created item, or undefined if an error occurs.
+   */
+    async function create(item: any) {
+    try {
+      const response = await strapi.post(dataName, { data: item });
+      datas.value.push(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error creating ${dataName}:`, error);
+    }
   }
+
+  /**
+   * Updates an item in the Strapi collection.
+   * @param {string} id - The ID of the item to update.
+   * @param {any} item - The updated item data.
+   * @returns {Promise<any | undefined>} A promise that resolves to the updated item, or undefined if an error occurs.
+   */
+    async function update(id: string, item: any) {
+    try {
+      const response = await strapi.put(`${dataName}/${id}`, { data: item });
+      const index = datas.value.findIndex(item => item.documentId === id);
+      if (index !== -1) {
+        datas.value[index] = response.data;
+      }
+      return response.data;
+    } catch (error) {
+      console.error(`Error updating ${dataName} (${id}):`, error);
+    }
+  }
+
+  const result = { getList, get, create, update, datas }
+  result[dataName] = datas
 
   return result as typeof result & { [key: string]: Ref<T[]> }
 })

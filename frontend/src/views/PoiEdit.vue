@@ -36,14 +36,14 @@ onMounted(async () => {
 /**
  * Saves the POI data and navigates to the POI view page.
  */
-function savePoi() {
+async function savePoi() {
   if (poi.value) {
-    // In a real app, you'd call an API to save the POI
-    console.log('Saving POI:', poi.value)
     if (isEditing.value) {
+      await poiStore.update(poiId.value as string, poi.value);
       router.push(`/pois/${poiId.value}`)
     } else {
-      router.push(`/pois`)
+      const newPoi = await poiStore.create(poi.value);
+      router.push(`/pois/${newPoi.documentId}`)
     }
   }
 }
