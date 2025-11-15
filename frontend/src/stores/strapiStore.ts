@@ -2,15 +2,21 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import strapi from '@/services/strapi'
+import type { StrapiObject } from 'suissard-strapi-client'
+import type { Event } from '@/interfaces/event'
+import type { Poi } from '@/interfaces/poi'
+import type { Profile } from '@/interfaces/profile'
+import type { Sport } from '@/interfaces/sport'
+import type { User } from '@/interfaces/user'
 
 /**
  * A factory function to create a Pinia store for a specific Strapi collection.
  * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
  * @returns A Pinia store definition.
  */
-export const strapiStoreBuilder = (dataName: string) => {
+export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => {
  return defineStore(dataName, () => {
-  const datas: Ref<any[]> = ref([])
+  const datas: Ref<T[]> = ref([])
 
   /**
    * Fetches a list of items from the Strapi collection and populates the store.
@@ -87,12 +93,12 @@ export const strapiStoreBuilder = (dataName: string) => {
   const result = { getList, get, create, update, datas }
   result[dataName] = datas
 
-  return result
+  return result as typeof result & { [key: string]: Ref<T[]> }
 })
 }
 
-export const useEventsStore = strapiStoreBuilder("events")
-export const usePoisStore = strapiStoreBuilder("pois")
-export const useProfilesStore = strapiStoreBuilder("profiles")
-export const useSportsStore = strapiStoreBuilder("sports")
-export const useUsersStore = strapiStoreBuilder("users")
+export const useEventsStore = strapiStoreBuilder<Event>("events")
+export const usePoisStore = strapiStoreBuilder<Poi>("pois")
+export const useProfilesStore = strapiStoreBuilder<Profile>("profiles")
+export const useSportsStore = strapiStoreBuilder<Sport>("sports")
+export const useUsersStore = strapiStoreBuilder<User>("users")

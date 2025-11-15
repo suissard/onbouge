@@ -1,4 +1,4 @@
-import { StrapiObject } from 'suissard-strapi-client';
+import type { StrapiObject } from 'suissard-strapi-client';
 import type { Poi } from './poi';
 import type { Event } from './event';
 
