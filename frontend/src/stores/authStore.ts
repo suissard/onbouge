@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import strapi from '@/services/strapi';
 import type { User } from '@/interfaces/user';
 
@@ -14,9 +14,9 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function fetchUser() {
     try {
-      if (!token.value) return
+      if (!token.value) return;
       const response = await strapi.get('users/me');
-      user.value = response;
+      user.value = response.data;
     } catch (error) {
       console.error('Failed to fetch user:', error);
       logout(); // Clear invalid token
@@ -30,9 +30,10 @@ export const useAuthStore = defineStore('auth', () => {
    * @returns {Promise<User>} A promise that resolves to the user object.
    */
   async function login(identifier: string, password: string): Promise<User> {
-    const response = await strapi.login({identifier, password});
+    const response = await strapi.login({ identifier, password });
     updateTokenlocalStorage(response.jwt);
-    return user.value = response?.user;
+    user.value = response.user;
+    return response.user;
   }
 
   /**
@@ -54,7 +55,8 @@ export const useAuthStore = defineStore('auth', () => {
     const  { username, email, password} = userInfo
     const response = await strapi.register({username, email, password});
     updateTokenlocalStorage(response.jwt);
-    return user.value = response.user;
+    user.value = response.user;
+    return response.user;
   }
 
   /**
@@ -69,7 +71,9 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const isAuthenticated = computed(() => !!user.value);
+
   fetchUser()
 
-  return { user, token, login, logout, register, fetchUser };
+  return { user, token, login, logout, register, fetchUser, isAuthenticated };
 });

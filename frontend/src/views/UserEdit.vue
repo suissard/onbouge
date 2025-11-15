@@ -3,7 +3,6 @@
     <h1 class="mb-4">Edit User</h1>
     <v-form v-if="user" @submit.prevent="saveUser">
       <v-text-field v-model="user.username" label="Username"></v-text-field>
-      <v-text-field v-model="user.name" label="Name"></v-text-field>
       <v-text-field v-model="user.email" label="Email" type="email"></v-text-field>
       <v-btn type="submit" color="primary">Save</v-btn>
     </v-form>
@@ -15,16 +14,20 @@
 import { useUsersStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { User } from '@/interfaces/user'
 
 const userStore = useUsersStore()
 const route = useRoute()
 const router = useRouter()
 const userId = Number(route.params.id)
-const user = ref<any>(null)
+const user = ref<User | null>(null)
 
 onMounted(async () => {
   await userStore.getList()
-  user.value = { ...userStore.users.find((u) => u.id === userId) }
+  const foundUser = userStore.datas.value.find((u: User) => u.id === userId)
+  if (foundUser) {
+    user.value = { ...foundUser }
+  }
 })
 
 /**

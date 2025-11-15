@@ -1,4 +1,4 @@
-import { StrapiObject } from 'suissard-strapi-client';
+import type { StrapiObject } from 'suissard-strapi-client';
 import type { Profile } from './profile';
 
 export interface Role extends StrapiObject {
