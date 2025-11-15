@@ -24,17 +24,16 @@ const user = ref<any>(null)
 
 onMounted(async () => {
   await userStore.getList()
-  user.value = { ...userStore.users.find((u) => u.id === userId) }
+  user.value = { ...userStore.datas.find((u: any) => u.id === userId) }
 })
 
 /**
  * Saves the user data and navigates to the user view page.
  * In a real app, this would call an API to save the user.
  */
-function saveUser() {
+async function saveUser() {
   if (user.value) {
-    // In a real app, you'd call an API to save the user
-    console.log('Saving user:', user.value)
+    await userStore.update(String(userId), user.value);
     router.push(`/users/${userId}`)
   }
 }

@@ -36,14 +36,14 @@ onMounted(async () => {
 /**
  * Saves the event data and navigates to the event view page.
  */
-function saveEvent() {
+async function saveEvent() {
   if (event.value) {
-    // In a real app, you'd call an API to save the event
-    console.log('Saving event:', event.value)
     if (isEditing.value) {
+      await eventStore.update(eventId.value as string, event.value);
       router.push(`/events/${eventId.value}`)
     } else {
-      router.push(`/events`)
+      const newEvent = await eventStore.create(event.value);
+      router.push(`/events/${newEvent.documentId}`)
     }
   }
 }
