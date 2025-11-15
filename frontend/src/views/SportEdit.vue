@@ -34,16 +34,14 @@ onMounted(async () => {
 /**
  * Saves the sport data and navigates to the sport view page.
  */
-function saveSport() {
+async function saveSport() {
   if (sport.value) {
-    // In a real app, you'd call an API to save the sport
-    console.log('Saving sport:', sport.value)
     if (isEditing.value) {
+      await sportStore.update(sportId.value as string, sport.value);
       router.push(`/sports/${sportId.value}`)
     } else {
-      // This is a placeholder for the creation logic
-      // After creation, you would typically navigate to the new sport's page
-      router.push(`/sports`)
+      const newSport = await sportStore.create(sport.value);
+      router.push(`/sports/${newSport.documentId}`)
     }
   }
 }

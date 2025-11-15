@@ -3,19 +3,19 @@
     <v-app-bar app>
       <v-toolbar-title>Sport Connect</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/">Home</v-btn>
-      <v-btn to="/about">About</v-btn>
-      <v-btn to="/demonstration-vue">Vue Demo</v-btn>
-      <v-btn to="/events">Events</v-btn>
-      <v-btn to="/pois">POIs</v-btn>
-      <v-btn to="/users">Profiles</v-btn>
-      <v-btn to="/sports">Sports</v-btn>
+      <v-btn to="/" color="primary">Home</v-btn>
+      <v-btn to="/about" color="primary">About</v-btn>
+      <v-btn to="/demonstration-vue" color="primary">Vue Demo</v-btn>
+      <v-btn to="/events" color="primary">Events</v-btn>
+      <v-btn to="/pois" color="primary">POIs</v-btn>
+      <v-btn to="/users" color="primary">Profiles</v-btn>
+      <v-btn to="/sports" color="primary">Sports</v-btn>
       <template v-if="!authStore.user">
-        <v-btn to="/login">Login</v-btn>
-        <v-btn to="/register">Register</v-btn>
+        <v-btn to="/login" color="secondary">Login</v-btn>
+        <v-btn to="/register" color="secondary">Register</v-btn>
       </template>
       <template v-else>
-        <v-btn @click="logout">Logout</v-btn>
+        <v-btn @click="logout" color="secondary">Logout</v-btn>
       </template>
     </v-app-bar>
 
