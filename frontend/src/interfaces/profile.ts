@@ -1,4 +1,4 @@
-import { StrapiObject } from 'suissard-strapi-client';
+import type { StrapiObject } from './strapi';
 import type { Sport } from './sport';
 import type { Event } from './event';
 import type { User } from './user';

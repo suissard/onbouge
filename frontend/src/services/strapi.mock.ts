@@ -12,47 +12,57 @@ const mockData: { [key: string]: any } = {
   sports
 };
 
-/**
- * Mocks fetching a list of items for a given content type.
- * @param {string} contentType - The name of the content type (e.g., "events").
- * @returns {Promise<{ data: any[] }>} A promise that resolves to the mock data.
- */
-const  listMock = async function (contentType: string,): Promise<{ data: any[] }> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ data: mockData[contentType].data || [] });
-      }, 500);
-    });
-  }
+interface CollectionMethods {
+  list: () => Promise<{ data: any[] }>;
+  get: (id: string) => Promise<{ data: any }>;
+  create: (data: any) => Promise<{ data: any }>;
+  update: (id: string, data: any) => Promise<{ data: any }>;
+  delete: (id: string) => Promise<{ data: {} }>;
+}
 
-  /**
-   * Mocks fetching a single item by ID for a given content type.
-   * @param {string} contentType - The name of the content type (e.g., "events").
-   * @param {string} id - The ID of the item to fetch.
-   * @returns {Promise<{ data: any[] }>} A promise that resolves to the mock data.
-   */
-  const getMock = async function(contentType: string, id: string): Promise<{ data: any[] }> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // console.log("getmock", mockData, contentType, id, mockData[contentType].data?.find(item => item.documentId === id))
-        resolve({data:{ data: mockData[contentType].data?.find(item => item.documentId === id)|| [] }});
-      }, 500);
-    });
-  }
-var strapi = {}
-strapi = {
-  collections:{
-    events:{list:()=> listMock("events"),get:(id:string)=> getMock("events",id)},
-    pois:{list:()=> listMock("pois"),get:(id:string)=> getMock("pois",id)},
-    users:{list:()=> listMock("users"),get:(id:string)=> getMock("users",id)},
-    profiles:{list:()=> listMock("profiles"),get:(id:string)=> getMock("profiles",id)},
-    sports:{list:()=> listMock("sports"),get:(id:string)=> getMock("sports",id)}
+interface StrapiMock {
+  collections: {
+    [key: string]: CollectionMethods;
+  };
+  login: (credentials: any) => Promise<{ jwt: string; user: any }>;
+  register: (userInfo: any) => Promise<{ jwt: string; user: any }>;
+  setToken: (token: string) => void;
+  signOut: () => void;
+  get: (...args: any[]) => any;
+}
+
+const listMock = async function (contentType: string): Promise<{ data: any[] }> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ data: mockData[contentType].data || [] });
+    }, 500);
+  });
+}
+
+const getMock = async function(contentType: string, id: string): Promise<{ data: any }> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ data: mockData[contentType].data?.find((item: any) => item.documentId === id) || null });
+    }, 500);
+  });
+}
+
+const createCollectionMethods = (collectionName: string): CollectionMethods => ({
+  list: () => listMock(collectionName),
+  get: (id: string) => getMock(collectionName, id),
+  create: (data: any) => Promise.resolve({ data }),
+  update: (id: string, data: any) => Promise.resolve({ data }),
+  delete: (id: string) => Promise.resolve({ data: {} }),
+});
+
+const strapi: StrapiMock = {
+  collections: {
+    events: createCollectionMethods('events'),
+    pois: createCollectionMethods('pois'),
+    users: createCollectionMethods('users'),
+    profiles: createCollectionMethods('profiles'),
+    sports: createCollectionMethods('sports'),
   },
-  /**
-   * Mocks the login process.
-   * @param {any} credentials - The user's credentials.
-   * @returns {Promise<{ jwt: string, user: any }>} A promise that resolves to a mock token and user.
-   */
   login: async (credentials: any) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -63,11 +73,6 @@ strapi = {
       }, 500);
     });
   },
-  /**
-   * Mocks the user registration process.
-   * @param {any} userInfo - The user's registration information.
-   * @returns {Promise<{ jwt: string, user: any }>} A promise that resolves to a mock token and user.
-   */
   register: async (userInfo: any) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -78,31 +83,19 @@ strapi = {
       }, 500);
     });
   },
-  /**
-   * Mock function for setting the authentication token.
-   * @param {string} token - The authentication token.
-   */
-  setToken(token: string){},
-  /**
-   * Mock function for signing out.
-   */
-  signOut(){},
-  /**
-   * Mock function for making a GET request.
-   * @returns {Promise<{ data: any[] }> | undefined} A promise that resolves to the mock data, or undefined if the content type is not found.
-   */
-  get(){
+  setToken(token: string) {},
+  signOut() {},
+  get() {
     let target:string = arguments[0].split("?")[0], id:string = ""
     if (target.includes("/")){
       id = target.split("/")[1]
-      if(id=="me") return mockData.users.data[0]
+      if(id=="me") return Promise.resolve(mockData.users.data[0])
       target = target.split("/")[0]
       return strapi.collections[target].get(id)
     }
 
-
     if (strapi.collections[target]){
-      return {data:mockData[target]}
+      return Promise.resolve({data:mockData[target]})
     }
   }
 };

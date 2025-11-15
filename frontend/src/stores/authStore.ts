@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import strapi from '@/services/strapi';
 import type { User } from '@/interfaces/user';
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null);
   const token = ref(localStorage.getItem('token') || null);
+  const isAuthenticated = computed(() => !!user.value);
   if (token.value) strapi.setToken(token.value)
 
   /**
@@ -71,5 +72,5 @@ export const useAuthStore = defineStore('auth', () => {
 
   fetchUser()
 
-  return { user, token, login, logout, register, fetchUser };
+  return { user, token, isAuthenticated, login, logout, register, fetchUser };
 });

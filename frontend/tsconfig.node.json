@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node22/tsconfig.json",
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": [
     "vite.config.*",
     "vitest.config.*",
@@ -17,6 +17,6 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"],
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"]
   }
 }

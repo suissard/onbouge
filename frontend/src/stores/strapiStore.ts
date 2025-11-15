@@ -50,11 +50,65 @@ export const strapiStoreBuilder = (dataName: string) => {
     }
   }
 
-  const result = { getList, get, datas }
-  result[dataName] = datas
+  /**
+   * Creates a new item in the Strapi collection.
+   * @param {any} data - The data for the new item.
+   * @returns {Promise<any>} A promise that resolves to the created item.
+   */
+  async function create(data: any) {
+    try {
+      const response = await strapi.collections[dataName].create(data);
+      datas.value.push(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error creating ${dataName}:`, error);
+      throw error;
+    }
+  }
 
-  return result
-})
+  /**
+   * Updates an existing item in the Strapi collection.
+   * @param {string} id - The ID of the item to update.
+   * @param {any} data - The new data for the item.
+   * @returns {Promise<any>} A promise that resolves to the updated item.
+   */
+  async function update(id: string, data: any) {
+    try {
+      const response = await strapi.collections[dataName].update(id, data);
+      const index = datas.value.findIndex(item => item.documentId === id);
+      if (index !== -1) {
+        datas.value[index] = response.data;
+      }
+      return response.data;
+    } catch (error) {
+      console.error(`Error updating ${dataName}:`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Deletes an item from the Strapi collection.
+   * @param {string} id - The ID of the item to delete.
+   * @returns {Promise<void>}
+   */
+  async function del(id: string) {
+    try {
+      await strapi.collections[dataName].delete(id);
+      const index = datas.value.findIndex(item => item.documentId === id);
+      if (index !== -1) {
+        datas.value.splice(index, 1);
+      }
+    } catch (error) {
+      console.error(`Error deleting ${dataName}:`, error);
+      throw error;
+    }
+  }
+
+  const result: { [key: string]: any } = { getList, get, create, update, del, datas };
+  result[dataName] = datas;
+
+  return result;
+});
 }
 
 export const useEventsStore = strapiStoreBuilder("events")
