@@ -17,7 +17,8 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       if (!token.value) return;
       const response = await strapi.get('users/me');
-      user.value = response.data;
+      user.value = response;
+      return user.value as User;
     } catch (error) {
       console.error('Failed to fetch user:', error);
       logout(); // Clear invalid token
@@ -35,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = response.jwt;
     updateTokenlocalStorage(response.jwt);
     strapi.setToken(response.jwt);
-    await fetchUser();
+    user.value = response.user;
     return user.value as User;
   }
 
@@ -75,8 +76,6 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.removeItem('token');
     }
   }
-
-  const isAuthenticated = computed(() => !!user.value);
 
   fetchUser()
 

@@ -63,7 +63,7 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    */
     async function create(item: any) {
     try {
-      const response = await strapi.post(dataName, { data: item });
+      const response = await strapi.post(dataName, item );
       datas.value.push(response.data);
       return response.data;
     } catch (error) {
@@ -79,7 +79,7 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    */
     async function update(id: string, item: any) {
     try {
-      const response = await strapi.put(`${dataName}/${id}`, { data: item });
+      const response = await strapi.put(`${dataName}/${id}`,  item );
       const index = datas.value.findIndex(item => item.documentId === id);
       if (index !== -1) {
         datas.value[index] = response.data;
