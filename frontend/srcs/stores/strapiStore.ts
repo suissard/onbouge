@@ -7,7 +7,6 @@ import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
 import type { Sport } from '@/interfaces/sport'
 import type { User } from '@/interfaces/user'
-import fs from 'fs';
 
 interface StrapiObject {
   id: number;
@@ -47,12 +46,12 @@ export const strapiStoreBuilder = <T extends { id: number }>(dataName: string) =
   async function getList() {
     try {
       const response = await strapi.collection(dataName).find({ populate: '*' });
-      fs.writeFileSync('/tmp/strapi_debug.log', `Raw response: ${JSON.stringify(response.data, null, 2)}\n`, { flag: 'a' });
+      console.log('Raw response:', response.data);
       const flattened = flattenCollection(response.data) as T[];
-      fs.writeFileSync('/tmp/strapi_debug.log', `Flattened data: ${JSON.stringify(flattened, null, 2)}\n`, { flag: 'a' });
+      console.log('Flattened data:', flattened);
       datas.value = flattened;
     } catch (error) {
-      fs.writeFileSync('/tmp/strapi_debug.log', `Error fetching ${dataName}: ${error}\n`, { flag: 'a' });
+      console.error(`Error fetching ${dataName}:`, error)
     }
   }
 
@@ -79,7 +78,7 @@ export const strapiStoreBuilder = <T extends { id: number }>(dataName: string) =
 
       return datas.value.find(item => item.id === numericId);
     } catch (error) {
-      fs.writeFileSync('/tmp/strapi_debug.log', `Error fetching ${dataName} (${id}): ${error}\n`, { flag: 'a' });
+      console.error(`Error fetching ${dataName} (${id}):`, error);
     }
   }
 
@@ -97,7 +96,7 @@ export const strapiStoreBuilder = <T extends { id: number }>(dataName: string) =
       }
       return flattenedData;
     } catch (error) {
-      fs.writeFileSync('/tmp/strapi_debug.log', `Error creating ${dataName}: ${error}\n`, { flag: 'a' });
+      console.error(`Error creating ${dataName}:`, error);
     }
   }
 
@@ -121,14 +120,14 @@ export const strapiStoreBuilder = <T extends { id: number }>(dataName: string) =
       }
       return flattenedData;
     } catch (error)      {
-      fs.writeFileSync('/tmp/strapi_debug.log', `Error updating ${dataName} (${id}): ${error}\n`, { flag: 'a' });
+      console.error(`Error updating ${dataName} (${id}):`, error);
     }
   }
 
   const result = { getList, get, create, update, datas }
   result[dataName] = datas
 
-  return result as typeof result & { [key: 'string']: Ref<T[]> }
+  return result as typeof result & { [key: string]: Ref<T[]> }
 })
 }
 

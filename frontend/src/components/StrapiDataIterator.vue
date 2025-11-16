@@ -122,9 +122,10 @@ const props = defineProps({
 const search = ref('');
 const loading = ref(true);
 const page = ref(1);
-const itemsPerPage = ref(10); // Default value, now connected with v-model
+const itemsPerPage = ref(10);
 
 onMounted(async () => {
+  console.log('StrapiDataIterator mounted');
   loading.value = true;
   await props.store.getList();
   loading.value = false;

@@ -1,4 +1,3 @@
-import type { StrapiObject } from 'suissard-strapi-client';
 import type { Sport } from './sport';
 import type { Event } from './event';
 
@@ -7,7 +6,8 @@ export interface Position {
   lon: number;
 }
 
-export interface Poi extends StrapiObject {
+export interface Poi {
+  id: number;
   title: string;
   lattitude: number;
   longitude: number;

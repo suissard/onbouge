@@ -1,25 +1,26 @@
 <template>
   <v-container>
-    <h1 class="mb-4">Events</h1>
-    <StrapiDataIterator
-      :store="eventStore"
-      :item-component="GenericCard"
-      creation-route="/events/new"
-      :component-props-mapper="propsMapper"
-    />
+    <h1 class="mb-4">Tous les evenements</h1>
+    <div v-if="loading">Loading...</div>
+    <div v-else>
+      <pre>{{ events }}</pre>
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { useEventsStore } from '@/stores/strapiStore';
-import StrapiDataIterator from '@/components/StrapiDataIterator.vue';
-import GenericCard from '@/components/GenericCard.vue';
+import { ref, onMounted } from 'vue';
 
 const eventStore = useEventsStore();
+const events = ref([]);
+const loading = ref(true);
 
-const propsMapper = (item: any) => ({
-  title: item.title,
-  description: item.description,
-  route: `/events/${item.documentId}`
+onMounted(async () => {
+  console.log('Events.vue mounted');
+  await eventStore.getList();
+  events.value = eventStore.datas;
+  loading.value = false;
+  console.log('Events:', events.value);
 });
 </script>

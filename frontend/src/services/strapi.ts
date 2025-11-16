@@ -1,15 +1,17 @@
 import strapiReal from './strapi.real';
 import strapiMock from './strapi.mock';
-import type Strapi from 'suissard-strapi-client';
 
-const getStrapiImplementation = (): Strapi => {
-  const useMock = localStorage.getItem('useStrapiMock') === 'true';
+type StrapiClient = typeof strapiReal;
+
+const getStrapiImplementation = (): StrapiClient => {
+  const useMock = typeof window !== 'undefined' && localStorage.getItem('useStrapiMock') === 'true';
   if (useMock) {
-    return strapiMock;
+    return strapiMock as StrapiClient;
   } else {
     return strapiReal;
   }
 };
 
-const strapi: Strapi = getStrapiImplementation();
+const strapi = getStrapiImplementation();
+
 export default strapi;
