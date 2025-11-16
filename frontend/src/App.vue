@@ -88,7 +88,7 @@ const logout = () => {
 
 .settings-fab {
   position: fixed;
-  bottom: 16px;
+  bottom: 55px;
   left: 16px;
   z-index: 1000;
 }
