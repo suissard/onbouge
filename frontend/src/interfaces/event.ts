@@ -1,9 +1,9 @@
-import type { StrapiObject } from 'suissard-strapi-client';
 import type { Sport } from './sport';
 import type { Poi } from './poi';
 import type { Profile } from './profile';
 
-export interface Event extends StrapiObject {
+export interface Event {
+  documentId: string;
   title: string;
   description: string;
   date: string;
