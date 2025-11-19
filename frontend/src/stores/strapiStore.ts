@@ -2,19 +2,23 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 import strapi from '@/services/strapi'
-import type { StrapiObject } from 'suissard-strapi-client'
 import type { Event } from '@/interfaces/event'
 import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
 import type { Sport } from '@/interfaces/sport'
 import type { User } from '@/interfaces/user'
 
+// Define a base interface for objects that have a documentId
+interface HasDocumentId {
+  documentId: string;
+}
+
 /**
  * A factory function to create a Pinia store for a specific Strapi collection.
  * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
  * @returns A Pinia store definition.
  */
-export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => {
+export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) => {
  return defineStore(dataName, () => {
   const datas: Ref<T[]> = ref([])
 
@@ -23,9 +27,8 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    */
   async function getList() {
     try {
-      const response = await strapi.get(dataName+"?populate=*")
-      // console.log("strapiStore.getList()", response.data?.data || response.data)
-      datas.value = response.data?.data || response.data
+      const response = await strapi.find(dataName, { populate: '*' })
+      datas.value = response.data
     } catch (error) {
       console.error(`Error fetching ${dataName}:`, error)
     }
@@ -35,13 +38,12 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    * Fetches a single item by its ID from the Strapi collection.
    * If the item is already in the store, it's updated. Otherwise, it's added to the store.
    * @param {string} id - The ID of the item to fetch.
-   * @returns {Promise<any | undefined>} A promise that resolves to the fetched item, or undefined if an error occurs.
+   * @returns {Promise<T | undefined>} A promise that resolves to the fetched item, or undefined if an error occurs.
    */
-    async function get(id: string) {
+    async function get(id: string): Promise<T | undefined> {
     try {
-      const response = await strapi.get(`${dataName}/${id}?populate=*`)
+      const response = await strapi.findOne(dataName, id, { populate: '*' })
 
-      // remplace dans la collection, l'entree qui correspond
       const index = datas.value.findIndex(item => item.documentId === id)
       if (index !== -1) {
         datas.value[index] = response.data
@@ -50,7 +52,6 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
       }
 
       return datas.value.find(item => item.documentId === id)
-      // return datas.value[index] response.data
     } catch (error) {
       console.error(`Error fetching event (${id}):`, error)
     }
@@ -63,7 +64,7 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    */
     async function create(item: any) {
     try {
-      const response = await strapi.post(dataName, item );
+      const response = await strapi.create(dataName, item );
       datas.value.push(response.data);
       return response.data;
     } catch (error) {
@@ -79,7 +80,7 @@ export const strapiStoreBuilder = <T extends StrapiObject>(dataName: string) => 
    */
     async function update(id: string, item: any) {
     try {
-      const response = await strapi.put(`${dataName}/${id}`,  item );
+      const response = await strapi.update(dataName, id,  item );
       const index = datas.value.findIndex(item => item.documentId === id);
       if (index !== -1) {
         datas.value[index] = response.data;
