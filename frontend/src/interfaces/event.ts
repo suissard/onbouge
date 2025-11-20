@@ -7,6 +7,7 @@ export interface Event {
   title: string;
   description: string;
   date: string;
+  image?: string;
   sports: Sport[];
   poi: Poi;
   profiles: Profile[];

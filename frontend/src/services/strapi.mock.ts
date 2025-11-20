@@ -13,6 +13,18 @@ const mockData: { [key: string]: any } = {
 };
 
 const strapiMock = {
+  async get(url: string, queryParams?: any): Promise<any> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (url === 'users/me') {
+           resolve(users.data[0]);
+        } else {
+           resolve({});
+        }
+      }, 50);
+    });
+  },
+
   async find(collection: string, queryParams?: any): Promise<{ data: any[] }> {
     return new Promise((resolve) => {
       setTimeout(() => {

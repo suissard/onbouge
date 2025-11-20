@@ -28,7 +28,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
   async function getList() {
     try {
       const response = await strapi.find(dataName, { populate: '*' })
-      datas.value = response.data
+      datas.value = response.data as unknown as T[]
     } catch (error) {
       console.error(`Error fetching ${dataName}:`, error)
     }
@@ -46,9 +46,9 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 
       const index = datas.value.findIndex(item => item.documentId === id)
       if (index !== -1) {
-        datas.value[index] = response.data
+        datas.value[index] = response.data as unknown as T
       } else {
-        datas.value.push(response.data)
+        datas.value.push(response.data as unknown as T)
       }
 
       return datas.value.find(item => item.documentId === id)
@@ -65,7 +65,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
     async function create(item: any) {
     try {
       const response = await strapi.create(dataName, item );
-      datas.value.push(response.data);
+      datas.value.push(response.data as unknown as T);
       return response.data;
     } catch (error) {
       console.error(`Error creating ${dataName}:`, error);
@@ -83,7 +83,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
       const response = await strapi.update(dataName, id,  item );
       const index = datas.value.findIndex(item => item.documentId === id);
       if (index !== -1) {
-        datas.value[index] = response.data;
+        datas.value[index] = response.data as unknown as T;
       }
       return response.data;
     } catch (error) {
@@ -91,7 +91,14 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
     }
   }
 
-  const result = { getList, get, create, update, datas }
+  const result: {
+    getList: () => Promise<void>;
+    get: (id: string) => Promise<T | undefined>;
+    create: (item: any) => Promise<any>;
+    update: (id: string, item: any) => Promise<any>;
+    datas: Ref<T[]>;
+    [key: string]: any;
+  } = { getList, get, create, update, datas }
   result[dataName] = datas
 
   return result as typeof result & { [key: string]: Ref<T[]> }
