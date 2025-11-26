@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Event",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "sports": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sport.sport",
+      "inversedBy": "events"
+    },
+    "poi": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::poi.poi",
+      "inversedBy": "events"
+    },
+    "profiles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "events"
+    }
+  }
+}

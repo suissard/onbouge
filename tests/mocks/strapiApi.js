@@ -2,9 +2,9 @@
  * Mock de la classe StrapiApi pour les tests avec Vitest.
  * Cette classe simule les réponses de l'API Strapi sans faire de réels appels réseau.
  */
-import eventsData from '../../strapi-import/events.json';
-import usersData from '../../strapi-import/users.json';
-import poisData from '../../strapi-import/pois.json';
+import eventsData from '../strapi-import/events.json';
+import usersData from '../strapi-import/users.json';
+import poisData from '../strapi-import/pois.json';
 
 class MockStrapiApi {
   constructor(baseUrl = "http://localhost:1337/api/") {

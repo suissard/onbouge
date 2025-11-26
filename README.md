@@ -104,4 +104,4 @@ npm test
 1.  Créez un nouveau fichier de test avec l'extension `.test.js` à la racine du projet.
 2.  Importez les outils de Vitest (`describe`, `it`, `expect`).
 3.  Lorsque vous instanciez ou importez `StrapiApi`, le mock défini dans `tests/mocks/strapiApi.js` sera automatiquement utilisé.
-4.  Vous pouvez modifier les données de test en éditant les fichiers JSON dans le répertoire `strapi-import/`.
+4.  Vous pouvez modifier les données de test en éditant les fichiers JSON dans le répertoire `tests/strapi-import/`.

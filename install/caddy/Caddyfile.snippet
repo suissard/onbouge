@@ -1,0 +1,25 @@
+# Snippet de configuration Caddy pour intégrer l'application dans un serveur existant
+
+# Remplacez {$MY_DOMAIN} par votre domaine
+# Remplacez localhost:3000 et localhost:1337 par l'adresse IP et le port de votre serveur Docker si nécessaire
+
+{$MY_DOMAIN}:3000 {
+    encode gzip zstd
+
+    handle_path /socket/* {
+        reverse_proxy localhost:3001
+    }
+
+    @settings path_regexp ^/settings/(.*)$
+    rewrite @settings /settings.html?page={re.1}
+
+    handle {
+        root * /var/www/html
+        try_files {path} {path}.html /index.html
+        file_server
+    }
+}
+
+{$MY_DOMAIN}:1337 {
+    reverse_proxy localhost:1337
+}

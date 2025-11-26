@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pois",
+  "info": {
+    "singularName": "poi",
+    "pluralName": "pois",
+    "displayName": "POI",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "mappedBy": "poi"
+    }
+  }
+}

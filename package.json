@@ -7,11 +7,12 @@
       "dev": "vite",
       "update": "docker compose down && git pull && docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
-      "install": "",
       "stop": "docker compose down",
       "start": "docker compose up -d",
       "restart": "npm run stop && npm run start",
-      "clean": "docker compose down -v --remove-orphans"
+      "clean": "docker compose down -v --remove-orphans && sudo rm -rf data_mysql data_portainer data_caddy data_strapi",
+      "setup": "node install/setup.js",
+      "seed": "node install/strapi/seed.js"
    },
    "dependencies": {
       "@faker-js/faker": "^10.1.0"
