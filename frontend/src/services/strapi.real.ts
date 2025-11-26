@@ -13,8 +13,22 @@ let strapiClient: StrapiClient = createStrapiClient({
   ...(token ? { auth: token } : {}),
 });
 
+interface StrapiService {
+  find(collection: string, queryParams?: any): Promise<any>;
+  findOne(collection: string, id: string | number, queryParams?: any): Promise<any>;
+  create(collection: string, data: any, queryParams?: any): Promise<any>;
+  update(collection: string, id: string | number, data: any, queryParams?: any): Promise<any>;
+  delete(collection: string, id: string | number, queryParams?: any): Promise<any>;
+  login(credentials: any): Promise<any>;
+  register(userInfo: any): Promise<any>;
+  getMe(): Promise<any>;
+  setToken(newToken: string): void;
+  signOut(): void;
+  readonly rawClient: StrapiClient;
+}
+
 // Wrapper object to export
-const strapiService = {
+const strapiService: StrapiService = {
   find(collection: string, queryParams?: any) {
     return strapiClient.collection(collection).find(queryParams);
   },

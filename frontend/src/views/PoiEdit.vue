@@ -101,4 +101,20 @@ async function savePoi(formData: any) {
     loading.value = false
   }
 }
+
+async function deletePoi(formData: any) {
+  if (!poiId.value) return
+
+  loading.value = true
+  try {
+    await poiStore.delete(poiId.value)
+    notificationStore.addNotification({ message: 'POI deleted successfully', type: 'success' })
+    router.push('/pois')
+  } catch (error) {
+    console.error(error)
+    notificationStore.addNotification({ message: 'Error deleting POI', type: 'error' })
+  } finally {
+    loading.value = false
+  }
+}
 </script>

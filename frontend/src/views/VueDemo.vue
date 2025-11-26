@@ -183,7 +183,8 @@ Chaque section illustre une fonctionnalité clé du framework avec des explicati
 
 import { ref, reactive, computed, watch, onMounted } from 'vue';
 import ComposantEnfant from '../components/ComposantEnfantDemo.vue'; // On importe le composant enfant
-import DynamicUpdateForm, { type FieldDefinition } from '../components/DynamicUpdateForm.vue'; // Import du formulaire dynamique
+import DynamicUpdateForm from '../components/DynamicUpdateForm.vue';
+import type { FieldDefinition } from '@/types/form';
 import { Event } from '@/interfaces/event';
 import { useDemoStore } from '@/stores/demoStore'; // On importe notre store Pinia
 

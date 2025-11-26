@@ -58,18 +58,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, type PropType } from 'vue';
 import { getFormFields } from '@/decorators/form';
-
-export interface FieldDefinition {
-    key: string;
-    label: string;
-    type: 'text' | 'number' | 'date' | 'textarea' | 'select' | 'checkbox' | 'email';
-    options?: { label: string; value: any }[]; // For select inputs
-    required?: boolean;
-    optionsKey?: string;
-    itemTitle?: string;
-    itemValue?: string;
-    multiple?: boolean;
-}
+import type { FieldDefinition } from '@/types/form';
 
 const props = defineProps({
     initialData: {

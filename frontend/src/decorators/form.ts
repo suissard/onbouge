@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import type { FieldDefinition } from '@/components/DynamicUpdateForm.vue';
+import type { FieldDefinition } from '@/types/form';
 
 const METADATA_KEY = 'form:fields';
 
