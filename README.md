@@ -1,6 +1,6 @@
-# Rally Point 🎯
+# OnBouge 🎯
 
-**Rally Point** est une application web conçue pour connecter les amateurs de sport. Elle permet de trouver des lieux, de participer à des événements et de créer une communauté autour de passions sportives communes. L'application est pensée pour être proactive en suggérant des activités pour stimuler les rencontres.
+**OnBouge** est une application web conçue pour connecter les amateurs de sport. Elle permet de trouver des lieux, de participer à des événements et de créer une communauté autour de passions sportives communes. L'application est pensée pour être proactive en suggérant des activités pour stimuler les rencontres.
 
 ---
 
@@ -23,9 +23,9 @@ L'ensemble de l'application est conçu pour être lancé via Docker.
 ### Frontend
 
 - **Architecture :** L'application suit un modèle de "coquille applicative" (App Shell). Le fichier `index.html` est minimaliste et sert de point d'entrée.
-- **Point d'entrée :** Le script principal `js/main.js` orchestre le chargement de l'application.
-- **Chargement dynamique :** Les composants de l'interface (en-tête, pied de page, menu latéral) sont chargés dynamiquement en JavaScript via `fetch` à partir de fichiers HTML partiels situés dans le dossier `/partials`.
-- **Logique :** JavaScript natif (Vanilla JS) est utilisé pour toute la logique cliente, y compris les appels à l'API Strapi.
+- **Point d'entrée :** Le script principal `main.ts` orchestre le chargement de l'application.
+- **Framework :** [Vue.js](https://vuejs.org/) (via Vite) pour une interface réactive et modulaire.
+- **Logique :** TypeScript/JavaScript pour toute la logique cliente.
 - **Style :** [Tailwind CSS](https://tailwindcss.com/) pour un design rapide et moderne.
 - **Icônes :** [Font Awesome](https://fontawesome.com/).
 
@@ -43,22 +43,38 @@ L'ensemble de l'environnement de développement est géré par Docker et Docker 
 
 1. **Prérequis :** Assurez-vous d'avoir [Docker](https://www.docker.com/products/docker-desktop/) installé sur votre machine.
 2. **Lancement :**
-   Naviguez dans le dossier `INSTALL/` à la racine du projet et lancez la commande suivante :
+   **Première installation :**
+   Si c'est la première fois que vous lancez le projet, utilisez la commande de configuration complète :
 
-   ````
    ```bash
-       docker-compose up -d
-           ```
+   npm run setup
+   ```
+
+   Cette commande va installer les dépendances, lancer les conteneurs, créer les comptes administrateurs et installer les schémas de données.
+
+   **Lancements suivants :**
+   Pour simplement démarrer les serveurs :
+
+   ```bash
+   npm run start
+   ```
+
+   Ces commandes gèrent l'environnement via Docker Compose :
+   -   Le **serveur web** pour le frontend.
+   -   Le **serveur Strapi** pour l'API.
+   -   La base de données **MySQL**.
+
+3.  **Initialisation des données (Seeding) :**
+    Pour peupler la base de données avec des données de test, assurez-vous que les conteneurs sont lancés, puis exécutez :
+
+    ```bash
+    npm run seed
+    ```
    
-               Cette commande va construire les images et démarrer tous les conteneurs nécessaires en arrière-plan :
-                   -   Le **serveur web** pour le frontend.
-                       -   Le **serveur Strapi** pour l'API.
-                           -   La base de données **MySQL**.
-   
-                           3.  **Accès aux services :**
-                               -   **Application Frontend :** `http://localhost:3000` (ou le port que vous avez configuré)
-                                   -   **Administration Strapi :** `http://localhost:1337/admin`
-                                       -   **API Strapi :** `http://localhost:1337/api`
+3.  **Accès aux services :**
+    -   **Application Frontend :** `http://localhost:3000` (ou le port que vous avez configuré)
+    -   **Administration Strapi :** `http://localhost:1337/admin`
+    -   **API Strapi :** `http://localhost:1337/api`
    
                                        ---
    

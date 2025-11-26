@@ -18,7 +18,7 @@ Before you begin, ensure you have the following software installed on your machi
 
     ```bash
     git clone <repository-url>
-    cd <project-directory>
+    cd onbouge
     ```
 
 2.  **Configure Environment Variables**
@@ -67,14 +67,23 @@ Before you begin, ensure you have the following software installed on your machi
     Once the `.env` file is configured, you can start the application using Docker Compose.
 
     ```bash
-    docker-compose up -d
+    **First Time Setup:**
+    If this is your first time running the project, use the setup script. It handles dependency installation, container startup, admin account creation, and schema installation.
+
+    ```bash
+    npm run setup
     ```
 
-    This command will:
-    *   Pull the necessary Docker images.
-    *   Build the custom services.
-    *   Start all the containers in the background (`-d` flag).
-    *   On the first run, the `strapi` service will initialize a new Strapi project if one doesn't exist.
+    **Regular Startup:**
+    For subsequent runs, you can simply start the containers:
+
+    ```bash
+    npm run start
+    ```
+
+    These commands will:
+    *   Pull/Build necessary Docker images.
+    *   Start all containers in the background.
 
 ## Accessing the Services
 
@@ -94,11 +103,11 @@ On your first visit to the Strapi admin panel (`http://localhost:1337/admin`), y
 To stop all the running containers, use the following command:
 
 ```bash
-docker-compose down
+npm run stop
 ```
 
 If you also want to remove the data volumes (which will delete all your data), you can use:
 
 ```bash
-docker-compose down -v
+npm run clean
 ```

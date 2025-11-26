@@ -1,7 +1,7 @@
 {
-   "name": "sport-connect",
+   "name": "onbouge",
    "version": "0.0.1",
-   "description": "",
+   "description": "Application web pour connecter les sportifs (anciennement Rally Point)",
    "scripts": {
       "test": "npx vitest",
       "dev": "vite",
