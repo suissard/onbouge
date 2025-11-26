@@ -2,7 +2,7 @@
   <v-container>
     <h1 class="mb-4">Edit User</h1>
     <DynamicUpdateForm v-if="user" :initial-data="user" :model-class="User" :data-sources="{ profiles: profilesList }"
-      title="Edit User" @save="saveUser" />
+      title="Edit User" @save="saveUser" @delete="deleteUser" />
     <v-alert v-else type="info">Loading user...</v-alert>
   </v-container>
 </template>
@@ -60,12 +60,36 @@ async function saveUser(formData: any) {
   loading.value = true
 
   try {
-    await userStore.update(userId.value, formData)
+    const payload = { ...formData };
+    // Strip read-only fields
+    delete payload.id;
+    delete payload.documentId;
+    delete payload.createdAt;
+    delete payload.updatedAt;
+    delete payload.publishedAt;
+
+    await userStore.update(userId.value, payload)
     notificationStore.addNotification({ message: 'User updated successfully', type: 'success' })
     router.push(`/users/${userId.value}`)
   } catch (error) {
     console.error(error)
     notificationStore.addNotification({ message: 'Error saving user', type: 'error' })
+  } finally {
+    loading.value = false
+  }
+}
+
+async function deleteUser(formData: any) {
+  if (!userId.value) return
+
+  loading.value = true
+  try {
+    await userStore.delete(userId.value)
+    notificationStore.addNotification({ message: 'User deleted successfully', type: 'success' })
+    router.push('/users')
+  } catch (error) {
+    console.error(error)
+    notificationStore.addNotification({ message: 'Error deleting user', type: 'error' })
   } finally {
     loading.value = false
   }

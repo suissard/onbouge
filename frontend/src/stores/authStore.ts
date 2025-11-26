@@ -16,9 +16,9 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUser() {
     try {
       if (!token.value) return;
-      const response = await strapi.find('users', { filters: { id: 'me' } }); // Adjusted to use find as get might not exist on the wrapper
-      user.value = response as unknown as User;
-      return user.value as User;
+      const userData = await strapi.getMe();
+      user.value = userData as User;
+      return user.value;
     } catch (error) {
       console.error('Failed to fetch user:', error);
       logout(); // Clear invalid token

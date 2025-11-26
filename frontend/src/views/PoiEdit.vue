@@ -3,7 +3,7 @@
     <h1 class="mb-4">{{ isEditing ? 'Edit POI' : 'Create POI' }}</h1>
     <DynamicUpdateForm v-if="poi" :initial-data="poi" :model-class="Poi"
       :data-sources="{ sports: sportsList, events: eventsList }" :title="isEditing ? 'Edit POI' : 'Create POI'"
-      @save="savePoi" />
+      @save="savePoi" @delete="deletePoi" />
     <v-alert v-else-if="isEditing" type="info">Loading POI...</v-alert>
   </v-container>
 </template>
@@ -75,6 +75,13 @@ async function savePoi(formData: any) {
       lattitude: Number(formData.lattitude),
       longitude: Number(formData.longitude)
     }
+
+    // Strip read-only fields
+    delete payload.id;
+    delete payload.documentId;
+    delete payload.createdAt;
+    delete payload.updatedAt;
+    delete payload.publishedAt;
 
     if (isEditing.value && poiId.value) {
       await poiStore.update(poiId.value, payload)

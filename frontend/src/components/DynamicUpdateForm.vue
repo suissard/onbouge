@@ -1,7 +1,7 @@
 <template>
     <v-card class="dynamic-update-form pa-4">
         <v-card-title v-if="title" class="text-h5 mb-4">{{ title }}</v-card-title>
-        <v-form @submit.prevent="save">
+        <v-form @submit.prevent="handleSubmit">
             <div v-for="field in activeFields" :key="field.key" class="mb-2">
 
                 <!-- Text, Email, Password, Number Inputs -->
@@ -33,14 +33,25 @@
             <slot :form-data="formData"></slot>
 
             <v-card-actions class="justify-end mt-4">
-                <v-btn variant="outlined" color="grey-darken-1" @click="cancel">
-                    Annuler
-                </v-btn>
-                <v-btn type="submit" color="primary" variant="elevated">
-                    Enregistrer
-                </v-btn>
+                <v-btn color="primary" type="submit" class="mr-2">Save</v-btn>
+                <v-btn color="error" variant="text" class="mr-2" @click="showDeleteConfirm = true"
+                    v-if="isEditing">Delete</v-btn>
+                <v-btn color="grey" variant="text" @click="cancel">Cancel</v-btn>
             </v-card-actions>
         </v-form>
+
+        <v-dialog v-model="showDeleteConfirm" max-width="500px">
+            <v-card>
+                <v-card-title class="text-h5">Are you sure?</v-card-title>
+                <v-card-text>Do you really want to delete this item? This process cannot be undone.</v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue-darken-1" variant="text" @click="showDeleteConfirm = false">Cancel</v-btn>
+                    <v-btn color="blue-darken-1" variant="text" @click="confirmDelete">OK</v-btn>
+                    <v-spacer></v-spacer>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-card>
 </template>
 
@@ -79,7 +90,7 @@ const props = defineProps({
     },
 });
 
-const emit = defineEmits(['save', 'cancel']);
+const emit = defineEmits(['save', 'cancel', 'delete']);
 
 // Determine fields to use: props.fields takes precedence, otherwise load from schema
 const activeFields = computed(() => {
@@ -89,20 +100,28 @@ const activeFields = computed(() => {
     return [];
 });
 
-// Create a local copy of the data to edit
-const formData = ref<Record<string, any>>({});
+const formData = ref<any>({});
+const showDeleteConfirm = ref(false);
 
-// Initialize formData from initialData
-watch(
-    () => props.initialData,
-    (newData) => {
+const isEditing = computed(() => {
+    return props.initialData && (props.initialData as any).documentId;
+});
+
+// Watch for changes in initialData to update formData
+watch(() => props.initialData, (newData) => {
+    if (newData) {
+        // Clone the data to avoid mutating the prop directly
         formData.value = JSON.parse(JSON.stringify(newData));
-    },
-    { immediate: true, deep: true }
-);
+    }
+}, { immediate: true, deep: true });
 
-const save = () => {
+function handleSubmit() {
     emit('save', formData.value);
+}
+
+function confirmDelete() {
+    showDeleteConfirm.value = false;
+    emit('delete', formData.value);
 };
 
 const cancel = () => {

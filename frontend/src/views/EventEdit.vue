@@ -3,7 +3,7 @@
     <h1 class="mb-4">{{ isEditing ? 'Edit Event' : 'Create Event' }}</h1>
     <DynamicUpdateForm v-if="event" :initial-data="event" :model-class="Event"
       :data-sources="{ sports: sportsList, pois: poisList, profiles: profilesList }"
-      :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" />
+      :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" @delete="deleteEvent" />
     <v-alert v-else-if="isEditing" type="info">Loading event...</v-alert>
   </v-container>
 </template>
@@ -98,9 +98,17 @@ async function saveEvent(formData: any) {
   loading.value = true
 
   // Prepare payload
+  // Prepare payload
   const payload = {
     ...formData,
   }
+
+  // Strip read-only fields
+  delete payload.id;
+  delete payload.documentId;
+  delete payload.createdAt;
+  delete payload.updatedAt;
+  delete payload.publishedAt;
 
   // Ensure date is in ISO format if it was changed
   if (payload.date) {
@@ -122,6 +130,22 @@ async function saveEvent(formData: any) {
   } catch (error) {
     console.error(error)
     notificationStore.addNotification({ message: 'Error saving event', type: 'error' })
+  } finally {
+    loading.value = false
+  }
+}
+
+async function deleteEvent(formData: any) {
+  if (!eventId.value) return
+
+  loading.value = true
+  try {
+    await eventStore.delete(eventId.value)
+    notificationStore.addNotification({ message: 'Event deleted successfully', type: 'success' })
+    router.push('/events')
+  } catch (error) {
+    console.error(error)
+    notificationStore.addNotification({ message: 'Error deleting event', type: 'error' })
   } finally {
     loading.value = false
   }

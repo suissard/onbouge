@@ -70,6 +70,20 @@ const strapiMock = {
     });
   },
 
+  async delete(collection: string, id: string | number, queryParams?: any): Promise<{ data: any }> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const index = mockData[collection].data.findIndex((item: any) => item.documentId === id);
+        if (index !== -1) {
+          const deletedItem = mockData[collection].data.splice(index, 1)[0];
+          resolve({ data: deletedItem });
+        } else {
+          resolve({ data: null });
+        }
+      }, 50);
+    });
+  },
+
   async login(credentials: any): Promise<any> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -92,7 +106,17 @@ const strapiMock = {
     });
   },
 
-  setToken(token: string): void {
+  async getMe(): Promise<any> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Return the first user as "me" for mock purposes, or a specific mock user
+        const mockUser = mockData.users.data[0];
+        resolve(mockUser);
+      }, 50);
+    });
+  },
+
+  setToken(newToken: string): void {
     // Mock implementation, does nothing.
   },
 

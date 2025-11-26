@@ -3,8 +3,6 @@ import type { FieldDefinition } from '@/components/DynamicUpdateForm.vue';
 
 const METADATA_KEY = 'form:fields';
 
-import 'reflect-metadata';
-
 export interface FormFieldOptions {
   label: string;
   type: 'text' | 'number' | 'date' | 'textarea' | 'select' | 'checkbox' | 'email';

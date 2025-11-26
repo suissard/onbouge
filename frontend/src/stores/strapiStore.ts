@@ -91,14 +91,30 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
     }
   }
 
+  /**
+   * Deletes an item from the Strapi collection.
+   * @param {string} id - The ID of the item to delete.
+   * @returns {Promise<void>} A promise that resolves when the item is deleted.
+   */
+  async function deleteItem(id: string) {
+    try {
+      await strapi.delete(dataName, id)
+      datas.value = datas.value.filter(item => item.documentId !== id)
+    } catch (error) {
+      console.error(`Error deleting ${dataName} (${id}):`, error)
+      throw error
+    }
+  }
+
   const result: {
     getList: () => Promise<void>;
     get: (id: string) => Promise<T | undefined>;
     create: (item: any) => Promise<any>;
     update: (id: string, item: any) => Promise<any>;
+    delete: (id: string) => Promise<void>;
     datas: Ref<T[]>;
     [key: string]: any;
-  } = { getList, get, create, update, datas }
+  } = { getList, get, create, update, delete: deleteItem, datas }
   result[dataName] = datas
 
   return result as typeof result & { [key: string]: Ref<T[]> }
