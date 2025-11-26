@@ -14,6 +14,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { User } from '@/interfaces/user'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
+import { StrapiObject } from '@/classes/StrapiObject'
 
 const userStore = useUsersStore()
 const profilesStore = useProfilesStore()
@@ -29,21 +30,21 @@ const loading = ref(false)
 
 const profilesList = computed(() => profilesStore.datas)
 
-const rules = {
-  required: (value: any) => !!value || 'Required.',
-  email: (value: any) => /.+@.+\..+/.test(value) || 'E-mail must be valid.',
-}
+const strapiObject = new StrapiObject<User>(
+  userStore,
+  notificationStore,
+  router,
+  'users',
+  'User'
+)
 
 onMounted(async () => {
   await profilesStore.getList()
 
   if (userId.value) {
-    const fetchedUser = await userStore.get(userId.value)
+    const fetchedUser = await strapiObject.load(userId.value)
     if (fetchedUser) {
       user.value = { ...fetchedUser }
-    } else {
-      notificationStore.addNotification({ message: 'User not found', type: 'error' })
-      router.push('/users')
     }
   } else {
     notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })
@@ -61,19 +62,7 @@ async function saveUser(formData: any) {
 
   try {
     const payload = { ...formData };
-    // Strip read-only fields
-    delete payload.id;
-    delete payload.documentId;
-    delete payload.createdAt;
-    delete payload.updatedAt;
-    delete payload.publishedAt;
-
-    await userStore.update(userId.value, payload)
-    notificationStore.addNotification({ message: 'User updated successfully', type: 'success' })
-    router.push(`/users/${userId.value}`)
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error saving user', type: 'error' })
+    await strapiObject.save(payload, userId.value)
   } finally {
     loading.value = false
   }
@@ -84,12 +73,7 @@ async function deleteUser(formData: any) {
 
   loading.value = true
   try {
-    await userStore.delete(userId.value)
-    notificationStore.addNotification({ message: 'User deleted successfully', type: 'success' })
-    router.push('/users')
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error deleting user', type: 'error' })
+    await strapiObject.delete(userId.value)
   } finally {
     loading.value = false
   }

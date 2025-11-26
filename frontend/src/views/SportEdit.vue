@@ -15,6 +15,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Sport } from '@/interfaces/sport'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
+import { StrapiObject } from '@/classes/StrapiObject'
 
 const sportStore = useSportsStore()
 const poisStore = usePoisStore()
@@ -31,6 +32,14 @@ const loading = ref(false)
 const poisList = computed(() => poisStore.datas)
 const eventsList = computed(() => eventsStore.datas)
 
+const strapiObject = new StrapiObject<Sport>(
+  sportStore,
+  notificationStore,
+  router,
+  'sports',
+  'Sport'
+)
+
 onMounted(async () => {
   await Promise.all([
     poisStore.getList(),
@@ -38,12 +47,9 @@ onMounted(async () => {
   ])
 
   if (isEditing.value && sportId.value) {
-    const fetchedSport = await sportStore.get(sportId.value);
+    const fetchedSport = await strapiObject.load(sportId.value);
     if (fetchedSport) {
       sport.value = { ...fetchedSport };
-    } else {
-      notificationStore.addNotification({ message: 'Sport not found', type: 'error' })
-      router.push('/sports')
     }
   } else {
     sport.value = new Sport();
@@ -60,27 +66,7 @@ async function saveSport(formData: any) {
 
   try {
     const payload = { ...formData };
-    // Strip read-only fields
-    delete payload.id;
-    delete payload.documentId;
-    delete payload.createdAt;
-    delete payload.updatedAt;
-    delete payload.publishedAt;
-
-    if (isEditing.value && sportId.value) {
-      await sportStore.update(sportId.value, payload);
-      notificationStore.addNotification({ message: 'Sport updated successfully', type: 'success' })
-      router.push(`/sports/${sportId.value}`)
-    } else {
-      const newSport = await sportStore.create(payload);
-      if (newSport) {
-        notificationStore.addNotification({ message: 'Sport created successfully', type: 'success' })
-        router.push(`/sports/${newSport.documentId}`)
-      }
-    }
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error saving sport', type: 'error' })
+    await strapiObject.save(payload, sportId.value || undefined);
   } finally {
     loading.value = false
   }
@@ -91,12 +77,7 @@ async function deleteSport(formData: any) {
 
   loading.value = true
   try {
-    await sportStore.delete(sportId.value)
-    notificationStore.addNotification({ message: 'Sport deleted successfully', type: 'success' })
-    router.push('/sports')
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error deleting sport', type: 'error' })
+    await strapiObject.delete(sportId.value)
   } finally {
     loading.value = false
   }

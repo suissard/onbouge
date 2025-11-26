@@ -15,6 +15,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Poi } from '@/interfaces/poi'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
+import { StrapiObject } from '@/classes/StrapiObject'
 
 const poiStore = usePoisStore()
 const sportsStore = useSportsStore()
@@ -31,9 +32,13 @@ const loading = ref(false)
 const sportsList = computed(() => sportsStore.datas)
 const eventsList = computed(() => eventsStore.datas)
 
-const rules = {
-  required: (value: any) => !!value || 'Required.',
-}
+const strapiObject = new StrapiObject<Poi>(
+  poiStore,
+  notificationStore,
+  router,
+  'pois',
+  'POI'
+)
 
 onMounted(async () => {
   await Promise.all([
@@ -42,12 +47,9 @@ onMounted(async () => {
   ])
 
   if (isEditing.value && poiId.value) {
-    const fetchedPoi = await poiStore.get(poiId.value)
+    const fetchedPoi = await strapiObject.load(poiId.value)
     if (fetchedPoi) {
       poi.value = { ...fetchedPoi }
-    } else {
-      notificationStore.addNotification({ message: 'POI not found', type: 'error' })
-      router.push('/pois')
     }
   } else {
     poi.value = {
@@ -76,27 +78,7 @@ async function savePoi(formData: any) {
       longitude: Number(formData.longitude)
     }
 
-    // Strip read-only fields
-    delete payload.id;
-    delete payload.documentId;
-    delete payload.createdAt;
-    delete payload.updatedAt;
-    delete payload.publishedAt;
-
-    if (isEditing.value && poiId.value) {
-      await poiStore.update(poiId.value, payload)
-      notificationStore.addNotification({ message: 'POI updated successfully', type: 'success' })
-      router.push(`/pois/${poiId.value}`)
-    } else {
-      const newPoi = await poiStore.create(payload)
-      if (newPoi) {
-        notificationStore.addNotification({ message: 'POI created successfully', type: 'success' })
-        router.push(`/pois/${newPoi.documentId}`)
-      }
-    }
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error saving POI', type: 'error' })
+    await strapiObject.save(payload, poiId.value || undefined)
   } finally {
     loading.value = false
   }
@@ -107,12 +89,7 @@ async function deletePoi(formData: any) {
 
   loading.value = true
   try {
-    await poiStore.delete(poiId.value)
-    notificationStore.addNotification({ message: 'POI deleted successfully', type: 'success' })
-    router.push('/pois')
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error deleting POI', type: 'error' })
+    await strapiObject.delete(poiId.value)
   } finally {
     loading.value = false
   }

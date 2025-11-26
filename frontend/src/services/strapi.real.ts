@@ -1,8 +1,9 @@
 import { strapi as createStrapiClient } from '@strapi/client';
 import type { StrapiClient } from '@strapi/client';
+import configs from './configs.json';
 
 // Base URL for the Strapi API
-const BASE_URL = 'http://192.168.0.2:1337/api';
+const BASE_URL = configs.strapiIp + '/api';
 
 // Initial token
 let token: string | null = null;

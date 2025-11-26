@@ -15,9 +15,9 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Event } from '@/interfaces/event'
 import type { Sport } from '@/interfaces/sport'
-import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
+import { StrapiObject } from '@/classes/StrapiObject'
 
 const eventStore = useEventsStore()
 const sportsStore = useSportsStore()
@@ -41,9 +41,13 @@ const selectedSports = ref<string[]>([])
 const selectedPoi = ref<string | null>(null)
 const selectedProfiles = ref<string[]>([])
 
-const rules = {
-  required: (value: any) => !!value || 'Required.',
-}
+const strapiObject = new StrapiObject<Event>(
+  eventStore,
+  notificationStore,
+  router,
+  'events',
+  'Event'
+)
 
 onMounted(async () => {
   // Load all necessary data
@@ -54,7 +58,7 @@ onMounted(async () => {
   ])
 
   if (isEditing.value && eventId.value) {
-    const fetchedEvent = await eventStore.get(eventId.value)
+    const fetchedEvent = await strapiObject.load(eventId.value)
     if (fetchedEvent) {
       // Clone to avoid mutating store directly and to handle transforms
       event.value = { ...fetchedEvent }
@@ -76,9 +80,6 @@ onMounted(async () => {
         event.value.date = new Date(event.value.date).toISOString().slice(0, 16);
       }
 
-    } else {
-      notificationStore.addNotification({ message: 'Event not found', type: 'error' })
-      router.push('/events')
     }
   } else {
     event.value = {
@@ -98,17 +99,9 @@ async function saveEvent(formData: any) {
   loading.value = true
 
   // Prepare payload
-  // Prepare payload
   const payload = {
     ...formData,
   }
-
-  // Strip read-only fields
-  delete payload.id;
-  delete payload.documentId;
-  delete payload.createdAt;
-  delete payload.updatedAt;
-  delete payload.publishedAt;
 
   // Ensure date is in ISO format if it was changed
   if (payload.date) {
@@ -116,20 +109,7 @@ async function saveEvent(formData: any) {
   }
 
   try {
-    if (isEditing.value && eventId.value) {
-      await eventStore.update(eventId.value, payload)
-      notificationStore.addNotification({ message: 'Event updated successfully', type: 'success' })
-      router.push(`/events/${eventId.value}`)
-    } else {
-      const newEvent = await eventStore.create(payload)
-      if (newEvent) {
-        notificationStore.addNotification({ message: 'Event created successfully', type: 'success' })
-        router.push(`/events/${newEvent.documentId}`)
-      }
-    }
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error saving event', type: 'error' })
+    await strapiObject.save(payload, eventId.value || undefined)
   } finally {
     loading.value = false
   }
@@ -140,12 +120,7 @@ async function deleteEvent(formData: any) {
 
   loading.value = true
   try {
-    await eventStore.delete(eventId.value)
-    notificationStore.addNotification({ message: 'Event deleted successfully', type: 'success' })
-    router.push('/events')
-  } catch (error) {
-    console.error(error)
-    notificationStore.addNotification({ message: 'Error deleting event', type: 'error' })
+    await strapiObject.delete(eventId.value)
   } finally {
     loading.value = false
   }
