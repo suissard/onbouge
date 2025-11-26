@@ -86,34 +86,42 @@ async function main() {
     console.error('Failed to fetch roles:', e.message);
   }
 
+  // Helper to publish
+  const publishEntry = async (model, id) => {
+    try {
+      await api.post(`/${model}/${id}/actions/publish`, {
+        date: new Date()
+      });
+      console.log(`Published ${model} ID: ${id}`);
+    } catch (e) {
+      // If already published or error, just log warning
+      console.warn(`Failed to publish ${model} ${id}:`, e.message);
+    }
+  };
+
   // 2. Seed Sports
   console.log('Seeding Sports...');
   const sports = readData('sports.json');
   for (const item of sports) {
     try {
-      // Check if exists (by title/name)
-      // Content Manager API filtering syntax might differ slightly, but usually supports standard filters
       const existing = await api.get(`/api::sport.sport?filters[title][$eq]=${encodeURIComponent(item.title)}`);
       let sportId;
       if (existing.data.results && existing.data.results.length > 0) {
         const entry = existing.data.results[0];
         sportId = entry.documentId || entry.id;
-        // Update existing using documentId if available, else id
         const updateId = entry.documentId || entry.id;
         await api.put(`/api::sport.sport/${updateId}`, {
-            title: item.title,
-            publishedAt: new Date()
+            title: item.title
         });
       } else {
-        // Create new
         const res = await api.post('/api::sport.sport', { 
-            title: item.title,
-            publishedAt: new Date()
+            title: item.title
         });
         const entry = res.data.data || res.data;
         sportId = entry.documentId || entry.id;
         console.log(`Created Sport: ${item.title} (ID: ${sportId})`);
       }
+      await publishEntry('api::sport.sport', sportId);
       idMap.sports[item.id] = sportId;
     } catch (e) {
       console.error(`Failed to seed sport ${item.title}:`, e.message, e.response?.data);
@@ -130,24 +138,21 @@ async function main() {
       if (existing.data.results && existing.data.results.length > 0) {
         const entry = existing.data.results[0];
         poiId = entry.documentId || entry.id;
-        // Update existing
         const updateId = entry.documentId || entry.id;
         await api.put(`/api::poi.poi/${updateId}`, {
             title: item.title,
-            description: item.description,
-            publishedAt: new Date()
+            description: item.description
         });
       } else {
-        // Create new
         const res = await api.post('/api::poi.poi', { 
             title: item.title,
-            description: item.description,
-            publishedAt: new Date()
+            description: item.description
         });
         const entry = res.data.data || res.data;
         poiId = entry.documentId || entry.id;
         console.log(`Created POI: ${item.title} (ID: ${poiId})`);
       }
+      await publishEntry('api::poi.poi', poiId);
       idMap.pois[item.id] = poiId;
     } catch (e) {
       console.error(`Failed to seed POI ${item.title}:`, e.message, e.response?.data);
@@ -173,13 +178,11 @@ async function main() {
       if (authenticatedRoleId) {
         const userEmail = item.email || `${item.username.toLowerCase().replace(/[^a-z0-9]/g, '')}@example.com`;
         try {
-          // Check if user exists
           const existingUser = await api.get(`/plugin::users-permissions.user?filters[email][$eq]=${encodeURIComponent(userEmail)}`);
           if (existingUser.data.results && existingUser.data.results.length > 0) {
             const u = existingUser.data.results[0];
             userId = u.documentId || u.id;
           } else {
-            // Create User
             const userRes = await api.post('/plugin::users-permissions.user', {
               username: item.username,
               email: userEmail,
@@ -188,37 +191,33 @@ async function main() {
               blocked: false,
               role: authenticatedRoleId
             });
-
             const u = userRes.data.data || userRes.data;
             userId = u.documentId || u.id;
             console.log(`Created User for profile ${item.username} (ID: ${userId})`);
           }
-          idMap.users[item.id] = userId; // Map old profile ID to new User ID if needed
+          idMap.users[item.id] = userId;
         } catch (e) {
           console.error(`Failed to create user for ${item.username}:`, e.message, e.response?.data);
         }
       }
 
       if (profileId) {
-        // Update existing
          await api.put(`/api::profile.profile/${profileDocId}`, {
             username: item.username,
             description: item.description,
-            user: userId,
-            publishedAt: new Date()
+            user: userId
          });
       } else {
-        // Create new
         const res = await api.post('/api::profile.profile', {
             username: item.username,
             description: item.description,
-            user: userId,
-            publishedAt: new Date()
+            user: userId
         });
         const entry = res.data.data || res.data;
         profileId = entry.documentId || entry.id;
         console.log(`Created Profile: ${item.username} (ID: ${profileId})`);
       }
+      await publishEntry('api::profile.profile', profileId);
       idMap.profiles[item.id] = profileId;
     } catch (e) {
       console.error(`Failed to seed Profile ${item.username}:`, e.message, e.response?.data);
@@ -250,14 +249,20 @@ async function main() {
         date: item.date,
         sports: sportIds,
         poi: poiId,
-        profiles: profileIds,
-        publishedAt: new Date()
+        profiles: profileIds
       };
 
       if (eventId) {
         await api.put(`/api::event.event/${eventDocId}`, payload);
       } else {
-        await api.post('/api::event.event', payload);
+        const res = await api.post('/api::event.event', payload);
+        const entry = res.data.data || res.data;
+        eventDocId = entry.documentId || entry.id;
+        console.log(`Created Event: ${item.title} (ID: ${eventDocId})`);
+      }
+      
+      if (eventDocId) {
+        await publishEntry('api::event.event', eventDocId);
       }
     } catch (e) {
       console.error(`Failed to seed Event ${item.title}:`, e.message, e.response?.data);
