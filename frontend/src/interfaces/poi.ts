@@ -1,3 +1,4 @@
+import { FormField } from '@/decorators/form';
 import type { Sport } from './sport';
 import type { Event } from './event';
 
@@ -6,17 +7,45 @@ export interface Position {
   lon: number;
 }
 
-export interface Poi {
-  documentId: string;
-  title: string;
-  lattitude: number;
-  longitude: number;
-  description: string;
-  gmaps_url: string;
-  position: Position;
-  sports: Sport[];
-  events: Event[];
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+export class Poi {
+  documentId: string = '';
+
+  @FormField({ label: 'Titre', type: 'text' })
+  title: string = '';
+
+  @FormField({ label: 'Latitude', type: 'number' })
+  lattitude: number = 0;
+
+  @FormField({ label: 'Longitude', type: 'number' })
+  longitude: number = 0;
+
+  @FormField({ label: 'Description', type: 'textarea' })
+  description: string = '';
+
+  @FormField({ label: 'Lien Google Maps', type: 'text' })
+  gmaps_url: string = '';
+
+  position: Position = { lat: 0, lon: 0 };
+  @FormField({
+    label: 'Sports',
+    type: 'select',
+    optionsKey: 'sports',
+    multiple: true,
+    itemTitle: 'title',
+    itemValue: 'documentId'
+  })
+  sports: Sport[] = [];
+
+  @FormField({
+    label: 'Events',
+    type: 'select',
+    optionsKey: 'events',
+    multiple: true,
+    itemTitle: 'title',
+    itemValue: 'documentId'
+  })
+  events: Event[] = [];
+  createdAt: string = '';
+  updatedAt: string = '';
+  publishedAt: string = '';
 }

@@ -1,46 +1,22 @@
 <template>
   <v-container>
     <h1 class="mb-4">Edit User</h1>
-    <v-form v-if="user" ref="form" @submit.prevent="saveUser">
-      <v-text-field
-        v-model="user.username"
-        label="Username"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-
-      <v-text-field
-        v-model="user.email"
-        label="Email"
-        type="email"
-        :rules="[rules.required, rules.email]"
-        required
-      ></v-text-field>
-
-      <v-checkbox
-        v-model="user.confirmed"
-        label="Confirmed"
-      ></v-checkbox>
-
-      <v-checkbox
-        v-model="user.blocked"
-        label="Blocked"
-      ></v-checkbox>
-
-      <v-btn type="submit" color="primary" :loading="loading">Save</v-btn>
-    </v-form>
+    <DynamicUpdateForm v-if="user" :initial-data="user" :model-class="User" :data-sources="{ profiles: profilesList }"
+      title="Edit User" @save="saveUser" />
     <v-alert v-else type="info">Loading user...</v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { useUsersStore } from '@/stores/strapiStore'
+import { useUsersStore, useProfilesStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { User } from '@/interfaces/user'
+import { User } from '@/interfaces/user'
+import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
 
 const userStore = useUsersStore()
+const profilesStore = useProfilesStore()
 const notificationStore = useNotificationsStore()
 const route = useRoute()
 const router = useRouter()
@@ -51,12 +27,16 @@ const userId = computed(() => route.params.id ? String(route.params.id) : null)
 const user = ref<Partial<User> | null>(null)
 const loading = ref(false)
 
+const profilesList = computed(() => profilesStore.datas)
+
 const rules = {
   required: (value: any) => !!value || 'Required.',
   email: (value: any) => /.+@.+\..+/.test(value) || 'E-mail must be valid.',
 }
 
 onMounted(async () => {
+  await profilesStore.getList()
+
   if (userId.value) {
     const fetchedUser = await userStore.get(userId.value)
     if (fetchedUser) {
@@ -66,21 +46,21 @@ onMounted(async () => {
       router.push('/users')
     }
   } else {
-      notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })
-      router.push('/users')
+    notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })
+    router.push('/users')
   }
 })
 
 /**
  * Saves the user data and navigates to the user view page.
  */
-async function saveUser() {
+async function saveUser(formData: any) {
   if (!user.value || !userId.value) return
 
   loading.value = true
 
   try {
-    await userStore.update(userId.value, user.value)
+    await userStore.update(userId.value, formData)
     notificationStore.addNotification({ message: 'User updated successfully', type: 'success' })
     router.push(`/users/${userId.value}`)
   } catch (error) {

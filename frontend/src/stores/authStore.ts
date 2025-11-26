@@ -16,8 +16,8 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUser() {
     try {
       if (!token.value) return;
-      const response = await strapi.get('users/me');
-      user.value = response;
+      const response = await strapi.find('users', { filters: { id: 'me' } }); // Adjusted to use find as get might not exist on the wrapper
+      user.value = response as unknown as User;
       return user.value as User;
     } catch (error) {
       console.error('Failed to fetch user:', error);
@@ -33,10 +33,11 @@ export const useAuthStore = defineStore('auth', () => {
    */
   async function login(identifier: string, password: string): Promise<User> {
     const response = await strapi.login({identifier, password});
-    token.value = response.jwt;
-    updateTokenlocalStorage(response.jwt);
-    strapi.setToken(response.jwt);
-    user.value = response.user;
+    const data = response as any;
+    token.value = data.jwt;
+    updateTokenlocalStorage(data.jwt);
+    strapi.setToken(data.jwt);
+    user.value = data.user;
     return user.value as User;
   }
 

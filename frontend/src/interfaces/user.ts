@@ -1,3 +1,4 @@
+import { FormField } from '@/decorators/form';
 import type { Profile } from './profile';
 
 export interface Role {
@@ -7,17 +8,35 @@ export interface Role {
   type: string;
 }
 
-export interface User {
-  documentId: string;
-  id: number;
-  username: string;
-  email: string;
-  provider: string;
-  confirmed: boolean;
-  blocked: boolean;
-  role: Role;
-  profile: Profile;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+export class User {
+  documentId: string = '';
+  id: number = 0;
+
+  @FormField({ label: 'Nom d\'utilisateur', type: 'text' })
+  username: string = '';
+
+  @FormField({ label: 'Email', type: 'email' })
+  email: string = '';
+
+  provider: string = '';
+
+  @FormField({ label: 'Confirmé', type: 'checkbox' })
+  confirmed: boolean = false;
+
+  @FormField({ label: 'Bloqué', type: 'checkbox' })
+  blocked: boolean = false;
+
+  role: Role | null = null;
+
+  @FormField({
+    label: 'Profile',
+    type: 'select',
+    optionsKey: 'profiles',
+    itemTitle: 'username',
+    itemValue: 'documentId'
+  })
+  profile: Profile | null = null;
+  createdAt: string = '';
+  updatedAt: string = '';
+  publishedAt: string = '';
 }

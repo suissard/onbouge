@@ -78,7 +78,8 @@ Chaque section illustre une fonctionnalité clé du framework avec des explicati
         <h3 class="text-h6 mt-4 mb-2">v-for</h3>
         <p class="mb-2">Affiche une liste d'éléments à partir d'un tableau.</p>
         <v-list>
-          <v-list-item v-for="(fruit, index) in fruits" :key="fruit" :title="fruit" :subtitle="`Élément n°${index}`"></v-list-item>
+          <v-list-item v-for="(fruit, index) in fruits" :key="fruit" :title="fruit"
+            :subtitle="`Élément n°${index}`"></v-list-item>
         </v-list>
         <v-text-field v-model="nouveauFruit" label="Ajouter un fruit"></v-text-field>
         <v-btn @click="ajouterFruit">Ajouter</v-btn>
@@ -120,10 +121,7 @@ Chaque section illustre une fonctionnalité clé du framework avec des explicati
           Les composants sont des morceaux d'interface réutilisables. Le parent leur passe des
           données via les `props` et ils communiquent avec le parent via les `emits`.
         </p>
-        <ComposantEnfant
-          :titre="titrePourEnfant"
-          @reponse-enfant="recevoirMessageEnfant"
-        />
+        <ComposantEnfant :titre="titrePourEnfant" @reponse-enfant="recevoirMessageEnfant" />
         <p v-if="messageDeEnfant">Message reçu de l'enfant : "{{ messageDeEnfant }}"</p>
       </section>
 
@@ -144,6 +142,35 @@ Chaque section illustre une fonctionnalité clé du framework avec des explicati
         <v-btn @click="demoStore.decrementer()">Décrémenter (Global)</v-btn>
       </section>
 
+      <v-divider class="my-5"></v-divider>
+
+      <!-- =================================================================================== -->
+      <!-- SECTION 9: Composant Formulaire Dynamique                                           -->
+      <!-- =================================================================================== -->
+      <section class="mb-5">
+        <h2 class="text-h5 mb-2">9. Composant Formulaire Dynamique</h2>
+        <p class="mb-2">
+          Démonstration du composant <code>DynamicUpdateForm</code> qui génère un formulaire à partir de données et
+          d'une classe décorée.
+        </p>
+
+        <h3 class="text-h6 mb-2">Exemple avec Classe & Décorateurs (Event)</h3>
+        <p class="mb-2">Ici, on passe la classe <code>Event</code> (qui est aussi l'interface) directement. Les champs
+          sont définis via des décorateurs <code>@FormField</code>.</p>
+        <v-row>
+          <v-col cols="12" md="6">
+            <DynamicUpdateForm :initial-data="sampleEventData" :model-class="Event"
+              title="Éditer l'événement (via Classe)" @save="handleDynamicFormSave" @cancel="handleDynamicFormCancel" />
+          </v-col>
+          <v-col cols="12" md="6">
+            <h3 class="text-h6 mb-2">Données en direct</h3>
+            <v-sheet class="bg-grey-lighten-4 pa-4 rounded" style="overflow-x: auto;">
+              <pre>{{ dynamicFormResult || 'Aucune donnée enregistrée pour le moment.' }}</pre>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </section>
+
     </v-card>
   </v-container>
 </template>
@@ -156,6 +183,8 @@ Chaque section illustre une fonctionnalité clé du framework avec des explicati
 
 import { ref, reactive, computed, watch, onMounted } from 'vue';
 import ComposantEnfant from '../components/ComposantEnfantDemo.vue'; // On importe le composant enfant
+import DynamicUpdateForm, { type FieldDefinition } from '../components/DynamicUpdateForm.vue'; // Import du formulaire dynamique
+import { Event } from '@/interfaces/event';
 import { useDemoStore } from '@/stores/demoStore'; // On importe notre store Pinia
 
 // --- 8. Pinia ---
@@ -228,6 +257,26 @@ onMounted(() => {
   console.log('Le composant VueDemo est monté !');
   // Parfait pour charger des données initiales depuis une API.
 });
+
+// --- 9. Formulaire Dynamique ---
+const sampleEventData = {
+  title: 'Marathon de Paris',
+  description: 'Le plus grand marathon de France.',
+  date: '2024-04-07',
+  image: 'https://example.com/marathon.jpg'
+};
+
+const dynamicFormResult = ref<string | null>(null);
+
+function handleDynamicFormSave(data: any) {
+  dynamicFormResult.value = JSON.stringify(data, null, 2);
+  alert('Données enregistrées ! Voir le résultat à droite.');
+}
+
+function handleDynamicFormCancel() {
+  dynamicFormResult.value = 'Formulaire annulé.';
+  alert('Modification annulée.');
+}
 </script>
 
 <style scoped>
@@ -238,7 +287,9 @@ section {
   padding: 1rem;
   border-radius: 8px;
 }
+
 pre {
-  white-space: pre-wrap; /* Pour que le texte aille à la ligne */
+  white-space: pre-wrap;
+  /* Pour que le texte aille à la ligne */
 }
 </style>

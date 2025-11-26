@@ -1,63 +1,24 @@
 <template>
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit POI' : 'Create POI' }}</h1>
-    <v-form v-if="poi" ref="form" @submit.prevent="savePoi">
-      <v-text-field
-        v-model="poi.title"
-        label="Title"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-
-      <v-textarea
-        v-model="poi.description"
-        label="Description"
-        :rules="[rules.required]"
-        required
-      ></v-textarea>
-
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model.number="poi.lattitude"
-            label="Lattitude"
-            type="number"
-            step="any"
-            :rules="[rules.required]"
-            required
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model.number="poi.longitude"
-            label="Longitude"
-            type="number"
-            step="any"
-            :rules="[rules.required]"
-            required
-          ></v-text-field>
-        </v-col>
-      </v-row>
-
-      <v-text-field
-        v-model="poi.gmaps_url"
-        label="Google Maps URL"
-      ></v-text-field>
-
-      <v-btn type="submit" color="primary" :loading="loading">Save</v-btn>
-    </v-form>
+    <DynamicUpdateForm v-if="poi" :initial-data="poi" :model-class="Poi"
+      :data-sources="{ sports: sportsList, events: eventsList }" :title="isEditing ? 'Edit POI' : 'Create POI'"
+      @save="savePoi" />
     <v-alert v-else-if="isEditing" type="info">Loading POI...</v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { usePoisStore } from '@/stores/strapiStore'
+import { usePoisStore, useSportsStore, useEventsStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { Poi } from '@/interfaces/poi'
+import { Poi } from '@/interfaces/poi'
+import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
 
 const poiStore = usePoisStore()
+const sportsStore = useSportsStore()
+const eventsStore = useEventsStore()
 const notificationStore = useNotificationsStore()
 const route = useRoute()
 const router = useRouter()
@@ -67,11 +28,19 @@ const isEditing = computed(() => !!poiId.value)
 const poi = ref<Partial<Poi> | null>(null)
 const loading = ref(false)
 
+const sportsList = computed(() => sportsStore.datas)
+const eventsList = computed(() => eventsStore.datas)
+
 const rules = {
   required: (value: any) => !!value || 'Required.',
 }
 
 onMounted(async () => {
+  await Promise.all([
+    sportsStore.getList(),
+    eventsStore.getList()
+  ])
+
   if (isEditing.value && poiId.value) {
     const fetchedPoi = await poiStore.get(poiId.value)
     if (fetchedPoi) {
@@ -94,7 +63,7 @@ onMounted(async () => {
 /**
  * Saves the POI data and navigates to the POI view page.
  */
-async function savePoi() {
+async function savePoi(formData: any) {
   if (!poi.value) return
 
   loading.value = true
@@ -102,9 +71,9 @@ async function savePoi() {
   try {
     // Ensure coordinates are numbers
     const payload = {
-        ...poi.value,
-        lattitude: Number(poi.value.lattitude),
-        longitude: Number(poi.value.longitude)
+      ...formData,
+      lattitude: Number(formData.lattitude),
+      longitude: Number(formData.longitude)
     }
 
     if (isEditing.value && poiId.value) {

@@ -1,66 +1,9 @@
 <template>
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit Event' : 'Create Event' }}</h1>
-    <v-form v-if="event" ref="form" @submit.prevent="saveEvent">
-      <v-text-field
-        v-model="event.title"
-        label="Title"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-
-      <v-textarea
-        v-model="event.description"
-        label="Description"
-        :rules="[rules.required]"
-        required
-      ></v-textarea>
-
-      <v-text-field
-        v-model="event.date"
-        label="Date"
-        type="datetime-local"
-        :rules="[rules.required]"
-        required
-      ></v-text-field>
-
-      <v-text-field
-        v-model="event.image"
-        label="Image URL"
-      ></v-text-field>
-
-      <!-- Relationships -->
-      <v-select
-        v-model="selectedSports"
-        :items="sportsList"
-        item-title="title"
-        item-value="documentId"
-        label="Sports"
-        multiple
-        chips
-      ></v-select>
-
-      <v-select
-        v-model="selectedPoi"
-        :items="poisList"
-        item-title="title"
-        item-value="documentId"
-        label="POI"
-        clearable
-      ></v-select>
-
-      <v-select
-        v-model="selectedProfiles"
-        :items="profilesList"
-        item-title="username"
-        item-value="documentId"
-        label="Participants"
-        multiple
-        chips
-      ></v-select>
-
-      <v-btn type="submit" color="primary" :loading="loading">Save</v-btn>
-    </v-form>
+    <DynamicUpdateForm v-if="event" :initial-data="event" :model-class="Event"
+      :data-sources="{ sports: sportsList, pois: poisList, profiles: profilesList }"
+      :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" />
     <v-alert v-else-if="isEditing" type="info">Loading event...</v-alert>
   </v-container>
 </template>
@@ -70,10 +13,11 @@ import { useEventsStore, useSportsStore, usePoisStore, useProfilesStore } from '
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import type { Event } from '@/interfaces/event'
+import { Event } from '@/interfaces/event'
 import type { Sport } from '@/interfaces/sport'
 import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
+import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
 
 const eventStore = useEventsStore()
 const sportsStore = useSportsStore()
@@ -89,9 +33,9 @@ const isEditing = computed(() => !!eventId.value)
 const event = ref<Partial<Event> | null>(null)
 const loading = ref(false)
 
-const sportsList = computed(() => sportsStore.datas.value)
-const poisList = computed(() => poisStore.datas.value)
-const profilesList = computed(() => profilesStore.datas.value)
+const sportsList = computed(() => sportsStore.datas)
+const poisList = computed(() => poisStore.datas)
+const profilesList = computed(() => profilesStore.datas)
 
 const selectedSports = ref<string[]>([])
 const selectedPoi = ref<string | null>(null)
@@ -129,7 +73,7 @@ onMounted(async () => {
       // Format date for input type="datetime-local" if necessary
       // Assuming Strapi sends ISO string, we might need to cut it for the input
       if (event.value?.date) {
-          event.value.date = new Date(event.value.date).toISOString().slice(0, 16);
+        event.value.date = new Date(event.value.date).toISOString().slice(0, 16);
       }
 
     } else {
@@ -148,22 +92,19 @@ onMounted(async () => {
 /**
  * Saves the event data and navigates to the event view page.
  */
-async function saveEvent() {
+async function saveEvent(formData: any) {
   if (!event.value) return
 
   loading.value = true
 
   // Prepare payload
   const payload = {
-    ...event.value,
-    sports: selectedSports.value, // Strapi expects IDs or array of IDs
-    poi: selectedPoi.value,
-    profiles: selectedProfiles.value
+    ...formData,
   }
 
   // Ensure date is in ISO format if it was changed
   if (payload.date) {
-      payload.date = new Date(payload.date).toISOString();
+    payload.date = new Date(payload.date).toISOString();
   }
 
   try {
