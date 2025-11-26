@@ -45,23 +45,19 @@ async function waitForStrapi() {
 
 async function main() {
   try {
+    // 0. Install Dependencies
+    console.log('\n=== Installing Dependencies ===');
+    console.log('Installing dependencies in install/strapi...');
+    await runCommand('npm', ['install'], { cwd: 'install/strapi' });
+    
+    console.log('Installing dependencies in frontend...');
+    await runCommand('npm', ['install'], { cwd: 'frontend' });
+
     // 1. Start Docker
     console.log('\n=== Starting Docker Containers ===');
     await runCommand('docker', ['compose', 'up', '-d']);
 
-    // 2. Wait for Strapi
-    await waitForStrapi();
-
-    // 2b. Create Strapi Admin
-    console.log('\n=== Creating Strapi Admin User ===');
-    // Load env vars from .env file if not already loaded (simple parsing)
-    // In a real scenario, we might use dotenv, but here we can assume they are in process.env 
-    // OR we can pass them explicitly if we read the file. 
-    // However, docker compose reads .env, so we can exec inside the container using the env vars *if* we passed them?
-    // Actually, Strapi container has access to .env vars defined in docker-compose.
-    // But `strapi admin:create` needs arguments.
-    
-    // We'll read .env locally to pass arguments to the command
+    // Load env vars from .env file
     const fs = require('fs');
     const envContent = fs.readFileSync('.env', 'utf8');
     const envConfig = {};
@@ -72,36 +68,9 @@ async function main() {
       }
     });
 
-    const email = envConfig.STRAPI_ADMIN_EMAIL || 'admin@example.com';
-    const password = envConfig.STRAPI_ADMIN_PASSWORD || 'Password123!';
-    const firstname = envConfig.STRAPI_ADMIN_FIRSTNAME || 'Admin';
-    const lastname = envConfig.STRAPI_ADMIN_LASTNAME || 'User';
-
-    // Note: strapi admin:create is interactive by default, but accepts flags.
-    // We need to run this INSIDE the container.
-    // Command: npm run strapi admin:create -- --email=... --password=... --firstname=... --lastname=...
-    try {
-        await runCommand('docker', [
-            'compose', 'exec', '-w', '/opt/app/strapi', 'strapi', 
-            'npm', 'run', 'strapi', 'admin:create', '--', 
-            `--email=${email}`, 
-            `--password=${password}`, 
-            `--firstname=${firstname}`, 
-            `--lastname=${lastname}`
-        ]);
-        console.log('Strapi Admin created (or already exists).');
-    } catch (e) {
-        console.log('Note: Admin creation might have failed if user already exists or other error. Continuing...');
-    }
-
-    // 2c. Create Portainer Admin (via API)
+    // 1b. Create Portainer Admin (via API)
     console.log('\n=== Creating Portainer Admin User ===');
     const portainerPassword = envConfig.PORTAINER_ADMIN_PASSWORD || 'Password123!123';
-    
-    // Portainer init API: POST /api/users/admin/init
-    // We need to access Portainer. It is mapped to 9443 (HTTPS) in docker-compose.
-    // But wait, docker-compose says "9443:9443". Portainer uses self-signed certs.
-    // Node.js might reject self-signed. We need to ignore SSL errors for this request.
     
     const https = require('https');
     const portainerData = JSON.stringify({ username: "admin", password: portainerPassword });
@@ -132,7 +101,30 @@ async function main() {
     
     portainerReq.write(portainerData);
     portainerReq.end();
-    // We don't await this strictly to block everything, but it's good to have it run.
+
+    // 2. Wait for Strapi
+    await waitForStrapi();
+
+    // 2b. Create Strapi Admin
+    console.log('\n=== Creating Strapi Admin User ===');
+    const email = envConfig.STRAPI_ADMIN_EMAIL || 'admin@example.com';
+    const password = envConfig.STRAPI_ADMIN_PASSWORD || 'Password123!';
+    const firstname = envConfig.STRAPI_ADMIN_FIRSTNAME || 'Admin';
+    const lastname = envConfig.STRAPI_ADMIN_LASTNAME || 'User';
+
+    try {
+        await runCommand('docker', [
+            'compose', 'exec', '-w', '/opt/app/strapi', 'strapi', 
+            'npm', 'run', 'strapi', 'admin:create', '--', 
+            `--email=${email}`, 
+            `--password=${password}`, 
+            `--firstname=${firstname}`, 
+            `--lastname=${lastname}`
+        ]);
+        console.log('Strapi Admin created (or already exists).');
+    } catch (e) {
+        console.log('Note: Admin creation might have failed if user already exists or other error. Continuing...');
+    }
 
 
     // 3. Install Schemas
@@ -149,6 +141,7 @@ async function main() {
     console.log('\n✅ Setup completed successfully!');
     console.log('You can now access the app at http://localhost:3000');
     console.log('To seed mock data, run: npm run seed');
+    process.exit(0);
 
   } catch (e) {
     console.error('\n❌ Setup failed:', e.message);
