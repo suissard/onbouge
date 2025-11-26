@@ -114,6 +114,11 @@ const router = createRouter({
       component: () => import('../views/PoiEdit.vue'),
       meta: { requiresAuth: true },
     },
+    {
+      path: '/spatial-test',
+      name: 'spatial-test',
+      component: () => import('../views/SpatialTest.vue'),
+    },
   ],
 })
 

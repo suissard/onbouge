@@ -127,9 +127,21 @@ async function main() {
     }
 
 
-    // 3. Install Schemas
-    console.log('\n=== Installing Strapi Schemas ===');
+    // 3. Install Schemas and Custom Code
+    console.log('\n=== Installing Strapi Schemas and Custom Code ===');
     await runCommand('node', ['install/strapi/install_schemas.js']);
+
+    console.log('Copying custom code...');
+    // Copy custom routes, controllers, and lifecycles
+    // We use docker cp to copy from host to container
+    try {
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/routes/custom-poi.js', 'strapi:/opt/app/strapi/src/api/poi/routes/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/controllers/poi.js', 'strapi:/opt/app/strapi/src/api/poi/controllers/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/content-types/poi/lifecycles.js', 'strapi:/opt/app/strapi/src/api/poi/content-types/poi/']);
+        console.log('Custom code installed.');
+    } catch (e) {
+        console.error('Failed to copy custom code:', e.message);
+    }
 
     // 4. Restart Strapi to apply schemas
     console.log('\n=== Restarting Strapi to apply schemas ===');
@@ -137,6 +149,25 @@ async function main() {
 
     // 5. Wait for Strapi again
     await waitForStrapi();
+
+    // 6. Setup Spatial Data
+    console.log('\n=== Setting up Spatial Data ===');
+    const sqlCommands = [
+        "ALTER TABLE pois ADD COLUMN location POINT;",
+        "UPDATE pois SET location = ST_GeomFromText('POINT(0 0)') WHERE location IS NULL;",
+        "ALTER TABLE pois MODIFY location POINT NOT NULL DEFAULT (POINT(0,0));",
+        "ALTER TABLE pois ADD SPATIAL INDEX(location);"
+    ];
+
+    for (const sql of sqlCommands) {
+        try {
+             await runCommand('docker', [
+                'exec', 'mysql', 'mysql', '-u', 'strapi', '-pstrapi', 'strapi', '-e', `"${sql}"`
+            ]);
+        } catch (e) {
+            console.log(`Note: Command "${sql}" failed (likely already exists). Continuing...`);
+        }
+    }
 
     console.log('\n✅ Setup completed successfully!');
     console.log('You can now access the app at http://localhost:3000');
