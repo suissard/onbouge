@@ -105,7 +105,21 @@ watch(() => props.initialData, (newData) => {
 }, { immediate: true, deep: true });
 
 function handleSubmit() {
-    emit('save', formData.value);
+    if (isEditing.value) {
+        const diff: any = {};
+        Object.keys(formData.value).forEach(key => {
+            const initialValue = props.initialData[key];
+            const currentValue = formData.value[key];
+
+            // Simple comparison using JSON.stringify to handle arrays and primitives
+            if (JSON.stringify(initialValue) !== JSON.stringify(currentValue)) {
+                diff[key] = currentValue;
+            }
+        });
+        emit('save', diff);
+    } else {
+        emit('save', formData.value);
+    }
 }
 
 function confirmDelete() {

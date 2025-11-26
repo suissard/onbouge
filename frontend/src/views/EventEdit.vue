@@ -65,13 +65,16 @@ onMounted(async () => {
 
       // Initialize selections
       if (fetchedEvent.sports) {
-        selectedSports.value = fetchedEvent.sports.map((s: Sport) => s.documentId)
+        // @ts-ignore
+        event.value.sports = fetchedEvent.sports.map((s: Sport) => s.documentId)
       }
       if (fetchedEvent.poi) {
-        selectedPoi.value = fetchedEvent.poi.documentId
+        // @ts-ignore
+        event.value.poi = fetchedEvent.poi.documentId
       }
       if (fetchedEvent.profiles) {
-        selectedProfiles.value = fetchedEvent.profiles.map((p: Profile) => p.documentId)
+        // @ts-ignore
+        event.value.profiles = fetchedEvent.profiles.map((p: Profile) => p.documentId)
       }
 
       // Format date for input type="datetime-local" if necessary

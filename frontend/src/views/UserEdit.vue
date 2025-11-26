@@ -45,6 +45,8 @@ onMounted(async () => {
     const fetchedUser = await strapiObject.load(userId.value)
     if (fetchedUser) {
       user.value = { ...fetchedUser }
+      // @ts-ignore
+      if (fetchedUser.profiles) user.value.profiles = fetchedUser.profiles.map((p: any) => p.documentId)
     }
   } else {
     notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })

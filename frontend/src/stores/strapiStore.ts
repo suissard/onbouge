@@ -88,6 +88,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
       return response.data;
     } catch (error) {
       console.error(`Error updating ${dataName} (${id}):`, error);
+      throw error;
     }
   }
 

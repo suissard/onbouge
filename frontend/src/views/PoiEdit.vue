@@ -50,6 +50,10 @@ onMounted(async () => {
     const fetchedPoi = await strapiObject.load(poiId.value)
     if (fetchedPoi) {
       poi.value = { ...fetchedPoi }
+      // @ts-ignore
+      if (fetchedPoi.sports) poi.value.sports = fetchedPoi.sports.map((s: any) => s.documentId)
+      // @ts-ignore
+      if (fetchedPoi.events) poi.value.events = fetchedPoi.events.map((e: any) => e.documentId)
     }
   } else {
     poi.value = {
