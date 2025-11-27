@@ -4,7 +4,7 @@
    "description": "Application web pour connecter les sportifs (anciennement Rally Point)",
    "scripts": {
       "test": "npx vitest",
-      "dev": "vite",
+      "dev": "npm run start && npm run front",
       "update": "docker compose down && git pull && docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
       "stop": "docker compose down",
@@ -12,7 +12,8 @@
       "restart": "npm run stop && npm run start",
       "clean": "docker compose down -v --remove-orphans && sudo rm -rf data_mysql data_portainer data_caddy data_strapi",
       "setup": "node install/setup.js",
-      "seed": "node install/strapi/seed.js"
+      "seed": "node install/strapi/seed.js",
+      "front": "cd frontend && npm run dev"
    },
    "dependencies": {
       "@faker-js/faker": "^10.1.0"
