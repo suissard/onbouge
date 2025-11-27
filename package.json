@@ -4,7 +4,7 @@
    "description": "Application web pour connecter les sportifs (anciennement Rally Point)",
    "scripts": {
       "test": "npx vitest",
-      "dev": "vite",
+      "dev": "docker compose up -d && cd ./frontend && npm run dev",
       "update": "docker compose down && git pull && docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
       "stop": "docker compose down",
