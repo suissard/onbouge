@@ -3,6 +3,22 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+// Load .env manually
+const envPath = path.join(__dirname, '../../.env');
+if (fs.existsSync(envPath)) {
+  const content = fs.readFileSync(envPath, 'utf8');
+  content.split('\n').forEach(line => {
+    const parts = line.split('=');
+    if (parts.length >= 2 && !line.startsWith('#')) {
+      const key = parts[0].trim();
+      const value = parts.slice(1).join('=').trim();
+      if (!process.env[key]) {
+        process.env[key] = value;
+      }
+    }
+  });
+}
+console.log(process.env);
 const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 const DATA_DIR = path.join(__dirname, '../../frontend/src/data');
 
@@ -21,8 +37,8 @@ async function main() {
   try {
     // Try default admin credentials first
     const loginRes = await axios.post(`${STRAPI_URL}/admin/login`, {
-      email: 'admin@gmail.com',
-      password: 'Password123456789!'
+      email: process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com',
+      password: process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!'
     });
     jwt = loginRes.data.data.token;
     console.log('Logged in with default credentials.');
