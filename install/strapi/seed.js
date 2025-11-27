@@ -132,8 +132,8 @@ async function main() {
   console.log('Seeding POIs...');
   const pois = readData('pois.json');
   for (const item of pois) {
-    const randomLat = 48.8 + Math.random() * 0.1;
-    const randomLng = 2.3 + Math.random() * 0.1;
+    const lat = item.latitude || (48.8 + Math.random() * 0.1);
+    const lng = item.longitude || (2.3 + Math.random() * 0.1);
 
     try {
       const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
@@ -145,15 +145,15 @@ async function main() {
         await api.put(`/api::poi.poi/${updateId}`, {
             title: item.title,
             description: item.description,
-            latitude: randomLat,
-            longitude: randomLng
+            latitude: lat,
+            longitude: lng
         });
       } else {
         const res = await api.post('/api::poi.poi', { 
             title: item.title,
             description: item.description,
-            latitude: randomLat,
-            longitude: randomLng
+            latitude: lat,
+            longitude: lng
         });
         const entry = res.data.data || res.data;
         poiId = entry.documentId || entry.id;

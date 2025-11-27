@@ -59,7 +59,7 @@ onMounted(async () => {
     poi.value = {
       title: '',
       description: '',
-      lattitude: 0,
+      latitude: 0,
       longitude: 0,
       gmaps_url: ''
     } as Partial<Poi>
@@ -78,7 +78,7 @@ async function savePoi(formData: any) {
     // Ensure coordinates are numbers
     const payload = {
       ...formData,
-      lattitude: Number(formData.lattitude),
+      latitude: Number(formData.latitude),
       longitude: Number(formData.longitude)
     }
 
