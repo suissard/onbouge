@@ -1,4 +1,4 @@
-const { getAuthenticatedApi, readData, publishEntry, delay } = require('../utils');
+const { getAuthenticatedApi, readData, publishEntry, delay, logProgress } = require('../utils');
 
 async function main() {
   try {
@@ -13,7 +13,12 @@ async function main() {
     const api = await getAuthenticatedApi();
     const events = readData('events.json');
 
+    let count = 0;
+    const total = events.length;
+
     for (const item of events) {
+      count++;
+      logProgress(count, total, `Seeding ${item.title}`);
       try {
         const existing = await api.get(`/api::event.event?filters[title][$eq]=${encodeURIComponent(item.title)}`);
         let eventId;

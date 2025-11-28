@@ -1,4 +1,4 @@
-const { getAuthenticatedApi, readData, publishEntry, delay } = require('../utils');
+const { getAuthenticatedApi, readData, publishEntry, delay, logProgress } = require('../utils');
 
 async function main() {
   try {
@@ -6,7 +6,12 @@ async function main() {
     const pois = readData('pois.json');
     const output = {};
 
+    let count = 0;
+    const total = pois.length;
+
     for (const item of pois) {
+      count++;
+      logProgress(count, total, `Seeding ${item.title}`);
       const lat = item.latitude || (48.8 + Math.random() * 0.1);
       const lng = item.longitude || (2.3 + Math.random() * 0.1);
 

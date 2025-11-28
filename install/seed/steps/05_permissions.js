@@ -1,4 +1,4 @@
-const { getJwt, STRAPI_URL } = require('../utils');
+const { getJwt, STRAPI_URL, logProgress } = require('../utils');
 const axios = require('axios');
 
 async function main() {
@@ -8,6 +8,7 @@ async function main() {
 
     // Update Public Permissions
     try {
+        logProgress(1, 2, 'Updating Public Permissions');
         const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
             headers: { Authorization: `Bearer ${jwt}` }
         });
@@ -44,6 +45,7 @@ async function main() {
 
     // Update Authenticated Permissions
     try {
+        logProgress(2, 2, 'Updating Authenticated Permissions');
         const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
             headers: { Authorization: `Bearer ${jwt}` }
         });

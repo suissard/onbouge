@@ -19,6 +19,7 @@ async function main() {
             console.log(`Note: Command "${sql}" failed (likely already exists). Continuing...`);
         }
     }
+    process.exit(0);
   } catch (e) {
     console.error('\n❌ Spatial setup failed:', e.message);
     process.exit(1);

@@ -1,14 +1,4 @@
 services:
-  # --- Service Portainer : Pour gérer Docker via une interface web ---
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    restart: unless-stopped
-    volumes:
-      - ./data_portainer:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "9443:9443"
   # --- Service MySQL : La base de données ---
   mysql:
     image: mysql:8.0
@@ -79,7 +69,6 @@ services:
 
 # --- Définition des volumes nommés gérés par Docker ---
 volumes:
-  data_portainer:
   data_mysql:
   data_strapi:
   data_caddy:

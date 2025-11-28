@@ -100,12 +100,26 @@ const publishEntry = async (api, model, id) => {
 
 const delay = (ms=100) => new Promise(resolve => setTimeout(resolve, ms));
 
+const logProgress = (current, total, message = '') => {
+    const percentage = Math.min(Math.max(current / total, 0), 1);
+    const barLength = 20;
+    const filledLength = Math.round(barLength * percentage);
+    const emptyLength = barLength - filledLength;
+    const bar = '█'.repeat(filledLength) + '░'.repeat(emptyLength);
+    const percentStr = (percentage * 100).toFixed(0);
+    
+    // Format: PROGRESS: [████░░░░░░] 50% | 5/10 | Message
+    const log = `PROGRESS: [${bar}] ${percentStr}% | ${current}/${total} | ${message}`;
+    console.error(log);
+};
+
 module.exports = {
   getAuthenticatedApi,
   getJwt,
   readData,
   publishEntry,
   delay,
+  logProgress,
   STRAPI_URL,
   rl
 };

@@ -23,6 +23,7 @@ async function main() {
 
     // Wait for Strapi again
     await waitForStrapi();
+    process.exit(0);
   } catch (e) {
     console.error('\n❌ Schema installation failed:', e.message);
     process.exit(1);

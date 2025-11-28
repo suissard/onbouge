@@ -1,4 +1,4 @@
-const { getAuthenticatedApi, readData, publishEntry, delay } = require('../utils');
+const { getAuthenticatedApi, readData, publishEntry, delay, logProgress } = require('../utils');
 
 async function main() {
   try {
@@ -8,7 +8,12 @@ async function main() {
     // We output JSON for the orchestrator to consume
     const output = {};
 
+    let count = 0;
+    const total = sports.length;
+
     for (const item of sports) {
+      count++;
+      logProgress(count, total, `Seeding ${item.title}`);
       try {
         const existing = await api.get(`/api::sport.sport?filters[title][$eq]=${encodeURIComponent(item.title)}`);
         let sportId;

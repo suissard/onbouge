@@ -1,4 +1,4 @@
-const { getAuthenticatedApi, readData, publishEntry, STRAPI_URL, getJwt, delay } = require('../utils');
+const { getAuthenticatedApi, readData, publishEntry, STRAPI_URL, getJwt, delay, logProgress } = require('../utils');
 const axios = require('axios');
 
 async function main() {
@@ -19,7 +19,12 @@ async function main() {
         if (authRole) authenticatedRoleId = authRole.id;
     } catch (e) {}
 
+    let count = 0;
+    const total = profiles.length;
+
     for (const item of profiles) {
+      count++;
+      logProgress(count, total, `Seeding ${item.username}`);
       try {
         const existing = await api.get(`/api::profile.profile?filters[username][$eq]=${encodeURIComponent(item.username)}`);
         let profileId;
