@@ -1,11 +1,8 @@
 <template>
   <v-container>
     <h1 class="mb-4">Users</h1>
-    <StrapiDataIterator
-      :store="userStore"
-      :item-component="GenericCard"
-      :component-props-mapper="propsMapper"
-    />
+    <StrapiDataIterator :store="userStore" :item-component="GenericCard" :component-props-mapper="propsMapper"
+      sort-key="username" />
   </v-container>
 </template>
 

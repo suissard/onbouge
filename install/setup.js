@@ -1,149 +1,59 @@
-const { spawn } = require('child_process');
-const http = require('http');
-const path = require('path');
-
-const STRAPI_URL = 'http://localhost:1337';
-const MAX_RETRIES = 60; // 5 minutes approx (if 5s interval)
-const RETRY_INTERVAL = 5000;
-
-function runCommand(command, args, options = {}) {
-  return new Promise((resolve, reject) => {
-    console.log(`> ${command} ${args.join(' ')}`);
-    const child = spawn(command, args, { stdio: 'inherit', shell: true, ...options });
-    child.on('close', (code) => {
-      if (code === 0) resolve();
-      else reject(new Error(`Command failed with code ${code}`));
-    });
-  });
-}
-
-function checkStrapi() {
-  return new Promise((resolve, reject) => {
-    const req = http.get(STRAPI_URL, (res) => {
-      if (res.statusCode >= 200 && res.statusCode < 400) resolve();
-      else reject(new Error(`Status ${res.statusCode}`));
-    });
-    req.on('error', reject);
-    req.end();
-  });
-}
-
-async function waitForStrapi() {
-  console.log('Waiting for Strapi to be ready...');
-  for (let i = 0; i < MAX_RETRIES; i++) {
-    try {
-      await checkStrapi();
-      console.log('Strapi is ready!');
-      return;
-    } catch (e) {
-      process.stdout.write('.');
-      await new Promise(r => setTimeout(r, RETRY_INTERVAL));
-    }
-  }
-  throw new Error('Timeout waiting for Strapi');
-}
+const { runCommand } = require('./utils');
+const MultiStepLoader = require('./loader');
 
 async function main() {
+  const steps = [
+    { name: 'Dependencies', script: 'install/steps/00_deps.js' },
+    { name: 'Docker', script: 'install/steps/01_docker.js' },
+    { name: 'Strapi Admin', script: 'install/steps/02_strapi_admin.js' },
+    { name: 'Schemas', script: 'install/steps/03_schemas.js' },
+    { name: 'Spatial Data', script: 'install/steps/04_spatial.js' }
+  ];
+
+  const loader = new MultiStepLoader(steps);
+
   try {
-    // 0. Install Dependencies
-    console.log('\n=== Installing Dependencies ===');
-    console.log('Installing dependencies in install/strapi...');
-    await runCommand('npm', ['install'], { cwd: 'install/strapi' });
-    
-    console.log('Installing dependencies in frontend...');
-    await runCommand('npm', ['install'], { cwd: 'frontend' });
+    loader.start();
 
-    // 1. Start Docker
-    console.log('\n=== Starting Docker Containers ===');
-    await runCommand('docker', ['compose', 'up', '-d']);
-
-    // Load env vars from .env file
-    const fs = require('fs');
-    const envContent = fs.readFileSync('.env', 'utf8');
-    const envConfig = {};
-    envContent.split('\n').forEach(line => {
-      const parts = line.split('=');
-      if (parts.length >= 2 && !line.startsWith('#')) {
-        envConfig[parts[0].trim()] = parts.slice(1).join('=').trim();
+    for (let i = 0; i < steps.length; i++) {
+      const step = steps[i];
+      loader.startStep(i);
+      let stepLog = [];
+      
+      try {
+         await runCommand('node', [step.script], {}, (data) => {
+            stepLog.push(data);
+            // Clean up data string to fit nicely
+            let cleanData = data.replace(/\n/g, ' ').substring(0, 50);
+            if (cleanData.length === 50) cleanData += '...';
+            loader.updateStep(i, cleanData);
+         }); 
+         loader.succeedStep(i);
+      } catch (e) {
+         loader.failStep(i, 'Failed');
+         loader.stop();
+         console.error(`\n❌ Error in step "${step.name}":`);
+         console.error('----------------------------------------');
+         console.error(stepLog.join('\n'));
+         console.error('----------------------------------------');
+         console.error(`Error details: ${e.message}`);
+         
+         if (stepLog.join('\n').includes('permission denied')) {
+             console.error('\n💡 Hint: You might need to run this command with sudo or add your user to the docker group.');
+         }
+         
+         throw e;
       }
-    });
-
-    // 1b. Create Portainer Admin (via API)
-    console.log('\n=== Creating Portainer Admin User ===');
-    const portainerPassword = envConfig.PORTAINER_ADMIN_PASSWORD || 'Password123!123';
-    
-    const https = require('https');
-    const portainerData = JSON.stringify({ username: "admin", password: portainerPassword });
-    
-    const portainerReq = https.request({
-        hostname: 'localhost',
-        port: 9443,
-        path: '/api/users/admin/init',
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': portainerData.length
-        },
-        rejectUnauthorized: false // Ignore self-signed cert
-    }, (res) => {
-        if (res.statusCode === 200 || res.statusCode === 204) {
-            console.log('Portainer Admin created.');
-        } else if (res.statusCode === 409) {
-            console.log('Portainer Admin already initialized.');
-        } else {
-            console.log(`Portainer init returned status: ${res.statusCode}`);
-        }
-    });
-    
-    portainerReq.on('error', (e) => {
-        console.log('Could not connect to Portainer to init admin (is it running?): ' + e.message);
-    });
-    
-    portainerReq.write(portainerData);
-    portainerReq.end();
-
-    // 2. Wait for Strapi
-    await waitForStrapi();
-
-    // 2b. Create Strapi Admin
-    console.log('\n=== Creating Strapi Admin User ===');
-    const email = envConfig.STRAPI_ADMIN_EMAIL || 'admin@example.com';
-    const password = envConfig.STRAPI_ADMIN_PASSWORD || 'Password123!';
-    const firstname = envConfig.STRAPI_ADMIN_FIRSTNAME || 'Admin';
-    const lastname = envConfig.STRAPI_ADMIN_LASTNAME || 'User';
-
-    try {
-        await runCommand('docker', [
-            'compose', 'exec', '-w', '/opt/app/strapi', 'strapi', 
-            'npm', 'run', 'strapi', 'admin:create', '--', 
-            `--email=${email}`, 
-            `--password=${password}`, 
-            `--firstname=${firstname}`, 
-            `--lastname=${lastname}`
-        ]);
-        console.log('Strapi Admin created (or already exists).');
-    } catch (e) {
-        console.log('Note: Admin creation might have failed if user already exists or other error. Continuing...');
     }
 
-
-    // 3. Install Schemas
-    console.log('\n=== Installing Strapi Schemas ===');
-    await runCommand('node', ['install/strapi/install_schemas.js']);
-
-    // 4. Restart Strapi to apply schemas
-    console.log('\n=== Restarting Strapi to apply schemas ===');
-    await runCommand('docker', ['compose', 'restart', 'strapi']);
-
-    // 5. Wait for Strapi again
-    await waitForStrapi();
-
+    loader.stop();
     console.log('\n✅ Setup completed successfully!');
-    console.log('You can now access the app at http://localhost:3000');
+    console.log('✅ You can now access the app at http://localhost:3000');
     console.log('To seed mock data, run: npm run seed');
     process.exit(0);
 
   } catch (e) {
+    loader.stop();
     console.error('\n❌ Setup failed:', e.message);
     process.exit(1);
   }

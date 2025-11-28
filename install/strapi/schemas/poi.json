@@ -24,6 +24,21 @@
       "relation": "oneToMany",
       "target": "api::event.event",
       "mappedBy": "poi"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "gmaps_url": {
+      "type": "string"
+    },
+    "sports": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::sport.sport",
+      "inversedBy": "pois"
     }
   }
 }

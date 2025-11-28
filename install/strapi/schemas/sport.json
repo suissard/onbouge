@@ -28,6 +28,15 @@
       "relation": "manyToMany",
       "target": "api::profile.profile",
       "mappedBy": "sports"
+    },
+    "description": {
+      "type": "text"
+    },
+    "pois": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::poi.poi",
+      "mappedBy": "sports"
     }
   }
 }

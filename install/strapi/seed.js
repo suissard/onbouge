@@ -3,6 +3,22 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
+// Load .env manually
+const envPath = path.join(__dirname, '../../.env');
+if (fs.existsSync(envPath)) {
+  const content = fs.readFileSync(envPath, 'utf8');
+  content.split('\n').forEach(line => {
+    const parts = line.split('=');
+    if (parts.length >= 2 && !line.startsWith('#')) {
+      const key = parts[0].trim();
+      const value = parts.slice(1).join('=').trim();
+      if (!process.env[key]) {
+        process.env[key] = value;
+      }
+    }
+  });
+}
+console.log(process.env);
 const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 const DATA_DIR = path.join(__dirname, '../../frontend/src/data');
 
@@ -21,8 +37,8 @@ async function main() {
   try {
     // Try default admin credentials first
     const loginRes = await axios.post(`${STRAPI_URL}/admin/login`, {
-      email: 'admin@gmail.com',
-      password: 'Password123456789!'
+      email: process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com',
+      password: process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!'
     });
     jwt = loginRes.data.data.token;
     console.log('Logged in with default credentials.');
@@ -132,6 +148,9 @@ async function main() {
   console.log('Seeding POIs...');
   const pois = readData('pois.json');
   for (const item of pois) {
+    const lat = item.latitude || (48.8 + Math.random() * 0.1);
+    const lng = item.longitude || (2.3 + Math.random() * 0.1);
+
     try {
       const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
       let poiId;
@@ -141,12 +160,16 @@ async function main() {
         const updateId = entry.documentId || entry.id;
         await api.put(`/api::poi.poi/${updateId}`, {
             title: item.title,
-            description: item.description
+            description: item.description,
+            latitude: lat,
+            longitude: lng
         });
       } else {
         const res = await api.post('/api::poi.poi', { 
             title: item.title,
-            description: item.description
+            description: item.description,
+            latitude: lat,
+            longitude: lng
         });
         const entry = res.data.data || res.data;
         poiId = entry.documentId || entry.id;

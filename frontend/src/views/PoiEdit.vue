@@ -59,7 +59,7 @@ onMounted(async () => {
     poi.value = {
       title: '',
       description: '',
-      lattitude: 0,
+      latitude: 0,
       longitude: 0,
       gmaps_url: ''
     } as Partial<Poi>
@@ -76,10 +76,14 @@ async function savePoi(formData: any) {
 
   try {
     // Ensure coordinates are numbers
-    const payload = {
-      ...formData,
-      lattitude: Number(formData.lattitude),
-      longitude: Number(formData.longitude)
+    // Ensure coordinates are numbers if present
+    // We merge with existing poi.value to ensure required fields like title are always present
+    const payload = { ...poi.value, ...formData }
+    if (formData.latitude !== undefined && formData.latitude !== null && formData.latitude !== '') {
+        payload.latitude = Number(formData.latitude)
+    }
+    if (formData.longitude !== undefined && formData.longitude !== null && formData.longitude !== '') {
+        payload.longitude = Number(formData.longitude)
     }
 
     await strapiObject.save(payload, poiId.value || undefined)

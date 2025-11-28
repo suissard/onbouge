@@ -10,6 +10,7 @@
       <v-btn to="/pois" color="primary">POIs</v-btn>
       <v-btn to="/users" color="primary">Profiles</v-btn>
       <v-btn to="/sports" color="primary">Sports</v-btn>
+      <v-btn to="/spatial-test" color="primary">Spatial Test</v-btn>
       <template v-if="!authStore.user">
         <v-btn to="/login" color="secondary">Login</v-btn>
         <v-btn to="/register" color="secondary">Register</v-btn>
@@ -27,11 +28,7 @@
 
     <NotificationsOverlay />
 
-    <v-btn
-      icon="mdi-cog"
-      class="settings-fab"
-      @click="settingsPanelVisible = !settingsPanelVisible"
-    ></v-btn>
+    <v-btn icon="mdi-cog" class="settings-fab" @click="settingsPanelVisible = !settingsPanelVisible"></v-btn>
 
     <SettingsPanel v-model="settingsPanelVisible" />
 

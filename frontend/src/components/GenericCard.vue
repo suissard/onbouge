@@ -33,10 +33,11 @@ const navigate = () => {
 };
 
 const truncatedDescription = computed(() => {
-  if (props.description.length > 100) {
-    return props.description.substring(0, 100) + '...';
+  const desc = props.description || '';
+  if (desc.length > 100) {
+    return desc.substring(0, 100) + '...';
   }
-  return props.description;
+  return desc;
 });
 </script>
 

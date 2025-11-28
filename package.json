@@ -4,20 +4,33 @@
    "description": "Application web pour connecter les sportifs (anciennement Rally Point)",
    "scripts": {
       "test": "npx vitest",
-      "dev": "docker compose up -d && cd ./frontend && npm run dev",
+      "dev": "npm run start && npm run front",
       "update": "docker compose down && git pull && docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
       "stop": "docker compose down",
       "start": "docker compose up -d",
       "restart": "npm run stop && npm run start",
-      "clean": "docker compose down -v --remove-orphans && sudo rm -rf data_mysql data_portainer data_caddy data_strapi",
+      "clean": "docker compose down -v --remove-orphans && sudo rm -rf data_mysql data_caddy data_strapi",
       "setup": "node install/setup.js",
-      "seed": "node install/strapi/seed.js"
+      "setup:deps": "node install/steps/00_deps.js",
+      "setup:docker": "node install/steps/01_docker.js",
+
+      "setup:strapi-admin": "node install/steps/02_strapi_admin.js",
+      "setup:schemas": "node install/steps/03_schemas.js",
+      "setup:spatial": "node install/steps/04_spatial.js",
+      "seed": "node install/seed/index.js",
+      "seed:sports": "node install/seed/steps/01_sports.js",
+      "seed:pois": "node install/seed/steps/02_pois.js",
+      "seed:profiles": "node install/seed/steps/03_profiles.js",
+      "seed:events": "node install/seed/steps/04_events.js",
+      "seed:permissions": "node install/seed/steps/05_permissions.js",
+      "front": "cd frontend && npm run dev"
    },
    "dependencies": {
       "@faker-js/faker": "^10.1.0"
    },
    "devDependencies": {
+      "axios": "^1.13.2",
       "jsdom": "^26.1.0",
       "vite": "^5.4.21",
       "vitest": "^3.2.4",

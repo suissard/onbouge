@@ -1,22 +1,9 @@
 <template>
   <div>
     <v-toolbar flat class="mb-4">
-      <v-text-field
-        v-model="search"
-        label="Rechercher"
-        clearable
-        prepend-inner-icon="mdi-magnify"
-        variant="solo"
-        hide-details
-        class="me-4"
-      ></v-text-field>
-      <v-btn
-        v-if="creationRoute"
-        :to="creationRoute"
-        icon="mdi-plus"
-        color="primary"
-        variant="tonal"
-      ></v-btn>
+      <v-text-field v-model="search" label="Rechercher" clearable prepend-inner-icon="mdi-magnify" variant="solo"
+        hide-details class="me-4"></v-text-field>
+      <v-btn v-if="creationRoute" :to="creationRoute" icon="mdi-plus" color="primary" variant="tonal"></v-btn>
     </v-toolbar>
 
     <div v-if="loading">
@@ -27,15 +14,8 @@
       </v-row>
     </div>
 
-    <v-data-iterator
-      v-else
-      :items="store.datas"
-      :items-per-page="itemsPerPage"
-      :page="page"
-      :search="search"
-      @update:page="page = $event"
-      @update:items-per-page="itemsPerPage = $event"
-    >
+    <v-data-iterator v-else :items="sortedItems" :items-per-page="itemsPerPage" :page="page" :search="search"
+      @update:page="page = $event" @update:items-per-page="itemsPerPage = $event">
       <template v-slot:default="{ items }">
         <v-row>
           <v-col v-for="item in items" :key="(item.raw as any).id" cols="12" sm="6" md="4" lg="3">
@@ -48,41 +28,20 @@
         <div class="d-flex align-center justify-space-between pa-4">
           <div style="min-width: 150px;">
             <span class="text-caption me-2">Éléments par page:</span>
-            <v-select
-              v-model="itemsPerPage"
-              :items="[10, 20, 50]"
-              density="compact"
-              variant="outlined"
-              hide-details
-              class="d-inline-block"
-              style="max-width: 80px;"
-            ></v-select>
+            <v-select v-model="itemsPerPage" :items="[10, 20, 50]" density="compact" variant="outlined" hide-details
+              class="d-inline-block" style="max-width: 80px;"></v-select>
           </div>
 
           <div class="d-flex align-center">
-            <v-btn
-              :disabled="page === 1"
-              icon="mdi-arrow-left"
-              density="comfortable"
-              rounded
-              variant="tonal"
-              class="me-2"
-              @click="prevPage"
-            ></v-btn>
+            <v-btn :disabled="page === 1" icon="mdi-arrow-left" density="comfortable" rounded variant="tonal"
+              class="me-2" @click="prevPage"></v-btn>
 
             <div class="mx-2 text-caption">
               Page {{ page }} sur {{ pageCount }}
             </div>
 
-            <v-btn
-              :disabled="page >= pageCount"
-              icon="mdi-arrow-right"
-              density="comfortable"
-              rounded
-              variant="tonal"
-              class="ms-2"
-              @click="nextPage"
-            ></v-btn>
+            <v-btn :disabled="page >= pageCount" icon="mdi-arrow-right" density="comfortable" rounded variant="tonal"
+              class="ms-2" @click="nextPage"></v-btn>
           </div>
         </div>
       </template>
@@ -98,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, type Component } from 'vue';
+import { ref, onMounted, defineProps, computed, type Component } from 'vue';
 
 const props = defineProps({
   store: {
@@ -116,6 +75,10 @@ const props = defineProps({
   componentPropsMapper: {
     type: Function,
     required: true
+  },
+  sortKey: {
+    type: String,
+    default: 'title'
   }
 });
 
@@ -123,6 +86,16 @@ const search = ref('');
 const loading = ref(true);
 const page = ref(1);
 const itemsPerPage = ref(10); // Default value, now connected with v-model
+
+const sortedItems = computed(() => {
+  if (!props.store.datas) return [];
+
+  return [...props.store.datas].sort((a, b) => {
+    const valA = a[props.sortKey]?.toString().toLowerCase() || '';
+    const valB = b[props.sortKey]?.toString().toLowerCase() || '';
+    return valA.localeCompare(valB);
+  });
+});
 
 onMounted(async () => {
   loading.value = true;

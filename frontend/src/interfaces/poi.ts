@@ -14,7 +14,7 @@ export class Poi {
   title: string = '';
 
   @FormField({ label: 'Latitude', type: 'number' })
-  lattitude: number = 0;
+  latitude: number = 0;
 
   @FormField({ label: 'Longitude', type: 'number' })
   longitude: number = 0;
