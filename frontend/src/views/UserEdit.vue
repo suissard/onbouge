@@ -34,7 +34,7 @@ const strapiObject = new StrapiObject<User>(
   userStore,
   notificationStore,
   router,
-  'users',
+  'profiles',
   'User'
 )
 
@@ -50,7 +50,7 @@ onMounted(async () => {
     }
   } else {
     notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })
-    router.push('/users')
+    router.push('/profiles')
   }
 })
 
