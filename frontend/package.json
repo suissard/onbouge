@@ -11,7 +11,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build"
+    "type-check": "vue-tsc --build",
+    "test:unit": "vitest"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -30,12 +31,15 @@
     "@tsconfig/node22": "*",
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
+    "jsdom": "^27.2.0",
     "npm-run-all2": "^6.1.2",
     "typescript": "~5.4.5",
     "vite": "^5.2.10",
     "vite-plugin-singlefile": "^2.3.0",
     "vite-plugin-vue-devtools": "^7.2.1",
+    "vitest": "^4.0.14",
     "vue-tsc": "^2.0.13"
   }
 }
