@@ -37,6 +37,11 @@
       "relation": "manyToMany",
       "target": "api::poi.poi",
       "mappedBy": "sports"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

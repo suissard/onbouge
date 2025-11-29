@@ -5,16 +5,10 @@
         <span>{{ sport.name }}</span>
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
-            <v-btn
-              icon="mdi-pencil"
-              variant="tonal"
-              color="primary"
-              :to="`/sports/${sportId}/edit`"
-              :disabled="!authStore.isAuthenticated"
-              v-bind="props"
-            ></v-btn>
+            <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/sports/${sportId}/edit`"
+              :disabled="!canEdit" v-bind="props"></v-btn>
           </template>
-          <span>Vous devez être connecté pour éditer</span>
+          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-text>
@@ -39,7 +33,7 @@
 
 <script setup lang="ts">
 import { useSportsStore } from '@/stores/strapiStore'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore';
 
@@ -52,4 +46,12 @@ const sport = ref<any>(null)
 onMounted(async () => {
   sport.value = await sportStore.get(sportId)
 })
+
+const canEdit = computed(() => {
+  if (!authStore.isAuthenticated || !authStore.user) return false;
+  if (authStore.user.role?.name === 'Ambassador') return true;
+  if (sport.value?.author?.documentId === authStore.user.documentId) return true;
+  if (sport.value?.author?.id === authStore.user.id) return true;
+  return false;
+});
 </script>

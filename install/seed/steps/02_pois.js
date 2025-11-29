@@ -9,6 +9,27 @@ async function main() {
     let count = 0;
     const total = pois.length;
 
+    // Read ID maps from stdin (passed by orchestrator)
+    let idMap = { sports: {}, pois: {}, profiles: {}, users: {} };
+    if (process.env.ID_MAP) {
+        try {
+            idMap = JSON.parse(process.env.ID_MAP);
+        } catch(e) {}
+    }
+    const userIds = Object.values(idMap.users || {});
+    let defaultAuthor = userIds.length > 0 ? userIds[0] : null;
+
+    if (!defaultAuthor) {
+        try {
+             const users = await api.get('/users?filters[email][$eq]=admin@gmail.com');
+             if (users.data && users.data.length > 0) {
+                 defaultAuthor = users.data[0].id;
+             }
+        } catch (e) {
+            // console.warn('Could not fetch default author');
+        }
+    }
+
     for (const item of pois) {
       count++;
       logProgress(count, total, `Seeding ${item.title}`);
@@ -26,14 +47,16 @@ async function main() {
               title: item.title,
               description: item.description,
               latitude: lat,
-              longitude: lng
+              longitude: lng,
+              author: defaultAuthor
           });
         } else {
           const res = await api.post('/api::poi.poi', { 
               title: item.title,
               description: item.description,
               latitude: lat,
-              longitude: lng
+              longitude: lng,
+              author: defaultAuthor
           });
           const entry = res.data.data || res.data;
           poiId = entry.documentId || entry.id;

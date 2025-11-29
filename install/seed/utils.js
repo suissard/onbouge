@@ -37,6 +37,7 @@ async function login() {
       password: process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!'
     });
     return loginRes.data.data.token;
+    return loginRes.data.data.token;
   } catch (e) {
     console.log('Could not login with default credentials.');
     // Only prompt if we are in a TTY and not in a child process that can't handle it

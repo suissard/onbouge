@@ -6,16 +6,10 @@
         <span>{{ poi.title }}</span>
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
-            <v-btn
-              icon="mdi-pencil"
-              variant="tonal"
-              color="primary"
-              :to="`/pois/${poiId}/edit`"
-              :disabled="!authStore.isAuthenticated"
-              v-bind="props"
-            ></v-btn>
+            <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/pois/${poiId}/edit`" :disabled="!canEdit"
+              v-bind="props"></v-btn>
           </template>
-          <span>Vous devez être connecté pour éditer</span>
+          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-text>
@@ -43,7 +37,7 @@
 
 <script setup lang="ts">
 import { usePoisStore } from '@/stores/strapiStore'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore';
 
@@ -56,4 +50,12 @@ const poi = ref<any>(null)
 onMounted(async () => {
   poi.value = await poiStore.get(poiId)
 })
+
+const canEdit = computed(() => {
+  if (!authStore.isAuthenticated || !authStore.user) return false;
+  if (authStore.user.role?.name === 'Ambassador') return true;
+  if (poi.value?.author?.documentId === authStore.user.documentId) return true;
+  if (poi.value?.author?.id === authStore.user.id) return true;
+  return false;
+});
 </script>

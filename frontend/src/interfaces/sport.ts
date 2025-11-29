@@ -31,6 +31,15 @@ export class Sport {
   })
   events: Event[] = [];
 
+  @FormField({
+    label: 'Auteur',
+    type: 'select',
+    optionsKey: 'users',
+    itemTitle: 'username',
+    itemValue: 'documentId'
+  })
+  author: any = null;
+
   createdAt: string = '';
   updatedAt: string = '';
   publishedAt: string = '';

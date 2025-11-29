@@ -35,7 +35,7 @@
             <v-card-actions class="justify-end mt-4">
                 <v-btn color="primary" type="submit" class="mr-2">Save</v-btn>
                 <v-btn color="error" variant="text" class="mr-2" @click="showDeleteConfirm = true"
-                    v-if="isEditing">Delete</v-btn>
+                    v-if="canDelete">Delete</v-btn>
                 <v-btn color="grey" variant="text" @click="cancel">Cancel</v-btn>
             </v-card-actions>
         </v-form>
@@ -59,6 +59,7 @@
 import { ref, watch, computed, type PropType } from 'vue';
 import { getFormFields } from '@/decorators/form';
 import type { FieldDefinition } from '@/types/form';
+import { useAuthStore } from '@/stores/authStore';
 
 const props = defineProps({
     initialData: {
@@ -80,11 +81,21 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['save', 'cancel', 'delete']);
+const authStore = useAuthStore();
+
+const isAmbassador = computed(() => {
+    return authStore.user?.role?.name === 'Ambassador';
+});
 
 // Determine fields to use: props.fields takes precedence, otherwise load from schema
 const activeFields = computed(() => {
     if (props.modelClass) {
-        return getFormFields(props.modelClass);
+        let fields = getFormFields(props.modelClass);
+        // Filter out author if not ambassador
+        if (!isAmbassador.value) {
+            fields = fields.filter(f => f.key !== 'author');
+        }
+        return fields;
     }
     return [];
 });
@@ -94,6 +105,20 @@ const showDeleteConfirm = ref(false);
 
 const isEditing = computed(() => {
     return props.initialData && (props.initialData as any).documentId;
+});
+
+const canDelete = computed(() => {
+    if (!isEditing.value) return false;
+    if (isAmbassador.value) return true;
+
+    // Check ownership
+    const author = props.initialData?.author;
+    if (author) {
+        if (author.documentId && author.documentId === authStore.user?.documentId) return true;
+        if (author.id && author.id === authStore.user?.id) return true;
+    }
+
+    return false;
 });
 
 // Watch for changes in initialData to update formData

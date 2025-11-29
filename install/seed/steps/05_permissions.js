@@ -95,6 +95,12 @@ async function main() {
                  permissions['api::profile'].controllers['profile'].findOne.enabled = true;
             }
 
+            // Ambassador needs to find users to assign authors (or at least see them)
+            if (permissions['plugin::users-permissions'] && permissions['plugin::users-permissions'].controllers['user']) {
+                permissions['plugin::users-permissions'].controllers['user'].find.enabled = true;
+                permissions['plugin::users-permissions'].controllers['user'].findOne.enabled = true;
+            }
+
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${ambassadorRole.id}`, {
                 permissions: permissions
             }, {
@@ -103,6 +109,64 @@ async function main() {
         }
     } catch (e) {
         console.error('Error updating Ambassador permissions:', e);
+    }
+
+    // Update Administrateur Permissions
+    try {
+        logProgress(2.5, 3, 'Updating Administrateur Permissions');
+        const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
+            headers: { Authorization: `Bearer ${jwt}` }
+        });
+        const roles = rolesRes.data.roles || rolesRes.data.results || rolesRes.data || [];
+        let adminRole = roles.find(r => r.name === 'Administrateur');
+
+        if (!adminRole) {
+            // Create Administrateur role if it doesn't exist
+            try {
+                const createRoleRes = await axios.post(`${STRAPI_URL}/users-permissions/roles`, {
+                    name: 'Administrateur',
+                    description: 'Administrator with full rights on ALL content types',
+                    type: 'administrateur'
+                }, {
+                    headers: { Authorization: `Bearer ${jwt}` }
+                });
+                adminRole = createRoleRes.data.role;
+            } catch (err) {
+                console.error('Failed to create Administrateur role:', err.response?.data || err.message);
+            }
+        }
+
+        if (adminRole) {
+            const roleDetailsRes = await axios.get(`${STRAPI_URL}/users-permissions/roles/${adminRole.id}`, {
+                headers: { Authorization: `Bearer ${jwt}` }
+            });
+            
+            const roleData = roleDetailsRes.data.role;
+            const permissions = roleData.permissions;
+
+            const enableFullCRUD = (apiName, controllerName) => {
+                if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
+                    permissions[apiName].controllers[controllerName].find.enabled = true;
+                    permissions[apiName].controllers[controllerName].findOne.enabled = true;
+                    permissions[apiName].controllers[controllerName].create.enabled = true;
+                    permissions[apiName].controllers[controllerName].update.enabled = true;
+                    permissions[apiName].controllers[controllerName].delete.enabled = true;
+                }
+            };
+
+            enableFullCRUD('api::sport', 'sport');
+            enableFullCRUD('api::poi', 'poi');
+            enableFullCRUD('api::event', 'event');
+            enableFullCRUD('api::profile', 'profile');
+
+            await axios.put(`${STRAPI_URL}/users-permissions/roles/${adminRole.id}`, {
+                permissions: permissions
+            }, {
+                headers: { Authorization: `Bearer ${jwt}` }
+            });
+        }
+    } catch (e) {
+        console.error('Error updating Administrateur permissions:', e);
     }
 
     // Update Authenticated Permissions
@@ -134,7 +198,7 @@ async function main() {
             };
 
             const enableFullCRUD = (apiName, controllerName) => {
-                if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
+                 if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
                     permissions[apiName].controllers[controllerName].find.enabled = true;
                     permissions[apiName].controllers[controllerName].findOne.enabled = true;
                     permissions[apiName].controllers[controllerName].create.enabled = true;
@@ -147,7 +211,7 @@ async function main() {
             enableReadCreate('api::poi', 'poi');
             enableReadCreate('api::event', 'event');
             
-            // Keep full access for own profile (usually handled by 'update' policy owner, but here we enable the permission)
+            // Keep full access for own profile
             enableFullCRUD('api::profile', 'profile');
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${authRole.id}`, {

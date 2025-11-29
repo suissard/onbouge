@@ -33,6 +33,22 @@ async function main() {
         const sportIds = item.sports?.map(s => idMap.sports[s.id]).filter(id => id) || [];
         const poiId = item.poi ? idMap.pois[item.poi.id] : null;
         const profileIds = item.profiles?.map(p => idMap.profiles[p.id]).filter(id => id) || [];
+        
+        const userIds = Object.values(idMap.users || {});
+        let defaultAuthor = userIds.length > 0 ? userIds[0] : null;
+
+        if (!defaultAuthor) {
+            try {
+                 const users = await api.get('/users?filters[email][$eq]=admin@gmail.com');
+                 if (users.data && users.data.length > 0) {
+                     defaultAuthor = users.data[0].id;
+                 }
+            } catch (e) {
+                // console.warn('Could not fetch default author');
+            }
+        }
+
+        // console.log(`Seeding Event ${item.title} with author ${defaultAuthor}`);
 
         const payload = {
           title: item.title,
@@ -40,7 +56,8 @@ async function main() {
           date: item.date,
           sports: sportIds,
           poi: poiId,
-          profiles: profileIds
+          profiles: profileIds,
+          author: defaultAuthor
         };
 
         if (eventId) {

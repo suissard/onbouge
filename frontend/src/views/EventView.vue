@@ -7,9 +7,9 @@
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/events/${eventId}/edit`"
-              :disabled="!authStore.isAuthenticated" v-bind="props"></v-btn>
+              :disabled="!canEdit" v-bind="props"></v-btn>
           </template>
-          <span>Vous devez être connecté pour éditer</span>
+          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-subtitle>{{ new Date(event.date).toLocaleString() }}</v-card-subtitle>
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { useEventsStore } from '@/stores/strapiStore'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore';
 
@@ -54,4 +54,12 @@ const event = ref<any>(null)
 onMounted(async () => {
   event.value = await eventStore.get(eventId)
 })
+
+const canEdit = computed(() => {
+  if (!authStore.isAuthenticated || !authStore.user) return false;
+  if (authStore.user.role?.name === 'Ambassador') return true;
+  if (event.value?.author?.documentId === authStore.user.documentId) return true;
+  if (event.value?.author?.id === authStore.user.id) return true;
+  return false;
+});
 </script>

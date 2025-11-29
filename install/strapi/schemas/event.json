@@ -34,6 +34,11 @@
       "target": "api::poi.poi",
       "inversedBy": "events"
     },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
     "profiles": {
       "type": "relation",
       "relation": "manyToMany",

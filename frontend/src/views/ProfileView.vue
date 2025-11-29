@@ -1,22 +1,29 @@
 <template>
     <v-container>
         <v-card v-if="profile">
-            <v-card-title class="text-h4">{{ profile.username }}</v-card-title>
+            <v-card-title class="d-flex justify-space-between align-center">
+                <span class="text-h4">{{ profile.username }}</span>
+                <v-btn color="primary" :to="`/profiles/${profile.documentId}/edit`" prepend-icon="mdi-pencil">
+                    Edit
+                </v-btn>
+            </v-card-title>
             <v-card-text>
                 <p>{{ profile.description }}</p>
                 <div v-if="profile.sports && profile.sports.length > 0">
                     <h3 class="text-h6 mt-4">Sports</h3>
                     <v-chip-group>
-                        <v-chip v-for="sport in profile.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{
-                            sport.title
+                        <v-chip v-for="sport in profile.sports" :key="sport.documentId"
+                            :to="`/sports/${sport.documentId}`">{{
+                                sport.title
                             }}</v-chip>
                     </v-chip-group>
                 </div>
                 <div v-if="profile.events && profile.events.length > 0">
                     <h3 class="text-h6 mt-4">Events</h3>
                     <v-chip-group>
-                        <v-chip v-for="event in profile.events" :key="event.id" :to="`/events/${event.documentId}`">{{
-                            event.title
+                        <v-chip v-for="event in profile.events" :key="event.documentId"
+                            :to="`/events/${event.documentId}`">{{
+                                event.title
                             }}</v-chip>
                     </v-chip-group>
                 </div>
@@ -30,13 +37,17 @@
 import { useProfilesStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { Profile } from '@/interfaces/profile'
 
 const profilesStore = useProfilesStore()
 const route = useRoute()
 const profileId = String(route.params.id)
-const profile = ref<any>(null)
+const profile = ref<Profile | null>(null)
 
 onMounted(async () => {
-    profile.value = await profilesStore.get(profileId)
+    const fetchedProfile = await profilesStore.get(profileId)
+    if (fetchedProfile) {
+        profile.value = fetchedProfile as Profile
+    }
 })
 </script>

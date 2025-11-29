@@ -44,9 +44,9 @@ function runScript(scriptPath, env = {}, onProgress) {
 
 async function main() {
   const steps = [
+    { name: 'Profiles', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'Sports', script: 'install/seed/steps/01_sports.js', key: 'sports' },
     { name: 'POIs', script: 'install/seed/steps/02_pois.js', key: 'pois' },
-    { name: 'Profiles', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'Events', script: 'install/seed/steps/04_events.js', key: 'events' },
     { name: 'Permissions', script: 'install/seed/steps/05_permissions.js', key: 'permissions' },
     { name: 'Admin User', script: 'install/seed/steps/06_admin_user.js', key: 'admin_user' }

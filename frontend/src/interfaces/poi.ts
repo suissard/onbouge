@@ -45,6 +45,16 @@ export class Poi {
     itemValue: 'documentId'
   })
   events: Event[] = [];
+  
+  @FormField({
+    label: 'Auteur',
+    type: 'select',
+    optionsKey: 'users',
+    itemTitle: 'username',
+    itemValue: 'documentId'
+  })
+  author: any = null; // Using any to avoid circular dependency issues for now, or import User
+
   createdAt: string = '';
   updatedAt: string = '';
   publishedAt: string = '';

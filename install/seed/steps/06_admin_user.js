@@ -11,21 +11,31 @@ async function main() {
     
     logProgress(0, 1, `Checking/Creating Admin User (${adminEmail})`);
 
-    // Fetch Authenticated Role
-    let authenticatedRoleId;
+    // Fetch Roles
+    let targetRoleId;
     try {
         const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
             headers: { Authorization: `Bearer ${jwt}` }
         });
         const roles = rolesRes.data.roles || rolesRes.data.results || rolesRes.data || [];
+        
+        // Prefer Ambassador role, fallback to Authenticated
+        const ambassadorRole = roles.find(r => r.name === 'Ambassador');
         const authRole = roles.find(r => r.type === 'authenticated');
-        if (authRole) authenticatedRoleId = authRole.id;
+        
+        if (ambassadorRole) {
+            targetRoleId = ambassadorRole.id;
+            logProgress(0, 1, 'Using Ambassador role for Admin user');
+        } else if (authRole) {
+            targetRoleId = authRole.id;
+            logProgress(0, 1, 'Ambassador role not found, using Authenticated');
+        }
     } catch (e) {
         console.error('Failed to fetch roles:', e.message);
     }
 
-    if (!authenticatedRoleId) {
-        console.error('Could not find Authenticated role. Skipping admin user creation.');
+    if (!targetRoleId) {
+        console.error('Could not find suitable role. Skipping admin user creation.');
         process.exit(0);
     }
 
@@ -34,7 +44,13 @@ async function main() {
         const existingUser = await api.get(`/plugin::users-permissions.user?filters[email][$eq]=${encodeURIComponent(adminEmail)}`);
         
         if (existingUser.data.results && existingUser.data.results.length > 0) {
-            logProgress(1, 1, `Admin User ${adminEmail} already exists`);
+            const u = existingUser.data.results[0];
+            const uid = u.documentId || u.id;
+            // Update role
+            await api.put(`/plugin::users-permissions.user/${uid}`, {
+                role: targetRoleId
+            });
+            logProgress(1, 1, `Updated Admin User ${adminEmail} role`);
         } else {
             // Create user
             await api.post('/plugin::users-permissions.user', {
@@ -43,7 +59,7 @@ async function main() {
                 password: adminPassword,
                 confirmed: true,
                 blocked: false,
-                role: authenticatedRoleId
+                role: targetRoleId
             });
             logProgress(1, 1, `Created Admin User ${adminEmail}`);
         }

@@ -65,7 +65,7 @@ const router = createRouter({
     {
       path: '/profiles/:id/edit',
       name: 'profile-edit',
-      component: () => import('../views/UserEdit.vue'),
+      component: () => import('../views/ProfileEdit.vue'),
       meta: { requiresAuth: true },
     },
     {

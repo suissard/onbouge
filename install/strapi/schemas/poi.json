@@ -39,6 +39,11 @@
       "relation": "manyToMany",
       "target": "api::sport.sport",
       "inversedBy": "pois"
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
