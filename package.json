@@ -3,7 +3,7 @@
    "version": "0.0.1",
    "description": "Application web pour connecter les sportifs (anciennement Rally Point)",
    "scripts": {
-      "test": "npx vitest",
+      "test": "vitest",
       "dev": "npm run start && npm run front",
       "update": "sudo docker compose down && git pull && sudo docker compose up -d",
       "commit": "git add . && git commit -m \"update\" && git push",
@@ -14,7 +14,6 @@
       "setup": "sudo node install/setup.js",
       "setup:deps": "sudo node install/steps/00_deps.js",
       "setup:docker": "sudo node install/steps/01_docker.js",
-
       "setup:strapi-admin": "sudo node install/steps/02_strapi_admin.js",
       "setup:schemas": "sudo node install/steps/03_schemas.js",
       "setup:spatial": "node install/steps/04_spatial.js",
@@ -30,10 +29,23 @@
       "@faker-js/faker": "^10.1.0"
    },
    "devDependencies": {
+      "@tsconfig/node22": "^22.0.5",
+      "@types/node": "^24.10.1",
+      "@vitejs/plugin-vue": "^6.0.2",
+      "@vue/test-utils": "^2.4.6",
+      "@vue/tsconfig": "^0.8.1",
       "axios": "^1.13.2",
       "jsdom": "^26.1.0",
+      "pinia": "^3.0.4",
+      "reflect-metadata": "^0.2.2",
       "vite": "^5.4.21",
+      "vite-plugin-singlefile": "^2.3.0",
+      "vite-plugin-vue-devtools": "^8.0.5",
+      "vite-plugin-vuetify": "^2.1.2",
       "vitest": "^3.2.4",
+      "vue": "^3.5.25",
+      "vue-router": "^4.6.3",
+      "vuetify": "^3.11.0",
       "whatwg-fetch": "^3.6.20"
    }
 }

@@ -10,7 +10,7 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools(),
+    !process.env.VITEST ? vueDevTools() : undefined,
     vuetify({ autoImport: true }),
     viteSingleFile(),
   ],
@@ -22,5 +22,12 @@ export default defineConfig({
   build: {
     outDir: '../public',
     emptyOutDir: false,
+  },
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+      },
+    },
   },
 })

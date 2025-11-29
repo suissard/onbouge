@@ -50,3 +50,9 @@ Si vous devez ajouter ou modifier un champ (ex: ajouter `altitude` à `Poi`) :
 -   **Relations** : Les relations (OneToMany, ManyToOne) sont définies dans les schémas. Assurez-vous que les interfaces reflètent ces relations (souvent via des tableaux d'objets ou des IDs).
 -   **Decorators** : Les interfaces utilisent souvent des décorateurs (ex: `@FormField`) pour générer automatiquement les formulaires. N'oubliez pas de les mettre à jour si vous changez un champ.
 -   **DocumentId** : Strapi 5 utilise `documentId` comme identifiant public stable, et non `id` (numérique). Les interfaces et stores doivent gérer `documentId`.
+
+## Tests
+
+-   **Localisation** : Tous les tests unitaires et d'intégration (Vitest) doivent être situés dans le dossier racine `/tests`.
+-   **Structure** : Organisez les tests par domaine (ex: `/tests/frontend`, `/tests/backend`, `/tests/integration`).
+
