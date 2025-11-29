@@ -8,7 +8,7 @@ async function main() {
 
     // Update Public Permissions
     try {
-        logProgress(1, 2, 'Updating Public Permissions');
+        logProgress(1, 3, 'Updating Public Permissions');
         const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
             headers: { Authorization: `Bearer ${jwt}` }
         });
@@ -43,9 +43,71 @@ async function main() {
         }
     } catch (e) {}
 
+    // Update Ambassador Permissions
+    try {
+        logProgress(2, 3, 'Updating Ambassador Permissions');
+        const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
+            headers: { Authorization: `Bearer ${jwt}` }
+        });
+        const roles = rolesRes.data.roles || rolesRes.data.results || rolesRes.data || [];
+        let ambassadorRole = roles.find(r => r.name === 'Ambassador');
+
+        if (!ambassadorRole) {
+            // Create Ambassador role if it doesn't exist
+            try {
+                const createRoleRes = await axios.post(`${STRAPI_URL}/users-permissions/roles`, {
+                    name: 'Ambassador',
+                    description: 'Ambassador with full rights on POI, Event, and Sports',
+                    type: 'ambassador'
+                }, {
+                    headers: { Authorization: `Bearer ${jwt}` }
+                });
+                ambassadorRole = createRoleRes.data.role;
+            } catch (err) {
+                console.error('Failed to create Ambassador role:', err.response?.data || err.message);
+            }
+        }
+
+        if (ambassadorRole) {
+            const roleDetailsRes = await axios.get(`${STRAPI_URL}/users-permissions/roles/${ambassadorRole.id}`, {
+                headers: { Authorization: `Bearer ${jwt}` }
+            });
+            
+            const roleData = roleDetailsRes.data.role;
+            const permissions = roleData.permissions;
+
+            const enableFullCRUD = (apiName, controllerName) => {
+                if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
+                    permissions[apiName].controllers[controllerName].find.enabled = true;
+                    permissions[apiName].controllers[controllerName].findOne.enabled = true;
+                    permissions[apiName].controllers[controllerName].create.enabled = true;
+                    permissions[apiName].controllers[controllerName].update.enabled = true;
+                    permissions[apiName].controllers[controllerName].delete.enabled = true;
+                }
+            };
+
+            enableFullCRUD('api::sport', 'sport');
+            enableFullCRUD('api::poi', 'poi');
+            enableFullCRUD('api::event', 'event');
+            // Ambassador can also read profiles, maybe? Assuming yes for now, similar to public/auth
+            if (permissions['api::profile'] && permissions['api::profile'].controllers['profile']) {
+                 permissions['api::profile'].controllers['profile'].find.enabled = true;
+                 permissions['api::profile'].controllers['profile'].findOne.enabled = true;
+            }
+
+            await axios.put(`${STRAPI_URL}/users-permissions/roles/${ambassadorRole.id}`, {
+                permissions: permissions
+            }, {
+                headers: { Authorization: `Bearer ${jwt}` }
+            });
+        }
+    } catch (e) {
+        console.error('Error updating Ambassador permissions:', e);
+    }
+
     // Update Authenticated Permissions
     try {
-        logProgress(2, 2, 'Updating Authenticated Permissions');
+        logProgress(3, 3, 'Updating Authenticated Permissions');
         const rolesRes = await axios.get(`${STRAPI_URL}/users-permissions/roles`, {
             headers: { Authorization: `Bearer ${jwt}` }
         });
@@ -60,7 +122,18 @@ async function main() {
             const roleData = roleDetailsRes.data.role;
             const permissions = roleData.permissions;
 
-            const enableCRUD = (apiName, controllerName) => {
+            const enableReadCreate = (apiName, controllerName) => {
+                if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
+                    permissions[apiName].controllers[controllerName].find.enabled = true;
+                    permissions[apiName].controllers[controllerName].findOne.enabled = true;
+                    permissions[apiName].controllers[controllerName].create.enabled = true;
+                    // Explicitly disable update and delete
+                    permissions[apiName].controllers[controllerName].update.enabled = false;
+                    permissions[apiName].controllers[controllerName].delete.enabled = false;
+                }
+            };
+
+            const enableFullCRUD = (apiName, controllerName) => {
                 if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
                     permissions[apiName].controllers[controllerName].find.enabled = true;
                     permissions[apiName].controllers[controllerName].findOne.enabled = true;
@@ -70,10 +143,12 @@ async function main() {
                 }
             };
 
-            enableCRUD('api::sport', 'sport');
-            enableCRUD('api::poi', 'poi');
-            enableCRUD('api::profile', 'profile');
-            enableCRUD('api::event', 'event');
+            enableReadCreate('api::sport', 'sport');
+            enableReadCreate('api::poi', 'poi');
+            enableReadCreate('api::event', 'event');
+            
+            // Keep full access for own profile (usually handled by 'update' policy owner, but here we enable the permission)
+            enableFullCRUD('api::profile', 'profile');
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${authRole.id}`, {
                 permissions: permissions
