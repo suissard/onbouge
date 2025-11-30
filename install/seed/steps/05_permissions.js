@@ -35,6 +35,11 @@ async function main() {
             enableRead('api::profile', 'profile');
             enableRead('api::event', 'event');
 
+            // Enable 'me' for Public (often needed for initial auth checks or limited profile views)
+            if (permissions['plugin::users-permissions'] && permissions['plugin::users-permissions'].controllers['user']) {
+                permissions['plugin::users-permissions'].controllers['user'].me.enabled = true;
+            }
+
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${publicRole.id}`, {
                 permissions: permissions
             }, {
@@ -99,6 +104,12 @@ async function main() {
             if (permissions['plugin::users-permissions'] && permissions['plugin::users-permissions'].controllers['user']) {
                 permissions['plugin::users-permissions'].controllers['user'].find.enabled = true;
                 permissions['plugin::users-permissions'].controllers['user'].findOne.enabled = true;
+                permissions['plugin::users-permissions'].controllers['user'].me.enabled = true;
+            }
+
+            // Enable upload for Ambassador
+            if (permissions['plugin::upload'] && permissions['plugin::upload'].controllers['content-api']) {
+                permissions['plugin::upload'].controllers['content-api'].upload.enabled = true;
             }
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${ambassadorRole.id}`, {
@@ -144,20 +155,22 @@ async function main() {
             const roleData = roleDetailsRes.data.role;
             const permissions = roleData.permissions;
 
-            const enableFullCRUD = (apiName, controllerName) => {
-                if (permissions[apiName] && permissions[apiName].controllers[controllerName]) {
-                    permissions[apiName].controllers[controllerName].find.enabled = true;
-                    permissions[apiName].controllers[controllerName].findOne.enabled = true;
-                    permissions[apiName].controllers[controllerName].create.enabled = true;
-                    permissions[apiName].controllers[controllerName].update.enabled = true;
-                    permissions[apiName].controllers[controllerName].delete.enabled = true;
+            // Grant ALL permissions to Administrateur
+            Object.keys(permissions).forEach(permissionKey => {
+                const permissionGroup = permissions[permissionKey];
+                if (permissionGroup.controllers) {
+                    Object.keys(permissionGroup.controllers).forEach(controllerKey => {
+                        const controller = permissionGroup.controllers[controllerKey];
+                        Object.keys(controller).forEach(actionKey => {
+                            if (controller[actionKey] && typeof controller[actionKey].enabled !== 'undefined') {
+                                controller[actionKey].enabled = true;
+                            }
+                        });
+                    });
                 }
-            };
+            });
 
-            enableFullCRUD('api::sport', 'sport');
-            enableFullCRUD('api::poi', 'poi');
-            enableFullCRUD('api::event', 'event');
-            enableFullCRUD('api::profile', 'profile');
+
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${adminRole.id}`, {
                 permissions: permissions
@@ -213,6 +226,16 @@ async function main() {
             
             // Keep full access for own profile
             enableFullCRUD('api::profile', 'profile');
+
+            // Enable 'me' endpoint for Authenticated users
+            if (permissions['plugin::users-permissions'] && permissions['plugin::users-permissions'].controllers['user']) {
+                permissions['plugin::users-permissions'].controllers['user'].me.enabled = true;
+            }
+
+            // Enable upload for Authenticated users
+            if (permissions['plugin::upload'] && permissions['plugin::upload'].controllers['content-api']) {
+                permissions['plugin::upload'].controllers['content-api'].upload.enabled = true;
+            }
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${authRole.id}`, {
                 permissions: permissions

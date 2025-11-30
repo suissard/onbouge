@@ -20,6 +20,9 @@ const poiStore = usePoisStore();
 const propsMapper = (item: any) => ({
   title: item.title,
   description: item.description,
-  route: `/pois/${item.documentId}`
+  route: `/pois/${item.documentId}`,
+  showAvatar: true,
+  avatarId: item.author?.documentId,
+  avatarPhoto: item.author?.photo
 });
 </script>

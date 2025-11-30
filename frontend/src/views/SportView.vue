@@ -50,6 +50,7 @@ onMounted(async () => {
 const canEdit = computed(() => {
   if (!authStore.isAuthenticated || !authStore.user) return false;
   if (authStore.user.role?.name === 'Ambassador') return true;
+  if (authStore.user.role?.name === 'Administrateur') return true;
   if (sport.value?.author?.documentId === authStore.user.documentId) return true;
   if (sport.value?.author?.id === authStore.user.id) return true;
   return false;

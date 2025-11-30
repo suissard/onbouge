@@ -19,11 +19,15 @@ async function main() {
         });
         const roles = rolesRes.data.roles || rolesRes.data.results || rolesRes.data || [];
         
-        // Prefer Ambassador role, fallback to Authenticated
+        // Prefer Administrateur role, then Ambassador, fallback to Authenticated
+        const adminRole = roles.find(r => r.name === 'Administrateur');
         const ambassadorRole = roles.find(r => r.name === 'Ambassador');
         const authRole = roles.find(r => r.type === 'authenticated');
         
-        if (ambassadorRole) {
+        if (adminRole) {
+            targetRoleId = adminRole.id;
+            logProgress(0, 1, 'Using Administrateur role for Admin user');
+        } else if (ambassadorRole) {
             targetRoleId = ambassadorRole.id;
             logProgress(0, 1, 'Using Ambassador role for Admin user');
         } else if (authRole) {
