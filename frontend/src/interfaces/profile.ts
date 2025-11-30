@@ -12,6 +12,8 @@ export class Profile {
   @FormField({ label: 'Description', type: 'textarea' })
   description: string | null = '';
 
+  photo: any = null;
+
   @FormField({
     label: 'Sports',
     type: 'select',

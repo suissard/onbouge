@@ -16,6 +16,9 @@ const profilesStore = useProfilesStore();
 const propsMapper = (item: any) => ({
   title: item.username,
   description: item.description,
-  route: `/profiles/${item.documentId}`
+  route: `/profiles/${item.documentId}`,
+  showAvatar: true,
+  avatarId: item.documentId,
+  avatarPhoto: item.photo
 });
 </script>

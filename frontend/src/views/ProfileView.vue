@@ -2,7 +2,11 @@
     <v-container>
         <v-card v-if="profile">
             <v-card-title class="d-flex justify-space-between align-center">
-                <span class="text-h4">{{ profile.username }}</span>
+                <div class="d-flex align-center">
+                    <ProfileAvatar :username="profile.username" :document-id="profile.documentId" :photo="profile.photo"
+                        size="64" class="mr-4" />
+                    <span class="text-h4">{{ profile.username }}</span>
+                </div>
                 <v-btn color="primary" :to="`/profiles/${profile.documentId}/edit`" prepend-icon="mdi-pencil">
                     Edit
                 </v-btn>
@@ -38,6 +42,7 @@ import { useProfilesStore } from '@/stores/strapiStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Profile } from '@/interfaces/profile'
+import ProfileAvatar from '@/components/ProfileAvatar.vue'
 
 const profilesStore = useProfilesStore()
 const route = useRoute()

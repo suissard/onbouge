@@ -20,6 +20,14 @@
     "description": {
       "type": "text"
     },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",

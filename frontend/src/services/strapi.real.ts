@@ -25,6 +25,7 @@ interface StrapiService {
   getMe(): Promise<any>;
   setToken(newToken: string): void;
   signOut(): void;
+  request(method: string, url: string, options?: any): Promise<any>;
   readonly rawClient: StrapiClient;
 }
 
@@ -96,8 +97,16 @@ const strapiService: StrapiService = {
   signOut() {
     token = null;
     strapiClient = createStrapiClient({
-        baseURL: BASE_URL,
+      baseURL: BASE_URL,
     });
+  },
+
+  async request(method: string, url: string, options: any = {}) {
+    const response = await strapiClient.fetch(url, {
+      method,
+      ...options,
+    });
+    return await response.json();
   },
 
   get rawClient() {

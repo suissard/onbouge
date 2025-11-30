@@ -1,6 +1,9 @@
 <template>
     <v-container>
         <h1 class="mb-4">Edit Profile</h1>
+        <div v-if="profile" class="mb-6">
+            <PhotoUpload :initial-photo="profile.photo" @upload-complete="handlePhotoUpload" />
+        </div>
         <DynamicUpdateForm v-if="profile" :initial-data="profile" :model-class="Profile"
             :data-sources="{ sports: sportsList, events: eventsList }" title="Edit Profile" @save="saveProfile"
             @delete="deleteProfile" />
@@ -15,6 +18,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Profile } from '@/interfaces/profile'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
+import PhotoUpload from '@/components/PhotoUpload.vue'
 import { StrapiObject } from '@/classes/StrapiObject'
 
 const profilesStore = useProfilesStore()
@@ -82,6 +86,17 @@ async function deleteProfile() {
         await strapiObject.delete(profileId.value)
     } finally {
         loading.value = false
+    }
+}
+
+function handlePhotoUpload(file: any) {
+    if (profile.value) {
+        profile.value.photo = file;
+        // Optionally save immediately or wait for form save.
+        // Since the upload component uploads to Strapi immediately and returns the file object,
+        // we just need to ensure when we save the profile, we link this photo.
+        // The saveProfile function merges formData.
+        // We might need to ensure the photo ID is included in the save payload if it's not part of the form fields.
     }
 }
 </script>

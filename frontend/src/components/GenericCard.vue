@@ -1,6 +1,10 @@
 <template>
   <v-card class="ma-2" hover @click="navigate">
-    <v-card-title>{{ title }}</v-card-title>
+    <v-card-title class="d-flex align-center">
+      <ProfileAvatar v-if="showAvatar" :username="title" :document-id="avatarId" :photo="avatarPhoto" size="40"
+        class="mr-3" />
+      {{ title }}
+    </v-card-title>
     <v-card-text>
       <p class="description">{{ truncatedDescription }}</p>
     </v-card-text>
@@ -10,6 +14,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+import ProfileAvatar from './ProfileAvatar.vue';
 
 const props = defineProps({
   title: {
@@ -23,6 +28,18 @@ const props = defineProps({
   route: {
     type: String,
     required: true
+  },
+  showAvatar: {
+    type: Boolean,
+    default: false
+  },
+  avatarId: {
+    type: String,
+    default: ''
+  },
+  avatarPhoto: {
+    type: Object,
+    default: null
   }
 });
 
