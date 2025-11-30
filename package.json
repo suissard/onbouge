@@ -29,6 +29,7 @@
       "@faker-js/faker": "^10.1.0"
    },
    "devDependencies": {
+      "@pinia/testing": "^1.0.3",
       "@tsconfig/node22": "^22.0.5",
       "@types/node": "^24.10.1",
       "@vitejs/plugin-vue": "^6.0.2",

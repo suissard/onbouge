@@ -26,6 +26,13 @@ export class User {
   @FormField({ label: 'Bloqué', type: 'checkbox' })
   blocked: boolean = false;
 
+  @FormField({
+    label: 'Role',
+    type: 'select',
+    optionsKey: 'roles',
+    itemTitle: 'name',
+    itemValue: 'id'
+  })
   role: Role | null = null;
 
   @FormField({

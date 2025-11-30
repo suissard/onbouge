@@ -20,6 +20,9 @@ const eventStore = useEventsStore();
 const propsMapper = (item: any) => ({
   title: item.title,
   description: item.description,
-  route: `/events/${item.documentId}`
+  route: `/events/${item.documentId}`,
+  showAvatar: true,
+  avatarId: item.author?.documentId,
+  avatarPhoto: item.author?.photo
 });
 </script>

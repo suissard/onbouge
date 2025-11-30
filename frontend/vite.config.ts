@@ -10,7 +10,7 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 export default defineConfig({
   plugins: [
     vue(),
-    !process.env.VITEST ? vueDevTools() : undefined,
+    // !process.env.VITEST ? vueDevTools() : undefined,
     vuetify({ autoImport: true }),
     viteSingleFile(),
   ],
