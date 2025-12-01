@@ -7,9 +7,9 @@
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/events/${eventId}/edit`"
-              :disabled="!canEdit" v-bind="props"></v-btn>
+              :disabled="!authStore.canEdit(event)" v-bind="props"></v-btn>
           </template>
-          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
+          <span>{{ authStore.canEdit(event) ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-subtitle>{{ new Date(event.date).toLocaleString() }}</v-card-subtitle>
@@ -19,7 +19,7 @@
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
             <v-chip v-for="sport in event.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
-              }}</v-chip>
+            }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="event.poi">
@@ -55,12 +55,4 @@ onMounted(async () => {
   event.value = await eventStore.get(eventId)
 })
 
-const canEdit = computed(() => {
-  if (!authStore.isAuthenticated || !authStore.user) return false;
-  if (authStore.user.role?.name === 'Ambassador') return true;
-  if (authStore.user.role?.name === 'Administrateur') return true;
-  if (event.value?.author?.documentId === authStore.user.documentId) return true;
-  if (event.value?.author?.id === authStore.user.id) return true;
-  return false;
-});
 </script>

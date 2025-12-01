@@ -80,5 +80,27 @@ export const useAuthStore = defineStore('auth', () => {
 
   fetchUser()
 
-  return { user, token, login, logout, register, fetchUser, isAuthenticated };
+  /**
+   * Checks if the current user can edit the given item.
+   * @param {any} item - The item to check.
+   * @returns {boolean} True if the user can edit, false otherwise.
+   */
+  function canEdit(item: any): boolean {
+    if (!isAuthenticated.value || !user.value) return false;
+    if (['Ambassador', "Administrateur"].includes(user.value.role?.name)) return true;
+    if (item?.author?.documentId === user.value.documentId) return true;
+    if (item?.author?.id === user.value.id) return true;
+    return false;
+  }
+
+  /**
+   * Checks if the current user can delete the given item.
+   * @param {any} item - The item to check.
+   * @returns {boolean} True if the user can delete, false otherwise.
+   */
+  function canDelete(item: any): boolean {
+    return canEdit(item); // Same logic for now
+  }
+
+  return { user, token, login, logout, register, fetchUser, isAuthenticated, canEdit, canDelete };
 });

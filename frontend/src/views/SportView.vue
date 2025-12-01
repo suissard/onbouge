@@ -6,9 +6,9 @@
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
             <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/sports/${sportId}/edit`"
-              :disabled="!canEdit" v-bind="props"></v-btn>
+              :disabled="!authStore.canEdit(sport)" v-bind="props"></v-btn>
           </template>
-          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
+          <span>{{ authStore.canEdit(sport) ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-text>
@@ -17,13 +17,13 @@
 
         <v-chip-group>
           <v-chip v-for="event in sport.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
-            }}</v-chip>
+          }}</v-chip>
         </v-chip-group>
         <h3 class="text-h6 mt-4">Pois</h3>
 
         <v-chip-group>
           <v-chip v-for="poi in sport.pois" :key="poi.id" :to="`/pois/${poi.documentId}`">{{ poi.title
-            }}</v-chip>
+          }}</v-chip>
         </v-chip-group>
       </v-card-text>
     </v-card>
@@ -47,12 +47,4 @@ onMounted(async () => {
   sport.value = await sportStore.get(sportId)
 })
 
-const canEdit = computed(() => {
-  if (!authStore.isAuthenticated || !authStore.user) return false;
-  if (authStore.user.role?.name === 'Ambassador') return true;
-  if (authStore.user.role?.name === 'Administrateur') return true;
-  if (sport.value?.author?.documentId === authStore.user.documentId) return true;
-  if (sport.value?.author?.id === authStore.user.id) return true;
-  return false;
-});
 </script>

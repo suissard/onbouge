@@ -6,10 +6,10 @@
         <span>{{ poi.title }}</span>
         <v-tooltip location="bottom">
           <template v-slot:activator="{ props }">
-            <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/pois/${poiId}/edit`" :disabled="!canEdit"
-              v-bind="props"></v-btn>
+            <v-btn icon="mdi-pencil" variant="tonal" color="primary" :to="`/pois/${poiId}/edit`"
+              :disabled="!authStore.canEdit(poi)" v-bind="props"></v-btn>
           </template>
-          <span>{{ canEdit ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
+          <span>{{ authStore.canEdit(poi) ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer' }}</span>
         </v-tooltip>
       </v-card-title>
       <v-card-text>
@@ -19,14 +19,14 @@
           <h3 class="text-h6 mt-4">Sports</h3>
           <v-chip-group>
             <v-chip v-for="sport in poi.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
-              }}</v-chip>
+            }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="poi.events && poi.events.length > 0">
           <h3 class="text-h6 mt-4">Events</h3>
           <v-chip-group>
             <v-chip v-for="event in poi.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
-              }}</v-chip>
+            }}</v-chip>
           </v-chip-group>
         </div>
       </v-card-text>
@@ -51,12 +51,4 @@ onMounted(async () => {
   poi.value = await poiStore.get(poiId)
 })
 
-const canEdit = computed(() => {
-  if (!authStore.isAuthenticated || !authStore.user) return false;
-  if (authStore.user.role?.name === 'Ambassador') return true;
-  if (authStore.user.role?.name === 'Administrateur') return true;
-  if (poi.value?.author?.documentId === authStore.user.documentId) return true;
-  if (poi.value?.author?.id === authStore.user.id) return true;
-  return false;
-});
 </script>

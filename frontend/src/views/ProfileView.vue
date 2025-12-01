@@ -7,9 +7,16 @@
                         size="64" class="mr-4" />
                     <span class="text-h4">{{ profile.username }}</span>
                 </div>
-                <v-btn color="primary" :to="`/profiles/${profile.documentId}/edit`" prepend-icon="mdi-pencil">
-                    Edit
-                </v-btn>
+                <v-tooltip location="bottom">
+                    <template v-slot:activator="{ props }">
+                        <v-btn color="primary" :to="`/profiles/${profile.documentId}/edit`" prepend-icon="mdi-pencil"
+                            :disabled="!authStore.canEdit(profile)" v-bind="props">
+                            Edit
+                        </v-btn>
+                    </template>
+                    <span>{{ authStore.canEdit(profile) ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer'
+                    }}</span>
+                </v-tooltip>
             </v-card-title>
             <v-card-text>
                 <p>{{ profile.description }}</p>
@@ -39,12 +46,14 @@
 
 <script setup lang="ts">
 import { useProfilesStore } from '@/stores/strapiStore'
+import { useAuthStore } from '@/stores/authStore'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { Profile } from '@/interfaces/profile'
 import ProfileAvatar from '@/components/ProfileAvatar.vue'
 
 const profilesStore = useProfilesStore()
+const authStore = useAuthStore()
 const route = useRoute()
 const profileId = String(route.params.id)
 const profile = ref<Profile | null>(null)

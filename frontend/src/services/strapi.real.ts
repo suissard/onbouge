@@ -82,7 +82,7 @@ const strapiService: StrapiService = {
   },
 
   async getMe() {
-    const response = await strapiClient.fetch('/users/me');
+    const response = await strapiClient.fetch('/users/me?populate=role');
     return await response.json();
   },
 
