@@ -12,6 +12,17 @@ async function main() {
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/routes/custom-poi.js', 'strapi:/opt/app/strapi/src/api/poi/routes/']);
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/controllers/poi.js', 'strapi:/opt/app/strapi/src/api/poi/controllers/']);
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/content-types/poi/lifecycles.js', 'strapi:/opt/app/strapi/src/api/poi/content-types/poi/']);
+
+        // Copy custom utils and policies
+        await runCommand('docker', ['exec', 'strapi', 'mkdir', '-p', '/opt/app/strapi/src/utils', '/opt/app/strapi/src/policies']);
+
+        await runCommand('docker', ['cp', 'install/strapi/custom/policies/is-owner.js', 'strapi:/opt/app/strapi/src/policies/']);
+
+        // Copy custom routes with policies
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/event/routes/event.js', 'strapi:/opt/app/strapi/src/api/event/routes/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/routes/poi.js', 'strapi:/opt/app/strapi/src/api/poi/routes/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/profile/routes/profile.js', 'strapi:/opt/app/strapi/src/api/profile/routes/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/sport/routes/sport.js', 'strapi:/opt/app/strapi/src/api/sport/routes/']);
         console.log('Custom code installed.');
     } catch (e) {
         console.error('Failed to copy custom code:', e.message);
