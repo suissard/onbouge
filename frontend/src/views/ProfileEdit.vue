@@ -72,6 +72,9 @@ async function saveProfile(formData: any) {
 
     try {
         const payload = { ...formData };
+        if (profile.value.photo && profile.value.photo.id) {
+            payload.photo = profile.value.photo.id;
+        }
         await strapiObject.save(payload, profileId.value)
     } finally {
         loading.value = false
@@ -90,13 +93,9 @@ async function deleteProfile() {
 }
 
 function handlePhotoUpload(file: any) {
+    console.log('handlePhotoUpload', file);
     if (profile.value) {
         profile.value.photo = file;
-        // Optionally save immediately or wait for form save.
-        // Since the upload component uploads to Strapi immediately and returns the file object,
-        // we just need to ensure when we save the profile, we link this photo.
-        // The saveProfile function merges formData.
-        // We might need to ensure the photo ID is included in the save payload if it's not part of the form fields.
     }
 }
 </script>

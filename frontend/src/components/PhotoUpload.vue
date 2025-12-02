@@ -4,19 +4,13 @@
       <v-img v-if="previewUrl" :src="previewUrl" cover></v-img>
       <v-icon v-else size="64" color="grey-darken-2">mdi-camera</v-icon>
     </v-avatar>
-    
+
     <v-btn variant="text" color="primary" @click="triggerFileInput" :loading="uploading">
       {{ previewUrl ? 'Change Photo' : 'Upload Photo' }}
     </v-btn>
-    
-    <input
-      ref="fileInput"
-      type="file"
-      accept="image/*"
-      class="d-none"
-      @change="handleFileChange"
-    />
-    
+
+    <input ref="fileInput" type="file" accept="image/*" class="d-none" @change="handleFileChange" />
+
     <v-alert v-if="error" type="error" density="compact" class="mt-2" closable @click:close="error = ''">
       {{ error }}
     </v-alert>
@@ -26,6 +20,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import strapi from '@/services/strapi';
+import configs from '@/services/configs.json';
 
 const props = defineProps({
   initialPhoto: {
@@ -44,7 +39,7 @@ const error = ref('');
 // Initialize preview if initial photo exists
 watch(() => props.initialPhoto, (newPhoto) => {
   if (newPhoto && newPhoto.url) {
-    previewUrl.value = import.meta.env.VITE_STRAPI_URL + newPhoto.url;
+    previewUrl.value = configs.strapiIp + newPhoto.url;
   }
 }, { immediate: true });
 
@@ -55,7 +50,7 @@ const triggerFileInput = () => {
 const handleFileChange = async (event: Event) => {
   const target = event.target as HTMLInputElement;
   const file = target.files?.[0];
-  
+
   if (!file) return;
 
   // Create local preview
@@ -72,17 +67,25 @@ const handleFileChange = async (event: Event) => {
 const uploadPhoto = async (file: File) => {
   uploading.value = true;
   error.value = '';
-  
+
   const formData = new FormData();
   formData.append('files', file);
 
   try {
     const response = await strapi.request('POST', '/upload', {
-      data: formData,
+      body: formData,
     });
-    
-    if (response.data && response.data.length > 0) {
-      const uploadedFile = response.data[0];
+
+    let uploadedFile;
+    if (Array.isArray(response) && response.length > 0) {
+      uploadedFile = response[0];
+    } else if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+      uploadedFile = response.data[0];
+    } else if (response.id) {
+      uploadedFile = response;
+    }
+
+    if (uploadedFile) {
       emit('update:photo', uploadedFile);
       emit('upload-complete', uploadedFile);
     }
