@@ -49,4 +49,22 @@ describe('isOwner Policy', () => {
 
     expect(result).toBe(false);
   });
+
+  it('should return true if user is Administrateur', async () => {
+    const context = {
+      state: { 
+        user: { 
+          documentId: 'admin123',
+          role: { name: 'Administrateur' }
+        } 
+      },
+      params: { id: 'doc123' },
+    };
+    const config = { uid: 'api::test.test' };
+    const strapi = {};
+
+    const result = await isOwnerPolicy(context, config, { strapi });
+
+    expect(result).toBe(true);
+  });
 });

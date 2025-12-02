@@ -10,12 +10,12 @@ module.exports = createCoreRouter('api::profile.profile', {
   config: {
     update: {
       policies: [
-        { name: 'global::is-owner', config: { uid: 'api::profile.profile' } },
+        { name: 'global::is-owner', config: { uid: 'api::profile.profile', entry: 'user' } },
       ],
     },
     delete: {
       policies: [
-        { name: 'global::is-owner', config: { uid: 'api::profile.profile' } },
+        { name: 'global::is-owner', config: { uid: 'api::profile.profile', entry: 'user' } },
       ],
     },
   },

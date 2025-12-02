@@ -12,6 +12,8 @@ async function main() {
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/routes/custom-poi.js', 'strapi:/opt/app/strapi/src/api/poi/routes/']);
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/controllers/poi.js', 'strapi:/opt/app/strapi/src/api/poi/controllers/']);
         await runCommand('docker', ['cp', 'install/strapi/custom/api/poi/content-types/poi/lifecycles.js', 'strapi:/opt/app/strapi/src/api/poi/content-types/poi/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/event/content-types/event/lifecycles.js', 'strapi:/opt/app/strapi/src/api/event/content-types/event/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/api/sport/content-types/sport/lifecycles.js', 'strapi:/opt/app/strapi/src/api/sport/content-types/sport/']);
 
         // Copy custom utils and policies
         await runCommand('docker', ['exec', 'strapi', 'mkdir', '-p', '/opt/app/strapi/src/utils', '/opt/app/strapi/src/policies']);

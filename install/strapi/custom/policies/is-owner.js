@@ -1,10 +1,15 @@
 module.exports = async (policyContext, config, { strapi }) => {
   const { user } = policyContext.state;
   const { id } = policyContext.params;
-  const { uid } = config;
+  const { uid, entry = 'author' } = config;
 
   if (!user || !id || !uid) {
     return false;
+  }
+
+  // Allow Administrator to bypass ownership check
+  if (user.role && user.role.name === 'Administrateur') {
+    return true;
   }
 
   // Optimize: Check existence directly in DB without fetching the whole object
@@ -12,7 +17,7 @@ module.exports = async (policyContext, config, { strapi }) => {
   const count = await strapi.documents(uid).count({
     filters: {
       documentId: id,
-      author: {
+      [entry]: {
         documentId: user.documentId
       }
     }
