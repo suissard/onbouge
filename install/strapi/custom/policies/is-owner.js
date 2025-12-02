@@ -8,7 +8,7 @@ module.exports = async (policyContext, config, { strapi }) => {
   }
 
   // Allow Administrator to bypass ownership check
-  if (user.role && user.role.name === 'Administrateur') {
+  if (user.role && ['Administrateur', 'Ambassador'].includes(user.role.name)) {
     return true;
   }
 
