@@ -34,7 +34,7 @@ describe('03_strapi', () => {
         try {
             // We can check public API endpoints if they are exposed, or check content-type builder if we had admin token
             // For now, let's check if the endpoints for our custom types exist (even if 403)
-            const endpoints = ['events', 'pois', 'sports', 'profiles'];
+            const endpoints = ['events', 'pois', 'activities', 'profiles'];
             for (const endpoint of endpoints) {
                 try {
                     await axios.get(`${STRAPI_URL}/api/${endpoint}`);

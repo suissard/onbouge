@@ -5,14 +5,14 @@
             <PhotoUpload :initial-photo="profile.photo" @upload-complete="handlePhotoUpload" />
         </div>
         <DynamicUpdateForm v-if="profile" :initial-data="profile" :model-class="Profile"
-            :data-sources="{ sports: sportsList, events: eventsList }" title="Edit Profile" @save="saveProfile"
+            :data-sources="{ activities: activitiesList, events: eventsList }" title="Edit Profile" @save="saveProfile"
             @delete="deleteProfile" />
         <v-alert v-else type="info">Loading profile...</v-alert>
     </v-container>
 </template>
 
 <script setup lang="ts">
-import { useProfilesStore, useSportsStore, useEventsStore } from '@/stores/strapiStore'
+import { useProfilesStore, useActivitiesStore, useEventsStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -22,7 +22,7 @@ import PhotoUpload from '@/components/PhotoUpload.vue'
 import { StrapiObject } from '@/classes/StrapiObject'
 
 const profilesStore = useProfilesStore()
-const sportsStore = useSportsStore()
+const activitiesStore = useActivitiesStore()
 const eventsStore = useEventsStore()
 const notificationStore = useNotificationsStore()
 const route = useRoute()
@@ -32,7 +32,7 @@ const profileId = computed(() => route.params.id ? String(route.params.id) : nul
 const profile = ref<Partial<Profile> | null>(null)
 const loading = ref(false)
 
-const sportsList = computed(() => sportsStore.datas)
+const activitiesList = computed(() => activitiesStore.datas)
 const eventsList = computed(() => eventsStore.datas)
 
 const strapiObject = new StrapiObject<Profile>(
@@ -45,7 +45,7 @@ const strapiObject = new StrapiObject<Profile>(
 
 onMounted(async () => {
     await Promise.all([
-        sportsStore.getList(),
+        activitiesStore.getList(),
         eventsStore.getList()
     ])
 
@@ -55,7 +55,7 @@ onMounted(async () => {
             profile.value = { ...fetchedProfile }
             // Map relations to IDs for the form
             // @ts-ignore
-            if (fetchedProfile.sports) profile.value.sports = fetchedProfile.sports.map((s: any) => s.documentId)
+            if (fetchedProfile.activities) profile.value.activities = fetchedProfile.activities.map((s: any) => s.documentId)
             // @ts-ignore
             if (fetchedProfile.events) profile.value.events = fetchedProfile.events.map((e: any) => e.documentId)
         }

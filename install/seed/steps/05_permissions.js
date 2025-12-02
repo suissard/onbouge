@@ -30,7 +30,7 @@ async function main() {
                 }
             };
 
-            enableRead('api::sport', 'sport');
+            enableRead('api::activity', 'activity');
             enableRead('api::poi', 'poi');
             enableRead('api::profile', 'profile');
             enableRead('api::event', 'event');
@@ -62,7 +62,7 @@ async function main() {
             try {
                 const createRoleRes = await axios.post(`${STRAPI_URL}/users-permissions/roles`, {
                     name: 'Ambassador',
-                    description: 'Ambassador with full rights on POI, Event, and Sports',
+                    description: 'Ambassador with full rights on POI, Event, and Activities',
                     type: 'ambassador'
                 }, {
                     headers: { Authorization: `Bearer ${jwt}` }
@@ -91,7 +91,7 @@ async function main() {
                 }
             };
 
-            enableFullCRUD('api::sport', 'sport');
+            enableFullCRUD('api::activity', 'activity');
             enableFullCRUD('api::poi', 'poi');
             enableFullCRUD('api::event', 'event');
             // Ambassador can also read profiles, maybe? Assuming yes for now, similar to public/auth
@@ -220,7 +220,7 @@ async function main() {
                 }
             };
 
-            enableReadCreate('api::sport', 'sport');
+            enableReadCreate('api::activity', 'activity');
             enableReadCreate('api::poi', 'poi');
             enableReadCreate('api::event', 'event');
             

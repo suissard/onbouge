@@ -9,7 +9,7 @@
       <v-btn to="/events" color="primary">Events</v-btn>
       <v-btn to="/pois" color="primary">POIs</v-btn>
       <v-btn to="/profiles" color="primary">Profiles</v-btn>
-      <v-btn to="/sports" color="primary">Sports</v-btn>
+      <v-btn to="/activities" color="primary">Activités</v-btn>
       <v-btn to="/spatial-test" color="primary">Spatial Test</v-btn>
       <template v-if="!authStore.user">
         <v-btn to="/login" color="secondary">Login</v-btn>

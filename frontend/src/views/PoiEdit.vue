@@ -2,14 +2,14 @@
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit POI' : 'Create POI' }}</h1>
     <DynamicUpdateForm v-if="poi" :initial-data="poi" :model-class="Poi"
-      :data-sources="{ sports: sportsList, events: eventsList }" :title="isEditing ? 'Edit POI' : 'Create POI'"
+      :data-sources="{ activities: activitiesList, events: eventsList }" :title="isEditing ? 'Edit POI' : 'Create POI'"
       @save="savePoi" @delete="deletePoi" />
     <v-alert v-else-if="isEditing" type="info">Loading POI...</v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { usePoisStore, useSportsStore, useEventsStore } from '@/stores/strapiStore'
+import { usePoisStore, useActivitiesStore, useEventsStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -18,7 +18,7 @@ import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
 import { StrapiObject } from '@/classes/StrapiObject'
 
 const poiStore = usePoisStore()
-const sportsStore = useSportsStore()
+const activitiesStore = useActivitiesStore()
 const eventsStore = useEventsStore()
 const notificationStore = useNotificationsStore()
 const route = useRoute()
@@ -29,7 +29,7 @@ const isEditing = computed(() => !!poiId.value)
 const poi = ref<Partial<Poi> | null>(null)
 const loading = ref(false)
 
-const sportsList = computed(() => sportsStore.datas)
+const activitiesList = computed(() => activitiesStore.datas)
 const eventsList = computed(() => eventsStore.datas)
 
 const strapiObject = new StrapiObject<Poi>(
@@ -42,7 +42,7 @@ const strapiObject = new StrapiObject<Poi>(
 
 onMounted(async () => {
   await Promise.all([
-    sportsStore.getList(),
+    activitiesStore.getList(),
     eventsStore.getList()
   ])
 
@@ -51,7 +51,7 @@ onMounted(async () => {
     if (fetchedPoi) {
       poi.value = { ...fetchedPoi }
       // @ts-ignore
-      if (fetchedPoi.sports) poi.value.sports = fetchedPoi.sports.map((s: any) => s.documentId)
+      if (fetchedPoi.activities) poi.value.activities = fetchedPoi.activities.map((s: any) => s.documentId)
       // @ts-ignore
       if (fetchedPoi.events) poi.value.events = fetchedPoi.events.map((e: any) => e.documentId)
     }
@@ -80,10 +80,10 @@ async function savePoi(formData: any) {
     // We merge with existing poi.value to ensure required fields like title are always present
     const payload = { ...poi.value, ...formData }
     if (formData.latitude !== undefined && formData.latitude !== null && formData.latitude !== '') {
-        payload.latitude = Number(formData.latitude)
+      payload.latitude = Number(formData.latitude)
     }
     if (formData.longitude !== undefined && formData.longitude !== null && formData.longitude !== '') {
-        payload.longitude = Number(formData.longitude)
+      payload.longitude = Number(formData.longitude)
     }
 
     await strapiObject.save(payload, poiId.value || undefined)

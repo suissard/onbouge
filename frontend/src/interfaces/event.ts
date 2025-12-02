@@ -1,5 +1,5 @@
 import { FormField } from '@/decorators/form';
-import type { Sport } from './sport';
+import type { Activity } from './activity';
 import type { Poi } from './poi';
 import type { Profile } from './profile';
 
@@ -19,14 +19,14 @@ export class Event {
   image?: string = '';
 
   @FormField({
-    label: 'Sports',
+    label: 'Activities',
     type: 'select',
-    optionsKey: 'sports',
+    optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
     itemValue: 'documentId'
   })
-  sports: Sport[] = [];
+  activities: Activity[] = [];
 
   @FormField({
     label: 'POI',

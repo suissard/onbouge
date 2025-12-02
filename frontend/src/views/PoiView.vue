@@ -15,18 +15,19 @@
       <v-card-text>
         <p>{{ poi.description }}</p>
         <a :href="poi.gmaps_url" target="_blank">View on Google Maps</a>
-        <div v-if="poi.sports && poi.sports.length > 0">
-          <h3 class="text-h6 mt-4">Sports</h3>
+        <div v-if="poi.activities && poi.activities.length > 0">
+          <h3 class="text-h6 mt-4">Activities</h3>
           <v-chip-group>
-            <v-chip v-for="sport in poi.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
-            }}</v-chip>
+            <v-chip v-for="activity in poi.activities" :key="activity.id" :to="`/activities/${activity.documentId}`">{{
+              activity.title
+              }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="poi.events && poi.events.length > 0">
           <h3 class="text-h6 mt-4">Events</h3>
           <v-chip-group>
             <v-chip v-for="event in poi.events" :key="event.id" :to="`/events/${event.documentId}`">{{ event.title
-            }}</v-chip>
+              }}</v-chip>
           </v-chip-group>
         </div>
       </v-card-text>

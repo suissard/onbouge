@@ -18,7 +18,7 @@
       "setup:schemas": "sudo node install/steps/03_schemas.js",
       "setup:spatial": "node install/steps/04_spatial.js",
       "seed": "node install/seed/index.js",
-      "seed:sports": "node install/seed/steps/01_sports.js",
+      "seed:activities": "node install/seed/steps/01_activities.js",
       "seed:pois": "node install/seed/steps/02_pois.js",
       "seed:profiles": "node install/seed/steps/03_profiles.js",
       "seed:events": "node install/seed/steps/04_events.js",

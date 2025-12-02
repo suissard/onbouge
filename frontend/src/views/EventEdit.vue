@@ -2,25 +2,25 @@
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit Event' : 'Create Event' }}</h1>
     <DynamicUpdateForm v-if="event" :initial-data="event" :model-class="Event"
-      :data-sources="{ sports: sportsList, pois: poisList, profiles: profilesList }"
+      :data-sources="{ activities: activitiesList, pois: poisList, profiles: profilesList }"
       :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" @delete="deleteEvent" />
     <v-alert v-else-if="isEditing" type="info">Loading event...</v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { useEventsStore, useSportsStore, usePoisStore, useProfilesStore } from '@/stores/strapiStore'
+import { useEventsStore, useActivitiesStore, usePoisStore, useProfilesStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Event } from '@/interfaces/event'
-import type { Sport } from '@/interfaces/sport'
+import type { Activity } from '@/interfaces/activity'
 import type { Profile } from '@/interfaces/profile'
 import DynamicUpdateForm from '@/components/DynamicUpdateForm.vue'
 import { StrapiObject } from '@/classes/StrapiObject'
 
 const eventStore = useEventsStore()
-const sportsStore = useSportsStore()
+const activitiesStore = useActivitiesStore()
 const poisStore = usePoisStore()
 const profilesStore = useProfilesStore()
 const notificationStore = useNotificationsStore()
@@ -33,7 +33,7 @@ const isEditing = computed(() => !!eventId.value)
 const event = ref<Partial<Event> | null>(null)
 const loading = ref(false)
 
-const sportsList = computed(() => sportsStore.datas)
+const activitiesList = computed(() => activitiesStore.datas)
 const poisList = computed(() => poisStore.datas)
 const profilesList = computed(() => profilesStore.datas)
 
@@ -52,7 +52,7 @@ const strapiObject = new StrapiObject<Event>(
 onMounted(async () => {
   // Load all necessary data
   await Promise.all([
-    sportsStore.getList(),
+    activitiesStore.getList(),
     poisStore.getList(),
     profilesStore.getList()
   ])
@@ -64,9 +64,9 @@ onMounted(async () => {
       event.value = { ...fetchedEvent }
 
       // Initialize selections
-      if (fetchedEvent.sports) {
+      if (fetchedEvent.activities) {
         // @ts-ignore
-        event.value.sports = fetchedEvent.sports.map((s: Sport) => s.documentId)
+        event.value.activities = fetchedEvent.activities.map((s: Activity) => s.documentId)
       }
       if (fetchedEvent.poi) {
         // @ts-ignore

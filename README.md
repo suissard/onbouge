@@ -6,7 +6,7 @@
 
 ## ✨ Fonctionnalités Clés
 
-- **Profils Utilisateurs :** Chaque utilisateur dispose d'un profil avec ses sports, son niveau et son matériel.
+- **Profils Utilisateurs :** Chaque utilisateur dispose d'un profil avec ses activités, son niveau et son matériel.
 - **Authentification Complète :** Inscription et connexion via email/mot de passe ou des fournisseurs sociaux (Google, Facebook).
 - **Événements & Lieux (POI) :** Les utilisateurs peuvent créer et consulter des événements (amicaux, compétitions) et des lieux de pratique.
 - **Événements Suggérés :** L'application génère des suggestions d'événements pour encourager l'organisation communautaire via un système de vote.

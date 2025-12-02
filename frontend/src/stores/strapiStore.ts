@@ -5,7 +5,7 @@ import strapi from '@/services/strapi'
 import type { Event } from '@/interfaces/event'
 import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
-import type { Sport } from '@/interfaces/sport'
+import type { Activity } from '@/interfaces/activity'
 import type { User } from '@/interfaces/user'
 
 // Define a base interface for objects that have a documentId
@@ -125,6 +125,6 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 export const useEventsStore = strapiStoreBuilder<Event>("events")
 export const usePoisStore = strapiStoreBuilder<Poi>("pois")
 export const useProfilesStore = strapiStoreBuilder<Profile>("profiles")
-export const useSportsStore = strapiStoreBuilder<Sport>("sports")
+export const useActivitiesStore = strapiStoreBuilder<Activity>("activities")
 export const useUsersStore = strapiStoreBuilder<User>("users")
 export const useRolesStore = strapiStoreBuilder<any>("users-permissions/roles")

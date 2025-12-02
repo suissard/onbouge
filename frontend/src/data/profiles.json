@@ -4,15 +4,29 @@
             "id": 1,
             "documentId": "fe678791-fdcd-4f21-aa17-c20007deb756",
             "username": "suissard",
-            "description": "Passionné de Weta et de sports nautiques.",
+            "description": "Passionné de Weta et de activities nautiques.",
             "createdAt": "2025-09-02T16:39:09.725Z",
             "updatedAt": "2025-11-06T13:00:00.000Z",
             "publishedAt": "2025-11-04T00:24:25.118Z",
-            "sports": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
-            "events": [
-                { "id": 2, "documentId": "nhtcddleq7s6qzl54xapo2l4", "title": "Fregate des naze a riens" }
+            "activities": [
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta"
+                }
             ],
-            "user": { "id": 1, "documentId": "edexqkgbxi4ej2vwf9znd6in", "username": "suissard" }
+            "events": [
+                {
+                    "id": 2,
+                    "documentId": "nhtcddleq7s6qzl54xapo2l4",
+                    "title": "Fregate des naze a riens"
+                }
+            ],
+            "user": {
+                "id": 1,
+                "documentId": "edexqkgbxi4ej2vwf9znd6in",
+                "username": "suissard"
+            }
         },
         {
             "id": 2,
@@ -22,7 +36,7 @@
             "createdAt": "2025-08-12T16:04:01.053Z",
             "updatedAt": "2025-11-04T06:05:10.681Z",
             "publishedAt": "2025-11-04T01:20:46.535Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 2,
                     "documentId": "55b2e3a0-a653-4a80-88e2-3959111fec25",
@@ -65,7 +79,7 @@
             "createdAt": "2025-09-12T20:05:54.686Z",
             "updatedAt": "2025-11-03T22:29:15.268Z",
             "publishedAt": "2025-11-04T01:25:59.097Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -108,7 +122,7 @@
             "createdAt": "2024-11-24T08:37:57.416Z",
             "updatedAt": "2025-11-04T08:20:25.553Z",
             "publishedAt": "2025-11-04T12:24:45.569Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 3,
                     "documentId": "c0e47c0a-d012-4e9c-bfba-d10158639b8b",
@@ -151,7 +165,7 @@
             "createdAt": "2025-06-19T00:27:09.923Z",
             "updatedAt": "2025-11-03T23:31:45.708Z",
             "publishedAt": "2025-11-04T07:11:37.903Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 1,
                     "documentId": "b3caa75d-3c2b-4302-a00c-6c8e132bf070",
@@ -194,7 +208,7 @@
             "createdAt": "2025-03-01T10:17:58.000Z",
             "updatedAt": "2025-11-03T21:38:37.204Z",
             "publishedAt": "2025-11-03T20:42:18.674Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 5,
                     "documentId": "6603178c-0b63-45a5-a5d7-286d15e56bfb",
@@ -237,7 +251,7 @@
             "createdAt": "2025-10-27T04:51:17.795Z",
             "updatedAt": "2025-11-04T05:12:21.883Z",
             "publishedAt": "2025-11-04T06:38:53.559Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 2,
                     "documentId": "55b2e3a0-a653-4a80-88e2-3959111fec25",
@@ -280,7 +294,7 @@
             "createdAt": "2025-03-14T16:09:03.688Z",
             "updatedAt": "2025-11-03T22:58:21.593Z",
             "publishedAt": "2025-11-04T15:03:00.655Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 3,
                     "documentId": "c0e47c0a-d012-4e9c-bfba-d10158639b8b",
@@ -323,7 +337,7 @@
             "createdAt": "2025-07-06T21:41:13.590Z",
             "updatedAt": "2025-11-03T20:43:24.621Z",
             "publishedAt": "2025-11-04T02:00:20.837Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -366,7 +380,7 @@
             "createdAt": "2025-09-11T21:29:44.370Z",
             "updatedAt": "2025-11-03T21:15:51.069Z",
             "publishedAt": "2025-11-04T14:55:29.592Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -409,7 +423,7 @@
             "createdAt": "2024-11-20T07:14:57.346Z",
             "updatedAt": "2025-11-04T00:23:06.602Z",
             "publishedAt": "2025-11-03T20:24:56.847Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 5,
                     "documentId": "6603178c-0b63-45a5-a5d7-286d15e56bfb",
@@ -452,7 +466,7 @@
             "createdAt": "2025-02-20T22:22:14.784Z",
             "updatedAt": "2025-11-04T07:23:44.484Z",
             "publishedAt": "2025-11-04T13:38:40.845Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 5,
                     "documentId": "6603178c-0b63-45a5-a5d7-286d15e56bfb",
@@ -495,7 +509,7 @@
             "createdAt": "2025-10-18T04:13:08.634Z",
             "updatedAt": "2025-11-03T19:03:55.535Z",
             "publishedAt": "2025-11-04T08:35:22.397Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -538,7 +552,7 @@
             "createdAt": "2025-03-27T14:51:24.252Z",
             "updatedAt": "2025-11-03T22:34:46.249Z",
             "publishedAt": "2025-11-04T05:25:51.547Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 5,
                     "documentId": "6603178c-0b63-45a5-a5d7-286d15e56bfb",
@@ -581,7 +595,7 @@
             "createdAt": "2025-07-08T04:30:28.121Z",
             "updatedAt": "2025-11-04T08:13:04.622Z",
             "publishedAt": "2025-11-04T13:02:07.832Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 1,
                     "documentId": "b3caa75d-3c2b-4302-a00c-6c8e132bf070",
@@ -624,7 +638,7 @@
             "createdAt": "2025-06-19T18:35:37.278Z",
             "updatedAt": "2025-11-03T19:00:14.110Z",
             "publishedAt": "2025-11-04T00:56:01.572Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 2,
                     "documentId": "55b2e3a0-a653-4a80-88e2-3959111fec25",
@@ -667,7 +681,7 @@
             "createdAt": "2025-05-15T07:19:40.736Z",
             "updatedAt": "2025-11-04T16:34:38.971Z",
             "publishedAt": "2025-11-04T16:13:26.109Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 1,
                     "documentId": "b3caa75d-3c2b-4302-a00c-6c8e132bf070",
@@ -710,7 +724,7 @@
             "createdAt": "2025-10-18T13:27:38.916Z",
             "updatedAt": "2025-11-04T12:30:55.670Z",
             "publishedAt": "2025-11-04T00:49:47.085Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -753,7 +767,7 @@
             "createdAt": "2025-03-23T23:14:17.332Z",
             "updatedAt": "2025-11-04T12:45:24.351Z",
             "publishedAt": "2025-11-04T14:29:39.864Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 1,
                     "documentId": "b3caa75d-3c2b-4302-a00c-6c8e132bf070",
@@ -796,7 +810,7 @@
             "createdAt": "2024-12-16T00:38:09.563Z",
             "updatedAt": "2025-11-04T01:43:07.367Z",
             "publishedAt": "2025-11-03T18:55:43.460Z",
-            "sports": [
+            "activities": [
                 {
                     "id": 4,
                     "documentId": "9f6dcd11-2e4e-4536-803b-77ac6e4aa900",
@@ -839,11 +853,25 @@
             "createdAt": "2025-11-06T13:01:00.000Z",
             "updatedAt": "2025-11-06T13:01:00.000Z",
             "publishedAt": "2025-11-06T13:01:00.000Z",
-            "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
-            "events": [
-                { "id": 3, "documentId": "event3", "title": "Compétition de Kitesurf à La Baule" }
+            "activities": [
+                {
+                    "id": 4,
+                    "documentId": "s4",
+                    "title": "Kitesurf"
+                }
             ],
-            "user": { "id": 2, "documentId": "user2", "username": "marin_le_vent" }
+            "events": [
+                {
+                    "id": 3,
+                    "documentId": "event3",
+                    "title": "Compétition de Kitesurf à La Baule"
+                }
+            ],
+            "user": {
+                "id": 2,
+                "documentId": "user2",
+                "username": "marin_le_vent"
+            }
         },
         {
             "id": 22,
@@ -853,11 +881,25 @@
             "createdAt": "2025-11-06T13:02:00.000Z",
             "updatedAt": "2025-11-06T13:02:00.000Z",
             "publishedAt": "2025-11-06T13:02:00.000Z",
-            "sports": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }],
-            "events": [
-                { "id": 4, "documentId": "event4", "title": "Sortie Planche à voile à Pornichet" }
+            "activities": [
+                {
+                    "id": 3,
+                    "documentId": "s3",
+                    "title": "Planche à voile"
+                }
             ],
-            "user": { "id": 3, "documentId": "user3", "username": "jean_voile" }
+            "events": [
+                {
+                    "id": 4,
+                    "documentId": "event4",
+                    "title": "Sortie Planche à voile à Pornichet"
+                }
+            ],
+            "user": {
+                "id": 3,
+                "documentId": "user3",
+                "username": "jean_voile"
+            }
         },
         {
             "id": 23,
@@ -867,11 +909,25 @@
             "createdAt": "2025-11-06T13:03:00.000Z",
             "updatedAt": "2025-11-06T13:03:00.000Z",
             "publishedAt": "2025-11-06T13:03:00.000Z",
-            "sports": [{ "id": 5, "documentId": "s5", "title": "Kayak de mer" }],
-            "events": [
-                { "id": 5, "documentId": "event5", "title": "Randonnée en Kayak de Mer" }
+            "activities": [
+                {
+                    "id": 5,
+                    "documentId": "s5",
+                    "title": "Kayak de mer"
+                }
             ],
-            "user": { "id": 4, "documentId": "user4", "username": "anne_planche" }
+            "events": [
+                {
+                    "id": 5,
+                    "documentId": "event5",
+                    "title": "Randonnée en Kayak de Mer"
+                }
+            ],
+            "user": {
+                "id": 4,
+                "documentId": "user4",
+                "username": "anne_planche"
+            }
         },
         {
             "id": 24,
@@ -881,11 +937,25 @@
             "createdAt": "2025-11-06T13:04:00.000Z",
             "updatedAt": "2025-11-06T13:04:00.000Z",
             "publishedAt": "2025-11-06T13:04:00.000Z",
-            "sports": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
-            "events": [
-                { "id": 6, "documentId": "event6", "title": "Initiation au Stand-up Paddle" }
+            "activities": [
+                {
+                    "id": 6,
+                    "documentId": "s6",
+                    "title": "Stand-up paddle"
+                }
             ],
-            "user": { "id": 5, "documentId": "user5", "username": "pierre_kayak" }
+            "events": [
+                {
+                    "id": 6,
+                    "documentId": "event6",
+                    "title": "Initiation au Stand-up Paddle"
+                }
+            ],
+            "user": {
+                "id": 5,
+                "documentId": "user5",
+                "username": "pierre_kayak"
+            }
         },
         {
             "id": 25,
@@ -895,11 +965,25 @@
             "createdAt": "2025-11-06T13:05:00.000Z",
             "updatedAt": "2025-11-06T13:05:00.000Z",
             "publishedAt": "2025-11-06T13:05:00.000Z",
-            "sports": [{ "id": 7, "documentId": "s7", "title": "Aviron" }],
-            "events": [
-                { "id": 7, "documentId": "event7", "title": "Régate d'Aviron sur l'Erdre" }
+            "activities": [
+                {
+                    "id": 7,
+                    "documentId": "s7",
+                    "title": "Aviron"
+                }
             ],
-            "user": { "id": 6, "documentId": "user6", "username": "marie_paddle" }
+            "events": [
+                {
+                    "id": 7,
+                    "documentId": "event7",
+                    "title": "Régate d'Aviron sur l'Erdre"
+                }
+            ],
+            "user": {
+                "id": 6,
+                "documentId": "user6",
+                "username": "marie_paddle"
+            }
         },
         {
             "id": 26,
@@ -909,11 +993,25 @@
             "createdAt": "2025-11-06T13:06:00.000Z",
             "updatedAt": "2025-11-06T13:06:00.000Z",
             "publishedAt": "2025-11-06T13:06:00.000Z",
-            "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
-            "events": [
-                { "id": 8, "documentId": "event8", "title": "Session Surf au coucher du soleil" }
+            "activities": [
+                {
+                    "id": 8,
+                    "documentId": "s8",
+                    "title": "Surf"
+                }
             ],
-            "user": { "id": 7, "documentId": "user7", "username": "luc_aviron" }
+            "events": [
+                {
+                    "id": 8,
+                    "documentId": "event8",
+                    "title": "Session Surf au coucher du soleil"
+                }
+            ],
+            "user": {
+                "id": 7,
+                "documentId": "user7",
+                "username": "luc_aviron"
+            }
         },
         {
             "id": 27,
@@ -923,11 +1021,25 @@
             "createdAt": "2025-11-06T13:07:00.000Z",
             "updatedAt": "2025-11-06T13:07:00.000Z",
             "publishedAt": "2025-11-06T13:07:00.000Z",
-            "sports": [{ "id": 9, "documentId": "s9", "title": "Char à voile" }],
-            "events": [
-                { "id": 9, "documentId": "event9", "title": "Course de Char à Voile" }
+            "activities": [
+                {
+                    "id": 9,
+                    "documentId": "s9",
+                    "title": "Char à voile"
+                }
             ],
-            "user": { "id": 8, "documentId": "user8", "username": "sophie_surf" }
+            "events": [
+                {
+                    "id": 9,
+                    "documentId": "event9",
+                    "title": "Course de Char à Voile"
+                }
+            ],
+            "user": {
+                "id": 8,
+                "documentId": "user8",
+                "username": "sophie_surf"
+            }
         },
         {
             "id": 28,
@@ -937,11 +1049,25 @@
             "createdAt": "2025-11-06T13:08:00.000Z",
             "updatedAt": "2025-11-06T13:08:00.000Z",
             "publishedAt": "2025-11-06T13:08:00.000Z",
-            "sports": [{ "id": 10, "documentId": "s10", "title": "Longe-côte" }],
-            "events": [
-                { "id": 10, "documentId": "event10", "title": "Sortie Longe-côte au Croisic" }
+            "activities": [
+                {
+                    "id": 10,
+                    "documentId": "s10",
+                    "title": "Longe-côte"
+                }
             ],
-            "user": { "id": 9, "documentId": "user9", "username": "paul_char" }
+            "events": [
+                {
+                    "id": 10,
+                    "documentId": "event10",
+                    "title": "Sortie Longe-côte au Croisic"
+                }
+            ],
+            "user": {
+                "id": 9,
+                "documentId": "user9",
+                "username": "paul_char"
+            }
         },
         {
             "id": 29,
@@ -951,11 +1077,25 @@
             "createdAt": "2025-11-06T13:09:00.000Z",
             "updatedAt": "2025-11-06T13:09:00.000Z",
             "publishedAt": "2025-11-06T13:09:00.000Z",
-            "sports": [{ "id": 11, "documentId": "s11", "title": "Voile légère" }],
-            "events": [
-                { "id": 11, "documentId": "event11", "title": "Régate de Voile Légère" }
+            "activities": [
+                {
+                    "id": 11,
+                    "documentId": "s11",
+                    "title": "Voile légère"
+                }
             ],
-            "user": { "id": 10, "documentId": "user10", "username": "julie_longecote" }
+            "events": [
+                {
+                    "id": 11,
+                    "documentId": "event11",
+                    "title": "Régate de Voile Légère"
+                }
+            ],
+            "user": {
+                "id": 10,
+                "documentId": "user10",
+                "username": "julie_longecote"
+            }
         },
         {
             "id": 30,
@@ -965,32 +1105,511 @@
             "createdAt": "2025-11-06T13:10:00.000Z",
             "updatedAt": "2025-11-06T13:10:00.000Z",
             "publishedAt": "2025-11-06T13:10:00.000Z",
-            "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
-            "events": [
-                { "id": 12, "documentId": "event12", "title": "Concours de Pêche en Mer" }
+            "activities": [
+                {
+                    "id": 12,
+                    "documentId": "s12",
+                    "title": "Pêche en mer"
+                }
             ],
-            "user": { "id": 11, "documentId": "user11", "username": "thomas_voile" }
+            "events": [
+                {
+                    "id": 12,
+                    "documentId": "event12",
+                    "title": "Concours de Pêche en Mer"
+                }
+            ],
+            "user": {
+                "id": 11,
+                "documentId": "user11",
+                "username": "thomas_voile"
+            }
         },
-        { "id": 31, "documentId": "profile31", "username": "chloe_soleil", "description": "Fan de paddle.", "createdAt": "2025-11-07T10:00:00.000Z", "updatedAt": "2025-11-07T10:00:00.000Z", "publishedAt": "2025-11-07T10:00:00.000Z", "sports": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }], "events": [], "user": { "id": 12, "documentId": "user12", "username": "chloe_soleil" } },
-        { "id": 32, "documentId": "profile32", "username": "leo_vague", "description": "Surfeur du dimanche.", "createdAt": "2025-11-07T10:01:00.000Z", "updatedAt": "2025-11-07T10:01:00.000Z", "publishedAt": "2025-11-07T10:01:00.000Z", "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }], "events": [], "user": { "id": 13, "documentId": "user13", "username": "leo_vague" } },
-        { "id": 33, "documentId": "profile33", "username": "eva_maree", "description": "Le kitesurf, c'est la vie.", "createdAt": "2025-11-07T10:02:00.000Z", "updatedAt": "2025-11-07T10:02:00.000Z", "publishedAt": "2025-11-07T10:02:00.000Z", "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }], "events": [], "user": { "id": 14, "documentId": "user14", "username": "eva_maree" } },
-        { "id": 34, "documentId": "profile34", "username": "hugo_ocean", "description": "Pêcheur en haute mer.", "createdAt": "2025-11-07T10:03:00.000Z", "updatedAt": "2025-11-07T10:03:00.000Z", "publishedAt": "2025-11-07T10:03:00.000Z", "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }], "events": [], "user": { "id": 15, "documentId": "user15", "username": "hugo_ocean" } },
-        { "id": 35, "documentId": "profile35", "username": "louise_rivage", "description": "Longe-côte pour garder la forme.", "createdAt": "2025-11-07T10:04:00.000Z", "updatedAt": "2025-11-07T10:04:00.000Z", "publishedAt": "2025-11-07T10:04:00.000Z", "sports": [{ "id": 10, "documentId": "s10", "title": "Longe-côte" }], "events": [], "user": { "id": 16, "documentId": "user16", "username": "louise_rivage" } },
-        { "id": 36, "documentId": "profile36", "username": "arthur_horizon", "description": "Char à voile sur les plages de la côte.", "createdAt": "2025-11-07T10:05:00.000Z", "updatedAt": "2025-11-07T10:05:00.000Z", "publishedAt": "2025-11-07T10:05:00.000Z", "sports": [{ "id": 9, "documentId": "s9", "title": "Char à voile" }], "events": [], "user": { "id": 17, "documentId": "user17", "username": "arthur_horizon" } },
-        { "id": 37, "documentId": "profile37", "username": "camille_lagon", "description": "Kayakiste passionnée.", "createdAt": "2025-11-07T10:06:00.000Z", "updatedAt": "2025-11-07T10:06:00.000Z", "publishedAt": "2025-11-07T10:06:00.000Z", "sports": [{ "id": 5, "documentId": "s5", "title": "Kayak de mer" }], "events": [], "user": { "id": 18, "documentId": "user18", "username": "camille_lagon" } },
-        { "id": 38, "documentId": "profile38", "username": "nathan_rocher", "description": "Planche à voile, ma passion.", "createdAt": "2025-11-07T10:07:00.000Z", "updatedAt": "2025-11-07T10:07:00.000Z", "publishedAt": "2025-11-07T10:07:00.000Z", "sports": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }], "events": [], "user": { "id": 19, "documentId": "user19", "username": "nathan_rocher" } },
-        { "id": 39, "documentId": "profile39", "username": "manon_ecume", "description": "Rameuse du soir.", "createdAt": "2025-11-07T10:08:00.000Z", "updatedAt": "2025-11-07T10:08:00.000Z", "publishedAt": "2025-11-07T10:08:00.000Z", "sports": [{ "id": 7, "documentId": "s7", "title": "Aviron" }], "events": [], "user": { "id": 20, "documentId": "user20", "username": "manon_ecume" } },
-        { "id": 40, "documentId": "profile40", "username": "alexis_phare", "description": "Voile légère, toujours.", "createdAt": "2025-11-07T10:09:00.000Z", "updatedAt": "2025-11-07T10:09:00.000Z", "publishedAt": "2025-11-07T10:09:00.000Z", "sports": [{ "id": 11, "documentId": "s11", "title": "Voile légère" }], "events": [], "user": { "id": 21, "documentId": "user21", "username": "alexis_phare" } },
-        { "id": 41, "documentId": "profile41", "username": "emma_dune", "description": "Fan de Weta.", "createdAt": "2025-11-07T10:10:00.000Z", "updatedAt": "2025-11-07T10:10:00.000Z", "publishedAt": "2025-11-07T10:10:00.000Z", "sports": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }], "events": [], "user": { "id": 22, "documentId": "user22", "username": "emma_dune" } },
-        { "id": 42, "documentId": "profile42", "username": "gabriel_port", "description": "Surfeur et kitesurfeur.", "createdAt": "2025-11-07T10:11:00.000Z", "updatedAt": "2025-11-07T10:11:00.000Z", "publishedAt": "2025-11-07T10:11:00.000Z", "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }, { "id": 4, "documentId": "s4", "title": "Kitesurf" }], "events": [], "user": { "id": 23, "documentId": "user23", "username": "gabriel_port" } },
-        { "id": 43, "documentId": "profile43", "username": "ines_mouillage", "description": "Planche à voile et paddle.", "createdAt": "2025-11-07T10:12:00.000Z", "updatedAt": "2025-11-07T10:12:00.000Z", "publishedAt": "2025-11-07T10:12:00.000Z", "sports": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }, { "id": 6, "documentId": "s6", "title": "Stand-up paddle" }], "events": [], "user": { "id": 24, "documentId": "user24", "username": "ines_mouillage" } },
-        { "id": 44, "documentId": "profile44", "username": "jules_regate", "description": "Aviron et kayak.", "createdAt": "2025-11-07T10:13:00.000Z", "updatedAt": "2025-11-07T10:13:00.000Z", "publishedAt": "2025-11-07T10:13:00.000Z", "sports": [{ "id": 7, "documentId": "s7", "title": "Aviron" }, { "id": 5, "documentId": "s5", "title": "Kayak de mer" }], "events": [], "user": { "id": 25, "documentId": "user25", "username": "jules_regate" } },
-        { "id": 45, "documentId": "profile45", "username": "lea_croisiere", "description": "Pêche et longe-côte.", "createdAt": "2025-11-07T10:14:00.000Z", "updatedAt": "2025-11-07T10:14:00.000Z", "publishedAt": "2025-11-07T10:14:00.000Z", "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }, { "id": 10, "documentId": "s10", "title": "Longe-côte" }], "events": [], "user": { "id": 26, "documentId": "user26", "username": "lea_croisiere" } },
-        { "id": 46, "documentId": "profile46", "username": "maxime_ancre", "description": "Char à voile et Weta.", "createdAt": "2025-11-07T10:15:00.000Z", "updatedAt": "2025-11-07T10:15:00.000Z", "publishedAt": "2025-11-07T10:15:00.000Z", "sports": [{ "id": 9, "documentId": "s9", "title": "Char à voile" }, { "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }], "events": [], "user": { "id": 27, "documentId": "user27", "username": "maxime_ancre" } },
-        { "id": 47, "documentId": "profile47", "username": "noemie_amarre", "description": "Voile légère et surf.", "createdAt": "2025-11-07T10:16:00.000Z", "updatedAt": "2025-11-07T10:16:00.000Z", "publishedAt": "2025-11-07T10:16:00.000Z", "sports": [{ "id": 11, "documentId": "s11", "title": "Voile légère" }, { "id": 8, "documentId": "s8", "title": "Surf" }], "events": [], "user": { "id": 28, "documentId": "user28", "username": "noemie_amarre" } },
-        { "id": 48, "documentId": "profile48", "username": "oscar_bouee", "description": "Kitesurf et paddle.", "createdAt": "2025-11-07T10:17:00.000Z", "updatedAt": "2025-11-07T10:17:00.000Z", "publishedAt": "2025-11-07T10:17:00.000Z", "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }, { "id": 6, "documentId": "s6", "title": "Stand-up paddle" }], "events": [], "user": { "id": 29, "documentId": "user29", "username": "oscar_bouee" } },
-        { "id": 49, "documentId": "profile49", "username": "sarah_ponton", "description": "Aviron et pêche.", "createdAt": "2025-11-07T10:18:00.000Z", "updatedAt": "2025-11-07T10:18:00.000Z", "publishedAt": "2025-11-07T10:18:00.000Z", "sports": [{ "id": 7, "documentId": "s7", "title": "Aviron" }, { "id": 12, "documentId": "s12", "title": "Pêche en mer" }], "events": [], "user": { "id": 30, "documentId": "user30", "username": "sarah_ponton" } },
-        { "id": 50, "documentId": "profile50", "username": "theo_quai", "description": "Planche à voile et longe-côte.", "createdAt": "2025-11-07T10:19:00.000Z", "updatedAt": "2025-11-07T10:19:00.000Z", "publishedAt": "2025-11-07T10:19:00.000Z", "sports": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }, { "id": 10, "documentId": "s10", "title": "Longe-côte" }], "events": [], "user": { "id": 31, "documentId": "user31", "username": "theo_quai" } }
+        {
+            "id": 31,
+            "documentId": "profile31",
+            "username": "chloe_soleil",
+            "description": "Fan de paddle.",
+            "createdAt": "2025-11-07T10:00:00.000Z",
+            "updatedAt": "2025-11-07T10:00:00.000Z",
+            "publishedAt": "2025-11-07T10:00:00.000Z",
+            "activities": [
+                {
+                    "id": 6,
+                    "documentId": "s6",
+                    "title": "Stand-up paddle"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 12,
+                "documentId": "user12",
+                "username": "chloe_soleil"
+            }
+        },
+        {
+            "id": 32,
+            "documentId": "profile32",
+            "username": "leo_vague",
+            "description": "Surfeur du dimanche.",
+            "createdAt": "2025-11-07T10:01:00.000Z",
+            "updatedAt": "2025-11-07T10:01:00.000Z",
+            "publishedAt": "2025-11-07T10:01:00.000Z",
+            "activities": [
+                {
+                    "id": 8,
+                    "documentId": "s8",
+                    "title": "Surf"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 13,
+                "documentId": "user13",
+                "username": "leo_vague"
+            }
+        },
+        {
+            "id": 33,
+            "documentId": "profile33",
+            "username": "eva_maree",
+            "description": "Le kitesurf, c'est la vie.",
+            "createdAt": "2025-11-07T10:02:00.000Z",
+            "updatedAt": "2025-11-07T10:02:00.000Z",
+            "publishedAt": "2025-11-07T10:02:00.000Z",
+            "activities": [
+                {
+                    "id": 4,
+                    "documentId": "s4",
+                    "title": "Kitesurf"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 14,
+                "documentId": "user14",
+                "username": "eva_maree"
+            }
+        },
+        {
+            "id": 34,
+            "documentId": "profile34",
+            "username": "hugo_ocean",
+            "description": "Pêcheur en haute mer.",
+            "createdAt": "2025-11-07T10:03:00.000Z",
+            "updatedAt": "2025-11-07T10:03:00.000Z",
+            "publishedAt": "2025-11-07T10:03:00.000Z",
+            "activities": [
+                {
+                    "id": 12,
+                    "documentId": "s12",
+                    "title": "Pêche en mer"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 15,
+                "documentId": "user15",
+                "username": "hugo_ocean"
+            }
+        },
+        {
+            "id": 35,
+            "documentId": "profile35",
+            "username": "louise_rivage",
+            "description": "Longe-côte pour garder la forme.",
+            "createdAt": "2025-11-07T10:04:00.000Z",
+            "updatedAt": "2025-11-07T10:04:00.000Z",
+            "publishedAt": "2025-11-07T10:04:00.000Z",
+            "activities": [
+                {
+                    "id": 10,
+                    "documentId": "s10",
+                    "title": "Longe-côte"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 16,
+                "documentId": "user16",
+                "username": "louise_rivage"
+            }
+        },
+        {
+            "id": 36,
+            "documentId": "profile36",
+            "username": "arthur_horizon",
+            "description": "Char à voile sur les plages de la côte.",
+            "createdAt": "2025-11-07T10:05:00.000Z",
+            "updatedAt": "2025-11-07T10:05:00.000Z",
+            "publishedAt": "2025-11-07T10:05:00.000Z",
+            "activities": [
+                {
+                    "id": 9,
+                    "documentId": "s9",
+                    "title": "Char à voile"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 17,
+                "documentId": "user17",
+                "username": "arthur_horizon"
+            }
+        },
+        {
+            "id": 37,
+            "documentId": "profile37",
+            "username": "camille_lagon",
+            "description": "Kayakiste passionnée.",
+            "createdAt": "2025-11-07T10:06:00.000Z",
+            "updatedAt": "2025-11-07T10:06:00.000Z",
+            "publishedAt": "2025-11-07T10:06:00.000Z",
+            "activities": [
+                {
+                    "id": 5,
+                    "documentId": "s5",
+                    "title": "Kayak de mer"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 18,
+                "documentId": "user18",
+                "username": "camille_lagon"
+            }
+        },
+        {
+            "id": 38,
+            "documentId": "profile38",
+            "username": "nathan_rocher",
+            "description": "Planche à voile, ma passion.",
+            "createdAt": "2025-11-07T10:07:00.000Z",
+            "updatedAt": "2025-11-07T10:07:00.000Z",
+            "publishedAt": "2025-11-07T10:07:00.000Z",
+            "activities": [
+                {
+                    "id": 3,
+                    "documentId": "s3",
+                    "title": "Planche à voile"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 19,
+                "documentId": "user19",
+                "username": "nathan_rocher"
+            }
+        },
+        {
+            "id": 39,
+            "documentId": "profile39",
+            "username": "manon_ecume",
+            "description": "Rameuse du soir.",
+            "createdAt": "2025-11-07T10:08:00.000Z",
+            "updatedAt": "2025-11-07T10:08:00.000Z",
+            "publishedAt": "2025-11-07T10:08:00.000Z",
+            "activities": [
+                {
+                    "id": 7,
+                    "documentId": "s7",
+                    "title": "Aviron"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 20,
+                "documentId": "user20",
+                "username": "manon_ecume"
+            }
+        },
+        {
+            "id": 40,
+            "documentId": "profile40",
+            "username": "alexis_phare",
+            "description": "Voile légère, toujours.",
+            "createdAt": "2025-11-07T10:09:00.000Z",
+            "updatedAt": "2025-11-07T10:09:00.000Z",
+            "publishedAt": "2025-11-07T10:09:00.000Z",
+            "activities": [
+                {
+                    "id": 11,
+                    "documentId": "s11",
+                    "title": "Voile légère"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 21,
+                "documentId": "user21",
+                "username": "alexis_phare"
+            }
+        },
+        {
+            "id": 41,
+            "documentId": "profile41",
+            "username": "emma_dune",
+            "description": "Fan de Weta.",
+            "createdAt": "2025-11-07T10:10:00.000Z",
+            "updatedAt": "2025-11-07T10:10:00.000Z",
+            "publishedAt": "2025-11-07T10:10:00.000Z",
+            "activities": [
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 22,
+                "documentId": "user22",
+                "username": "emma_dune"
+            }
+        },
+        {
+            "id": 42,
+            "documentId": "profile42",
+            "username": "gabriel_port",
+            "description": "Surfeur et kitesurfeur.",
+            "createdAt": "2025-11-07T10:11:00.000Z",
+            "updatedAt": "2025-11-07T10:11:00.000Z",
+            "publishedAt": "2025-11-07T10:11:00.000Z",
+            "activities": [
+                {
+                    "id": 8,
+                    "documentId": "s8",
+                    "title": "Surf"
+                },
+                {
+                    "id": 4,
+                    "documentId": "s4",
+                    "title": "Kitesurf"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 23,
+                "documentId": "user23",
+                "username": "gabriel_port"
+            }
+        },
+        {
+            "id": 43,
+            "documentId": "profile43",
+            "username": "ines_mouillage",
+            "description": "Planche à voile et paddle.",
+            "createdAt": "2025-11-07T10:12:00.000Z",
+            "updatedAt": "2025-11-07T10:12:00.000Z",
+            "publishedAt": "2025-11-07T10:12:00.000Z",
+            "activities": [
+                {
+                    "id": 3,
+                    "documentId": "s3",
+                    "title": "Planche à voile"
+                },
+                {
+                    "id": 6,
+                    "documentId": "s6",
+                    "title": "Stand-up paddle"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 24,
+                "documentId": "user24",
+                "username": "ines_mouillage"
+            }
+        },
+        {
+            "id": 44,
+            "documentId": "profile44",
+            "username": "jules_regate",
+            "description": "Aviron et kayak.",
+            "createdAt": "2025-11-07T10:13:00.000Z",
+            "updatedAt": "2025-11-07T10:13:00.000Z",
+            "publishedAt": "2025-11-07T10:13:00.000Z",
+            "activities": [
+                {
+                    "id": 7,
+                    "documentId": "s7",
+                    "title": "Aviron"
+                },
+                {
+                    "id": 5,
+                    "documentId": "s5",
+                    "title": "Kayak de mer"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 25,
+                "documentId": "user25",
+                "username": "jules_regate"
+            }
+        },
+        {
+            "id": 45,
+            "documentId": "profile45",
+            "username": "lea_croisiere",
+            "description": "Pêche et longe-côte.",
+            "createdAt": "2025-11-07T10:14:00.000Z",
+            "updatedAt": "2025-11-07T10:14:00.000Z",
+            "publishedAt": "2025-11-07T10:14:00.000Z",
+            "activities": [
+                {
+                    "id": 12,
+                    "documentId": "s12",
+                    "title": "Pêche en mer"
+                },
+                {
+                    "id": 10,
+                    "documentId": "s10",
+                    "title": "Longe-côte"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 26,
+                "documentId": "user26",
+                "username": "lea_croisiere"
+            }
+        },
+        {
+            "id": 46,
+            "documentId": "profile46",
+            "username": "maxime_ancre",
+            "description": "Char à voile et Weta.",
+            "createdAt": "2025-11-07T10:15:00.000Z",
+            "updatedAt": "2025-11-07T10:15:00.000Z",
+            "publishedAt": "2025-11-07T10:15:00.000Z",
+            "activities": [
+                {
+                    "id": 9,
+                    "documentId": "s9",
+                    "title": "Char à voile"
+                },
+                {
+                    "id": 2,
+                    "documentId": "lmrc99xxqh40vek0kc2h2sk0",
+                    "title": "Weta"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 27,
+                "documentId": "user27",
+                "username": "maxime_ancre"
+            }
+        },
+        {
+            "id": 47,
+            "documentId": "profile47",
+            "username": "noemie_amarre",
+            "description": "Voile légère et surf.",
+            "createdAt": "2025-11-07T10:16:00.000Z",
+            "updatedAt": "2025-11-07T10:16:00.000Z",
+            "publishedAt": "2025-11-07T10:16:00.000Z",
+            "activities": [
+                {
+                    "id": 11,
+                    "documentId": "s11",
+                    "title": "Voile légère"
+                },
+                {
+                    "id": 8,
+                    "documentId": "s8",
+                    "title": "Surf"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 28,
+                "documentId": "user28",
+                "username": "noemie_amarre"
+            }
+        },
+        {
+            "id": 48,
+            "documentId": "profile48",
+            "username": "oscar_bouee",
+            "description": "Kitesurf et paddle.",
+            "createdAt": "2025-11-07T10:17:00.000Z",
+            "updatedAt": "2025-11-07T10:17:00.000Z",
+            "publishedAt": "2025-11-07T10:17:00.000Z",
+            "activities": [
+                {
+                    "id": 4,
+                    "documentId": "s4",
+                    "title": "Kitesurf"
+                },
+                {
+                    "id": 6,
+                    "documentId": "s6",
+                    "title": "Stand-up paddle"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 29,
+                "documentId": "user29",
+                "username": "oscar_bouee"
+            }
+        },
+        {
+            "id": 49,
+            "documentId": "profile49",
+            "username": "sarah_ponton",
+            "description": "Aviron et pêche.",
+            "createdAt": "2025-11-07T10:18:00.000Z",
+            "updatedAt": "2025-11-07T10:18:00.000Z",
+            "publishedAt": "2025-11-07T10:18:00.000Z",
+            "activities": [
+                {
+                    "id": 7,
+                    "documentId": "s7",
+                    "title": "Aviron"
+                },
+                {
+                    "id": 12,
+                    "documentId": "s12",
+                    "title": "Pêche en mer"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 30,
+                "documentId": "user30",
+                "username": "sarah_ponton"
+            }
+        },
+        {
+            "id": 50,
+            "documentId": "profile50",
+            "username": "theo_quai",
+            "description": "Planche à voile et longe-côte.",
+            "createdAt": "2025-11-07T10:19:00.000Z",
+            "updatedAt": "2025-11-07T10:19:00.000Z",
+            "publishedAt": "2025-11-07T10:19:00.000Z",
+            "activities": [
+                {
+                    "id": 3,
+                    "documentId": "s3",
+                    "title": "Planche à voile"
+                },
+                {
+                    "id": 10,
+                    "documentId": "s10",
+                    "title": "Longe-côte"
+                }
+            ],
+            "events": [],
+            "user": {
+                "id": 31,
+                "documentId": "user31",
+                "username": "theo_quai"
+            }
+        }
     ],
     "meta": {
         "pagination": {

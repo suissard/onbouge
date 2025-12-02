@@ -12,7 +12,7 @@ describe("05_permissions", () => {
     let administrateurJwt;
     let createdPoiId;
     let createdEventId;
-    let createdSportId;
+    let createdActivityId;
 
     const timestamp = Date.now();
     const ambassadorCreds = {
@@ -136,7 +136,7 @@ describe("05_permissions", () => {
             // Cleanup data
             if (createdPoiId) await axios.delete(`${STRAPI_URL}/api/pois/${createdPoiId}`, { headers: { Authorization: `Bearer ${adminJwt}` } }).catch(() => {});
             if (createdEventId) await axios.delete(`${STRAPI_URL}/api/events/${createdEventId}`, { headers: { Authorization: `Bearer ${adminJwt}` } }).catch(() => {});
-            if (createdSportId) await axios.delete(`${STRAPI_URL}/api/sports/${createdSportId}`, { headers: { Authorization: `Bearer ${adminJwt}` } }).catch(() => {});
+            if (createdActivityId) await axios.delete(`${STRAPI_URL}/api/activities/${createdActivityId}`, { headers: { Authorization: `Bearer ${adminJwt}` } }).catch(() => {});
         }
     });
 

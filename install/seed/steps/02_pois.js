@@ -10,7 +10,7 @@ async function main() {
     const total = pois.length;
 
     // Read ID maps from stdin (passed by orchestrator)
-    let idMap = { sports: {}, pois: {}, profiles: {}, users: {} };
+    let idMap = { activities: {}, pois: {}, profiles: {}, users: {} };
     if (process.env.ID_MAP) {
         try {
             idMap = JSON.parse(process.env.ID_MAP);
@@ -39,6 +39,10 @@ async function main() {
       try {
         const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
         let poiId;
+        
+        // Map relations
+        const activityIds = item.activities?.map(a => idMap.activities[a.id]).filter(id => id) || [];
+
         if (existing.data.results && existing.data.results.length > 0) {
           const entry = existing.data.results[0];
           poiId = entry.documentId || entry.id;
@@ -48,6 +52,7 @@ async function main() {
               description: item.description,
               latitude: lat,
               longitude: lng,
+              activities: activityIds,
               author: defaultAuthor
           });
         } else {
@@ -56,6 +61,7 @@ async function main() {
               description: item.description,
               latitude: lat,
               longitude: lng,
+              activities: activityIds,
               author: defaultAuthor
           });
           const entry = res.data.data || res.data;

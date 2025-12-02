@@ -3,7 +3,7 @@ const { getAuthenticatedApi, readData, publishEntry, delay, logProgress } = requ
 async function main() {
   try {
     // Read ID maps from stdin (passed by orchestrator)
-    let idMap = { sports: {}, pois: {}, profiles: {} };
+    let idMap = { activities: {}, pois: {}, profiles: {} };
     if (process.env.ID_MAP) {
         try {
             idMap = JSON.parse(process.env.ID_MAP);
@@ -30,7 +30,7 @@ async function main() {
         }
 
         // Map relations
-        const sportIds = item.sports?.map(s => idMap.sports[s.id]).filter(id => id) || [];
+        const activityIds = item.activities?.map(a => idMap.activities[a.id]).filter(id => id) || [];
         const poiId = item.poi ? idMap.pois[item.poi.id] : null;
         const profileIds = item.profiles?.map(p => idMap.profiles[p.id]).filter(id => id) || [];
         
@@ -54,7 +54,7 @@ async function main() {
           title: item.title,
           description: item.description,
           date: item.date,
-          sports: sportIds,
+          activities: activityIds,
           poi: poiId,
           profiles: profileIds,
           author: defaultAuthor

@@ -15,17 +15,17 @@
                         </v-btn>
                     </template>
                     <span>{{ authStore.canEdit(profile) ? 'Éditer' : 'Vous n\'avez pas la permission d\'éditer'
-                    }}</span>
+                        }}</span>
                 </v-tooltip>
             </v-card-title>
             <v-card-text>
                 <p>{{ profile.description }}</p>
-                <div v-if="profile.sports && profile.sports.length > 0">
-                    <h3 class="text-h6 mt-4">Sports</h3>
+                <div v-if="profile.activities && profile.activities.length > 0">
+                    <h3 class="text-h6 mt-4">Activities</h3>
                     <v-chip-group>
-                        <v-chip v-for="sport in profile.sports" :key="sport.documentId"
-                            :to="`/sports/${sport.documentId}`">{{
-                                sport.title
+                        <v-chip v-for="activity in profile.activities" :key="activity.documentId"
+                            :to="`/activities/${activity.documentId}`">{{
+                                activity.title
                             }}</v-chip>
                     </v-chip-group>
                 </div>

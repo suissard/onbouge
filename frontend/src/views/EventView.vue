@@ -15,11 +15,13 @@
       <v-card-subtitle>{{ new Date(event.date).toLocaleString() }}</v-card-subtitle>
       <v-card-text>
         <p>{{ event.description }}</p>
-        <div v-if="event.sports && event.sports.length > 0">
-          <h3 class="text-h6 mt-4">Sports</h3>
+        <div v-if="event.activities && event.activities.length > 0">
+          <h3 class="text-h6 mt-4">Activities</h3>
           <v-chip-group>
-            <v-chip v-for="sport in event.sports" :key="sport.id" :to="`/sports/${sport.documentId}`">{{ sport.title
-            }}</v-chip>
+            <v-chip v-for="activity in event.activities" :key="activity.id"
+              :to="`/activities/${activity.documentId}`">{{
+                activity.title
+              }}</v-chip>
           </v-chip-group>
         </div>
         <div v-if="event.poi">

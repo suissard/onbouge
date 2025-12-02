@@ -77,7 +77,7 @@ async function main() {
 
   // ID Mapping: { collectionName: { oldId: newId } }
   const idMap = {
-    sports: {},
+    activities: {},
     pois: {},
     profiles: {},
     users: {}
@@ -115,32 +115,32 @@ async function main() {
     }
   };
 
-  // 2. Seed Sports
-  console.log('Seeding Sports...');
-  const sports = readData('sports.json');
-  for (const item of sports) {
+  // 2. Seed Activities
+  console.log('Seeding Activities...');
+  const activities = readData('activities.json');
+  for (const item of activities) {
     try {
-      const existing = await api.get(`/api::sport.sport?filters[title][$eq]=${encodeURIComponent(item.title)}`);
-      let sportId;
+      const existing = await api.get(`/api::activity.activity?filters[title][$eq]=${encodeURIComponent(item.title)}`);
+      let activityId;
       if (existing.data.results && existing.data.results.length > 0) {
         const entry = existing.data.results[0];
-        sportId = entry.documentId || entry.id;
+        activityId = entry.documentId || entry.id;
         const updateId = entry.documentId || entry.id;
-        await api.put(`/api::sport.sport/${updateId}`, {
+        await api.put(`/api::activity.activity/${updateId}`, {
             title: item.title
         });
       } else {
-        const res = await api.post('/api::sport.sport', { 
+        const res = await api.post('/api::activity.activity', { 
             title: item.title
         });
         const entry = res.data.data || res.data;
-        sportId = entry.documentId || entry.id;
-        console.log(`Created Sport: ${item.title} (ID: ${sportId})`);
+        activityId = entry.documentId || entry.id;
+        console.log(`Created Activity: ${item.title} (ID: ${activityId})`);
       }
-      await publishEntry('api::sport.sport', sportId);
-      idMap.sports[item.id] = sportId;
+      await publishEntry('api::activity.activity', activityId);
+      idMap.activities[item.id] = activityId;
     } catch (e) {
-      console.error(`Failed to seed sport ${item.title}:`, e.message, e.response?.data);
+      console.error(`Failed to seed activity ${item.title}:`, e.message, e.response?.data);
     }
   }
 
@@ -262,7 +262,7 @@ async function main() {
       }
 
       // Map relations
-      const sportIds = item.sports?.map(s => idMap.sports[s.id]).filter(id => id) || [];
+      const activityIds = item.activities?.map(s => idMap.activities[s.id]).filter(id => id) || [];
       const poiId = item.poi ? idMap.pois[item.poi.id] : null;
       const profileIds = item.profiles?.map(p => idMap.profiles[p.id]).filter(id => id) || [];
 
@@ -270,7 +270,7 @@ async function main() {
         title: item.title,
         description: item.description,
         date: item.date,
-        sports: sportIds,
+        activities: activityIds,
         poi: poiId,
         profiles: profileIds
       };
@@ -317,7 +317,7 @@ async function main() {
             }
         };
 
-        enableRead('api::sport', 'sport');
+        enableRead('api::activity', 'activity');
         enableRead('api::poi', 'poi');
         enableRead('api::profile', 'profile');
         enableRead('api::event', 'event');
@@ -357,7 +357,7 @@ async function main() {
             }
         };
 
-        enableCRUD('api::sport', 'sport');
+        enableCRUD('api::activity', 'activity');
         enableCRUD('api::poi', 'poi');
         enableCRUD('api::profile', 'profile');
         enableCRUD('api::event', 'event');

@@ -9,7 +9,7 @@
             "createdAt": "2025-11-04T16:23:22.646Z",
             "updatedAt": "2025-11-04T16:23:22.646Z",
             "publishedAt": "2025-11-04T16:23:22.664Z",
-            "sports": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
+            "activities": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
             "poi": { "id": 2, "documentId": "c3syhbggfy11rg0zttzm1kjw", "title": "Base nautique de saint nazaire" },
             "profiles": [{ "id": 1, "documentId": "fe678791-fdcd-4f21-aa17-c20007deb756", "username": "suissard" }]
         },
@@ -22,7 +22,7 @@
             "createdAt": "2025-11-06T14:00:00.000Z",
             "updatedAt": "2025-11-06T14:00:00.000Z",
             "publishedAt": "2025-11-06T14:00:00.000Z",
-            "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
+            "activities": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
             "poi": { "id": 3, "documentId": "poi3", "title": "Spot de kitesurf de la Baule" },
             "profiles": [{ "id": 21, "documentId": "profile21", "username": "marin_le_vent" }]
         },
@@ -35,7 +35,7 @@
             "createdAt": "2025-11-06T14:01:00.000Z",
             "updatedAt": "2025-11-06T14:01:00.000Z",
             "publishedAt": "2025-11-06T14:01:00.000Z",
-            "sports": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }],
+            "activities": [{ "id": 3, "documentId": "s3", "title": "Planche à voile" }],
             "poi": { "id": 4, "documentId": "poi4", "title": "Club de Voile de Pornichet" },
             "profiles": [{ "id": 22, "documentId": "profile22", "username": "jean_voile" }]
         },
@@ -48,7 +48,7 @@
             "createdAt": "2025-11-06T14:02:00.000Z",
             "updatedAt": "2025-11-06T14:02:00.000Z",
             "publishedAt": "2025-11-06T14:02:00.000Z",
-            "sports": [{ "id": 5, "documentId": "s5", "title": "Kayak de mer" }],
+            "activities": [{ "id": 5, "documentId": "s5", "title": "Kayak de mer" }],
             "poi": { "id": 5, "documentId": "poi5", "title": "École de surf de Saint-Michel-Chef-Chef" },
             "profiles": [{ "id": 23, "documentId": "profile23", "username": "anne_planche" }]
         },
@@ -61,7 +61,7 @@
             "createdAt": "2025-11-06T14:03:00.000Z",
             "updatedAt": "2025-11-06T14:03:00.000Z",
             "publishedAt": "2025-11-06T14:03:00.000Z",
-            "sports": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
+            "activities": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
             "poi": { "id": 7, "documentId": "poi7", "title": "Plage de la Govelle - Batz-sur-Mer" },
             "profiles": [{ "id": 24, "documentId": "profile24", "username": "pierre_kayak" }]
         },
@@ -74,7 +74,7 @@
             "createdAt": "2025-11-06T14:04:00.000Z",
             "updatedAt": "2025-11-06T14:04:00.000Z",
             "publishedAt": "2025-11-06T14:04:00.000Z",
-            "sports": [{ "id": 7, "documentId": "s7", "title": "Aviron" }],
+            "activities": [{ "id": 7, "documentId": "s7", "title": "Aviron" }],
             "poi": { "id": 12, "documentId": "poi12", "title": "Base nautique de l'Erdre" },
             "profiles": [{ "id": 25, "documentId": "profile25", "username": "marie_paddle" }]
         },
@@ -87,7 +87,7 @@
             "createdAt": "2025-11-06T14:05:00.000Z",
             "updatedAt": "2025-11-06T14:05:00.000Z",
             "publishedAt": "2025-11-06T14:05:00.000Z",
-            "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
+            "activities": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
             "poi": { "id": 5, "documentId": "poi5", "title": "École de surf de Saint-Michel-Chef-Chef" },
             "profiles": [{ "id": 26, "documentId": "profile26", "username": "luc_aviron" }]
         },
@@ -100,7 +100,7 @@
             "createdAt": "2025-11-06T14:06:00.000Z",
             "updatedAt": "2025-11-06T14:06:00.000Z",
             "publishedAt": "2025-11-06T14:06:00.000Z",
-            "sports": [{ "id": 9, "documentId": "s9", "title": "Char à voile" }],
+            "activities": [{ "id": 9, "documentId": "s9", "title": "Char à voile" }],
             "poi": { "id": 8, "documentId": "poi8", "title": "Baie de Pont-Mahé - Assérac" },
             "profiles": [{ "id": 27, "documentId": "profile27", "username": "sophie_surf" }]
         },
@@ -113,7 +113,7 @@
             "createdAt": "2025-11-06T14:07:00.000Z",
             "updatedAt": "2025-11-06T14:07:00.000Z",
             "publishedAt": "2025-11-06T14:07:00.000Z",
-            "sports": [{ "id": 10, "documentId": "s10", "title": "Longe-côte" }],
+            "activities": [{ "id": 10, "documentId": "s10", "title": "Longe-côte" }],
             "poi": { "id": 9, "documentId": "poi9", "title": "Sentier des Douaniers - Le Croisic" },
             "profiles": [{ "id": 28, "documentId": "profile28", "username": "paul_char" }]
         },
@@ -126,7 +126,7 @@
             "createdAt": "2025-11-06T14:08:00.000Z",
             "updatedAt": "2025-11-06T14:08:00.000Z",
             "publishedAt": "2025-11-06T14:08:00.000Z",
-            "sports": [{ "id": 11, "documentId": "s11", "title": "Voile légère" }],
+            "activities": [{ "id": 11, "documentId": "s11", "title": "Voile légère" }],
             "poi": { "id": 4, "documentId": "poi4", "title": "Club de Voile de Pornichet" },
             "profiles": [{ "id": 29, "documentId": "profile29", "username": "julie_longecote" }]
         },
@@ -139,7 +139,7 @@
             "createdAt": "2025-11-06T14:09:00.000Z",
             "updatedAt": "2025-11-06T14:09:00.000Z",
             "publishedAt": "2025-11-06T14:09:00.000Z",
-            "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
+            "activities": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
             "poi": { "id": 10, "documentId": "poi10", "title": "Port de la Turballe" },
             "profiles": [{ "id": 30, "documentId": "profile30", "username": "thomas_voile" }]
         },
@@ -152,7 +152,7 @@
             "createdAt": "2025-11-07T11:00:00.000Z",
             "updatedAt": "2025-11-07T11:00:00.000Z",
             "publishedAt": "2025-11-07T11:00:00.000Z",
-            "sports": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
+            "activities": [{ "id": 2, "documentId": "lmrc99xxqh40vek0kc2h2sk0", "title": "Weta" }],
             "poi": { "id": 11, "documentId": "poi11", "title": "Les Evens" },
             "profiles": [
                 { "id": 41, "documentId": "profile41", "username": "emma_dune" },
@@ -168,7 +168,7 @@
             "createdAt": "2025-11-07T11:01:00.000Z",
             "updatedAt": "2025-11-07T11:01:00.000Z",
             "publishedAt": "2025-11-07T11:01:00.000Z",
-            "sports": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
+            "activities": [{ "id": 8, "documentId": "s8", "title": "Surf" }],
             "poi": { "id": 5, "documentId": "poi5", "title": "École de surf de Saint-Michel-Chef-Chef" },
             "profiles": [
                 { "id": 32, "documentId": "profile32", "username": "leo_vague" },
@@ -185,7 +185,7 @@
             "createdAt": "2025-11-07T11:02:00.000Z",
             "updatedAt": "2025-11-07T11:02:00.000Z",
             "publishedAt": "2025-11-07T11:02:00.000Z",
-            "sports": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
+            "activities": [{ "id": 6, "documentId": "s6", "title": "Stand-up paddle" }],
             "poi": { "id": 7, "documentId": "poi7", "title": "Plage de la Govelle - Batz-sur-Mer" },
             "profiles": [
                 { "id": 31, "documentId": "profile31", "username": "chloe_soleil" },
@@ -202,7 +202,7 @@
             "createdAt": "2025-11-07T11:03:00.000Z",
             "updatedAt": "2025-11-07T11:03:00.000Z",
             "publishedAt": "2025-11-07T11:03:00.000Z",
-            "sports": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
+            "activities": [{ "id": 12, "documentId": "s12", "title": "Pêche en mer" }],
             "poi": { "id": 10, "documentId": "poi10", "title": "Port de la Turballe" },
             "profiles": [
                 { "id": 34, "documentId": "profile34", "username": "hugo_ocean" },
@@ -219,7 +219,7 @@
             "createdAt": "2025-11-07T11:04:00.000Z",
             "updatedAt": "2025-11-07T11:04:00.000Z",
             "publishedAt": "2025-11-07T11:04:00.000Z",
-            "sports": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
+            "activities": [{ "id": 4, "documentId": "s4", "title": "Kitesurf" }],
             "poi": { "id": 3, "documentId": "poi3", "title": "Spot de kitesurf de la Baule" },
             "profiles": [
                 { "id": 33, "documentId": "profile33", "username": "eva_maree" },

@@ -4,7 +4,7 @@ This document provides a deeper look into the functionality of the Rally Point a
 
 ## Core Features
 
-*   **User Profiles**: Users can register and create profiles that include their favorite sports, skill level, and available equipment.
+*   **User Profiles**: Users can register and create profiles that include their favorite activities, skill level, and available equipment.
 *   **Authentication**: Full authentication system with email/password registration and login.
 *   **Events and Points of Interest (POIs)**: Users can create, view, and join events. They can also create and browse POIs, which are locations for sports activities.
 *   **Dynamic Menu**: The application's navigation menu is dynamically generated from data provided by the Strapi API.
@@ -18,7 +18,7 @@ The application's data is managed by Strapi. The main content types are:
     *   `username`
     *   `email`
     *   `password`
-    *   `sports` (relation to sports categories)
+    *   `activities` (relation to activity categories)
     *   `level`
     *   `equipment`
 
@@ -37,7 +37,7 @@ The application's data is managed by Strapi. The main content types are:
     *   `latitude`
     *   `longitude`
     *   `description`
-    *   `sports_available` (relation to sports categories)
+    *   `activities_available` (relation to activity categories)
 
 4.  **FAQ**: Represents a frequently asked question and its answer. It likely includes fields such as:
     *   `question`

@@ -22,10 +22,10 @@
     "date": {
       "type": "datetime"
     },
-    "sports": {
+    "activities": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::sport.sport",
+      "target": "api::activity.activity",
       "inversedBy": "events"
     },
     "poi": {

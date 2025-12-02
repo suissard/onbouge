@@ -6,6 +6,14 @@ async function main() {
     const api = await getAuthenticatedApi();
     const jwt = await getJwt();
     const profiles = readData('profiles.json');
+    // Read ID maps from stdin (passed by orchestrator)
+    let idMap = { activities: {}, pois: {}, profiles: {}, users: {} };
+    if (process.env.ID_MAP) {
+        try {
+            idMap = JSON.parse(process.env.ID_MAP);
+        } catch(e) {}
+    }
+
     const output = { profiles: {}, users: {} };
 
     // Fetch Authenticated Role
@@ -60,16 +68,21 @@ async function main() {
           } catch (e) {}
         }
 
+        // Map relations
+        const activityIds = item.activities?.map(a => idMap.activities[a.id]).filter(id => id) || [];
+
         if (profileId) {
            await api.put(`/api::profile.profile/${profileDocId}`, {
               username: item.username,
               description: item.description,
+              activities: activityIds,
               user: userId
            });
         } else {
           const res = await api.post('/api::profile.profile', {
               username: item.username,
               description: item.description,
+              activities: activityIds,
               user: userId
           });
           const entry = res.data.data || res.data;

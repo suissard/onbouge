@@ -1,5 +1,5 @@
 import { FormField } from '@/decorators/form';
-import type { Sport } from './sport';
+import type { Activity } from './activity';
 import type { Event } from './event';
 import type { User } from './user';
 
@@ -15,14 +15,14 @@ export class Profile {
   photo: any = null;
 
   @FormField({
-    label: 'Sports',
+    label: 'Activities',
     type: 'select',
-    optionsKey: 'sports',
+    optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
     itemValue: 'documentId'
   })
-  sports: Sport[] = [];
+  activities: Activity[] = [];
 
   @FormField({
     label: 'Events',

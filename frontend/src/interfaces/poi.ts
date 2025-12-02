@@ -1,5 +1,5 @@
 import { FormField } from '@/decorators/form';
-import type { Sport } from './sport';
+import type { Activity } from './activity';
 import type { Event } from './event';
 
 export interface Position {
@@ -27,14 +27,14 @@ export class Poi {
 
   position: Position = { lat: 0, lon: 0 };
   @FormField({
-    label: 'Sports',
+    label: 'Activities',
     type: 'select',
-    optionsKey: 'sports',
+    optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
     itemValue: 'documentId'
   })
-  sports: Sport[] = [];
+  activities: Activity[] = [];
 
   @FormField({
     label: 'Events',

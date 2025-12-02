@@ -87,7 +87,7 @@ export const useAuthStore = defineStore('auth', () => {
    */
   function canEdit(item: any): boolean {
     if (!isAuthenticated.value || !user.value) return false;
-    if (['Ambassador', "Administrateur"].includes(user.value.role?.name)) return true;
+    if (user.value.role?.name && ['Ambassador', "Administrateur"].includes(user.value.role.name)) return true;
     if (item?.author?.documentId === user.value.documentId) return true;
     if (item?.author?.id === user.value.id) return true;
     return false;
