@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, computed, type Component } from 'vue';
+import { ref, onMounted, computed, type Component } from 'vue';
 
 const props = defineProps({
   store: {

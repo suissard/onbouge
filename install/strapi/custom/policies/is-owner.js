@@ -18,7 +18,9 @@ module.exports = async (policyContext, config, { strapi }) => {
     filters: {
       documentId: id,
       [entry]: {
-        documentId: user.documentId
+        user: {
+          documentId: user.documentId
+        }
       }
     }
   });

@@ -5,6 +5,7 @@ import type { User } from './user';
 
 export class Profile {
   documentId: string = '';
+  id: number = 0;
 
   @FormField({ label: 'Nom d\'utilisateur', type: 'text' })
   username: string = '';

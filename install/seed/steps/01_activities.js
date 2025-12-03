@@ -18,14 +18,15 @@ async function main() {
             idMap = JSON.parse(process.env.ID_MAP);
         } catch(e) {}
     }
-    const userIds = Object.values(idMap.users || {});
-    let defaultAuthor = userIds.length > 0 ? userIds[0] : null;
+    const profileIds = Object.values(idMap.profiles || {});
+    let defaultAuthor = profileIds.length > 0 ? profileIds[0] : null;
 
     if (!defaultAuthor) {
         try {
-             const users = await api.get('/users?filters[email][$eq]=admin@gmail.com');
-             if (users.data && users.data.length > 0) {
-                 defaultAuthor = users.data[0].id;
+             const profiles = await api.get('/api::profile.profile');
+             if (profiles.data && profiles.data.length > 0) {
+                 const p = profiles.data.results ? profiles.data.results[0] : (profiles.data[0] || profiles.data);
+                 defaultAuthor = p.documentId || p.id;
              }
         } catch (e) {
             // console.warn('Could not fetch default author');

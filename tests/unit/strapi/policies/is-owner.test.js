@@ -29,7 +29,9 @@ describe('isOwner Policy', () => {
     expect(countMock).toHaveBeenCalledWith({
       filters: {
         documentId: 'doc123',
-        author: { documentId: 'user123' },
+        author: {
+          user: { documentId: 'user123' }
+        },
       },
     });
   });

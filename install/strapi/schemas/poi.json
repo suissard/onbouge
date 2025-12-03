@@ -43,7 +43,7 @@
     "author": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "plugin::users-permissions.user"
+      "target": "api::profile.profile"
     }
   }
 }

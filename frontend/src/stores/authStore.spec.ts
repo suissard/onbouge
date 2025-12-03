@@ -46,30 +46,59 @@ describe('authStore Permissions', () => {
     expect(authStore.canEdit({})).toBe(true)
   })
 
-  it('canEdit returns true if user is author (by documentId)', () => {
+  it('canEdit returns true if user profile is author (by documentId)', () => {
     const authStore = useAuthStore()
-    authStore.user = { role: { name: 'Authenticated' }, documentId: 'user1', id: 1 } as any
+    authStore.user = { 
+        role: { name: 'Authenticated' }, 
+        documentId: 'user1', 
+        id: 1,
+        profile: { documentId: 'profile1', id: 10 } 
+    } as any
     authStore.token = 'token'
 
-    const item = { author: { documentId: 'user1' } }
+    const item = { author: { documentId: 'profile1' } }
     expect(authStore.canEdit(item)).toBe(true)
   })
 
-  it('canEdit returns true if user is author (by id)', () => {
+  it('canEdit returns true if user profile is author (by id)', () => {
     const authStore = useAuthStore()
-    authStore.user = { role: { name: 'Authenticated' }, documentId: 'user1', id: 1 } as any
+    authStore.user = { 
+        role: { name: 'Authenticated' }, 
+        documentId: 'user1', 
+        id: 1,
+        profile: { documentId: 'profile1', id: 10 }
+    } as any
     authStore.token = 'token'
 
-    const item = { author: { id: 1 } }
+    const item = { author: { id: 10 } }
     expect(authStore.canEdit(item)).toBe(true)
   })
 
-  it('canEdit returns false if user is not author and not admin/ambassador', () => {
+  it('canEdit returns false if user profile is not author', () => {
     const authStore = useAuthStore()
-    authStore.user = { role: { name: 'Authenticated' }, documentId: 'user1', id: 1 } as any
+    authStore.user = { 
+        role: { name: 'Authenticated' }, 
+        documentId: 'user1', 
+        id: 1,
+        profile: { documentId: 'profile1', id: 10 }
+    } as any
     authStore.token = 'token'
 
-    const item = { author: { documentId: 'user2', id: 2 } }
+    const item = { author: { documentId: 'profile2', id: 20 } }
+    expect(authStore.canEdit(item)).toBe(false)
+  })
+  
+  it('canEdit returns false if user has no profile', () => {
+    const authStore = useAuthStore()
+    authStore.user = { 
+        role: { name: 'Authenticated' }, 
+        documentId: 'user1', 
+        id: 1,
+        // No profile
+    } as any
+    authStore.token = 'token'
+
+    const item = { author: { documentId: 'profile1', id: 10 } }
     expect(authStore.canEdit(item)).toBe(false)
   })
   

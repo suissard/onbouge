@@ -17,6 +17,17 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       if (!token.value) return;
       const userData = await strapi.getMe();
+      // Fetch profile
+      try {
+        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        if (profiles.data && profiles.data.length > 0) {
+            userData.profile = profiles.data[0];
+        } else if (profiles.results && profiles.results.length > 0) { // Handle different response structures
+             userData.profile = profiles.results[0];
+        }
+      } catch (e) {
+        console.error('Failed to fetch user profile', e);
+      }
       user.value = userData as User;
       return user.value;
     } catch (error) {
@@ -37,7 +48,20 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = data.jwt;
     updateTokenlocalStorage(data.jwt);
     strapi.setToken(data.jwt);
-    user.value = data.user;
+    
+    const userData = data.user;
+    // Fetch profile
+    try {
+        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        if (profiles.data && profiles.data.length > 0) {
+            userData.profile = profiles.data[0];
+        } else if (profiles.results && profiles.results.length > 0) {
+             userData.profile = profiles.results[0];
+        }
+    } catch (e) {
+        console.error('Failed to fetch user profile', e);
+    }
+    user.value = userData;
     return user.value as User;
   }
 
@@ -61,8 +85,21 @@ export const useAuthStore = defineStore('auth', () => {
     const response = await strapi.register({username, email, password});
     token.value = response.jwt;
     updateTokenlocalStorage(response.jwt);
-    user.value = response.user;
     strapi.setToken(response.jwt);
+    
+    const userData = response.user;
+     // Fetch profile (likely none yet, but consistent)
+    try {
+        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        if (profiles.data && profiles.data.length > 0) {
+            userData.profile = profiles.data[0];
+        } else if (profiles.results && profiles.results.length > 0) {
+             userData.profile = profiles.results[0];
+        }
+    } catch (e) {
+        console.error('Failed to fetch user profile', e);
+    }
+    user.value = userData;
     return user.value as User;
   }
 
@@ -88,8 +125,15 @@ export const useAuthStore = defineStore('auth', () => {
   function canEdit(item: any): boolean {
     if (!isAuthenticated.value || !user.value) return false;
     if (user.value.role?.name && ['Ambassador', "Administrateur"].includes(user.value.role.name)) return true;
-    if (item?.author?.documentId === user.value.documentId) return true;
-    if (item?.author?.id === user.value.id) return true;
+    
+    // Check Profile ownership
+    // item.author is a Profile
+    // user.value.profile is the current user's Profile
+    if (item?.author && user.value.profile) {
+        if (item.author.documentId === user.value.profile.documentId) return true;
+        if (item.author.id === user.value.profile.id) return true;
+    }
+    
     return false;
   }
 
