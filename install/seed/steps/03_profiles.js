@@ -56,7 +56,7 @@ async function main() {
               const userRes = await api.post('/plugin::users-permissions.user', {
                 username: item.username,
                 email: userEmail,
-                password: 'UserPassword123!',
+                password: process.env.STRAPI_APP_ADMIN_PASSWORD || 'UserPassword123!',
                 confirmed: true,
                 blocked: false,
                 role: authenticatedRoleId

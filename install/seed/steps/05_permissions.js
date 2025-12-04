@@ -156,6 +156,7 @@ async function main() {
             const permissions = roleData.permissions;
 
             // Grant ALL permissions to Administrateur
+            let updatedCount = 0;
             Object.keys(permissions).forEach(permissionKey => {
                 const permissionGroup = permissions[permissionKey];
                 if (permissionGroup.controllers) {
@@ -164,22 +165,25 @@ async function main() {
                         Object.keys(controller).forEach(actionKey => {
                             if (controller[actionKey] && typeof controller[actionKey].enabled !== 'undefined') {
                                 controller[actionKey].enabled = true;
+                                updatedCount++;
                             }
                         });
                     });
                 }
             });
 
-
+            console.log(`Enabling ${updatedCount} permissions for Administrateur...`);
 
             await axios.put(`${STRAPI_URL}/users-permissions/roles/${adminRole.id}`, {
                 permissions: permissions
             }, {
                 headers: { Authorization: `Bearer ${jwt}` }
             });
+            console.log('Administrateur permissions updated.');
         }
     } catch (e) {
-        console.error('Error updating Administrateur permissions:', e);
+        console.error('Error updating Administrateur permissions:', e.message);
+        throw e; // Fail hard
     }
 
     // Update Authenticated Permissions

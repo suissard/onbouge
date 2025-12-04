@@ -69,4 +69,29 @@ describe('isOwner Policy', () => {
 
     expect(result).toBe(true);
   });
+
+  it('should handle isUserDirect: true configuration', async () => {
+    const context = {
+      state: { user: { documentId: 'user123' } },
+      params: { id: 'doc123' },
+    };
+    const config = { uid: 'api::profile.profile', entry: 'user', isUserDirect: true };
+    
+    const countMock = vi.fn().mockResolvedValue(1);
+    const documentsMock = vi.fn().mockReturnValue({ count: countMock });
+    const strapi = { documents: documentsMock };
+
+    const result = await isOwnerPolicy(context, config, { strapi });
+
+    expect(result).toBe(true);
+    expect(documentsMock).toHaveBeenCalledWith('api::profile.profile');
+    expect(countMock).toHaveBeenCalledWith({
+      filters: {
+        documentId: 'doc123',
+        user: {
+          documentId: 'user123'
+        },
+      },
+    });
+  });
 });

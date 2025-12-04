@@ -3,6 +3,7 @@ import axios from 'axios';
 export const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
 export const ADMIN_EMAIL = process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com';
 export const ADMIN_PASSWORD = process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!';
+export const APP_ADMIN_PASSWORD = process.env.STRAPI_APP_ADMIN_PASSWORD || 'UserPassword123!';
 
 export async function getJwt(email, password) {
     try {
@@ -18,5 +19,5 @@ export async function getJwt(email, password) {
 }
 
 export async function getAdminJwt() {
-    return getJwt(ADMIN_EMAIL, ADMIN_PASSWORD);
+    return getJwt(ADMIN_EMAIL, APP_ADMIN_PASSWORD);
 }

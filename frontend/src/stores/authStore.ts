@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
       const userData = await strapi.getMe();
       // Fetch profile
       try {
-        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        const profiles = await strapi.find('profiles', { filters: { username: userData.username } });
         if (profiles.data && profiles.data.length > 0) {
             userData.profile = profiles.data[0];
         } else if (profiles.results && profiles.results.length > 0) { // Handle different response structures
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
     const userData = data.user;
     // Fetch profile
     try {
-        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        const profiles = await strapi.find('profiles', { filters: { username: userData.username } });
         if (profiles.data && profiles.data.length > 0) {
             userData.profile = profiles.data[0];
         } else if (profiles.results && profiles.results.length > 0) {
@@ -88,9 +88,9 @@ export const useAuthStore = defineStore('auth', () => {
     strapi.setToken(response.jwt);
     
     const userData = response.user;
-     // Fetch profile (likely none yet, but consistent)
+     // Fetch profile
     try {
-        const profiles = await strapi.find('profiles', { filters: { user: userData.id } });
+        const profiles = await strapi.find('profiles', { filters: { username: userData.username } });
         if (profiles.data && profiles.data.length > 0) {
             userData.profile = profiles.data[0];
         } else if (profiles.results && profiles.results.length > 0) {
