@@ -76,8 +76,10 @@ class MultiStepLoader {
       const name = step.name.padEnd(20);
       const detail = step.detail ? `| ${step.detail}` : '';
       
-      // Limit detail length to avoid wrapping issues
-      const maxDetailLen = 50;
+      // Limit detail length efficiently, but show more for errors
+      let maxDetailLen = 50;
+      if (step.status === 'failed') maxDetailLen = 100; // Allow more space for errors
+
       let truncatedDetail = detail;
       if (detail.length > maxDetailLen) {
           truncatedDetail = detail.substring(0, maxDetailLen) + '...';

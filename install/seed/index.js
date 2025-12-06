@@ -44,9 +44,7 @@ function runScript(scriptPath, env = {}, onProgress) {
 
 async function main() {
   const steps = [
-    { name: 'Permissions', script: 'install/seed/steps/05_permissions.js', key: 'permissions' },
-    { name: 'Admin User', script: 'install/seed/steps/06_admin_user.js', key: 'admin_user' },
-    { name: 'Profiles (Create)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
+   { name: 'Profiles (Create)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'Activities', script: 'install/seed/steps/01_activities.js', key: 'activities' },
     { name: 'Profiles (Link)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'POIs', script: 'install/seed/steps/02_pois.js', key: 'pois' },
@@ -103,7 +101,22 @@ async function main() {
         }
         loader.succeedStep(i);
       } catch (e) {
-         loader.failStep(i, 'Failed');
+         let errorDetail = e.message;
+         
+         // Extract a concise error message
+         const lines = errorDetail.split('\n');
+         const errorMatch = errorDetail.match(/(?:Error:|Exception:|Failure:|fatal:).*/i);
+         
+         if (errorMatch) {
+             errorDetail = errorMatch[0].trim();
+         } else {
+             const lastLine = lines.filter(l => l.trim().length > 0).pop();
+             if (lastLine) errorDetail = lastLine.trim();
+         }
+
+         if (errorDetail.length > 90) errorDetail = errorDetail.substring(0, 90) + '...';
+
+         loader.failStep(i, errorDetail);
          loader.stop();
          console.error(`\n❌ Step ${step.name} failed:`, e.message);
          throw e; 

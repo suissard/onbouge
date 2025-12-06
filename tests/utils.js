@@ -6,6 +6,7 @@ export const ADMIN_PASSWORD = process.env.STRAPI_ADMIN_PASSWORD || 'Password1234
 export const APP_ADMIN_PASSWORD = process.env.STRAPI_APP_ADMIN_PASSWORD || 'UserPassword123!';
 
 export async function getJwt(email, password) {
+    // console.log(`Attempting login for ${email}`);
     try {
         const response = await axios.post(`${STRAPI_URL}/api/auth/local`, {
             identifier: email,
@@ -14,10 +15,10 @@ export async function getJwt(email, password) {
         return response.data.jwt;
     } catch (error) {
         console.error('Login failed:', error.response?.data || error.message);
-        return null;
+        throw new Error(`Login failed for ${email}: ${error.message}`);
     }
 }
 
 export async function getAdminJwt() {
-    return getJwt(ADMIN_EMAIL, APP_ADMIN_PASSWORD);
+    return getJwt(ADMIN_EMAIL, ADMIN_PASSWORD);
 }

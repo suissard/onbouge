@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import axios from 'axios';
-
-const STRAPI_URL = process.env.STRAPI_URL || 'http://localhost:1337';
+import { STRAPI_URL, ADMIN_EMAIL, ADMIN_PASSWORD } from '../utils';
 
 describe('03_strapi', () => {
     it('should be reachable', async () => {
@@ -21,8 +20,8 @@ describe('03_strapi', () => {
     it('should have admin user created', async () => {
         try {
             const res = await axios.post(`${STRAPI_URL}/admin/login`, {
-                email: process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com',
-                password: process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!'
+                email: ADMIN_EMAIL,
+                password: ADMIN_PASSWORD
             });
             expect(res.status).toBe(200);
             expect(res.data.data.token).toBeDefined();
