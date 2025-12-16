@@ -5,7 +5,7 @@ const METADATA_KEY = 'form:fields';
 
 export interface FormFieldOptions {
   label: string;
-  type: 'text' | 'number' | 'date' | 'textarea' | 'select' | 'checkbox' | 'email';
+  type: 'text' | 'number' | 'date' | 'textarea' | 'select' | 'checkbox' | 'email' | 'datetime';
   options?: { label: string; value: any }[];
   required?: boolean;
   // For dynamic data sources

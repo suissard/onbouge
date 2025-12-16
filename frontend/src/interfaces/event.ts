@@ -12,7 +12,7 @@ export class Event {
   @FormField({ label: 'Description', type: 'textarea' })
   description: string = '';
 
-  @FormField({ label: 'Date', type: 'date' })
+  @FormField({ label: 'Date', type: 'datetime' })
   date: string = '';
 
   @FormField({ label: 'Image URL', type: 'text' })

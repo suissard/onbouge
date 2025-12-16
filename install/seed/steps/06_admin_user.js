@@ -1,4 +1,4 @@
-const { getAuthenticatedApi, getJwt, logProgress, STRAPI_URL } = require('../utils');
+const { getAuthenticatedApi, getJwt, logProgress, STRAPI_URL, publishEntry } = require('../utils');
 const axios = require('axios');
 
 async function main() {
@@ -70,6 +70,45 @@ async function main() {
         }
     } catch (e) {
         console.error(`Failed to create/check Admin User:`, e.message);
+    }
+
+    // Checking/Creating Admin Profile
+    try {
+         const adminUserRes = await api.get(`/plugin::users-permissions.user?filters[email][$eq]=${encodeURIComponent(adminEmail)}`);
+         if (adminUserRes.data.results && adminUserRes.data.results.length > 0) {
+            const adminUser = adminUserRes.data.results[0];
+            const adminUserId = adminUser.id; // Relationship usually needs ID, not DocumentId
+
+            const profileRes = await api.get(`/api::profile.profile?filters[user][id][$eq]=${adminUserId}`);
+            const profiles = profileRes.data.results; // CM API returns results in .results usually
+
+            if (!profiles || profiles.length === 0) {
+                logProgress(0, 1, `Creating Profile for Admin...`);
+                const res = await api.post('/api::profile.profile', {
+                        username: 'Admin',
+                        description: 'Compte administrateur',
+                        user: adminUserId,
+                        publishedAt: new Date().toISOString()
+                });
+                
+                const entry = res.data.data || res.data;
+                const profileId = entry.documentId || entry.id;
+                await publishEntry(api, 'api::profile.profile', profileId);
+                
+                logProgress(1, 1, `Created Profile for Admin`);
+            } else {
+                 console.log('Admin already has a profile.');
+                 const existingProfile = profiles[0];
+                 if (!existingProfile.publishedAt) {
+                     console.log('Profile is draft. Publishing...');
+                     const pid = existingProfile.documentId || existingProfile.id;
+                     await publishEntry(api, 'api::profile.profile', pid);
+                     logProgress(1, 1, `Published existing Admin Profile`);
+                 }
+            }
+         }
+    } catch (e) {
+        console.error('Failed to create Admin Profile:', e.message);
     }
 
     // Create Ambassador User

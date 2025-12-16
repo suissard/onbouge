@@ -10,7 +10,10 @@
                     density="comfortable"></v-text-field>
 
                 <!-- Date Input -->
+                <!-- Date Input -->
                 <v-text-field v-if="field.type === 'date'" :label="field.label" type="date"
+                    v-model="formData[field.key]" variant="outlined" density="comfortable"></v-text-field>
+                <v-text-field v-if="field.type === 'datetime'" :label="field.label" type="datetime-local"
                     v-model="formData[field.key]" variant="outlined" density="comfortable"></v-text-field>
 
                 <!-- Textarea -->

@@ -2,14 +2,14 @@
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit Event' : 'Create Event' }}</h1>
     <DynamicUpdateForm v-if="event" :initial-data="event" :model-class="Event"
-      :data-sources="{ activities: activitiesList, pois: poisList, profiles: profilesList }"
+      :data-sources="{ activities: activitiesList, pois: poisList, profiles: profilesList, users: usersList }"
       :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" @delete="deleteEvent" />
     <v-alert v-else-if="isEditing" type="info">Loading event...</v-alert>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { useEventsStore, useActivitiesStore, usePoisStore, useProfilesStore } from '@/stores/strapiStore'
+import { useEventsStore, useActivitiesStore, usePoisStore, useProfilesStore, useUsersStore } from '@/stores/strapiStore'
 import { useNotificationsStore } from '@/stores/notificationStore'
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -23,6 +23,7 @@ const eventStore = useEventsStore()
 const activitiesStore = useActivitiesStore()
 const poisStore = usePoisStore()
 const profilesStore = useProfilesStore()
+const usersStore = useUsersStore()
 const notificationStore = useNotificationsStore()
 
 const route = useRoute()
@@ -36,6 +37,7 @@ const loading = ref(false)
 const activitiesList = computed(() => activitiesStore.datas)
 const poisList = computed(() => poisStore.datas)
 const profilesList = computed(() => profilesStore.datas)
+const usersList = computed(() => usersStore.datas)
 
 const selectedSports = ref<string[]>([])
 const selectedPoi = ref<string | null>(null)
@@ -54,7 +56,8 @@ onMounted(async () => {
   await Promise.all([
     activitiesStore.getList(),
     poisStore.getList(),
-    profilesStore.getList()
+    profilesStore.getList(),
+    usersStore.getList()
   ])
 
   if (isEditing.value && eventId.value) {

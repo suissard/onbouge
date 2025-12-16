@@ -16,7 +16,59 @@
         <v-btn to="/register" color="secondary">Register</v-btn>
       </template>
       <template v-else>
-        <v-btn @click="logout" color="secondary">Logout</v-btn>
+        <v-menu min-width="200px" rounded>
+          <template v-slot:activator="{ props }">
+            <v-btn icon v-bind="props">
+              <ProfileAvatar v-if="authStore.user" :username="authStore.user.username"
+                :document-id="authStore.user.profile?.documentId || authStore.user.username"
+                :photo="authStore.user.profile?.photo" :size="40" />
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <template v-slot:prepend>
+                <v-list-item-media>
+                  <ProfileAvatar v-if="authStore.user" :username="authStore.user.username"
+                    :document-id="authStore.user.profile?.documentId || authStore.user.username"
+                    :photo="authStore.user.profile?.photo" :size="32" class="mr-2" />
+                </v-list-item-media>
+              </template>
+              <v-list-item-title>{{ authStore.user?.username }}</v-list-item-title>
+              <v-list-item-subtitle>{{ authStore.user?.email }}</v-list-item-subtitle>
+            </v-list-item>
+            <v-divider class="my-2"></v-divider>
+            <template v-if="authStore.user?.profile">
+              <v-list-item :to="`/profiles/${authStore.user.profile.documentId}`">
+                <template v-slot:prepend>
+                  <v-icon icon="mdi-account"></v-icon>
+                </template>
+                <v-list-item-title>Voir mon profil</v-list-item-title>
+              </v-list-item>
+              <v-list-item :to="`/profiles/${authStore.user.profile.documentId}/edit`">
+                <template v-slot:prepend>
+                  <v-icon icon="mdi-account-edit"></v-icon>
+                </template>
+                <v-list-item-title>Éditer mon profil</v-list-item-title>
+              </v-list-item>
+              <v-divider class="my-2"></v-divider>
+            </template>
+            <template v-else>
+              <v-list-item disabled>
+                <template v-slot:prepend>
+                  <v-icon icon="mdi-account-alert"></v-icon>
+                </template>
+                <v-list-item-title>Profil introuvable</v-list-item-title>
+              </v-list-item>
+              <v-divider class="my-2"></v-divider>
+            </template>
+            <v-list-item @click="logout" color="error">
+              <template v-slot:prepend>
+                <v-icon icon="mdi-logout"></v-icon>
+              </template>
+              <v-list-item-title>Se déconnecter</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </template>
     </v-app-bar>
 
@@ -44,6 +96,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 import NotificationsOverlay from '@/components/NotificationsOverlay.vue';
+import ProfileAvatar from '@/components/ProfileAvatar.vue';
 import SettingsPanel from '@/components/SettingsPanel.vue';
 import { useSettingsStore } from './stores/settingsStore';
 

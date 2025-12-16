@@ -29,6 +29,9 @@ class TestModel {
 
   @FormField({ label: 'Age', type: 'number' })
   age: number = 0;
+
+  @FormField({ label: 'Event Date', type: 'datetime' })
+  date: string = '';
 }
 
 describe('DynamicUpdateForm', () => {
@@ -53,6 +56,7 @@ describe('DynamicUpdateForm', () => {
     expect(wrapper.text()).toContain('Age')
     expect(wrapper.find('input[type="text"]').exists()).toBe(true)
     expect(wrapper.find('input[type="number"]').exists()).toBe(true)
+    expect(wrapper.find('input[type="datetime-local"]').exists()).toBe(true)
   })
 
   it('populates form with initial data', () => {

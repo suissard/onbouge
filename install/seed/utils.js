@@ -30,26 +30,45 @@ const rl = readline.createInterface({
 const askQuestion = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 async function login() {
+  const tryLogin = async (email, password) => {
+      return await axios.post(`${STRAPI_URL}/admin/login`, { email, password });
+  };
+
+  const primaryEmail = process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com';
+  const primaryPass = process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!';
+  
+  // Fallback defaults from setup script
+  const fallbackEmail = 'admin@example.com';
+  const fallbackPass = 'Password123!';
+
   try {
-    // Try default admin credentials first
-    const loginRes = await axios.post(`${STRAPI_URL}/admin/login`, {
-      email: process.env.STRAPI_ADMIN_EMAIL || 'admin@gmail.com',
-      password: process.env.STRAPI_ADMIN_PASSWORD || 'Password123456789!'
-    });
+    // 1. Try Configured Credentials
+    console.log(`Authenticating as ${primaryEmail}...`);
+    const loginRes = await tryLogin(primaryEmail, primaryPass);
     return loginRes.data.data.token;
   } catch (error) {
+     console.log('Login with primary credentials failed. Trying fallback defaults...');
+     // 2. Try Fallback Defaults (if different)
+     if (primaryEmail !== fallbackEmail || primaryPass !== fallbackPass) {
+         try {
+             const fallbackRes = await tryLogin(fallbackEmail, fallbackPass);
+             console.log('Authenticated with fallback credentials (admin@example.com).');
+             return fallbackRes.data.data.token;
+         } catch(e2) {
+             console.log('Login with fallback credentials failed.');
+         }
+     }
+
     console.error('Login error:', error.response?.data || error.message);
     console.log('Could not login with default credentials.');
+    
     // Only prompt if we are in a TTY and not in a child process that can't handle it
     if (process.stdout.isTTY) {
         const email = await askQuestion('Admin Email: ');
         const password = await askQuestion('Admin Password: ');
         
         try {
-          const loginRes = await axios.post(`${STRAPI_URL}/admin/login`, {
-            email,
-            password
-          });
+          const loginRes = await tryLogin(email, password);
           return loginRes.data.data.token;
         } catch (err) {
           console.error('Login failed:', err.response?.data || err.message);
