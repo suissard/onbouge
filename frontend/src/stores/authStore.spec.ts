@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
+import strapi from '@/services/strapi'
 
 // Mock strapi service
 vi.mock('@/services/strapi', () => ({
@@ -108,5 +109,42 @@ describe('authStore Permissions', () => {
       authStore.token = 'token'
   
       expect(authStore.canDelete({})).toBe(true)
+  })
+
+  it('login fetches full user profile including role', async () => {
+    const authStore = useAuthStore()
+    
+    // Mock login response (often lacks role)
+    const loginResponse = {
+        jwt: 'test-token',
+        user: { 
+            id: 1, 
+            username: 'admin', 
+            email: 'admin@test.com' 
+            // NO ROLE here
+        }
+    }
+    vi.mocked(strapi.login).mockResolvedValue(loginResponse)
+
+    // Mock getMe response (has role)
+    const meResponse = {
+        id: 1,
+        username: 'admin',
+        email: 'admin@test.com',
+        role: { name: 'Administrateur' }
+    }
+    vi.mocked(strapi.getMe).mockResolvedValue(meResponse)
+    
+    // Mock find (profile) - return empty or irrelevant for this test
+    vi.mocked(strapi.find).mockResolvedValue({ data: [] })
+    vi.mocked(strapi.setToken).mockImplementation(() => {})
+
+    await authStore.login('admin', 'password')
+
+    // Verify getMe was called
+    expect(strapi.getMe).toHaveBeenCalled()
+    
+    // Verify user has role from getMe
+    expect(authStore.user?.role?.name).toBe('Administrateur')
   })
 })

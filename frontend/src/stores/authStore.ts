@@ -49,19 +49,8 @@ export const useAuthStore = defineStore('auth', () => {
     updateTokenlocalStorage(data.jwt);
     strapi.setToken(data.jwt);
     
-    const userData = data.user;
-    // Fetch profile
-    try {
-        const profiles = await strapi.find('profiles', { filters: { username: userData.username } });
-        if (profiles.data && profiles.data.length > 0) {
-            userData.profile = profiles.data[0];
-        } else if (profiles.results && profiles.results.length > 0) {
-             userData.profile = profiles.results[0];
-        }
-    } catch (e) {
-        console.error('Failed to fetch user profile', e);
-    }
-    user.value = userData;
+    // Fetch full user details including role and profile
+    await fetchUser();
     return user.value as User;
   }
 
@@ -87,19 +76,8 @@ export const useAuthStore = defineStore('auth', () => {
     updateTokenlocalStorage(response.jwt);
     strapi.setToken(response.jwt);
     
-    const userData = response.user;
-     // Fetch profile
-    try {
-        const profiles = await strapi.find('profiles', { filters: { username: userData.username } });
-        if (profiles.data && profiles.data.length > 0) {
-            userData.profile = profiles.data[0];
-        } else if (profiles.results && profiles.results.length > 0) {
-             userData.profile = profiles.results[0];
-        }
-    } catch (e) {
-        console.error('Failed to fetch user profile', e);
-    }
-    user.value = userData;
+    // Fetch full user details including role and profile
+    await fetchUser();
     return user.value as User;
   }
 
