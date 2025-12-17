@@ -1,34 +1,44 @@
 <template>
     <v-card class="dynamic-update-form pa-4">
         <v-card-title v-if="title" class="text-h5 mb-4">{{ title }}</v-card-title>
-        <v-form @submit.prevent="handleSubmit">
+        <v-form @submit.prevent="handleSubmit" v-model="formIsValid">
             <div v-for="field in activeFields" :key="field.key" class="mb-2">
 
                 <!-- Text, Email, Password, Number Inputs -->
-                <v-text-field v-if="['text', 'email', 'password', 'number'].includes(field.type)" :label="field.label"
-                    :type="field.type" v-model="formData[field.key]" variant="outlined"
+                <v-text-field v-if="['text', 'email', 'password', 'number'].includes(field.type)"
+                    :label="field.required ? field.label + ' *' : field.label" :type="field.type"
+                    v-model="formData[field.key]" variant="outlined"
+                    :rules="field.required ? [v => !!v || 'Field is required'] : []"
                     density="comfortable"></v-text-field>
 
                 <!-- Date Input -->
                 <!-- Date Input -->
-                <v-text-field v-if="field.type === 'date'" :label="field.label" type="date"
+                <!-- Date Input -->
+                <v-text-field v-if="field.type === 'date'" :label="field.required ? field.label + ' *' : field.label"
+                    type="date" :rules="field.required ? [v => !!v || 'Field is required'] : []"
                     v-model="formData[field.key]" variant="outlined" density="comfortable"></v-text-field>
-                <v-text-field v-if="field.type === 'datetime'" :label="field.label" type="datetime-local"
-                    v-model="formData[field.key]" variant="outlined" density="comfortable"></v-text-field>
+                <v-text-field v-if="field.type === 'datetime'"
+                    :label="field.required ? field.label + ' *' : field.label" type="datetime-local"
+                    :rules="field.required ? [v => !!v || 'Field is required'] : []" v-model="formData[field.key]"
+                    variant="outlined" density="comfortable"></v-text-field>
 
                 <!-- Textarea -->
-                <v-textarea v-if="field.type === 'textarea'" :label="field.label" v-model="formData[field.key]"
+                <v-textarea v-if="field.type === 'textarea'" :label="field.required ? field.label + ' *' : field.label"
+                    v-model="formData[field.key]" :rules="field.required ? [v => !!v || 'Field is required'] : []"
                     variant="outlined" rows="3" auto-grow></v-textarea>
 
                 <!-- Select -->
-                <v-select v-if="field.type === 'select'" v-model="formData[field.key]" :label="field.label"
+                <v-select v-if="field.type === 'select'" v-model="formData[field.key]"
+                    :label="field.required ? field.label + ' *' : field.label"
                     :items="field.optionsKey ? dataSources[field.optionsKey] : field.options"
                     :item-title="field.itemTitle || 'title'" :item-value="field.itemValue || 'documentId'"
                     :multiple="field.multiple" :chips="field.multiple" :clearable="!field.required" variant="outlined"
+                    :rules="field.required ? [v => (field.multiple ? v && v.length > 0 : !!v) || 'Field is required'] : []"
                     density="comfortable"></v-select>
 
                 <!-- Checkbox -->
-                <v-checkbox v-if="field.type === 'checkbox'" :label="field.label" v-model="formData[field.key]"
+                <v-checkbox v-if="field.type === 'checkbox'" :label="field.required ? field.label + ' *' : field.label"
+                    v-model="formData[field.key]" :rules="field.required ? [v => !!v || 'Field is required'] : []"
                     density="comfortable"></v-checkbox>
             </div>
 
@@ -36,7 +46,7 @@
             <slot :form-data="formData"></slot>
 
             <v-card-actions class="justify-end mt-4">
-                <v-btn color="primary" type="submit" class="mr-2">Save</v-btn>
+                <v-btn color="primary" type="submit" class="mr-2" :disabled="!formIsValid">Save</v-btn>
                 <v-btn color="error" variant="text" class="mr-2" @click="showDeleteConfirm = true"
                     v-if="canDelete">Delete</v-btn>
                 <v-btn color="grey" variant="text" @click="cancel">Cancel</v-btn>
@@ -103,7 +113,9 @@ const activeFields = computed(() => {
     return [];
 });
 
+
 const formData = ref<any>({});
+const formIsValid = ref(false);
 const showDeleteConfirm = ref(false);
 
 const isEditing = computed(() => {

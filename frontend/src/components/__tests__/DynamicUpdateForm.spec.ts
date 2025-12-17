@@ -159,4 +159,85 @@ describe('DynamicUpdateForm', () => {
 
     expect(wrapper.text()).toContain('Delete')
   })
+
+  it('adds asterisk to required field label', () => {
+        const wrapper = mount(DynamicUpdateForm, {
+            global: {
+                plugins: [vuetify],
+            },
+            props: {
+                modelClass: TestModel,
+                initialData: {},
+            },
+        });
+
+        // TestModel.name is required
+        expect(wrapper.html()).toContain('Name *'); 
+        // TestModel.age is optional
+        expect(wrapper.html()).toContain('Age');
+        expect(wrapper.html()).not.toContain('Age *');
+  });
+
+  it('validates required fields', async () => {
+    const wrapper = mount(DynamicUpdateForm, {
+      global: {
+        plugins: [vuetify],
+      },
+      props: {
+        initialData: {},
+        modelClass: TestModel,
+      },
+    })
+
+    const nameInput = wrapper.findAllComponents(components.VTextField).find(c => c.props('label') === 'Name *')
+    const ageInput = wrapper.findAllComponents(components.VTextField).find(c => c.props('label') === 'Age')
+
+    expect(nameInput).toBeDefined()
+    expect(ageInput).toBeDefined()
+
+    expect(nameInput!.props('rules')).toHaveLength(1)
+    expect(ageInput!.props('rules')).toHaveLength(0)
+
+    const rule = nameInput!.props('rules')[0] as (v: any) => string | boolean
+    expect(rule('')).toBe('Field is required')
+    expect(rule('value')).toBe(true)
+  })
+  it('disables save button when form is invalid', async () => {
+    const wrapper = mount(DynamicUpdateForm, {
+      global: {
+        plugins: [vuetify],
+      },
+      props: {
+        initialData: {},
+        modelClass: TestModel,
+      },
+    })
+
+    const saveBtn = wrapper.findAllComponents(components.VBtn).find(b => b.text() === 'Save')
+    expect(saveBtn).toBeDefined()
+    
+    // Initially empty required field (Name), so should be disabled
+    // note: v-form validation happens async usually, but initial state might be valid until touched or validated
+    // However, with v-model, it reflects current state.
+    
+    // Let's trigger validation or input
+    const nameInput = wrapper.find('input[type="text"]')
+    await nameInput.setValue('')
+    await wrapper.find('form').trigger('submit') // Trigger validation
+    
+    // Since we are relying on Vuetify internal validation logic which might not fully run in JSDOM/happy-dom without proper setup
+    // We might check if the binding exists. 
+    // But let's try to verify the disabled attribute usage based on the ref we added.
+
+    // Better approach for unit testing this integration:
+    // Check if the button has the disabled prop bound to the formIsValid state.
+    // We can simulate the form updating the model.
+    
+    const form = wrapper.findComponent(components.VForm)
+    await form.vm.$emit('update:modelValue', false)
+    expect(saveBtn!.attributes('disabled')).toBeDefined() // should be disabled
+    
+    await form.vm.$emit('update:modelValue', true)
+    expect(saveBtn!.attributes('disabled')).toBeUndefined() // should be enabled
+  })
 })

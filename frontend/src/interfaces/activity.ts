@@ -6,10 +6,10 @@ import type { Event } from './event';
 export class Activity {
   documentId: string = '';
 
-  @FormField({ label: 'Title', type: 'text' })
+  @FormField({ label: 'Title', type: 'text', required: true })
   title: string = '';
 
-  @FormField({ label: 'Description', type: 'textarea' })
+  @FormField({ label: 'Description', type: 'textarea', required: true })
   description: string = '';
 
   @FormField({

@@ -6,13 +6,13 @@ import type { Profile } from './profile';
 export class Event {
   documentId: string = '';
 
-  @FormField({ label: 'Titre', type: 'text' })
+  @FormField({ label: 'Titre', type: 'text', required: true })
   title: string = '';
 
-  @FormField({ label: 'Description', type: 'textarea' })
+  @FormField({ label: 'Description', type: 'textarea', required: true })
   description: string = '';
 
-  @FormField({ label: 'Date', type: 'datetime' })
+  @FormField({ label: 'Date', type: 'datetime', required: true })
   date: string = '';
 
   @FormField({ label: 'Image URL', type: 'text' })

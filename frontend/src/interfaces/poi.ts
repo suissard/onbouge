@@ -10,13 +10,13 @@ export interface Position {
 export class Poi {
   documentId: string = '';
 
-  @FormField({ label: 'Titre', type: 'text' })
+  @FormField({ label: 'Titre', type: 'text', required: true })
   title: string = '';
 
-  @FormField({ label: 'Latitude', type: 'number' })
+  @FormField({ label: 'Latitude', type: 'number', required: true })
   latitude: number = 0;
 
-  @FormField({ label: 'Longitude', type: 'number' })
+  @FormField({ label: 'Longitude', type: 'number', required: true })
   longitude: number = 0;
 
   @FormField({ label: 'Description', type: 'textarea' })
