@@ -3,6 +3,7 @@ const MultiStepLoader = require('./loader');
 
 async function main() {
   const steps = [
+    { name: 'Prerequisites', script: 'install/steps/00_versions.js' },
     { name: 'Dependencies', script: 'install/steps/00_deps.js' },
     { name: 'Docker', script: 'install/steps/01_docker.js' },
     { name: 'Strapi Admin', script: 'install/steps/02_strapi_admin.js' },
