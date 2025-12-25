@@ -51,8 +51,9 @@
 
                     <v-list v-else lines="two" class="pa-0">
                         <v-list-subheader>Found {{ results.length }} POIs</v-list-subheader>
-                        <v-list-item v-for="poi in results" :key="poi.id" :title="poi.title"
-                            :subtitle="`${(poi.distance / 1000).toFixed(2)} km away`" @click="focusOnPoi(poi)" link>
+                        <v-list-item v-for="poi in (results as any[])" :key="poi.documentId" :title="poi.title"
+                            :subtitle="`${((poi as any).distance / 1000).toFixed(2)} km away`" @click="focusOnPoi(poi)"
+                            link>
                             <template v-slot:prepend>
                                 <v-avatar color="primary" variant="tonal" size="small">
                                     <v-icon icon="mdi-map-marker"></v-icon>
@@ -81,12 +82,13 @@
                         </l-marker>
 
                         <!-- POI Markers -->
-                        <l-marker v-for="poi in results" :key="poi.id" :lat-lng="[poi.latitude, poi.longitude]">
+                        <l-marker v-for="poi in (results as any[])" :key="poi.documentId"
+                            :lat-lng="[poi.latitude, poi.longitude]">
                             <l-popup>
                                 <div class="text-subtitle-2 font-weight-bold">{{ poi.title }}</div>
                                 <div class="text-caption">{{ poi.description }}</div>
                                 <div class="text-caption mt-1 text-primary">
-                                    {{ (poi.distance / 1000).toFixed(2) }} km away
+                                    {{ ((poi as any).distance / 1000).toFixed(2) }} km away
                                 </div>
                             </l-popup>
                         </l-marker>
@@ -99,14 +101,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import configs from '@/services/configs.json';
+import { usePoisStore } from '@/stores/strapiStore';
 import 'leaflet/dist/leaflet.css';
 import { LMap, LTileLayer, LMarker, LPopup, LCircle } from '@vue-leaflet/vue-leaflet';
 
+const poisStore = usePoisStore();
 const lat = ref(48.8566); // Default: Paris
 const lng = ref(2.3522);
 const distance = ref(10);
-const results = ref<any[]>([]);
+const results = computed(() => poisStore.datas);
 const loading = ref(false);
 const error = ref<string | null>(null);
 
@@ -117,21 +120,9 @@ const center = computed(() => [lat.value, lng.value]);
 const search = async () => {
     loading.value = true;
     error.value = null;
-    results.value = [];
 
     try {
-        const response = await fetch(
-            `${configs.strapiIp}/api/pois/spatial-search?lat=${lat.value}&lng=${lng.value}&distance=${distance.value}`
-        );
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        results.value = data;
-
-        // Auto-adjust zoom/center if needed, or just let user explore
+        await poisStore.spatialSearch(lat.value, lng.value, distance.value);
     } catch (err: any) {
         error.value = err.message || 'An error occurred';
         console.error(err);

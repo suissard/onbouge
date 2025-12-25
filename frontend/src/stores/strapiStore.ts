@@ -7,6 +7,7 @@ import type { Poi } from '@/interfaces/poi'
 import type { Profile } from '@/interfaces/profile'
 import type { Activity } from '@/interfaces/activity'
 import type { User } from '@/interfaces/user'
+import configs from '@config'
 
 // Define a base interface for objects that have a documentId
 interface HasDocumentId {
@@ -14,12 +15,11 @@ interface HasDocumentId {
 }
 
 /**
- * A factory function to create a Pinia store for a specific Strapi collection.
+ * A setup function for a Strapi collection store.
  * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
- * @returns A Pinia store definition.
+ * @returns An object containing store state and actions.
  */
-export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) => {
- return defineStore(dataName, () => {
+export const strapiStoreSetup = <T extends HasDocumentId>(dataName: string) => {
   const datas: Ref<T[]> = ref([])
 
   /**
@@ -116,16 +116,53 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
     update: (id: string, item: any) => Promise<any>;
     delete: (id: string) => Promise<void>;
     datas: Ref<T[]>;
+    strapiIp: string;
     [key: string]: any;
-  } = { getList, get, create, update, delete: deleteItem, datas }
+  } = { getList, get, create, update, delete: deleteItem, datas, strapiIp: configs.strapiIp }
   result[dataName] = datas
 
-  return result as typeof result & { [key: string]: Ref<T[]> }
-})
+  return result as typeof result & { [key: string]: Ref<T[]> | string | any }
+}
+
+/**
+ * A factory function to create a Pinia store for a specific Strapi collection.
+ * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
+ * @returns A Pinia store definition.
+ */
+export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) => {
+  return defineStore(dataName, () => strapiStoreSetup<T>(dataName))
 }
 
 export const useEventsStore = strapiStoreBuilder<Event>("events")
-export const usePoisStore = strapiStoreBuilder<Poi>("pois")
+
+export const usePoisStore = defineStore("pois", () => {
+  const store = strapiStoreSetup<Poi>("pois")
+  
+  async function spatialSearch(lat: number, lng: number, distance: number) {
+    try {
+      const response = await fetch(
+        `${configs.strapiIp}/api/pois/spatial-search?lat=${lat}&lng=${lng}&distance=${distance}`
+      )
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      
+      const data = await response.json()
+      store.datas.value = data
+      return data
+    } catch (error) {
+      console.error('Spatial search failed:', error)
+      throw error
+    }
+  }
+
+  return {
+    ...store,
+    spatialSearch
+  }
+})
+
 export const useProfilesStore = strapiStoreBuilder<Profile>("profiles")
 export const useActivitiesStore = strapiStoreBuilder<Activity>("activities")
 export const useUsersStore = strapiStoreBuilder<User>("users")

@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import strapi from '@/services/strapi';
-import configs from '@config';
+import { useEventsStore } from '@/stores/strapiStore';
 
 const props = defineProps({
   initialPhoto: {
@@ -31,6 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:photo', 'upload-complete']);
 
+const eventsStore = useEventsStore();
 const fileInput = ref<HTMLInputElement | null>(null);
 const previewUrl = ref<string>('');
 const uploading = ref(false);
@@ -39,7 +40,7 @@ const error = ref('');
 // Initialize preview if initial photo exists
 watch(() => props.initialPhoto, (newPhoto) => {
   if (newPhoto && newPhoto.url) {
-    previewUrl.value = configs.strapiIp + newPhoto.url;
+    previewUrl.value = eventsStore.strapiIp + newPhoto.url;
   }
 }, { immediate: true });
 
