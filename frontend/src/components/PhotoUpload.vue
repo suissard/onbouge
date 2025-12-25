@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import strapi from '@/services/strapi';
-import configs from '@/services/configs.json';
+import configs from '@config';
 
 const props = defineProps({
   initialPhoto: {
