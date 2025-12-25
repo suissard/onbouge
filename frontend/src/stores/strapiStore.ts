@@ -24,10 +24,11 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 
   /**
    * Fetches a list of items from the Strapi collection and populates the store.
+   * @param {any} queryParams - Optional query parameters for Strapi (e.g., populate, filter).
    */
-  async function getList() {
+  async function getList(queryParams: any = { populate: '*' }) {
     try {
-      const response = await strapi.find(dataName, { populate: '*' })
+      const response = await strapi.find(dataName, queryParams)
       datas.value = response.data as unknown as T[]
     } catch (error) {
       console.error(`Error fetching ${dataName}:`, error)
@@ -38,11 +39,12 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
    * Fetches a single item by its ID from the Strapi collection.
    * If the item is already in the store, it's updated. Otherwise, it's added to the store.
    * @param {string} id - The ID of the item to fetch.
+   * @param {any} queryParams - Optional query parameters for Strapi (e.g., populate).
    * @returns {Promise<T | undefined>} A promise that resolves to the fetched item, or undefined if an error occurs.
    */
-    async function get(id: string): Promise<T | undefined> {
+    async function get(id: string, queryParams: any = { populate: '*' }): Promise<T | undefined> {
     try {
-      const response = await strapi.findOne(dataName, id, { populate: '*' })
+      const response = await strapi.findOne(dataName, id, queryParams)
 
       const index = datas.value.findIndex(item => item.documentId === id)
       if (index !== -1) {
@@ -108,8 +110,8 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
   }
 
   const result: {
-    getList: () => Promise<void>;
-    get: (id: string) => Promise<T | undefined>;
+    getList: (queryParams?: any) => Promise<void>;
+    get: (id: string, queryParams?: any) => Promise<T | undefined>;
     create: (item: any) => Promise<any>;
     update: (id: string, item: any) => Promise<any>;
     delete: (id: string) => Promise<void>;
