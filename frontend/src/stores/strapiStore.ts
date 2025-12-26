@@ -31,7 +31,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 		 * @param {string} options.sort - The sort string (e.g., 'title:asc').
 		 */
 		async function getList(
-			options: { page?: number; pageSize?: number; sort?: string } = {}
+			options: { page?: number; pageSize?: number; sort?: string; search?: string; searchField?: string; filters?: any; updateStore?: boolean } = {}
 		) {
 			try {
 				const queryParams: any = { populate: "*" };
@@ -46,13 +46,29 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 					queryParams.sort = options.sort;
 				}
 
+				if (options.filters) {
+					queryParams.filters = options.filters;
+				}
+
+				if (options.search && options.searchField) {
+					if (!queryParams.filters) queryParams.filters = {};
+					queryParams.filters[options.searchField] = { $containsi: options.search };
+				}
+
 				const response = await strapi.find(dataName, queryParams);
-				datas.value = response.data as unknown as T[];
+				
 				if (response.meta) {
 					meta.value = response.meta;
 				}
+
+				if (options.updateStore !== false) {
+					datas.value = response.data as unknown as T[];
+				}
+
+				return response;
 			} catch (error) {
 				console.error(`Error fetching ${dataName}:`, error);
+				return { data: [], meta: {} };
 			}
 		}
 
@@ -130,7 +146,7 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 		}
 
 		const result: {
-			getList: () => Promise<void>;
+			getList: (options?: { page?: number; pageSize?: number; sort?: string; search?: string; searchField?: string; filters?: any; updateStore?: boolean }) => Promise<any>;
 			get: (id: string) => Promise<T | undefined>;
 			create: (item: any) => Promise<any>;
 			update: (id: string, item: any) => Promise<any>;

@@ -32,7 +32,9 @@ export class Poi {
     optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'activities'
   })
   activities: Activity[] = [];
 
@@ -42,7 +44,9 @@ export class Poi {
     optionsKey: 'events',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'events'
   })
   events: Event[] = [];
   
@@ -51,7 +55,9 @@ export class Poi {
     type: 'select',
     optionsKey: 'users',
     itemTitle: 'username',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'profiles'
   })
   author: any = null; // Using any to avoid circular dependency issues for now, or import User
 

@@ -2,7 +2,6 @@
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit Event' : 'Create Event' }}</h1>
     <DynamicUpdateForm v-if="event" :initial-data="event" :model-class="Event"
-      :data-sources="{ activities: activitiesList, pois: poisList, profiles: profilesList, users: usersList }"
       :title="isEditing ? 'Edit Event' : 'Create Event'" @save="saveEvent" @delete="deleteEvent" />
     <v-alert v-else-if="isEditing" type="info">Loading event...</v-alert>
   </v-container>
@@ -34,15 +33,6 @@ const isEditing = computed(() => !!eventId.value)
 const event = ref<Partial<Event> | null>(null)
 const loading = ref(false)
 
-const activitiesList = computed(() => activitiesStore.datas)
-const poisList = computed(() => poisStore.datas)
-const profilesList = computed(() => profilesStore.datas)
-const usersList = computed(() => usersStore.datas)
-
-const selectedSports = ref<string[]>([])
-const selectedPoi = ref<string | null>(null)
-const selectedProfiles = ref<string[]>([])
-
 const strapiObject = new StrapiObject<Event>(
   eventStore,
   notificationStore,
@@ -52,13 +42,6 @@ const strapiObject = new StrapiObject<Event>(
 )
 
 onMounted(async () => {
-  // Load all necessary data
-  await Promise.all([
-    activitiesStore.getList(),
-    poisStore.getList(),
-    profilesStore.getList(),
-    usersStore.getList()
-  ])
 
   if (isEditing.value && eventId.value) {
     // Use elaborate populate to get participants (profiles) details
@@ -82,8 +65,6 @@ onMounted(async () => {
             profilesStore.datas.push(p)
           }
         })
-        // @ts-ignore
-        event.value.profiles = fetchedEvent.profiles.map((p: Profile) => p.documentId)
       }
 
       // Format date for input type="datetime-local" if necessary

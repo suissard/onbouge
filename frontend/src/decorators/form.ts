@@ -13,6 +13,8 @@ export interface FormFieldOptions {
   itemTitle?: string; // Property to display (default: title/name)
   itemValue?: string; // Property to save (default: id)
   multiple?: boolean; // For multi-select
+  remote?: boolean;
+  storeKey?: string;
 }
 
 export function FormField(options: FormFieldOptions) {

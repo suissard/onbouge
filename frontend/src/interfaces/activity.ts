@@ -18,7 +18,9 @@ export class Activity {
     optionsKey: 'pois',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'pois'
   })
   pois: Poi[] = [];
 
@@ -28,7 +30,9 @@ export class Activity {
     optionsKey: 'events',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'events'
   })
   events: Event[] = [];
 
@@ -37,7 +41,9 @@ export class Activity {
     type: 'select',
     optionsKey: 'users',
     itemTitle: 'username',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'profiles'
   })
   author: any = null;
 

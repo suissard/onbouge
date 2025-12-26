@@ -4,9 +4,8 @@
         <div v-if="profile" class="mb-6">
             <PhotoUpload :initial-photo="profile.photo" @upload-complete="handlePhotoUpload" />
         </div>
-        <DynamicUpdateForm v-if="profile" :initial-data="profile" :model-class="Profile"
-            :data-sources="{ activities: activitiesList, events: eventsList }" title="Edit Profile" @save="saveProfile"
-            @delete="deleteProfile" />
+        <DynamicUpdateForm v-if="profile" :initial-data="profile" :model-class="Profile" title="Edit Profile"
+            @save="saveProfile" @delete="deleteProfile" />
         <v-alert v-else type="info">Loading profile...</v-alert>
     </v-container>
 </template>
@@ -32,9 +31,6 @@ const profileId = computed(() => route.params.id ? String(route.params.id) : nul
 const profile = ref<Partial<Profile> | null>(null)
 const loading = ref(false)
 
-const activitiesList = computed(() => activitiesStore.datas)
-const eventsList = computed(() => eventsStore.datas)
-
 const strapiObject = new StrapiObject<Profile>(
     profilesStore,
     notificationStore,
@@ -44,20 +40,11 @@ const strapiObject = new StrapiObject<Profile>(
 )
 
 onMounted(async () => {
-    await Promise.all([
-        activitiesStore.getList(),
-        eventsStore.getList()
-    ])
 
     if (profileId.value) {
         const fetchedProfile = await strapiObject.load(profileId.value)
         if (fetchedProfile) {
             profile.value = { ...fetchedProfile }
-            // Map relations to IDs for the form
-            // @ts-ignore
-            if (fetchedProfile.activities) profile.value.activities = fetchedProfile.activities.map((s: any) => s.documentId)
-            // @ts-ignore
-            if (fetchedProfile.events) profile.value.events = fetchedProfile.events.map((e: any) => e.documentId)
         }
     } else {
         notificationStore.addNotification({ message: 'Invalid Profile ID', type: 'error' })

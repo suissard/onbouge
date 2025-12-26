@@ -40,7 +40,9 @@ export class User {
     type: 'select',
     optionsKey: 'profiles',
     itemTitle: 'username',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'profiles'
   })
   profile: Profile | null = null;
   createdAt: string = '';

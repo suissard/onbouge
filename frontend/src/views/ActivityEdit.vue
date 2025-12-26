@@ -2,8 +2,7 @@
   <v-container>
     <h1 class="mb-4">{{ isEditing ? 'Edit Activity' : 'Create Activity' }}</h1>
     <DynamicUpdateForm v-if="activity" :initial-data="activity" :model-class="Activity"
-      :data-sources="{ pois: poisList, events: eventsList }" :title="isEditing ? 'Edit Activity' : 'Create Activity'"
-      @save="saveActivity" @delete="deleteActivity" />
+      :title="isEditing ? 'Edit Activity' : 'Create Activity'" @save="saveActivity" @delete="deleteActivity" />
     <v-alert v-else-if="isEditing" type="info">Loading activity...</v-alert>
   </v-container>
 </template>
@@ -29,9 +28,6 @@ const isEditing = computed(() => !!activityId.value)
 const activity = ref<Partial<Activity> | null>(null)
 const loading = ref(false)
 
-const poisList = computed(() => poisStore.datas)
-const eventsList = computed(() => eventsStore.datas)
-
 const strapiObject = new StrapiObject<Activity>(
   activityStore,
   notificationStore,
@@ -41,19 +37,11 @@ const strapiObject = new StrapiObject<Activity>(
 )
 
 onMounted(async () => {
-  await Promise.all([
-    poisStore.getList(),
-    eventsStore.getList()
-  ])
 
   if (isEditing.value && activityId.value) {
     const fetchedActivity = await strapiObject.load(activityId.value);
     if (fetchedActivity) {
       activity.value = { ...fetchedActivity };
-      // @ts-ignore
-      if (fetchedActivity.pois) activity.value.pois = fetchedActivity.pois.map((p: any) => p.documentId)
-      // @ts-ignore
-      if (fetchedActivity.events) activity.value.events = fetchedActivity.events.map((e: any) => e.documentId)
     }
   } else {
     // @ts-ignore

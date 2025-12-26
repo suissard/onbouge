@@ -8,4 +8,6 @@ export interface FieldDefinition {
     itemTitle?: string;
     itemValue?: string;
     multiple?: boolean;
+    remote?: boolean;
+    storeKey?: string;
 }

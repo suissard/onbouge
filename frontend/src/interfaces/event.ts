@@ -24,7 +24,9 @@ export class Event {
     optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'activities'
   })
   activities: Activity[] = [];
 
@@ -33,7 +35,9 @@ export class Event {
     type: 'select',
     optionsKey: 'pois',
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'pois'
   })
   poi: Poi | null = null;
 
@@ -43,7 +47,9 @@ export class Event {
     optionsKey: 'profiles',
     multiple: true,
     itemTitle: 'username',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'profiles'
   })
   profiles: Profile[] = [];
   
@@ -52,7 +58,9 @@ export class Event {
     type: 'select',
     optionsKey: 'users',
     itemTitle: 'username',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'profiles'
   })
   author: any = null;
 

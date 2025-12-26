@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1 class="mb-4">Edit User</h1>
-    <DynamicUpdateForm v-if="user" :initial-data="user" :model-class="User" :data-sources="{ profiles: profilesList, roles: rolesList }"
+    <DynamicUpdateForm v-if="user" :initial-data="user" :model-class="User" :data-sources="{ roles: rolesList }"
       title="Edit User" @save="saveUser" @delete="deleteUser" />
     <v-alert v-else type="info">Loading user...</v-alert>
   </v-container>
@@ -29,7 +29,6 @@ const userId = computed(() => route.params.id ? String(route.params.id) : null)
 const user = ref<Partial<User> | null>(null)
 const loading = ref(false)
 
-const profilesList = computed(() => profilesStore.datas)
 const rolesList = computed(() => rolesStore.datas)
 
 const strapiObject = new StrapiObject<User>(
@@ -41,17 +40,12 @@ const strapiObject = new StrapiObject<User>(
 )
 
 onMounted(async () => {
-  await profilesStore.getList()
   await rolesStore.getList()
 
   if (userId.value) {
     const fetchedUser = await strapiObject.load(userId.value)
     if (fetchedUser) {
       user.value = { ...fetchedUser }
-      // @ts-ignore
-      if (fetchedUser.profiles) user.value.profiles = fetchedUser.profiles.map((p: any) => p.documentId)
-      // @ts-ignore
-      if (fetchedUser.role) user.value.role = fetchedUser.role.id
     }
   } else {
     notificationStore.addNotification({ message: 'Invalid User ID', type: 'error' })

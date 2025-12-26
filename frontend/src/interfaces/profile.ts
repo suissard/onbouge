@@ -21,7 +21,9 @@ export class Profile {
     optionsKey: 'activities',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'activities'
   })
   activities: Activity[] = [];
 
@@ -31,7 +33,9 @@ export class Profile {
     optionsKey: 'events',
     multiple: true,
     itemTitle: 'title',
-    itemValue: 'documentId'
+    itemValue: 'documentId',
+    remote: true,
+    storeKey: 'events'
   })
   events: Event[] = [];
 
