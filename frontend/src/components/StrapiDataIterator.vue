@@ -14,8 +14,7 @@
       </v-row>
     </div>
 
-    <v-data-iterator v-else :items="sortedItems" :items-per-page="itemsPerPage" :page="page" :search="search"
-      @update:page="page = $event" @update:items-per-page="itemsPerPage = $event">
+    <v-data-iterator v-else :items="props.store.datas" :items-per-page="itemsPerPage" :search="search">
       <template v-slot:default="{ items }">
         <v-row>
           <v-col v-for="item in items" :key="(item.raw as any).id" cols="12" sm="6" md="4" lg="3">
@@ -24,7 +23,7 @@
         </v-row>
       </template>
 
-      <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
+      <template v-slot:footer>
         <div class="d-flex align-center justify-space-between pa-4">
           <div style="min-width: 150px;">
             <span class="text-caption me-2">Éléments par page:</span>
@@ -34,14 +33,14 @@
 
           <div class="d-flex align-center">
             <v-btn :disabled="page === 1" icon="mdi-arrow-left" density="comfortable" rounded variant="tonal"
-              class="me-2" @click="prevPage"></v-btn>
+              class="me-2" @click="page--"></v-btn>
 
             <div class="mx-2 text-caption">
-              Page {{ page }} sur {{ pageCount }}
+              Page {{ page }} sur {{ totalPages }}
             </div>
 
-            <v-btn :disabled="page >= pageCount" icon="mdi-arrow-right" density="comfortable" rounded variant="tonal"
-              class="ms-2" @click="nextPage"></v-btn>
+            <v-btn :disabled="page >= totalPages" icon="mdi-arrow-right" density="comfortable" rounded variant="tonal"
+              class="ms-2" @click="page++"></v-btn>
           </div>
         </div>
       </template>
@@ -57,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, type Component } from 'vue';
+import { ref, onMounted, computed, type Component, watch } from 'vue';
 
 const props = defineProps({
   store: {
@@ -85,21 +84,25 @@ const props = defineProps({
 const search = ref('');
 const loading = ref(true);
 const page = ref(1);
-const itemsPerPage = ref(10); // Default value, now connected with v-model
+const itemsPerPage = ref(10);
 
-const sortedItems = computed(() => {
-  if (!props.store.datas) return [];
+const totalPages = computed(() => props.store.meta?.pagination?.pageCount || 1);
 
-  return [...props.store.datas].sort((a, b) => {
-    const valA = a[props.sortKey]?.toString().toLowerCase() || '';
-    const valB = b[props.sortKey]?.toString().toLowerCase() || '';
-    return valA.localeCompare(valB);
+async function fetchData() {
+  loading.value = true;
+  await props.store.getList({
+    page: page.value,
+    pageSize: itemsPerPage.value,
+    sort: props.sortKey
   });
+  loading.value = false;
+}
+
+watch([page, itemsPerPage], () => {
+  fetchData();
 });
 
-onMounted(async () => {
-  loading.value = true;
-  await props.store.getList();
-  loading.value = false;
+onMounted(() => {
+  fetchData();
 });
 </script>
