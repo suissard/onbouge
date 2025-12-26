@@ -61,21 +61,27 @@ onMounted(async () => {
   ])
 
   if (isEditing.value && eventId.value) {
-    const fetchedEvent = await strapiObject.load(eventId.value)
+    // Use elaborate populate to get participants (profiles) details
+    const fetchedEvent = await strapiObject.get(eventId.value, {
+      populate: {
+        activities: { populate: '*' },
+        poi: { populate: '*' },
+        profiles: { populate: '*' },
+        author: { populate: '*' }
+      }
+    })
+
     if (fetchedEvent) {
       // Clone to avoid mutating store directly and to handle transforms
       event.value = { ...fetchedEvent }
 
-      // Initialize selections
-      if (fetchedEvent.activities) {
-        // @ts-ignore
-        event.value.activities = fetchedEvent.activities.map((s: Activity) => s.documentId)
-      }
-      if (fetchedEvent.poi) {
-        // @ts-ignore
-        event.value.poi = fetchedEvent.poi.documentId
-      }
+      // Sync fetched participants with profilesStore to ensure they are in the dropdown/chips options
       if (fetchedEvent.profiles) {
+        fetchedEvent.profiles.forEach((p: Profile) => {
+          if (!profilesStore.datas.find((existing: Profile) => existing.documentId === p.documentId)) {
+            profilesStore.datas.push(p)
+          }
+        })
         // @ts-ignore
         event.value.profiles = fetchedEvent.profiles.map((p: Profile) => p.documentId)
       }

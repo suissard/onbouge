@@ -15,6 +15,8 @@ import '@mdi/font/css/materialdesignicons.css'
 import App from './App.vue'
 import router from './router'
 
+import configs from '@config'
+
 const initialSettings = {
   theme: localStorage.getItem('theme') || 'light',
   colors: JSON.parse(localStorage.getItem('themeColors') || '{}'),
@@ -29,15 +31,15 @@ const vuetify = createVuetify({
       light: {
         dark: false,
         colors: {
-          primary: initialSettings.colors.primary || '#1976D2',
-          secondary: initialSettings.colors.secondary || '#424242',
+          primary: initialSettings.colors.primary || configs.colors.light.primary || '#1976D2',
+          secondary: initialSettings.colors.secondary || configs.colors.light.secondary || '#424242',
         },
       },
       dark: {
         dark: true,
         colors: {
-          primary: initialSettings.colors.primary || '#2196F3',
-          secondary: initialSettings.colors.secondary || '#616161',
+          primary: initialSettings.colors.primary || configs.colors.dark.primary || '#2196F3',
+          secondary: initialSettings.colors.secondary || configs.colors.dark.secondary || '#616161',
         },
       },
     },

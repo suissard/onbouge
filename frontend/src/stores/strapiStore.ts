@@ -14,9 +14,9 @@ interface HasDocumentId {
 }
 
 /**
- * A factory function to create a Pinia store for a specific Strapi collection.
+ * A setup function for a Strapi collection store.
  * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
- * @returns A Pinia store definition.
+ * @returns An object containing store state and actions.
  */
 export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) => {
 	return defineStore(dataName, () => {

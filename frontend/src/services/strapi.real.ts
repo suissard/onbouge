@@ -1,6 +1,6 @@
 import { strapi as createStrapiClient } from '@strapi/client';
 import type { StrapiClient } from '@strapi/client';
-import configs from './configs.json';
+import configs from '@config';
 
 // Base URL for the Strapi API
 const BASE_URL = configs.strapiIp + '/api';

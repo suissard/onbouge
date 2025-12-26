@@ -26,7 +26,14 @@ export class StrapiObject<T extends { documentId: string }> {
    * Handles 404 by notifying and redirecting to the list.
    */
   async load(id: string): Promise<T | null> {
-    const item = await this.store.get(id)
+    return this.get(id)
+  }
+
+  /**
+   * Fetches an item by ID with optional query parameters.
+   */
+  async get(id: string, queryParams?: any): Promise<T | null> {
+    const item = await this.store.get(id, queryParams)
     if (item) {
       return { ...item }
     } else {
