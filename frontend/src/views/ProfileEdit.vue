@@ -2,7 +2,8 @@
     <v-container>
         <h1 class="mb-4">Edit Profile</h1>
         <div v-if="profile" class="mb-6">
-            <PhotoUpload :initial-photo="profile.photo" @upload-complete="handlePhotoUpload" />
+            <PhotoUpload :initial-photo="profile.photo" :target-width="512" :target-height="512" :max-size-m-b="0.5"
+                @upload-complete="handlePhotoUpload" />
         </div>
         <DynamicUpdateForm v-if="profile" :initial-data="profile" :model-class="Profile" title="Edit Profile"
             @save="saveProfile" @delete="deleteProfile" />
