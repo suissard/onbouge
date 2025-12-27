@@ -18,7 +18,7 @@ interface HasDocumentId {
  * @param {string} dataName - The name of the Strapi collection (e.g., "events", "pois").
  * @returns An object containing store state and actions.
  */
-export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) => {
+export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string, extraActions?: (base: any) => any) => {
 	return defineStore(dataName, () => {
 		const datas: Ref<T[]> = ref([]);
 		const meta: Ref<any> = ref({});
@@ -158,12 +158,27 @@ export const strapiStoreBuilder = <T extends HasDocumentId>(dataName: string) =>
 		} = { getList, get, create, update, delete: deleteItem, datas, meta };
 		result[dataName] = datas;
 
+		if (extraActions) {
+			Object.assign(result, extraActions(result));
+		}
+
 		return result as typeof result & { [key: string]: Ref<T[]> };
 	});
 };
 
 export const useEventsStore = strapiStoreBuilder<Event>("events");
-export const usePoisStore = strapiStoreBuilder<Poi>("pois");
+export const usePoisStore = strapiStoreBuilder<Poi>("pois", (base) => ({
+	async spatialSearch(lat: number, lng: number, distance: number) {
+		try {
+			const response = await strapi.request('GET', `/pois/spatial-search?lat=${lat}&lng=${lng}&distance=${distance}`);
+			base.datas.value = response;
+			return response;
+		} catch (error) {
+			console.error("Error in spatialSearch:", error);
+			throw error;
+		}
+	}
+}));
 export const useProfilesStore = strapiStoreBuilder<Profile>("profiles");
 export const useActivitiesStore = strapiStoreBuilder<Activity>("activities");
 export const useUsersStore = strapiStoreBuilder<User>("users");
