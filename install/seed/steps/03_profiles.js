@@ -75,19 +75,20 @@ async function main() {
            await api.put(`/api::profile.profile/${profileDocId}`, {
               username: item.username,
               description: item.description,
-              activities: activityIds,
-              user: userId
+              activities: { connect: activityIds },
+              user: userId ? { connect: [userId] } : null
            });
         } else {
           const res = await api.post('/api::profile.profile', {
               username: item.username,
               description: item.description,
-              activities: activityIds,
-              user: userId
+              activities: { connect: activityIds },
+              user: userId ? { connect: [userId] } : null
           });
           const entry = res.data.data || res.data;
           profileId = entry.documentId || entry.id;
         }
+        console.log(`Publishing Profile ${item.username} using ID: ${profileId}`);
         await publishEntry(api, 'api::profile.profile', profileId);
         output.profiles[item.id] = profileId;
         await delay(); // Rate limiting

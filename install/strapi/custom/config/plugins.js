@@ -4,7 +4,7 @@ module.exports = ({ env }) => ({
     config: {
       ratelimit: {
         interval: 60000,
-        max: 10000
+        max: 100000
       }
     }
   }

@@ -1,4 +1,4 @@
-const { getJwt, STRAPI_URL, logProgress } = require('../utils');
+const { getJwt, getAuthenticatedApi, STRAPI_URL, logProgress } = require('../utils');
 const axios = require('axios');
 
 const MAX_RETRIES = 3;
@@ -19,6 +19,7 @@ async function retryOperation(operation, name) {
 async function main() {
   try {
     const jwt = await getJwt();
+    const api = await getAuthenticatedApi();
     if (!jwt) {
         console.error('Failed to get JWT');
         process.exit(1);

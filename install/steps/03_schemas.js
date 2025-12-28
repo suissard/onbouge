@@ -16,10 +16,11 @@ async function main() {
         await runCommand('docker', ['cp', 'install/strapi/custom/api/activity/content-types/activity/lifecycles.js', 'strapi:/opt/app/strapi/src/api/activity/content-types/activity/']);
         await runCommand('docker', ['cp', 'install/strapi/custom/api/profile/content-types/profile/lifecycles.js', 'strapi:/opt/app/strapi/src/api/profile/content-types/profile/']);
 
-        // Copy custom utils and policies
-        await runCommand('docker', ['exec', 'strapi', 'mkdir', '-p', '/opt/app/strapi/src/utils', '/opt/app/strapi/src/policies']);
+        // Copy custom utils, policies and middlewares
+        await runCommand('docker', ['exec', 'strapi', 'mkdir', '-p', '/opt/app/strapi/src/utils', '/opt/app/strapi/src/policies', '/opt/app/strapi/src/middlewares']);
 
         await runCommand('docker', ['cp', 'install/strapi/custom/policies/is-owner.js', 'strapi:/opt/app/strapi/src/policies/']);
+        await runCommand('docker', ['cp', 'install/strapi/custom/middlewares/ratelimit.js', 'strapi:/opt/app/strapi/src/middlewares/']);
 
         // Copy custom routes with policies
         await runCommand('docker', ['cp', 'install/strapi/custom/api/event/routes/event.js', 'strapi:/opt/app/strapi/src/api/event/routes/']);

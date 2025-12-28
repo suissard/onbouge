@@ -110,11 +110,10 @@ const readData = (filename) => {
 
 const publishEntry = async (api, model, id) => {
   try {
-    await api.post(`/${model}/${id}/actions/publish`, {
-      date: new Date()
-    });
+    const res = await api.post(`/${model}/${id}/actions/publish`, {});
+    console.log(`Published ${model} ${id}. Status: ${res.data.data.status}`);
   } catch (e) {
-    // Ignore if already published
+    console.error(`Failed to publish ${model} ${id}:`, e.message, e.response?.data?.error);
   }
 };
 

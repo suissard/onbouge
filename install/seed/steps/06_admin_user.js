@@ -77,17 +77,17 @@ async function main() {
          const adminUserRes = await api.get(`/plugin::users-permissions.user?filters[email][$eq]=${encodeURIComponent(adminEmail)}`);
          if (adminUserRes.data.results && adminUserRes.data.results.length > 0) {
             const adminUser = adminUserRes.data.results[0];
-            const adminUserId = adminUser.id; // Relationship usually needs ID, not DocumentId
+            const adminUserId = adminUser.id; // Relationship lookup in filters often needs numeric ID
 
             const profileRes = await api.get(`/api::profile.profile?filters[user][id][$eq]=${adminUserId}`);
-            const profiles = profileRes.data.results; // CM API returns results in .results usually
+            const profiles = profileRes.data.results; 
 
             if (!profiles || profiles.length === 0) {
                 logProgress(0, 1, `Creating Profile for Admin...`);
                 const res = await api.post('/api::profile.profile', {
                         username: 'Admin',
                         description: 'Compte administrateur',
-                        user: adminUserId,
+                        user: { connect: [adminUserId] },
                         publishedAt: new Date().toISOString()
                 });
                 

@@ -144,45 +144,7 @@ async function main() {
     }
   }
 
-  // 3. Seed POIs
-  console.log('Seeding POIs...');
-  const pois = readData('pois.json');
-  for (const item of pois) {
-    const lat = item.latitude || (48.8 + Math.random() * 0.1);
-    const lng = item.longitude || (2.3 + Math.random() * 0.1);
-
-    try {
-      const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
-      let poiId;
-      if (existing.data.results && existing.data.results.length > 0) {
-        const entry = existing.data.results[0];
-        poiId = entry.documentId || entry.id;
-        const updateId = entry.documentId || entry.id;
-        await api.put(`/api::poi.poi/${updateId}`, {
-            title: item.title,
-            description: item.description,
-            latitude: lat,
-            longitude: lng
-        });
-      } else {
-        const res = await api.post('/api::poi.poi', { 
-            title: item.title,
-            description: item.description,
-            latitude: lat,
-            longitude: lng
-        });
-        const entry = res.data.data || res.data;
-        poiId = entry.documentId || entry.id;
-        console.log(`Created POI: ${item.title} (ID: ${poiId})`);
-      }
-      await publishEntry('api::poi.poi', poiId);
-      idMap.pois[item.id] = poiId;
-    } catch (e) {
-      console.error(`Failed to seed POI ${item.title}:`, e.message, e.response?.data);
-    }
-  }
-
-  // 4. Seed Profiles
+  // 3. Seed Profiles (Moved before POIs to allow author assignment)
   console.log('Seeding Profiles...');
   const profiles = readData('profiles.json');
   for (const item of profiles) {
@@ -244,6 +206,50 @@ async function main() {
       idMap.profiles[item.id] = profileId;
     } catch (e) {
       console.error(`Failed to seed Profile ${item.username}:`, e.message, e.response?.data);
+    }
+  }
+
+  // 4. Seed POIs
+  console.log('Seeding POIs...');
+  const pois = readData('pois.json');
+  // Get available profile IDs for authors
+  const availableProfileIds = Object.values(idMap.profiles);
+
+  for (const item of pois) {
+    const lat = item.latitude || (48.8 + Math.random() * 0.1);
+    const lng = item.longitude || (2.3 + Math.random() * 0.1);
+    
+    // Assign a random author if available
+    const authorId = availableProfileIds.length > 0 
+        ? availableProfileIds[Math.floor(Math.random() * availableProfileIds.length)] 
+        : null;
+
+    const poiData = {
+        title: item.title,
+        description: item.description,
+        latitude: lat,
+        longitude: lng,
+        author: authorId
+    };
+
+    try {
+      const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
+      let poiId;
+      if (existing.data.results && existing.data.results.length > 0) {
+        const entry = existing.data.results[0];
+        poiId = entry.documentId || entry.id;
+        const updateId = entry.documentId || entry.id;
+        await api.put(`/api::poi.poi/${updateId}`, poiData);
+      } else {
+        const res = await api.post('/api::poi.poi', poiData);
+        const entry = res.data.data || res.data;
+        poiId = entry.documentId || entry.id;
+        console.log(`Created POI: ${item.title} (ID: ${poiId})`);
+      }
+      await publishEntry('api::poi.poi', poiId);
+      idMap.pois[item.id] = poiId;
+    } catch (e) {
+      console.error(`Failed to seed POI ${item.title}:`, e.message, e.response?.data);
     }
   }
 

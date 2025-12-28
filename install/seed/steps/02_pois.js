@@ -16,18 +16,25 @@ async function main() {
             idMap = JSON.parse(process.env.ID_MAP);
         } catch(e) {}
     }
-    const profileIds = Object.values(idMap.profiles || {});
-    let defaultAuthor = profileIds.length > 0 ? profileIds[0] : null;
+    
+    let availableAuthorIds = Object.values(idMap.profiles || {});
 
-    if (!defaultAuthor) {
+    // If no profiles in map, try to fetch from API
+    if (availableAuthorIds.length === 0) {
         try {
+             // Try Content Manager API first
+             console.log('Fetching profiles from API for authors...');
              const profiles = await api.get('/api::profile.profile');
-             if (profiles.data && profiles.data.length > 0) {
-                 const p = profiles.data.results ? profiles.data.results[0] : (profiles.data[0] || profiles.data);
-                 defaultAuthor = p.documentId || p.id;
+             const results = profiles.data.results || profiles.data.data || (Array.isArray(profiles.data) ? profiles.data : []);
+             availableAuthorIds = results.map(p => p.documentId || p.id);
+             
+             if (availableAuthorIds.length > 0) {
+                 console.log(`Found ${availableAuthorIds.length} profiles to use as authors.`);
+             } else {
+                 console.warn('No profiles found to use as authors. POIs will be created without author.');
              }
         } catch (e) {
-            // console.warn('Could not fetch default author');
+             console.error('Could not fetch profiles for authors:', e.message);
         }
     }
 
@@ -37,6 +44,11 @@ async function main() {
       const lat = item.latitude || (48.8 + Math.random() * 0.1);
       const lng = item.longitude || (2.3 + Math.random() * 0.1);
 
+      // Pick random author
+      const randomAuthor = availableAuthorIds.length > 0
+        ? availableAuthorIds[Math.floor(Math.random() * availableAuthorIds.length)]
+        : null;
+
       try {
         const existing = await api.get(`/api::poi.poi?filters[title][$eq]=${encodeURIComponent(item.title)}`);
         let poiId;
@@ -44,31 +56,40 @@ async function main() {
         // Map relations
         const activityIds = item.activities?.map(a => idMap.activities[a.id]).filter(id => id) || [];
 
+        const poiData = {
+              title: item.title,
+              description: item.description,
+              latitude: lat,
+              longitude: lng,
+              activities: { connect: activityIds },
+              author: randomAuthor // Try direct ID
+        };
+
         if (existing.data.results && existing.data.results.length > 0) {
           const entry = existing.data.results[0];
           poiId = entry.documentId || entry.id;
           const updateId = entry.documentId || entry.id;
-          await api.put(`/api::poi.poi/${updateId}`, {
-              title: item.title,
-              description: item.description,
-              latitude: lat,
-              longitude: lng,
-              activities: activityIds,
-              author: defaultAuthor
-          });
+          
+          await api.put(`/api::poi.poi/${updateId}`, poiData);
         } else {
-          const res = await api.post('/api::poi.poi', { 
-              title: item.title,
-              description: item.description,
-              latitude: lat,
-              longitude: lng,
-              activities: activityIds,
-              author: defaultAuthor
-          });
+          // console.error(`Creating POI ${item.title} with author ${randomAuthor}`);
+          const res = await api.post('/api::poi.poi', poiData);
           const entry = res.data.data || res.data;
           poiId = entry.documentId || entry.id;
         }
-        await publishEntry(api, 'api::poi.poi', poiId);
+
+        // Verify
+        try {
+            const verification = await api.get(`/api::poi.poi/${poiId}?populate=author`);
+            const vData = verification.data.data || verification.data;
+            if (!vData.author) {
+                 console.error(`Verification FAILED: POI ${item.title} has no author!`);
+            } else {
+                 console.log(`Verification OK: POI ${item.title} has author: ${JSON.stringify(vData.author)}`);
+            }
+        } catch(e) { console.error('Verify error', e.message); }
+        
+        await publishEntry(api, 'api::poi.poi', existing.data.results?.[0]?.documentId || poiId);
         output[item.id] = poiId;
         await delay(); // Rate limiting
       } catch (e) {

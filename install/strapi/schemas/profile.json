@@ -44,6 +44,12 @@
       "relation": "manyToMany",
       "target": "api::event.event",
       "mappedBy": "profiles"
+    },
+    "pois": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::poi.poi",
+      "mappedBy": "author"
     }
   }
 }

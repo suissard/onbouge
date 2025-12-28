@@ -45,12 +45,12 @@ async function main() {
           const updateId = entry.documentId || entry.id;
           await api.put(`/api::activity.activity/${updateId}`, {
               title: item.title,
-              author: defaultAuthor
+              author: defaultAuthor ? { connect: [defaultAuthor] } : null
           });
         } else {
           const res = await api.post('/api::activity.activity', { 
               title: item.title,
-              author: defaultAuthor
+              author: defaultAuthor ? { connect: [defaultAuthor] } : null
           });
           const entry = res.data.data || res.data;
           activityId = entry.documentId || entry.id;

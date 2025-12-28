@@ -1,11 +1,13 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import axios from 'axios';
-import { STRAPI_URL, getAdminJwt } from '../utils';
+import { STRAPI_URL, getAdminJwt, getStrapiAdminJwt, publishAll } from '../utils';
 
 describe('03_profiles', () => {
     let jwt;
 
     beforeAll(async () => {
+        const adminJwt = await getStrapiAdminJwt();
+        await publishAll(adminJwt, 'api::profile.profile');
         jwt = await getAdminJwt();
     });
 

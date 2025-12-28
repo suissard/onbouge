@@ -25,7 +25,7 @@ async function main() {
         let eventDocId;
         if (existing.data.results && existing.data.results.length > 0) {
           const entry = existing.data.results[0];
-          eventId = entry.id;
+          eventId = entry.documentId || entry.id;
           eventDocId = entry.documentId || entry.id;
         }
 
@@ -55,10 +55,10 @@ async function main() {
           title: item.title,
           description: item.description,
           date: item.date,
-          activities: activityIds,
-          poi: poiId,
-          profiles: profileIds,
-          author: defaultAuthor
+          activities: { connect: activityIds },
+          poi: poiId ? { connect: [poiId] } : null,
+          profiles: { connect: profileIds },
+          author: defaultAuthor ? { connect: [defaultAuthor] } : null
         };
 
         if (eventId) {

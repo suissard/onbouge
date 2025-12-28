@@ -44,13 +44,13 @@ function runScript(scriptPath, env = {}, onProgress) {
 
 async function main() {
   const steps = [
-   { name: 'Profiles (Create)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
+    { name: 'Profiles (Create)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'Activities', script: 'install/seed/steps/01_activities.js', key: 'activities' },
     { name: 'Profiles (Link)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'POIs', script: 'install/seed/steps/02_pois.js', key: 'pois' },
     { name: 'Events', script: 'install/seed/steps/04_events.js', key: 'events' },
     { name: 'Permissions', script: 'install/seed/steps/05_permissions.js', key: 'permissions' },
-    { name: 'Admin User', script: 'install/seed/steps/06_admin_user.js', key: 'admin_user' }
+    { name: 'Admin User', script: 'install/seed/steps/06_admin_user.js', key: 'admin_user' },
   ];
 
   const loader = new MultiStepLoader(steps);
