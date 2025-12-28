@@ -88,8 +88,12 @@ function loadEnv() {
     const envContent = fs.readFileSync('.env', 'utf8');
     const envConfig = {};
     envContent.split('\n').forEach(line => {
-      const parts = line.split('=');
-      if (parts.length >= 2 && !line.startsWith('#')) {
+      // Strip comments
+      const lineWithoutComment = line.split('#')[0].trim();
+      if (!lineWithoutComment) return;
+
+      const parts = lineWithoutComment.split('=');
+      if (parts.length >= 2) {
         envConfig[parts[0].trim()] = parts.slice(1).join('=').trim();
       }
     });
@@ -100,10 +104,36 @@ function loadEnv() {
   }
 }
 
+async function checkProd() {
+  const env = loadEnv();
+  // Check string value 'true' (case insensitive)
+  if (env.PROD && env.PROD.toLowerCase() === 'true') {
+    const readline = require('readline').createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    return new Promise((resolve) => {
+      console.log('\n⚠️  WARNING: You are in PRODUCTION mode (PROD=true) ⚠️');
+      console.log('This action is potentially destructive.');
+      readline.question('Are you sure you want to continue? (yes/no): ', (answer) => {
+        readline.close();
+        if (answer.toLowerCase() === 'yes') {
+          resolve();
+        } else {
+          console.log('Action cancelled.');
+          process.exit(1);
+        }
+      });
+    });
+  }
+}
+
 module.exports = {
   runCommand,
   checkStrapi,
   waitForStrapi,
   loadEnv,
+  checkProd,
   STRAPI_URL
 };

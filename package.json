@@ -10,7 +10,7 @@
       "stop": "sudo docker compose down",
       "start": "sudo docker compose up -d",
       "restart": "npm run stop && npm run start",
-      "clean": "sudo docker compose down -v --remove-orphans && sudo rm -rf data_mysql data_caddy data_strapi",
+      "clean": "node install/clean.js",
       "setup": "sudo node install/setup.js && sudo npm run front:build && sudo docker compose up -d",
       "setup:deps": "sudo node install/steps/00_deps.js",
       "setup:docker": "sudo node install/steps/01_docker.js",

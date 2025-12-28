@@ -1,5 +1,6 @@
 const { runCommand } = require('../utils');
 const { getJwt } = require('./utils');
+const { checkProd } = require('../utils');
 const MultiStepLoader = require('../loader');
 const { spawn } = require('child_process');
 
@@ -43,6 +44,8 @@ function runScript(scriptPath, env = {}, onProgress) {
 }
 
 async function main() {
+  await checkProd();
+
   const steps = [
     { name: 'Profiles (Create)', script: 'install/seed/steps/03_profiles.js', key: 'profiles' },
     { name: 'Activities', script: 'install/seed/steps/01_activities.js', key: 'activities' },
