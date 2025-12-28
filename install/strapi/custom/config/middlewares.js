@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = ({ env }) => [
   'strapi::logger',
   'strapi::errors',
   'strapi::security',
@@ -12,8 +12,8 @@ module.exports = [
   {
     name: 'global::ratelimit',
     config: {
-      max: 200000,
-      interval: 60000,
+      max: env.int('STRAPI_RATELIMIT_MAX', 100000),
     },
   },
 ];
+env.bool('PROD', false) ? 10 :

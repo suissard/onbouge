@@ -3,8 +3,7 @@ module.exports = ({ env }) => ({
   'users-permissions': {
     config: {
       ratelimit: {
-        interval: 60000,
-        max: 100000
+        max: env.int('STRAPI_RATELIMIT_MAX', 100000)
       }
     }
   }

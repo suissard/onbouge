@@ -12,7 +12,6 @@ module.exports = ({ env }) => ({
   },
   rateLimit: {
     enabled: true,
-    interval: 60000,
-    max: 100000 // Increased from default
+    max: env.int('STRAPI_RATELIMIT_MAX', 100000)
   }
 });
